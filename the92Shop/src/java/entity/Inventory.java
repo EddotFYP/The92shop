@@ -30,6 +30,18 @@ public class Inventory {
         
     }
     
+    public Inventory(String skuID, String name, int quantity) {
+        this.skuID = skuID;
+        this.name = name;
+        this.quantity = quantity;     
+    }
+     
+     
+    public Inventory(String name, int quantity) {
+        this.name = name;
+        this.quantity = quantity;     
+    }
+    
     /**
      * Get the value of name
      *

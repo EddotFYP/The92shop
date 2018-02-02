@@ -185,6 +185,21 @@ table#custTable th{
 table#custTable td{
     text-align: center;
     padding: 8px;
+    background: #ffffff;
+}
+
+table#invTable th{
+    border-collapse: collapse;
+    padding: 8px;
+    background: #004d99;
+    color: #ffffff;
+    text-align: center; 
+}
+
+table#invTable td{
+    text-align: center;
+    padding: 8px;
+    background: #ffffff;
 }
 
 .user a{
@@ -233,3 +248,87 @@ border:2px solid black;
    margin:0 auto;
    width:200px;
  }
+ 
+ .collapse{
+     display:none;
+ }
+ 
+ .containerDB {
+    display: inline-block;
+    height: 450px;
+    width: 500px;
+    border-width: thin;
+}
+
+
+#invAlert {
+
+    padding-left:400px;
+    padding-top:40px;
+    float: left;
+    text-align: center;
+
+}
+
+#invAlert div {
+    width: 100px;
+    height: 100px;
+    align-content: center;
+    font-size: 80px;
+    padding-left:20px;
+    padding-top:10px;
+    background-clip: content-box;
+}
+
+#lowInv {
+    padding-left:700px;
+}
+
+#topProduct {
+    padding-left:400px;
+    padding-top:40px;
+    font-size: 18px;
+}
+
+#custDropdown {
+    padding-left:400px;
+    padding-top:5px;
+
+}
+
+#financeDB {
+    display: inline-block;
+    padding-left:350px;
+    padding-top:30px;
+    font-size: 18px;
+
+}
+
+
+
+#dashboard {
+    border-collapse: collapse;
+    width: 100%;
+    
+}
+
+.navButton {
+     background:none!important;
+     color:inherit;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     cursor: pointer;
+}
+
+#title{
+    
+    padding-left:400px;
+    padding-top:40px;
+}
+
+#error{
+    
+    background-color:green;
+}
