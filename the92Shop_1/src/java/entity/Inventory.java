@@ -13,14 +13,14 @@ import java.sql.Date;
  */
 public class Inventory {
     
-    private String skuID;
+    private int skuID;
     private String name;
     private int quantity;
-    private Date dateOfPurchase;
+    private String dateOfPurchase;
     private double costPrice;
     private double sellingPrice;
 
-    public Inventory(String skuID, String name, int quantity, Date dateOfPurchase, double costPrice, double sellingPrice) {
+    public Inventory(String skuID, String name, int quantity, String dateOfPurchase, double costPrice, double sellingPrice) {
         this.skuID = skuID;
         this.name = name;
         this.quantity = quantity;
@@ -66,7 +66,7 @@ public class Inventory {
      *
      * @return the value of skuID
      */
-    public String getSKUID() {
+    public int getSKUID() {
         return skuID;
     }
 

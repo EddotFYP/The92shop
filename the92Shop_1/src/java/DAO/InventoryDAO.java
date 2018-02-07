@@ -33,10 +33,10 @@ public class InventoryDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String skuID = rs.getString(1);
+                int skuID = rs.getInt(1);
                 String name = rs.getString(2);
                 int quantity = rs.getInt(3);
-                Date dateOfPurchase = rs.getDate(4);
+                String dateOfPurchase = rs.getString(4);
                 double costPrice = rs.getDouble(5);
                 double sellingPrice = rs.getDouble(6);
                 result = new Inventory (skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice );
@@ -49,6 +49,60 @@ public class InventoryDAO {
         return result;
     }
     
+    public Inventory retrieveInventoryByName(String skuName) {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConn();
+        Inventory result = null;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM inventory where Name like ?");
+            stmt.setString(1, skuName + '%');
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int skuID = rs.getInt(1);
+                String name = rs.getString(2);
+                int quantity = rs.getInt(3);
+                String dateOfPurchase = rs.getString(4);
+                double costPrice = rs.getDouble(5);
+                double sellingPrice = rs.getDouble(6);
+                result = new Inventory(skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.closeConn();
+        return result;
+    }
+
+    public ArrayList<Inventory> retrieveInventoryList() {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConn();
+        ArrayList<Inventory> result = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select * from inventory");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int skuID = rs.getInt(1);
+                String name = rs.getString(2);
+                int quantity = rs.getInt(3);
+                String dateOfPurchase = rs.getString(4);
+                double costPrice = rs.getDouble(5);
+                double sellingPrice = rs.getDouble(6);
+                result.add(new Inventory(name, quantity, dateOfPurchase, costPrice, sellingPrice));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.closeConn();
+        return result;
+    }
+
     public ArrayList<Inventory> retrieveInventoryWithQuantityAtLeast(int number) {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConn();
@@ -361,5 +415,75 @@ public class InventoryDAO {
     
     }
     
+    public int deleteSpecifiedInventory(String skuId) {
+        int updateQuery = 0;
+        
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("delete from inventory where SKU_Id = ?");
+            stmt.setString(1, skuId);
+            updateQuery = stmt.executeUpdate();
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+
+    }
     
+    public int editInventory(int id, String name, int qty, String date, double cost, double price) {
+        
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            
+            PreparedStatement stmt = conn.prepareStatement("UPDATE inventory SET Name = ?, Quantity = ?, Updated_Date = ?, Cost_Price = ?, Selling_Price = ? where SKU_Id = ?");
+            
+            stmt.setString(1, name);
+            stmt.setInt(2, qty);
+            stmt.setString(3, date);
+            stmt.setDouble(4, cost);
+            stmt.setDouble(5, price);
+            stmt.setInt(6, id);
+            
+            updateQuery = stmt.executeUpdate();
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+    }
+    
+    public int addInventory(Inventory i) {
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO inventory VALUES (?,?,?,?,?,?)");
+            
+            stmt.setInt(1, i.getSKUID());
+            stmt.setString(2, i.getName());
+            stmt.setInt(3, i.getQuantity());
+            stmt.setString(4, i.getPurchaseDate());
+            stmt.setDouble(5, i.getCostPrice());
+            stmt.setDouble(6, i.getSellingPrice());
+            
+
+            updateQuery = stmt.executeUpdate();
+
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+
+    }
+    
+
+
 }
