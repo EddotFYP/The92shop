@@ -43,9 +43,9 @@
                                 <input type="hidden" name="yearData" value="yearData">
                                 <button type="submit" name="submit" class="navButton" >Financial Overview</button>
                             </form>
-                             <li data-toggle="collapse" data-target="#service" class="collapsed">
+                            
                                 <a href="financialStatement.jsp"></i> Financial Statement</a>
-                            </li>  
+                         
                             
                             
 
