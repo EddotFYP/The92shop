@@ -27,7 +27,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-
+        <style>
+             .my_text
+            {
+                font-family:    Arial, Helvetica, sans-serif;
+                font-size:      40px;
+                font-weight:    bold;
+            }
+        </style>
 
 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -76,7 +83,7 @@
 
         </form> 
 
-        <div id="target">
+        <div class="my_text" id="target" align="center" >
 
 
 
@@ -93,8 +100,8 @@
 
                 <thead>
                     <tr>
-                        <td style="padding-left:25px"><b>Revenues</b></td>
-                        <th style="padding-right">$</th>
+                        <td style="padding-left:15px ; padding-bottom:10px"><b>Revenues</b></td>
+                        <th style="padding-left:15px">$</th>
 
                     </tr>
 
@@ -109,8 +116,8 @@
 
                 <tbody>
                     <tr>
-                        <td style="padding-left:15px"><%=goodsSold%></td>
-                        <td style="padding-left:15px"><%=profit%></td>
+                        <td style="padding-left:15px ; padding-bottom:10px"><%=goodsSold%></td>
+                        <td style="padding-left:15px; padding-bottom:10px"><%=profit%></td>
 
                     </tr>
 
@@ -120,7 +127,7 @@
                         double totalSales = (Double) request.getAttribute("totalSales");
                     %>
 
-                <td style="padding-left:15px; padding-top:15px "><b><u>Total Revenue</u></b></td>
+                <td style="padding-left:15px; padding-top:5px "><b><u>Total Revenue</u></b></td>
                 <td style="padding-left:15px; padding-top:15px;padding-bottom:15px "><%=totalSales%></td>
                 <%
                     }
@@ -140,8 +147,8 @@
 
                 <tr>
 
-                    <td style="padding-left:25px"><b>Expense</b></td>
-                    <th style="padding-right">$</th>
+                    <td style="padding-left:15px ; padding-bottom:10px"><b>Expense</b></td>
+                    <th style="padding-left:15px">$</th>
 
 
                 </tr>
@@ -158,8 +165,8 @@
                 <tbody>
 
                     <tr>
-                        <td style="padding-left:15px"><%=expItems%></td>
-                        <td style="padding-left:15px"><%=expenses%></td>
+                        <td style="padding-left:15px; padding-bottom:10px"><%=expItems%></td>
+                        <td style="padding-left:15px; padding-bottom:10px"><%=expenses%></td>
 
                     </tr>
 
@@ -190,10 +197,10 @@
 
                 <tbody>
                     <tr>
-                        <td style="padding-left:15px"><%=cogItems%></td>
+                        <td style="padding-left:15px; padding-bottom:10px"><%=cogItems%></td>
 
 
-                        <td style="padding-left:15px"><%=expenses%></td>
+                        <td style="padding-left:15px; padding-bottom:10px ; padding-bottom:10px"><%=expenses%></td>
 
                         <%
                             }
