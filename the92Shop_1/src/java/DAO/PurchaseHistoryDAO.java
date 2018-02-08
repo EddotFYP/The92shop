@@ -58,7 +58,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select cust_id,name,c.Phone_number,sum(cp.quantity) as qty,EXTRACT(MONTH FROM Date_Of_Purchase) as month, EXTRACT(year FROM Date_Of_Purchase) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by month ASC,year ASC,qty DESC");
+            PreparedStatement stmt = conn.prepareStatement("select cust_id,name,c.Phone_number,sum(cp.quantity) as qty,SUBSTRING(Date_Of_Purchase, 7, 1) as month, SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,month ASC,qty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -90,7 +90,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select cust_id,name,c.Phone_number,EXTRACT(year FROM Date_Of_Purchase) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,sum(cp.quantity) DESC");
+            PreparedStatement stmt = conn.prepareStatement("select cust_id,name,c.Phone_number,SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,sum(cp.quantity) DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -120,7 +120,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select EXTRACT(year FROM Date_Of_Purchase) as year, EXTRACT(MONTH FROM Date_Of_Purchase) as month, sum(selling_price*cp.quantity) as sales from customer_purchase cp inner join inventory i on i.sku_id = cp.sku_id group by month,year order by year ASC, month ASC");
+            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year, SUBSTRING(Date_Of_Purchase, 7, 1) as month, sum(selling_price*cp.quantity) as sales from customer_purchase cp inner join inventory i on i.sku_id = cp.sku_id group by month,year order by year ASC, month ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -149,7 +149,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select EXTRACT(year FROM Date_Of_Purchase) as year,sum(selling_price*cp.quantity) as sales from customer_purchase cp inner join inventory i on cp.sku_id = i.sku_id group by year order by year ASC");
+            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year,sum(selling_price*cp.quantity) as sales from customer_purchase cp inner join inventory i on cp.sku_id = i.sku_id group by year order by year ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -178,7 +178,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select EXTRACT(year FROM Date_Of_Purchase) as year,EXTRACT(month FROM Date_Of_Purchase) as month, sum((cp.quantity)*(selling_price-cost_price)) as gain from customer_purchase cp,inventory i where cp.sku_id = i.sku_id group by month,year order by year ASC,month ASC");
+            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year,SUBSTRING(Date_Of_Purchase, 7, 1) as month, sum((cp.quantity)*(selling_price-cost_price)) as gain from customer_purchase cp,inventory i where cp.sku_id = i.sku_id group by month,year order by year ASC,month ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -205,7 +205,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select EXTRACT(year FROM Date_Of_Purchase) as year,sum((cp.quantity)*(selling_price-cost_price)) as gain from customer_purchase cp,inventory i where cp.sku_id = i.sku_id group by year order by year ASC");
+            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year,sum((cp.quantity)*(selling_price-cost_price)) as gain from customer_purchase cp,inventory i where cp.sku_id = i.sku_id group by year order by year ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

@@ -7,6 +7,7 @@ package DAO;
 
 import db.DatabaseConnection;
 import entity.Inventory;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -93,7 +94,7 @@ public class InventoryDAO {
                 String dateOfPurchase = rs.getString(4);
                 double costPrice = rs.getDouble(5);
                 double sellingPrice = rs.getDouble(6);
-                result.add(new Inventory(name, quantity, dateOfPurchase, costPrice, sellingPrice));
+                result.add(new Inventory(skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -114,10 +115,10 @@ public class InventoryDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String skuID = rs.getString(1);
+                int skuID = rs.getInt(1);
                 String name = rs.getString(2);
                 int quantity = rs.getInt(3);
-                Date dateOfPurchase = rs.getDate(4);
+                String dateOfPurchase = rs.getString(4);
                 double costPrice = rs.getDouble(5);
                 double sellingPrice = rs.getDouble(6);
                 toReturn.add(new Inventory (skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice));
@@ -140,10 +141,10 @@ public class InventoryDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String skuID = rs.getString(1);
+                int skuID = rs.getInt(1);
                 String name = rs.getString(2);
                 int quantity = rs.getInt(3);
-                Date dateOfPurchase = rs.getDate(4);
+                String dateOfPurchase = rs.getString(4);
                 double costPrice = rs.getDouble(5);
                 double sellingPrice = rs.getDouble(6);
                 toReturn.add(new Inventory (skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice));
@@ -167,10 +168,10 @@ public class InventoryDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String skuID = rs.getString(1);
+                int skuID = rs.getInt(1);
                 String name = rs.getString(2);
                 int quantity = rs.getInt(3);
-                Date dateOfPurchase = rs.getDate(4);
+                String dateOfPurchase = rs.getString(4);
                 double costPrice = rs.getDouble(5);
                 double sellingPrice = rs.getDouble(6);
                 toReturn.add(new Inventory (skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice));
@@ -193,10 +194,10 @@ public class InventoryDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String skuID = rs.getString(1);
+                int skuID = rs.getInt(1);
                 String name = rs.getString(2);
                 int quantity = rs.getInt(3);
-                Date dateOfPurchase = rs.getDate(4);
+                String dateOfPurchase = rs.getString(4);
                 double costPrice = rs.getDouble(5);
                 double sellingPrice = rs.getDouble(6);
                 toReturn.add(new Inventory (skuID, name, quantity, dateOfPurchase, costPrice, sellingPrice));
@@ -218,7 +219,7 @@ public class InventoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as totalQty,EXTRACT(month FROM Date_Of_Purchase) as month, EXTRACT(year FROM Date_Of_Purchase) as year from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id group by cp.sku_id,month order by month ASC,year ASC,totalQty DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as totalQty,SUBSTRING(Date_Of_Purchase, 7, 1) as month,SUBSTRING(Date_Of_Purchase, 1, 4) as year from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id group by cp.sku_id,month order by month ASC,year ASC,totalQty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -249,7 +250,7 @@ public class InventoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as totalQty,EXTRACT(year FROM Date_Of_Purchase) as year from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id group by cp.sku_id,year order by year ASC,totalQty DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as totalQty,SUBSTRING(Date_Of_Purchase, 1, 4) as year from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id group by cp.sku_id,year order by year ASC,totalQty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -283,12 +284,16 @@ public class InventoryDAO {
 
             while (rs.next()) {
 
-                String SKUId = rs.getString(1);
+                int SKUId = rs.getInt(1);
                 String name = rs.getString(2);
                 int quantity = rs.getInt(3);
 
                 inv = new Inventory(SKUId, name, quantity);
                 invList.add(inv);
+                
+                for(Inventory i: invList){
+                    out.println(i);
+                }
             }
             db.closeConn();
         } catch (Exception e) {
