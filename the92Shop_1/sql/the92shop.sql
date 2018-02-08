@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 07, 2018 at 02:22 PM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Feb 08, 2018 at 02:27 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `the92shop`
@@ -26,14 +26,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `Cust_Id` int(10) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Gender` varchar(10) NOT NULL,
   `Birthdate` date NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `Address` varchar(100) NOT NULL,
-  `Postal_Code` varchar(30) NOT NULL
+  `Postal_Code` varchar(30) NOT NULL,
+  PRIMARY KEY (`Cust_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -61,11 +62,12 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Gender`, `Birthdate`, `Phone_number`
 -- Table structure for table `customer_purchase`
 --
 
-CREATE TABLE `customer_purchase` (
+CREATE TABLE IF NOT EXISTS `customer_purchase` (
   `Phone_number` varchar(10) NOT NULL,
   `SKU_Id` varchar(30) NOT NULL,
   `Date_Of_Purchase` date NOT NULL,
-  `Quantity` int(11) NOT NULL
+  `Quantity` int(11) NOT NULL,
+  PRIMARY KEY (`Phone_number`,`SKU_Id`,`Date_Of_Purchase`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -73,22 +75,22 @@ CREATE TABLE `customer_purchase` (
 --
 
 INSERT INTO `customer_purchase` (`Phone_number`, `SKU_Id`, `Date_Of_Purchase`, `Quantity`) VALUES
-('82093272', 'SK0001', '2016-01-18', 10),
-('82093272', 'SK0003', '2016-03-18', 20),
-('87776532', 'SK0003', '2017-06-03', 11),
-('87776532', 'SK0004', '2017-07-03', 7),
-('87776532', 'SK0004', '2017-08-03', 15),
-('89093272', 'SK0005', '2016-02-18', 11),
-('91807177', 'SK0001', '2017-07-11', 12),
-('93386189', 'SK0001', '2017-04-18', 16),
-('93386189', 'SK0002', '2017-04-18', 15),
-('93386189', 'SK0003', '2017-02-18', 9),
-('93386189', 'SK0005', '2016-05-01', 15),
-('93386198', 'TSK0001', '2016-06-18', 20),
-('98997679', 'SK0004', '2016-04-15', 13),
-('98997679', 'TSK0001', '2017-01-11', 12),
-('98997679', 'TSK0002', '2017-02-13', 8),
-('99879064', 'SK0004', '2016-02-10', 6);
+('82093272', '1', '2016-01-18', 10),
+('82093272', '1', '2016-03-18', 20),
+('87776532', '2', '2017-06-03', 11),
+('87776532', '3', '2017-08-03', 15),
+('87776532', '4', '2017-07-03', 7),
+('89093272', '2', '2016-02-18', 11),
+('91807177', '5', '2017-07-11', 12),
+('93386189', '1', '2017-04-18', 16),
+('93386189', '2', '2017-04-18', 15),
+('93386189', '3', '2017-02-18', 9),
+('93386189', '4', '2016-05-01', 15),
+('93386198', '5', '2016-06-18', 20),
+('98997679', '1', '2017-01-11', 12),
+('98997679', '2', '2016-04-15', 13),
+('98997679', '2', '2017-02-13', 8),
+('99879064', '1', '2016-07-10', 6);
 
 -- --------------------------------------------------------
 
@@ -96,8 +98,8 @@ INSERT INTO `customer_purchase` (`Phone_number`, `SKU_Id`, `Date_Of_Purchase`, `
 -- Table structure for table `expensetracker`
 --
 
-CREATE TABLE `expensetracker` (
-  `date` date DEFAULT NULL,
+CREATE TABLE IF NOT EXISTS `expensetracker` (
+  `date` varchar(45) DEFAULT NULL,
   `expenseTypes` varchar(45) NOT NULL,
   `remark` varchar(100) DEFAULT NULL,
   `cost` double(45,0) NOT NULL
@@ -113,7 +115,9 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 ('2018-02-02', 'Parking', 'SxSWERTYUIOIUYTRD', 87),
 ('2017-07-12', 'Driving', 'West side : $50\r\nClementi , Jurong and Chinese Garden \r\nReach by 10pm', 50),
 ('2017-07-12', 'Parking', 'Fine for illegal parking', 20),
-('2017-07-01', 'Driving', 'Driving to the EAST', 45);
+('2017-07-01', 'Driving', 'Driving to the EAST', 45),
+('2016-01-01', 'Delivery', 'Based on location', 12),
+('2016-02-01', 'Delivery', 'Based on location', 12);
 
 -- --------------------------------------------------------
 
@@ -121,8 +125,9 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 -- Table structure for table `expensetypes`
 --
 
-CREATE TABLE `expensetypes` (
-  `ExpenseType` varchar(100) NOT NULL
+CREATE TABLE IF NOT EXISTS `expensetypes` (
+  `ExpenseType` varchar(100) NOT NULL,
+  PRIMARY KEY (`ExpenseType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -152,7 +157,7 @@ INSERT INTO `expensetypes` (`ExpenseType`) VALUES
 -- Table structure for table `inventory`
 --
 
-CREATE TABLE `inventory` (
+CREATE TABLE IF NOT EXISTS `inventory` (
   `SKU_Id` int(10) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Quantity` int(11) NOT NULL,
@@ -166,18 +171,18 @@ CREATE TABLE `inventory` (
 --
 
 INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Price`, `Selling_Price`) VALUES
-('1', 'The Shell (Blue)', 1, '2017-12-28', '29.90', '31.90'),
-('2', 'Plain green socks', 412, '2017-07-11', '5.00', '7.60'),
-('2', 'Plain black socks', 308, '2017-07-11', '5.00', '7.60'),
-('3', 'Plain white socks', 205, '2017-07-12', '5.50', '7.90'),
-('4', 'Plain grey socks', 200, '2017-07-11', '7.50', '9.50'),
-('5', 'Little Animal Ankle B', 8, '2017-07-11', '7.50', '9.50'),
-('6', 'Candie Socks', 14, '2017-07-13', '5.00', '7.60'),
-('7', 'Pig Socks', 4, '2017-01-03', '2.40', '4.90'),
-('8', 'White T-shirt with red polka dots', 31, '2017-07-15', '10.50', '14.50'),
-('9', 'Plain purple thick socks', 200, '2017-07-11', '7.50', '9.50'),
-('10', 'Two-toned red thick socks', 310, '2017-07-12', '7.50', '9.50'),
-('11', 'White grey striped T-shirt', 31, '2017-07-16', '11.50', '14.00');
+(1, 'The Shell (Blue)', 1, '2017-12-28', '29.90', '31.90'),
+(2, 'Plain green socks', 412, '2017-07-11', '5.00', '7.60'),
+(2, 'Plain black socks', 308, '2017-07-11', '5.00', '7.60'),
+(3, 'Plain white socks', 205, '2017-07-12', '5.50', '7.90'),
+(4, 'Plain grey socks', 200, '2017-07-11', '7.50', '9.50'),
+(5, 'Little Animal Ankle B', 8, '2017-07-11', '7.50', '9.50'),
+(6, 'Candie Socks', 14, '2017-07-13', '5.00', '7.60'),
+(7, 'Pig Socks', 4, '2017-01-03', '2.40', '4.90'),
+(8, 'White T-shirt with red polka dots', 31, '2017-07-15', '10.50', '14.50'),
+(9, 'Plain purple thick socks', 200, '2017-07-11', '7.50', '9.50'),
+(10, 'Two-toned red thick socks', 310, '2017-07-12', '7.50', '9.50'),
+(11, 'White grey striped T-shirt', 31, '2017-07-16', '11.50', '14.00');
 
 -- --------------------------------------------------------
 
@@ -185,7 +190,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 -- Table structure for table `inventory_purchase`
 --
 
-CREATE TABLE `inventory_purchase` (
+CREATE TABLE IF NOT EXISTS `inventory_purchase` (
   `SKU_Id` varchar(30) NOT NULL,
   `Date_Of_Purchase` date NOT NULL,
   `Quantity` int(11) NOT NULL
@@ -196,11 +201,30 @@ CREATE TABLE `inventory_purchase` (
 --
 
 INSERT INTO `inventory_purchase` (`SKU_Id`, `Date_Of_Purchase`, `Quantity`) VALUES
-('SK0001', '2017-07-18', 10),
-('SK0002', '2017-07-18', 15),
-('SK0003', '2017-07-18', 10),
-('SK0005', '2017-07-18', 5),
-('TSK0001', '2017-07-18', 2);
+('3', '2017-07-18', 10),
+('4', '2017-07-18', 5),
+('5', '2017-07-18', 2),
+('1', '2017-07-18', 10),
+('2', '2017-07-18', 15),
+('6', '2017-06-18', 10),
+('7', '2017-08-18', 2),
+('1', '2017-01-18', 1),
+('1', '2017-02-18', 1),
+('1', '2017-03-18', 1),
+('1', '2017-04-18', 1),
+('1', '2017-05-18', 1),
+('3', '2016-01-01', 2),
+('3', '2016-03-01', 1),
+('2', '2016-02-01', 1),
+('5', '2016-04-01', 1),
+('2', '2016-05-01', 1),
+('3', '2016-06-01', 1),
+('4', '2016-07-01', 1),
+('5', '2016-08-01', 1),
+('6', '2016-09-01', 1),
+('5', '2016-10-01', 1),
+('2', '2016-11-01', 1),
+('3', '2016-12-01', 1);
 
 -- --------------------------------------------------------
 
@@ -208,7 +232,7 @@ INSERT INTO `inventory_purchase` (`SKU_Id`, `Date_Of_Purchase`, `Quantity`) VALU
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(30) NOT NULL,
   `Password` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -250,50 +274,6 @@ INSERT INTO `user` (`Name`, `Password`) VALUES
 ('john', 'john123'),
 ('c', 'c');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`Cust_Id`);
-
---
--- Indexes for table `customer_purchase`
---
-ALTER TABLE `customer_purchase`
-  ADD PRIMARY KEY (`Phone_number`,`SKU_Id`,`Date_Of_Purchase`);
-
---
--- Indexes for table `expensetypes`
---
-ALTER TABLE `expensetypes`
-  ADD PRIMARY KEY (`ExpenseType`);
-
---
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`SKU_Id`),
-  MODIFY `SKU_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- Indexes for table `inventory_purchase`
---
-ALTER TABLE `inventory_purchase`
-  ADD PRIMARY KEY (`SKU_Id`,`Date_Of_Purchase`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `Cust_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
