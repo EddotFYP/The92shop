@@ -104,7 +104,7 @@
                         <th style="padding-left:15px">$</th>
 
                     </tr>
-
+                </thead> 
 
                     <%
                         for (String goods : retrieveSalesGained.keySet()) {
@@ -153,7 +153,7 @@
 
                 </tr>
 
-                </thead>  
+                
 
 
                 <%                        for (String expTrackerItems : retrieveTypewithCost.keySet()) {
@@ -177,11 +177,11 @@
                     %>
 
                 </tbody> 
-                <thead>
+                <%--<thead>
                     <tr>
                     </tr>
 
-                </thead>  
+                </thead>  --%>
 
 
 
