@@ -5,8 +5,15 @@
  */
 package controller;
 
+import DAO.InventoryDAO;
+import entity.Inventory;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,7 +41,103 @@ public class InventoryController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            //for searching
+            String skuName = request.getParameter("sku");
+            InventoryDAO inventoryDAO = new InventoryDAO();
+            String inventoryToDelete = request.getParameter("deleteAction");
+            String[] UpdatedValues = request.getParameterValues("editAction");
+            String cameraResult = request.getParameter("cameraResult");
+
+            //for add new inventory
+            //String addNewInvId = request.getParameter("newInvId");
+            String addNewName = request.getParameter("newName");
+            //String addNewQuantity = request.getParameter("newQuantity");
+            //String addNewDate = request.getParameter("newDate");
+            String addNewCost = request.getParameter("newCost");
+            String addNewPrice = request.getParameter("newPrice");
+
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             
+
+            ArrayList<Inventory> result = new ArrayList<>();
+            //delete
+            if (inventoryToDelete != null) {
+                inventoryDAO.deleteSpecifiedInventory(inventoryToDelete);
+
+                request.setAttribute("message", "Selected SKU is deleted successfully");
+
+                //update
+            } else if (UpdatedValues != null) {
+
+                int id = Integer.parseInt(UpdatedValues[0]);
+                String name = UpdatedValues[1];
+                int quantity = Integer.parseInt(UpdatedValues[2]);
+                String date = UpdatedValues[3];
+                double cost = Double.parseDouble(UpdatedValues[4]);
+                double price = Double.parseDouble(UpdatedValues[5]);
+
+                int success = inventoryDAO.editInventory(id, name, quantity, date, cost, price);
+                if (success != 0) {
+                    request.setAttribute("message", "Selected SKU is updated successfully");
+                }
+
+                //add
+            } else if (addNewName != null) {
+                //int qty = Integer.parseInt(addNewQuantity);
+                double cost = Double.parseDouble(addNewCost);
+                double price = Double.parseDouble(addNewPrice);
+                
+                Date today = new Date();
+                String dateString = df.format(today);
+                System.out.println("------------- today= "+dateString+"----------------");
+                
+                Inventory i = new Inventory(1, addNewName, 0, dateString, cost, price);
+                
+                int success = inventoryDAO.addInventory(i);
+                if (success != 0) {
+                    request.setAttribute("message", "Selected SKU is added successfully");
+                }
+                //search
+            /*} else if (skuName.equals("select")) {
+                ArrayList<Inventory> list = inventoryDAO.retrieveInventoryList();
+
+                if (list != null) {
+                    for (Inventory i : list) {
+                        result.add(i);
+                    }
+
+                }
+*/
+            } else if (cameraResult != null && !cameraResult.isEmpty()) {
+                
+                
+                System.out.println("in camera search");
+                int firstQnMark = cameraResult.indexOf('?');
+                
+                String name = cameraResult.substring(0, firstQnMark);
+                System.out.println("camera result name= "+name);               
+                Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
+                
+                
+                if (inventory != null) {
+                    System.out.println("retrieve success");
+                    result.add(inventory);
+                }
+            //QR code search    
+            } else if(skuName != null){
+                System.out.println("in normal search");
+                Inventory inventory = inventoryDAO.retrieveInventoryByName(skuName);
+
+                if (inventory != null) {
+                    result.add(inventory);
+                }
+                
+            }
+            
+            System.out.println("no. of items in result= " + result.size());
+            request.setAttribute("result", result);
+            RequestDispatcher view = request.getRequestDispatcher("inventoryManagement.jsp");
+            view.forward(request, response);
             
         }
     }

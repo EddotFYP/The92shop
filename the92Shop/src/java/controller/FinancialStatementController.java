@@ -8,10 +8,13 @@ package controller;
 
 import DAO.InventoryDAO;
 import entity.Inventory;
+import entity.ExpenseTracker;
+import DAO.ExpenseTrackerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,57 +44,77 @@ public class FinancialStatementController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        String sortMonth = request.getParameter("month");
-        String sortYear = request.getParameter("year");
- 
-        InventoryDAO invDAO = new InventoryDAO();
-        LinkedHashMap<Integer, String[]> inventoryList = new LinkedHashMap<>();
-        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
-
-         String text = "";
-         String error = "";
-
-        //choose by year
-        if (sortYear != null && sortMonth.equals("none")) {
-            inventoryList = invDAO.sortByYear();
-            result = sortInvListByYear(sortYear, inventoryList);
-            text = sortYear;
-        } else if (sortMonth != null && sortYear.equals("none")) {
-            error = "Please select a year!";
-
-            text = sortMonth + " only";
-        }
+        int month = Integer.parseInt(request.getParameter("month"));
+        String year = request.getParameter("year");
+        request.setAttribute("year",year);
         
-        //never select month and year
-        try {
-            if (sortMonth.equals("none") && sortYear.equals("none")) {
-                error = "Please select month or/and year to see monthly and yearly results";
-            }
-        } catch (Exception e) {
-            error = "Please remember to select month or/and year";
+        String monthString ="";
+        switch (month) {
+            case 1:  monthString = "January";
+                     break;
+            case 2:  monthString = "February";
+                     break;
+            case 3:  monthString = "March";
+                     break;
+            case 4:  monthString = "April";
+                     break;
+            case 5:  monthString = "May";
+                     break;
+            case 6:  monthString = "June";
+                     break;
+            case 7:  monthString = "July";
+                     break;
+            case 8:  monthString = "August";
+                     break;
+            case 9:  monthString = "September";
+                     break;
+            case 10: monthString = "October";
+                     break;
+            case 11: monthString = "November";
+                     break;
+            case 12: monthString = "December";
+                     break;
+            default: monthString = "Invalid month";
+                     break;
         }
+    
+        request.setAttribute("monthString", monthString);
+        
+        ExpenseTrackerDAO expTrackerDAO = new ExpenseTrackerDAO();
+        InventoryDAO invDAO = new InventoryDAO();
 
-        //limit only top 5 product
-        LinkedHashMap<String, String> topList = limitTop5(result);
-
-        request.setAttribute("word", text);
-        request.setAttribute("error", error);
-        request.setAttribute("result", topList);
-
-        RequestDispatcher view = request.getRequestDispatcher("inventoryDashboard.jsp");
+        //Based on ExpenseTracker (EXPENSES)
+        HashMap<String,Double> retrieveTypewithCost=expTrackerDAO.retrieveExpTypesNCost(month,year);
+        request.setAttribute("retrieveTypewithCost",retrieveTypewithCost);
+        
+        double totalExpCost = expTrackerDAO.retrieveExpCost(month, year);
+        request.setAttribute("totalExpCost",totalExpCost);
+        
+        
+        
+        //Based on GOODS PURCHASED (EXPENSES)
+        HashMap<String,Double> retrieveInvGoodPurchasedwithCost = invDAO.retrieveGoodsNCost(month, year);
+        request.setAttribute("retrieveInvGoodPurchasedwithCost",retrieveInvGoodPurchasedwithCost);
+        double totalInvCost = invDAO.retreiveGoodsCost(month, year);
+        request.setAttribute("totalInvCost",totalInvCost);
+         
+        //BASED on SALES ( GAINED)
+        HashMap<String,Double> retrieveSalesGained = invDAO.retrieveSellingProductsNCost(month, year);
+        request.setAttribute("retrieveSalesGained",retrieveSalesGained);
+        double totalSales = invDAO.retrieveSales(month, year);
+        request.setAttribute("totalSales",totalSales);
+        
+        double profit = totalSales -(totalExpCost + totalInvCost);
+        request.setAttribute("profit",profit);
+        
+        
+        RequestDispatcher view = request.getRequestDispatcher("financialStatement.jsp");
         view.forward(request, response);
+        
+        
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
+    
+       @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
@@ -120,85 +143,12 @@ public class FinancialStatementController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+    
 
-    public LinkedHashMap<String, String> limitTop5(LinkedHashMap<Integer, String[]> invList) {
-        LinkedHashMap<String, String> result = new LinkedHashMap<>();
-        int count = 0;
 
-        for (int id : invList.keySet()) {
-            String name = invList.get(id)[0];
-            String quantity = invList.get(id)[1];
+   
+    
 
-            if (count < 5) {
-                result.put(name, quantity);
-                count++;
-            }
-        }
-        return result;
-    }
-
-    public LinkedHashMap<Integer, String[]> sortInvListByMonthYear(String sortMonth, String sortYear, LinkedHashMap<Integer, String[]> inventoryList) {
-        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
-        int id = 1;
-        String[] array;
-
-        for (int count : inventoryList.keySet()) {
-            String name = inventoryList.get(count)[0];
-            String quantity = inventoryList.get(count)[1];
-            String month = inventoryList.get(count)[2];
-            String year = inventoryList.get(count)[3];
-
-            if (month.equals("1")) {
-                month = "January";
-            } else if (month.equals("2")) {
-                month = "Febuary";
-            } else if (month.equals("3")) {
-                month = "March";
-            } else if (month.equals("4")) {
-                month = "April";
-            } else if (month.equals("5")) {
-                month = "May";
-            } else if (month.equals("6")) {
-                month = "June";
-            } else if (month.equals("7")) {
-                month = "July";
-            } else if (month.equals("8")) {
-                month = "August";
-            } else if (month.equals("9")) {
-                month = "September";
-            } else if (month.equals("10")) {
-                month = "October";
-            } else if (month.equals("11")) {
-                month = "November";
-            } else {
-                month = "December";
-            }
-
-            if (month.equals(sortMonth) && year.equals(sortYear)) {
-                array = new String[]{name, quantity};
-                result.put(id, array);
-
-                id++;
-            }
-        }
-        return result;
-
-    }
-
-    public LinkedHashMap<Integer, String[]> sortInvListByYear(String sortYear, LinkedHashMap<Integer, String[]> inventoryList) {
-        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
-        String[] array;
-
-        for (int count : inventoryList.keySet()) {
-            String name = inventoryList.get(count)[0];
-            String quantity = inventoryList.get(count)[1];
-            String year = inventoryList.get(count)[2];
-
-            if (year.equals(sortYear)) {
-                array = new String[]{name, quantity};
-                result.put(count, array);
-            }
-        }
-        return result;
-    }
+    
+    
 }

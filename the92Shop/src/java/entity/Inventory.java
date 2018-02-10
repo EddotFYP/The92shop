@@ -13,14 +13,14 @@ import java.sql.Date;
  */
 public class Inventory {
     
-    private String skuID;
+    private int skuID;
     private String name;
     private int quantity;
-    private Date dateOfPurchase;
+    private String dateOfPurchase;
     private double costPrice;
     private double sellingPrice;
 
-    public Inventory(String skuID, String name, int quantity, Date dateOfPurchase, double costPrice, double sellingPrice) {
+    public Inventory(int skuID, String name, int quantity, String dateOfPurchase, double costPrice, double sellingPrice) {
         this.skuID = skuID;
         this.name = name;
         this.quantity = quantity;
@@ -30,7 +30,7 @@ public class Inventory {
         
     }
     
-    public Inventory(String skuID, String name, int quantity) {
+    public Inventory(int skuID, String name, int quantity) {
         this.skuID = skuID;
         this.name = name;
         this.quantity = quantity;     
@@ -66,7 +66,7 @@ public class Inventory {
      *
      * @return the value of skuID
      */
-    public String getSKUID() {
+    public int getSKUID() {
         return skuID;
     }
 
@@ -75,7 +75,7 @@ public class Inventory {
      *
      * @param skuID new value of skuID
      */
-    public void setSKUId(String skuID) {
+    public void setSKUId(int skuID) {
         this.skuID = skuID;
     }
     
@@ -102,7 +102,7 @@ public class Inventory {
      *
      * @return the value of date
      */
-    public Date getPurchaseDate() {
+    public String getPurchaseDate() {
         return dateOfPurchase;
     }
 
@@ -111,7 +111,7 @@ public class Inventory {
      *
      * @param dateOfPurchase new value of dateOfPurchase
      */
-    public void setDate(Date dateOfPurchase) {
+    public void setDate(String dateOfPurchase) {
         this.dateOfPurchase = dateOfPurchase;
     }
 

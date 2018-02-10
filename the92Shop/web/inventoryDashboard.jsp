@@ -43,7 +43,7 @@
             %>
             <div id="lowInv">
                 <h3> List of low inventory products:</h3>
-                <table border="1">
+                <table border="1" id="invTable">
                     <thead>
                         <tr>
                             <th>SKU ID</th>
@@ -53,7 +53,7 @@
                         </tr>
                         <%
                             for (Inventory i : invList) {
-                                String SKUId = i.getSKUID();
+                                int SKUId = i.getSKUID();
                                 String productName = i.getName();
                                 int quantity = i.getQuantity();
                         %>    
@@ -64,7 +64,7 @@
                             <td><%=productName%></td>
                             <td><%=quantity%></td>
 
-                            <td><img onmouseover="bigImg(this)" onmouseout="normalImg(this)" border="0" src="<%=request.getContextPath()%>/image/<%=productName%>.png" width="80" height="80"></td>
+                            <td><img border="0" src="<%=request.getContextPath()%>/image/<%=productName%>.png" width="50" height="120"></td>
                         </tr>
                         <%
                                 }
@@ -118,7 +118,7 @@
                 %>
                 
                 <h3>Top 5 Best Sellers:</h3>
-                <table border="1">
+                <table border="1" id="invTable">
                     <thead>
                         <tr>
                             <th>Name</th>

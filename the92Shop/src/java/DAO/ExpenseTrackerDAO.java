@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -25,6 +26,57 @@ public class ExpenseTrackerDAO {
     public ExpenseTrackerDAO(){
     
 }
+    
+    public HashMap<String,Double> retrieveExpTypesNCost(int month , String year){
+        HashMap<String,Double> map = new HashMap<String, Double>();
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select expenseTypes , sum(cost) from expensetracker where EXTRACT(month FROM date) = '"+ month +"' AND EXTRACT(year FROM date) ='"+ year +"' GROUP BY expenseTypes ");
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String expTypes = rs.getString(1);
+                double cost= rs.getDouble(2);
+
+               System.out.print(expTypes);
+               System.out.println(cost);
+               map.put(expTypes, cost);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return map;
+    
+        
+    }
+    
+      public double retrieveExpCost(int month , String year){
+        double totalCost = 0.0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select sum(cost) from expensetracker where EXTRACT(month FROM date) = '"+ month +"' AND EXTRACT(year FROM date)='"+ year +"' ");           
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                double cost= rs.getDouble(1);
+                totalCost += cost;
+               
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return totalCost;
+    
+        
+    }
+    
+    
   //  private ArrayList<ExpenseTracker> expTrackers;
     
   

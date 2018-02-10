@@ -282,6 +282,7 @@ border:2px solid black;
 
 #lowInv {
     padding-left:700px;
+    
 }
 
 #topProduct {
@@ -292,7 +293,13 @@ border:2px solid black;
 
 #custDropdown {
     padding-left:400px;
-    padding-top:5px;
+    padding-top:20px;
+
+}
+
+#customerDB {
+    display: inline-block;
+    font-size: 18px;
 
 }
 
@@ -304,6 +311,13 @@ border:2px solid black;
 
 }
 
+#financialStatement {
+    display: inline-block;
+    font-size: 18px;
+    padding-left:400px;
+    padding-top:20px;
+
+}
 
 
 #dashboard {
