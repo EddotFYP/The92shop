@@ -50,9 +50,10 @@
                     </select>
 
 
-                    <button type="submit" name="submit">Filter</button>
+                    <button type="submit" name="submit" class="btn">Filter</button>
 
-                    <%                    LinkedHashMap<String, String[]> finalResult = (LinkedHashMap<String, String[]>) request.getAttribute("result");
+                    <%                    
+                        LinkedHashMap<Integer, String[]> finalResult = (LinkedHashMap<Integer, String[]>) request.getAttribute("result");
                         String text = (String) request.getAttribute("word");
                         if (text != null) {
 
@@ -66,21 +67,17 @@
                     <table border="1" id="invTable">
                         <thead>
                             <tr>
-                                <th>Customer ID</th>
                                 <th>Name</th>
                                 <th>Phone Number</th>
                             </tr>
                         </thead>
                         <%
-                            for (String cid : finalResult.keySet()) {
+                            for (int cid : finalResult.keySet()) {
                                 String customerName = finalResult.get(cid)[0];
                                 String phoneNumber = finalResult.get(cid)[1];
                         %>
                         <tbody>
                             <tr>
-                                <td>
-                                    <%=cid%>
-                                </td>
                                 <td>
                                     <%=customerName%>
                                 </td>

@@ -8,6 +8,7 @@ package DAO;
 import db.DatabaseConnection;
 import entity.Customer;
 import entity.PurchaseHistory;
+import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -50,25 +51,26 @@ public class PurchaseHistoryDAO {
         return result;
     }
     
-    public LinkedHashMap<String, String[]> sortByMonthYear() {
+    public LinkedHashMap<Integer, String[]> sortByMonthYear() {
 
-        LinkedHashMap<String, String[]> result = new LinkedHashMap<>();
+        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
+        int custId = 1;
 
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select cust_id,name,c.Phone_number,sum(cp.quantity) as qty,SUBSTRING(Date_Of_Purchase, 7, 1) as month, SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,month ASC,qty DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,c.Phone_number,sum(cp.quantity) as qty,SUBSTRING(Date_Of_Purchase, 7, 1) as month, SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,month ASC,qty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-
-                String custId = rs.getString(1);
-                String name = rs.getString(2);
-                String phoneNum = rs.getString(3);
-                String quantity = rs.getString(4);
-                String month = rs.getString(5);
-                String year = rs.getString(6);
+                
+                custId++;
+                String name = rs.getString(1);
+                String phoneNum = rs.getString(2);
+                String quantity = rs.getString(3);
+                String month = rs.getString(4);
+                String year = rs.getString(5);
 
                 array = new String[]{name, phoneNum, quantity, month, year};
 
@@ -82,22 +84,23 @@ public class PurchaseHistoryDAO {
         return result;
     }
 
-    public LinkedHashMap<String, String[]> sortByYear() {
+    public LinkedHashMap<Integer, String[]> sortByYear() {
 
-        LinkedHashMap<String, String[]> result = new LinkedHashMap<>();
+        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
+        int custId = 1;
 
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select cust_id,name,c.Phone_number,SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,sum(cp.quantity) DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,c.Phone_number,SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,sum(cp.quantity) DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String custId = rs.getString(1);
-                String name = rs.getString(2);
-                String phoneNum = rs.getString(3);
-                String year = rs.getString(4);
+                custId++;
+                String name = rs.getString(1);
+                String phoneNum = rs.getString(2);
+                String year = rs.getString(3);
 
                 array = new String[]{name, phoneNum, year};
 
@@ -143,7 +146,6 @@ public class PurchaseHistoryDAO {
 
     public ArrayList<Double> retrieveYearlySales() {
 
-        LinkedHashMap<String, Double> result = new LinkedHashMap<>();
         ArrayList<Double> list = new ArrayList<>();
 
         try {
@@ -158,9 +160,11 @@ public class PurchaseHistoryDAO {
 
                 //array = new String[]{sales};
                 list.add(sales);
-                result.put(year, sales);
                  
             }
+             for(Double s: list){
+            out.println(s);
+        }
             db.closeConn();
         } catch (Exception e) {
             e.printStackTrace();

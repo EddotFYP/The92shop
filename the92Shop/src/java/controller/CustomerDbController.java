@@ -40,8 +40,8 @@ public class CustomerDbController extends HttpServlet {
 
         PurchaseHistoryDAO custPurchaseDAO = new PurchaseHistoryDAO();
 
-        LinkedHashMap<String, String[]> custList = new LinkedHashMap<>();
-        LinkedHashMap<String, String[]> result = new LinkedHashMap<>();
+        LinkedHashMap<Integer, String[]> custList = new LinkedHashMap<>();
+        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         
         String text = "";
         String error = "";
@@ -72,7 +72,7 @@ public class CustomerDbController extends HttpServlet {
             error = "Please select month and year!";
         }
         
-        LinkedHashMap<String, String[]> custHashmap = limitTop5(result);
+        LinkedHashMap<Integer, String[]> custHashmap = limitTop5(result);
         
         request.setAttribute("errorMsg", error);
         request.setAttribute("word", text);
@@ -121,12 +121,12 @@ public class CustomerDbController extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    public LinkedHashMap<String, String[]> limitTop5(LinkedHashMap<String, String[]> customerList) {
-        LinkedHashMap<String, String[]> result = new LinkedHashMap<>();
+    public LinkedHashMap<Integer, String[]> limitTop5(LinkedHashMap<Integer, String[]> customerList) {
+        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
         int count = 0;
 
-        for (String cid : customerList.keySet()) {
+        for (int cid : customerList.keySet()) {
             String name = customerList.get(cid)[0];
             String phoneNumber = customerList.get(cid)[1];
 
@@ -139,11 +139,11 @@ public class CustomerDbController extends HttpServlet {
         return result;
     }
 
-    public LinkedHashMap<String, String[]> sortCustListByMonthYear(String sortMonth, String sortYear, LinkedHashMap<String, String[]> customerList) {
-        LinkedHashMap<String, String[]> result = new LinkedHashMap<>();
+    public LinkedHashMap<Integer, String[]> sortCustListByMonthYear(String sortMonth, String sortYear, LinkedHashMap<Integer, String[]> customerList) {
+        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
 
-        for (String cid : customerList.keySet()) {
+        for (int cid : customerList.keySet()) {
             String name = customerList.get(cid)[0];
             String phoneNumber = customerList.get(cid)[1];
             String quantity = customerList.get(cid)[2];
@@ -186,11 +186,11 @@ public class CustomerDbController extends HttpServlet {
 
     }
     
-    public LinkedHashMap<String, String[]> sortCustListByYear(String sortYear, LinkedHashMap<String, String[]> customerList) {
-        LinkedHashMap<String, String[]> result = new LinkedHashMap<>();
+    public LinkedHashMap<Integer, String[]> sortCustListByYear(String sortYear, LinkedHashMap<Integer, String[]> customerList) {
+        LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
 
-        for (String cid : customerList.keySet()) {
+        for (int cid : customerList.keySet()) {
             String name = customerList.get(cid)[0];
             String phoneNumber = customerList.get(cid)[1];
             String year = customerList.get(cid)[2];

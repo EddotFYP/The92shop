@@ -38,16 +38,19 @@
                         <a href="#"><i class="fa fa-gift fa-lg"></i> Dashboard <span class="arrow"></span></a>
 
                         <ul class="sub-menu collapse" id="products">
-                            <form action="FinancialDbController" method="post">
-                                <input type="hidden" name="monthData" value="monthData">
-                                <input type="hidden" name="yearData" value="yearData">
-                                <button type="submit" name="submit" class="navButton" >Financial Overview</button>
-                            </form>
-                            
-                                <a href="financialStatement.jsp"></i> Financial Statement</a>
-                         
-                            
-                            
+                            <a href="monthlyProfits.jsp">Monthly Profits</a>
+                            <br />
+                            <a href="yearlyProfits.jsp">Yearly Profits</a>
+                            <br />
+                            <a href="monthlySales.jsp">Monthly Sales</a>
+                            <br />
+                            <a href="yearlySales.jsp">Yearly Sales</a>
+                            <br />
+                            <a href="monthlyExpenses.jsp">Monthly Expenses</a>
+                            <br />
+                            <a href="yearlyExpenses.jsp">Yearly Expenses</a>
+                            <br />
+                            <a href="financialStatement.jsp"> Financial Statement</a>
 
                             <form action="InventoryDbController" method="post">       
                                 <input type="hidden" name="invLevel" value="inventoryLevel">

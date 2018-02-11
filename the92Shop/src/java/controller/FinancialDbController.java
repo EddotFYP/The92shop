@@ -39,133 +39,100 @@ public class FinancialDbController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String sortMonthly = request.getParameter("month");
-
-        //Parameters for straight display monthly data (2017) && yearly data
-        String monthlyData = request.getParameter("monthData");
-        String yearlyData = request.getParameter("yearData");
+        String sortMonthlySales = request.getParameter("monthlySales");
+        String yearlySales = request.getParameter("yearlySales");
+        String sortMonthlyExpense = request.getParameter("monthlyExpense");
+        String yearlyExpenses = request.getParameter("yearlyExpense");
+        String sortMonthlyProfits = request.getParameter("monthlyProfits");
+        String yearlyProfits = request.getParameter("yearlyProfits");
 
         PurchaseHistoryDAO custPurchaseDAO = new PurchaseHistoryDAO();
         ExpenseTrackerDAO expenseDAO = new ExpenseTrackerDAO();
 
-        //declare yearly variables
         LinkedHashMap<String, Double> yearlyGain = new LinkedHashMap<>();
         LinkedHashMap<String, Double> yearlyExp = new LinkedHashMap<>();
         ArrayList<Double> yearlyProfitsResult = new ArrayList<>();
+        
+        LinkedHashMap<Integer, String[]> monthlyGain = new LinkedHashMap<>();
+        ArrayList<Double> profitsResult = new ArrayList<>();
+        
+        LinkedHashMap<Integer, String[]> monthlySalesList = new LinkedHashMap<>();
+        ArrayList<String> salesResult = new ArrayList<>();
         ArrayList<Double> yearlySalesResult = new ArrayList<>();
+        
+        LinkedHashMap<Integer, String[]> monthlyExpenseList = new LinkedHashMap<>();
+        ArrayList<String> monthlyExpenseResult = new ArrayList<>();
         LinkedHashMap<String, Double> yearlyExpenseList = new LinkedHashMap<>();
         ArrayList<Double> yearlyExpenseResult = new ArrayList<>();
 
-        //Default 
-        LinkedHashMap<Integer, String[]> monthlyDefaultSalesList = new LinkedHashMap<>();
-        ArrayList<String> monthlyDefaultSalesResult = new ArrayList<>();
-        LinkedHashMap<Integer, String[]> monthlyDefaultExpenseList = new LinkedHashMap<>();
-        ArrayList<String> monthlyDefaultExpenseResult = new ArrayList<>();
-        LinkedHashMap<Integer, String[]> monthlyDefaultGain = new LinkedHashMap<>();
-        LinkedHashMap<Integer, String[]> monthlyDefaultExpense = new LinkedHashMap<>();
-        ArrayList<Double> monthlyDefaultProfitsResult = new ArrayList<>();
-
-        //By Dropdown
-        LinkedHashMap<Integer, String[]> monthlyGain = new LinkedHashMap<>();
-        ArrayList<Double> profitsResult = new ArrayList<>();
-        LinkedHashMap<Integer, String[]> monthlySalesList = new LinkedHashMap<>();
-        ArrayList<String> salesResult = new ArrayList<>();
-        LinkedHashMap<Integer, String[]> monthlyExpenseList = new LinkedHashMap<>();
-        ArrayList<String> expenseResult = new ArrayList<>();
-        
-        String text = "";
-        String error = "";
-
-        //set latest data as default (monthly profits,sales,expenses)
-        if (monthlyData != null) {
-            monthlyDefaultGain = custPurchaseDAO.retrieveMonthlyGain();
-            monthlyDefaultExpense = expenseDAO.retrieveMonthlyExpenses();
-            monthlyDefaultProfitsResult = retrieveDefaultMonthlyProfit(monthlyDefaultGain, monthlyDefaultExpense);
-
-            monthlyDefaultSalesList = custPurchaseDAO.retrieveMonthlySales();
-            monthlyDefaultSalesResult = sortDefaultSalesListMonthly(monthlyDefaultSalesList);
-            monthlyDefaultExpenseList = expenseDAO.retrieveMonthlyExpenses();
-            monthlyDefaultExpenseResult = sortDefaultSalesListMonthly(monthlyDefaultExpenseList);
-
-            request.setAttribute("monthlyDefaultProfitsResult", monthlyDefaultProfitsResult);
-            request.setAttribute("monthlyDefaultSalesResult", monthlyDefaultSalesResult);
-            request.setAttribute("monthlyDefaultExpenseResult", monthlyDefaultExpenseResult);
-        }
-
-        //set {monthly} data based on user choosing from dropdown
-        if (sortMonthly != null) {
+        //Monthly profits
+        if (sortMonthlyProfits != null) {
             monthlyGain = custPurchaseDAO.retrieveMonthlyGain();
-            monthlySalesList = custPurchaseDAO.retrieveMonthlySales();
             monthlyExpenseList = expenseDAO.retrieveMonthlyExpenses();
             
-            profitsResult = retrieveMonthlyProfit(sortMonthly, monthlyGain, monthlyExpenseList);
-
-            if (profitsResult == null || profitsResult.isEmpty()) {
-                text = sortMonthly;
-                error = "There are no records!";
-                
-                //request.setAttribute("word", text);
-            } else {
-                text = sortMonthly;
-            }
-        
-
-
-            salesResult = sortListMonthly(sortMonthly, monthlySalesList);
-            expenseResult = sortListMonthly(sortMonthly, monthlyExpenseList);
-
+            profitsResult = retrieveMonthlyProfits(sortMonthlyProfits, monthlyGain, monthlyExpenseList);
+            
+            request.setAttribute("sortMonthlyProfits", sortMonthlyProfits);
             request.setAttribute("profitsResult", profitsResult);
-            request.setAttribute("salesResult", salesResult);
-            request.setAttribute("expenseResult", expenseResult);
-        }
-
-        //set yearly data for profits, sales and expenses
-        if (yearlyData != null) {
-            yearlyGain = custPurchaseDAO.retrieveYearlyGain();
-            yearlyExp = expenseDAO.retrieveYearlyExpense();
-            yearlyProfitsResult = retrieveYearlyProfit(yearlyGain, yearlyExp);
-
-            yearlySalesResult = custPurchaseDAO.retrieveYearlySales();
-            yearlyExpenseList = expenseDAO.retrieveYearlyExpense();
-            yearlyExpenseResult = retrieveExpense(yearlyExpenseList);
-
-            request.setAttribute("yearlyProfitsResult", yearlyProfitsResult);
-            request.setAttribute("yearlySalesResult", yearlySalesResult);
-            request.setAttribute("yearlyExpensesResult", yearlyExpenseResult);
+            RequestDispatcher view = request.getRequestDispatcher("monthlyProfits.jsp");
+            view.forward(request, response);
         }
        
-        //never select month and year
-        try {
-            if (sortMonthly.equals("none")) {
-                error = "Please select year to see the monthly results";
-            }
-        } catch (Exception e) {
-            error = "Please remember to select year to view past data";
+        //Monthly sales
+        if (sortMonthlySales != null) {
+            monthlySalesList = custPurchaseDAO.retrieveMonthlySales();
+            salesResult = sortListMonthly(sortMonthlySales, monthlySalesList);
+            
+            request.setAttribute("sortMonthlySales", sortMonthlySales);
+            request.setAttribute("salesResult", salesResult);
+            RequestDispatcher view = request.getRequestDispatcher("monthlySales.jsp");
+            view.forward(request, response);
         }
         
-        request.setAttribute("word", text);
-        request.setAttribute("error", error);
-        request.setAttribute("sortMonthly", sortMonthly);
-         
-        RequestDispatcher view = request.getRequestDispatcher("financialDashboard.jsp");
-        view.forward(request, response);
-    }
-
-    public ArrayList<String> sortDefaultSalesListMonthly(LinkedHashMap<Integer, String[]> salesList) {
-        ArrayList<String> list = new ArrayList<>();
-
-        for (int count : salesList.keySet()) {
-            String year = salesList.get(count)[0];
-            String month = salesList.get(count)[1];
-            String sales = salesList.get(count)[2];
-
-            if (year.equals("2017")) {
-                list.add(sales);
-            }
+        //Monthly Expense
+        if (sortMonthlyExpense != null) {
+            monthlyExpenseList = expenseDAO.retrieveMonthlyExpenses();
+            monthlyExpenseResult = sortListMonthly(sortMonthlyExpense, monthlyExpenseList);
+            
+            request.setAttribute("expenseResult", monthlyExpenseResult);
+            request.setAttribute("sortMonthlyExpense", sortMonthlyExpense);
+            RequestDispatcher view = request.getRequestDispatcher("monthlyExpenses.jsp");
+            view.forward(request, response);
         }
-        return list;
-    }
-
+        
+        //Yearly trend for profits
+        if (yearlyProfits != null) {
+            yearlyGain = custPurchaseDAO.retrieveYearlyGain();
+            yearlyExp = expenseDAO.retrieveYearlyExpense();
+            yearlyProfitsResult = retrieveYearlyProfits(yearlyGain, yearlyExp);
+            
+            request.setAttribute("yearlyProfitsResult", yearlyProfitsResult);
+            RequestDispatcher view = request.getRequestDispatcher("yearlyProfits.jsp");
+            view.forward(request, response);
+        }
+        
+        //Yearly trend for sales
+        if (yearlySales != null) {
+            yearlySalesResult = custPurchaseDAO.retrieveYearlySales();
+            
+            request.setAttribute("yearlySalesResult", yearlySalesResult);
+            RequestDispatcher view = request.getRequestDispatcher("yearlySales.jsp");
+            view.forward(request, response);
+        }
+        
+        //Yearly trend for expense
+        if (yearlyExpenses != null) {
+            yearlyExpenseList = expenseDAO.retrieveYearlyExpense();
+            yearlyExpenseResult = retrieveExpense(yearlyExpenseList);
+            
+            request.setAttribute("yearlyExpensesResult", yearlyExpenseResult);
+            RequestDispatcher view = request.getRequestDispatcher("yearlyExpenses.jsp");
+            view.forward(request, response);
+        }
+        
+         
+    } 
+    
     public ArrayList<String> sortListMonthly(String sortMonthly, LinkedHashMap<Integer, String[]> list) {
         ArrayList<String> resultList = new ArrayList<>();
 
@@ -182,7 +149,7 @@ public class FinancialDbController extends HttpServlet {
 
         return resultList;
     }
-
+    
     public ArrayList<Double> retrieveExpense(LinkedHashMap<String, Double> list) {
         ArrayList<Double> resultList = new ArrayList<>();
 
@@ -193,8 +160,8 @@ public class FinancialDbController extends HttpServlet {
 
         return resultList;
     }
-
-    public ArrayList<Double> retrieveYearlyProfit(LinkedHashMap<String, Double> gainList, LinkedHashMap<String, Double> expenseList) {
+    
+     public ArrayList<Double> retrieveYearlyProfits(LinkedHashMap<String, Double> gainList, LinkedHashMap<String, Double> expenseList) {
         ArrayList<Double> result = new ArrayList<>();
 
         for (String year : gainList.keySet()) {
@@ -212,8 +179,8 @@ public class FinancialDbController extends HttpServlet {
 
         return result;
     }
-
-    public ArrayList<Double> retrieveMonthlyProfit(String sortMonthly, LinkedHashMap<Integer, String[]> gainList, LinkedHashMap<Integer, String[]> expenseList) {
+     
+      public ArrayList<Double> retrieveMonthlyProfits(String sortMonthly, LinkedHashMap<Integer, String[]> gainList, LinkedHashMap<Integer, String[]> expenseList) {
         ArrayList<Double> result = new ArrayList<>();
 
         for (int gainId : gainList.keySet()) {
@@ -236,49 +203,7 @@ public class FinancialDbController extends HttpServlet {
                 }
             }
         }
-        for (Double sales : result) {
-            //String year = monthlyExpenseList.get(count)[0];
-            //String month = monthlyExpenseList.get(count)[1];
-            //String sales = monthlyExpenseList.get(count)[2];
 
-            out.println(sales);
-
-        }
-        return result;
-    }
-
-    public ArrayList<Double> retrieveDefaultMonthlyProfit(LinkedHashMap<Integer, String[]> gainList, LinkedHashMap<Integer, String[]> expenseList) {
-        ArrayList<Double> result = new ArrayList<>();
-
-        for (int gainId : gainList.keySet()) {
-            String year = gainList.get(gainId)[0];
-            String month = gainList.get(gainId)[1];
-            String gain = gainList.get(gainId)[2];
-            double gainAmt = Double.parseDouble(gain);
-
-            double profit = 0;
-
-            for (int expenseId : expenseList.keySet()) {
-                String yr = expenseList.get(expenseId)[0];
-                String mth = expenseList.get(expenseId)[1];
-                String expense = expenseList.get(expenseId)[2];
-                double expenseAmt = Double.parseDouble(expense);
-
-                if (yr.equals(year) && month.equals(mth) && yr.equals("2017")) {
-                    profit = gainAmt - expenseAmt;
-                    result.add(profit);
-                    out.println(yr);
-                }
-            }
-        }
-        for (Double sales : result) {
-            //String year = monthlyExpenseList.get(count)[0];
-            //String month = monthlyExpenseList.get(count)[1];
-            //String sales = monthlyExpenseList.get(count)[2];
-
-            out.println(sales);
-
-        }
         return result;
     }
 

@@ -271,10 +271,9 @@ border:2px solid black;
 }
 
 #invAlert div {
-    width: 100px;
-    height: 100px;
-    align-content: center;
-    font-size: 80px;
+    width: 150px;
+    height: 150px;
+    font-size: 50px;
     padding-left:20px;
     padding-top:10px;
     background-clip: content-box;
@@ -303,7 +302,7 @@ border:2px solid black;
 
 }
 
-#financeDB {
+#financialDashboard {
     display: inline-block;
     padding-left:350px;
     padding-top:30px;

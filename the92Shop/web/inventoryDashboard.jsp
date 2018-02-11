@@ -30,7 +30,7 @@
                     <%                        
                         int qty = (Integer) request.getAttribute("alertResult");
                         if (qty >= 0) {%>
-                <div style="background-color:#FFD700;"><%=qty%></div>
+                <div style="background-color:#ffffcc;"><%=qty%> Items</div>
                 <%
                     }
                 %>
@@ -98,7 +98,7 @@
                     <option value="2017" >2017</option>
                 </select>
 
-                <button type="submit" name="submit">Filter</button>
+                <button type="submit" name="submit" class="btn">Filter</button>
                 <br>
 
 
