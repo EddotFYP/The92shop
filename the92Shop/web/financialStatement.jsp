@@ -20,6 +20,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jspdf.js"></script>
 <script type="text/javascript" src="js/addimage.js"></script>
+<script type="text/javascript" src="js/script.js"></script>
 <%--<%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
 --%>
@@ -50,7 +51,7 @@
                 <div id="selectionOfMonthNYear"  class="required" >
                     Filter by (Monthly/Yearly):
                     <select name="month" >
-                        <option value="none" selected>Please select</option>
+                        <option value='0' selected>Please select</option>
                         <option value='1'>January</option>
                         <option value='2' >February</option>
                         <option value='3' >March</option>
@@ -66,7 +67,7 @@
                     </select>
 
                     <select name="year" class="required" >
-                        <option value="none" selected>Please select</option>
+                        <option value="0" selected>Please select</option>
                         <option value="2016">2016</option>
                         <option value="2017" >2017</option>
                         <option value="2018" >2018</option>
@@ -95,16 +96,25 @@
                 HashMap<String, Double> retrieveSalesGained = (HashMap<String, Double>) request.getAttribute("retrieveSalesGained");
                 if (retrieveSalesGained != null && !retrieveSalesGained.isEmpty()) {
             %>
-            <h1> Income Statement for <%=monthString%> <%=year%></h1>
-            <table  border="0" cellpadding="2" cellspacing="5" >
-
+          
+            <table id="basic-table" border="0" cellpadding="2" cellspacing="5" >
+                <h1>the92 shop Income Statement</h1>
                 <thead>
+                    
                     <tr>
-                        <td style="padding-left:15px ; padding-bottom:10px"><b>Revenues</b></td>
-                        <th style="padding-left:15px">$</th>
+                      
+                         <th style="padding-left:15px;padding-bottom:25px"><b>Income Statement for <%=monthString%> <%=year%></b></th>
+                         <th style="padding-left:30px;padding-bottom:25px"><b>$</b></th>
 
                     </tr>
-                </thead> 
+                </thead>     
+                    
+                <tr>
+                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Revenues</td>
+                        <td style="padding-left:15px"><b></b></td>
+
+                    </tr>
+                
 
                     <%
                         for (String goods : retrieveSalesGained.keySet()) {
@@ -127,7 +137,7 @@
                         double totalSales = (Double) request.getAttribute("totalSales");
                     %>
 
-                <td style="padding-left:15px; padding-top:5px "><b><u>Total Revenue</u></b></td>
+                <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px"><u>Total Revenues</u></td>
                 <td style="padding-left:15px; padding-top:15px;padding-bottom:15px "><%=totalSales%></td>
                 <%
                     }
@@ -147,8 +157,8 @@
 
                 <tr>
 
-                    <td style="padding-left:15px ; padding-bottom:10px"><b>Expense</b></td>
-                    <th style="padding-left:15px">$</th>
+                    <td font style="font-weight:bold;color:#0000FF;padding-left:15px; padding-bottom:10px">Expense</td>
+                    <th style="padding-left:15px"></th>
 
 
                 </tr>
@@ -210,11 +220,11 @@
                             double profit = (Double) request.getAttribute("profit");
                         %>
                     <tr>
-                        <td style="padding-left:15px; padding-top:15px "><b><u>Total Expenses</u></b></td>
-                        <td style="padding-left:15px; padding-top:15px;"><%=totalExpensesCost%></td>
+                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px"><u>Total Expenses</u></td>
+                        <td style="padding-left:15px; padding-bottom:10px;"><%=totalExpensesCost%></td>
                     </tr>
                     <tr>
-                        <td style="padding-left:15px; padding-top:15px;"><b><u>Profit</b></u></td>
+                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-top:15px"><u>Profit</u></td>
                         <td style="padding-left:15px; padding-top:15px;"><u><%=profit%></u></td>
                     </tr>
                     <%
@@ -234,29 +244,24 @@
         <br>
 
         <script>
-            $(function () {
+            
 
-                var specialElementHandlers = {
-                    '#editor': function (element, renderer) {
-                        return true;
-                    }
-                };
+                
+               
                 $('#button').click(function () {
                     var doc = new jsPDF('p', 'pt', 'a4');
-                    doc.fromHTML(
-                            $('#target').html(), 15, 15,
-                            {'width': 200,
-                                'elementHandlers': specialElementHandlers
-
-                            },
-                            function () {
-                                doc.save('sample-file.pdf');
-                            }
-                    );
+                     var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
+                      doc.autoTable(res.columns, res.data, {
+                      startY: 80
+                      });
+                   
+                      doc.save('sample-file.pdf');
+                            
+                    
 
 
 
-                });
+               
             });
         </script> 
 
