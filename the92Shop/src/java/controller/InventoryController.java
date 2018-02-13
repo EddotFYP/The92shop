@@ -47,7 +47,9 @@ public class InventoryController extends HttpServlet {
             String inventoryToDelete = request.getParameter("deleteAction");
             String[] UpdatedValues = request.getParameterValues("editAction");
             String cameraResult = request.getParameter("cameraResult");
-
+            String addInventorySearch = request.getParameter("addInventorySearch");
+            String[] addQty = request.getParameterValues("addQuantity");
+            
             //for add new inventory
             //String addNewInvId = request.getParameter("newInvId");
             String addNewName = request.getParameter("newName");
@@ -57,7 +59,6 @@ public class InventoryController extends HttpServlet {
             String addNewPrice = request.getParameter("newPrice");
 
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            
 
             ArrayList<Inventory> result = new ArrayList<>();
             //delete
@@ -72,11 +73,12 @@ public class InventoryController extends HttpServlet {
                 int id = Integer.parseInt(UpdatedValues[0]);
                 String name = UpdatedValues[1];
                 int quantity = Integer.parseInt(UpdatedValues[2]);
-                String date = UpdatedValues[3];
+                Date today = new Date();
+                String dateString = df.format(today);
                 double cost = Double.parseDouble(UpdatedValues[4]);
                 double price = Double.parseDouble(UpdatedValues[5]);
 
-                int success = inventoryDAO.editInventory(id, name, quantity, date, cost, price);
+                int success = inventoryDAO.editInventory(id, name, quantity, dateString, cost, price);
                 if (success != 0) {
                     request.setAttribute("message", "Selected SKU is updated successfully");
                 }
@@ -86,19 +88,22 @@ public class InventoryController extends HttpServlet {
                 //int qty = Integer.parseInt(addNewQuantity);
                 double cost = Double.parseDouble(addNewCost);
                 double price = Double.parseDouble(addNewPrice);
-                
+
                 Date today = new Date();
                 String dateString = df.format(today);
-                System.out.println("------------- today= "+dateString+"----------------");
-                
-                Inventory i = new Inventory(1, addNewName, 0, dateString, cost, price);
-                
+                System.out.println("------------- today= " + dateString + "----------------");
+
+                Inventory i = new Inventory(addNewName, 0, dateString, cost, price);
+
                 int success = inventoryDAO.addInventory(i);
                 if (success != 0) {
                     request.setAttribute("message", "Selected SKU is added successfully");
                 }
-                //search
-            /*} else if (skuName.equals("select")) {
+                
+                RequestDispatcher view = request.getRequestDispatcher("addInventory.jsp");
+                view.forward(request, response);
+                return;
+                /*} else if (skuName.equals("select")) {
                 ArrayList<Inventory> list = inventoryDAO.retrieveInventoryList();
 
                 if (list != null) {
@@ -107,38 +112,80 @@ public class InventoryController extends HttpServlet {
                     }
 
                 }
-*/
+                 */
+                //QR code search 
             } else if (cameraResult != null && !cameraResult.isEmpty()) {
-                
-                
+
                 System.out.println("in camera search");
                 int firstQnMark = cameraResult.indexOf('?');
-                
+
                 String name = cameraResult.substring(0, firstQnMark);
-                System.out.println("camera result name= "+name);               
+                System.out.println("camera result name= " + name);
                 Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
-                
-                
+
                 if (inventory != null) {
                     System.out.println("retrieve success");
                     result.add(inventory);
                 }
-            //QR code search    
-            } else if(skuName != null){
+                //Normal search
+            } else if (skuName != null) {
                 System.out.println("in normal search");
                 Inventory inventory = inventoryDAO.retrieveInventoryByName(skuName);
 
                 if (inventory != null) {
                     result.add(inventory);
                 }
+
+            } else if (addInventorySearch != null && !addInventorySearch.isEmpty()) {
+                System.out.println("in add inventory search");
                 
+                int firstQnMark = addInventorySearch.indexOf('?');
+
+                String name = addInventorySearch.substring(0, firstQnMark);
+                
+                Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
+                
+                if (inventory != null) {
+                    result.add(inventory);
+                }
+                System.out.println("no. of items in result= " + result.size());
+                request.setAttribute("result", result);
+                RequestDispatcher view = request.getRequestDispatcher("addInventoryQty.jsp");
+                view.forward(request, response);
+                return;
+                
+                //add inventory quantity
+            } else if(addQty != null){
+                System.out.println("in add inventory quantity");
+                
+                String name = addQty[0];
+                String add = addQty[1];
+                
+                System.out.println("name and add = "+name +" "+ add);
+                int addNumber = Integer.parseInt(add);
+                
+                Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
+                
+                int newQty = inventory.getQuantity() + addNumber;
+                
+                Date today = new Date();
+                String dateString = df.format(today);
+                System.out.println("------------- today= " + dateString + "----------------");
+                
+                int success = inventoryDAO.addInventoryQty(name, newQty, dateString);
+                if (success != 0) {
+                    request.setAttribute("message", "Selected SKU is updated successfully");
+                }
+                RequestDispatcher view = request.getRequestDispatcher("addInventoryQty.jsp");
+                view.forward(request, response);
+                return;
             }
+
             
-            System.out.println("no. of items in result= " + result.size());
             request.setAttribute("result", result);
             RequestDispatcher view = request.getRequestDispatcher("inventoryManagement.jsp");
             view.forward(request, response);
-            
+
         }
     }
 

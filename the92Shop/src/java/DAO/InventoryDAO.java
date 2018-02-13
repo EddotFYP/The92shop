@@ -488,7 +488,27 @@ public class InventoryDAO {
         return updateQuery;
 
     }
-    
+    public int addInventoryQty(String name, int qty, String date) {
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE inventory SET Quantity = ?, Updated_Date = ? where name = ?");
+            
+            stmt.setInt(1, qty);
+            stmt.setString(2, date);
+            stmt.setString(3, name);
+
+            updateQuery = stmt.executeUpdate();
+
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+
+    }
 
 
 }

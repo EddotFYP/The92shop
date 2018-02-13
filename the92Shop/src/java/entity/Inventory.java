@@ -29,6 +29,14 @@ public class Inventory {
         this.sellingPrice = sellingPrice;
         
     }
+    public Inventory(String name, int quantity, String dateOfPurchase, double costPrice, double sellingPrice) {
+        this.name = name;
+        this.quantity = quantity;
+        this.dateOfPurchase = dateOfPurchase;
+        this.costPrice = costPrice;
+        this.sellingPrice = sellingPrice;
+        
+    }
     
     public Inventory(int skuID, String name, int quantity) {
         this.skuID = skuID;
@@ -36,11 +44,6 @@ public class Inventory {
         this.quantity = quantity;     
     }
      
-     
-    public Inventory(String name, int quantity) {
-        this.name = name;
-        this.quantity = quantity;     
-    }
     
     /**
      * Get the value of name

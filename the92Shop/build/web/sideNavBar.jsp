@@ -4,7 +4,7 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
+<%@include file="protect.jsp" %>
 <html>
     <head>
         <meta http-equiv="Conteant-Type" content="text/html; charset=UTF-8">
@@ -16,8 +16,12 @@
                 The 92 Shop
                 <%
                     String username = (String) session.getAttribute("user");
-                    String[] nameArr = username.split("\\.");
-                    String name = nameArr[0].toUpperCase();
+                    String name = "";
+                    if(username != null){
+                        String[] nameArr = username.split("\\.");
+                        name = nameArr[0].toUpperCase();
+                    }
+                    
 
                 %>
                 <h5>Current User:  <%=name%></h5>
@@ -27,13 +31,27 @@
             <div class="menu-list">
 
                 <ul id="menu-content" class="menu-content collapse out">              
-                    <li data-toggle="collapse" data-target="#service" class="collapsed">
+                    <li data-toggle="collapse" data-target="#customer" class="collapsed">
                         <a href="customerManagement.jsp"><i class="fa fa-user fa-lg"></i> Customer Management</a>
 
-
-                    <li data-toggle="collapse" data-target="#service" class="collapsed">
-                        <a href="inventoryManagement.jsp"><i class="fa fa-inbox  fa-lg"></i> Inventory Management</a>
-                    </li>   
+                    </li>
+                    <li data-toggle="collapse" data-target="#inventory" class="collapsed">
+                        <a href="#"><i class="fa fa-inbox  fa-lg"></i> Inventory Management<span class="arrow"></span></a></a>
+                        <ul class="sub-menu collapse" id="inventory">
+                            <a href="inventoryManagement.jsp">Search Inventory</a>
+                            <br />
+                            <a href="addInventory.jsp">Add Inventory</a>
+                            <br />
+                            <a href="addInventoryQty.jsp">Add Inventory Quantity</a>
+                            <br />
+                        </ul>
+                    </li> 
+                    
+                    <li data-toggle="collapse" data-target="#order" class="collapsed">
+                        <a href="orderPicking.jsp"><i class="fa fa-archive  fa-lg"></i> Order Picking </a>
+                        
+                    </li> 
+                    
                     <li  data-toggle="collapse" data-target="#products" class="collapsed">
                         <a href="#"><i class="fa fa-gift fa-lg"></i> Dashboard <span class="arrow"></span></a>
 

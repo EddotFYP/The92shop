@@ -14,14 +14,14 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script type="text/javascript" src="js/qrcode.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
-
-        <title>Add New SKU Page</title>
+        <script type="text/javascript" src="js/jspdf.js"></script>
+        <script type="text/javascript" src="js/addimage.js"></script>
     </head>
     <body>
         <div class="subPageContent">
-            <form  action="InventoryController" method="post">
+            <form id="myForm" action="InventoryController" method="post">
                 <fieldset  class="fieldset-auto-width">
-                    <legend>Add New SKU</legend>
+                    <legend>Add New Inventory</legend>
                     <table>
 
                         <tr>
@@ -30,7 +30,7 @@
                             </td>
 
                             <td>
-                                <input type ="text" name ="newName" id="name" required/>
+                                <input type ="text" name ="newName" id="name" autocomplete="off" required/>
                             </td>
                         </tr>
 
@@ -39,7 +39,7 @@
                                 Cost:
                             </td>
                             <td>
-                                <input type ="text" name ="newCost" id="cost" required/>
+                                <input type ="text" name ="newCost" id="cost" autocomplete="off" required/>
                             </td>
                         </tr>
                         <tr>
@@ -47,23 +47,23 @@
                                 Price:
                             </td>
                             <td>
-                                <input type ="text" name ="newPrice" id="price" required/>
+                                <input type ="text" name ="newPrice" id="price" autocomplete="off" required/>
                             </td>
                         </tr>
 
                         <tr>
                             <td>
-                                <button type="submit" name="submit" class="btn"><i class="fa  fa-plus"> Add</i></button>
-                                
+                                <button type="button" onclick="makeCode()" name="btSubmit" class="btn"><i class="fa  fa-plus"> Add and Download QR code</i></button>
+
                             </td>
-                            <td>
-                                <button type="button" onclick="makeCode()" class="btn"><i class="fa  fa-photo">Generate QR code</i></button>
-                            </td>
+
                         </tr>
+
+
 
                         <tr>
                             <td>
-                                <div id="qrcode" style="width:160px; height:160px; margin-top:15px;"></div>
+                                <div id="qrcode" style="width:180px; height:180px; margin-top:15px;"></div>
                             </td>
                         </tr>
 
@@ -77,21 +77,51 @@
                         var name = document.getElementById("name");
                         var cost = document.getElementById("cost");
                         var price = document.getElementById("price");
-                        
-                        if(name.value !="" && cost.value !="" && price.value !=""){
+
+                        if (name.value != "" && cost.value != "" && price.value != "") {
                             qrcode.makeCode(name.value + "?" + cost.value + "?" + price.value);
+
+                            setTimeout(function () {
+                                var specialElementHandlers = {
+                                    '#editor': function (element, renderer) {
+                                        return true;
+                                    }
+                                };
+
+                                var doc = new jsPDF('p', 'pt', 'a4');
+                                doc.fromHTML(
+                                        $('#qrcode').html(), 15, 15,
+                                        {'width': 200,
+                                            'elementHandlers': specialElementHandlers
+
+                                        },
+                                        function () {
+                                            doc.save(name.value + '_QR.pdf');
+                                        }
+                                );
+                            }, 1000)
+                            setTimeout(function () {
+                                document.getElementById('myForm').submit();
+                            }, 1000)
                         } else {
                             alert("Please fill in the missing fields");
                         }
-                        
+                        ;
+
+
+
+
+
                     }
+
+
 
                 </script>
             </form>
 
-            <%                        String message = (String) request.getAttribute("messages");
+            <%                        String message = (String) request.getAttribute("message");
                 if (message != null) {
-                    out.print(message);
+                    out.println("<p style='color:red'>" + message + "</p>");
                 }
             %>
 
