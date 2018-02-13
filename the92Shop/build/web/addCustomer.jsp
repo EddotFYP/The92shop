@@ -22,37 +22,11 @@
                     <table>
                         <tr>
                             <td>
-                                Customer ID:
-                            </td>
-                            <td>
-                                <input type ="text" name ="newCustId" required/>
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td>
                                 Name:
                             </td>
 
                             <td>
                                 <input type ="text" name ="newName" required/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Gender:
-                            </td>
-
-                            <td>
-                                <input type ="text" name ="newGender" required/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Birth Date:
-                            </td>
-                            <td>
-                                <input type ="date" name ="newBirthdayDate" required/>
                             </td>
                         </tr>
                         <tr>

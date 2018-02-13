@@ -14,40 +14,32 @@ package entity;
 public class Customer {
 
     private String name;
-    private String gender;
-    private String birthDate;
+    //private String gender;
+    //private String birthDate;
     private String phoneNum;
     private String address;
     private String postalCode;
     private String custId;
 
-    public Customer(String custId, String name, String gender, String birthDate, String phoneNum, String address, String postalCode) {
+    public Customer(String custId, String name, String phoneNum, String address, String postalCode) {
         this.custId = custId;
         this.name = name;
-        this.gender = gender;
-        this.birthDate = birthDate;
         this.phoneNum = phoneNum;
         this.address = address;
         this.postalCode = postalCode;
         
     }
-
-     /**
-     * Get the value of custId
-     *
-     * @return the value of custId
-     */
-    public String getCustId() {
-        return custId;
+    
+    public Customer(String name, String phoneNum, String address, String postalCode){
+        this.name = name;
+        this.phoneNum = phoneNum;
+        this.address = address; 
+        this.postalCode = postalCode; 
+        
     }
-
-    /**
-     * Set the value of custId
-     *
-     * @param custId new value of custId
-     */
-    public void setCustId(String custId) {
-        this.custId = custId;
+    
+    public String getCustId(){
+        return custId;
     }
     
     /**
@@ -68,41 +60,6 @@ public class Customer {
         this.name = name;
     }
 
-    /**
-     * Get the value of gender
-     *
-     * @return the value of gender
-     */
-    public String getGender() {
-        return gender;
-    }
-
-    /**
-     * Set the value of gender
-     *
-     * @param gender new value of gender
-     */
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    /**
-     * Get the value of birthDate
-     *
-     * @return the value of birthDate
-     */
-    public String getBirthDate() {
-        return birthDate;
-    }
-
-    /**
-     * Set the value of birthDate
-     *
-     * @param birthDate new value of birthDate
-     */
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
-    }
 
     
     /**

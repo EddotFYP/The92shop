@@ -45,20 +45,18 @@ public class CustomerController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //for customer management
-        String phoneNumber = request.getParameter("phoneNum");
-        String birthdayDate = request.getParameter("birthDate");
+        String phoneNumber = request.getParameter("phoneNumList");
+        //String birthdayDate = request.getParameter("birthDate");
+        String name = request.getParameter("nameList");
         String PhoneNumberToDelete = request.getParameter("deleteAction");
         String[] UpdatedValues = request.getParameterValues("editAction");
-        /*System.out.println("birthdate :"+birthdayDate);
-        System.out.println("phone :"+phoneNumber);
-        System.out.println("delete :"+delete);*/
+        //System.out.println("birthdate :"+birthdayDate);
+        //System.out.println("phone :"+phoneNumber);
+        //System.out.println("delete :"+delete);*/
         //System.out.println("PhoneNumberToDelete:  " + PhoneNumberToDelete);
         
         //for add new customer
-        String addNewCustId = request.getParameter("newCustId");
         String addNewName = request.getParameter("newName");
-        String addNewGender = request.getParameter("newGender");
-        String addNewBirthDate = request.getParameter("newBirthdayDate");
         String addNewPhoneNumber = request.getParameter("newPhoneNumber");
         String addNewAddress = request.getParameter("newAddress");
         String addNewPostal = request.getParameter("newPostal");
@@ -67,14 +65,12 @@ public class CustomerController extends HttpServlet {
         ArrayList<Customer> result = new ArrayList<>();
         
         //delete customer
-        if (PhoneNumberToDelete != null) {
-
+        if (PhoneNumberToDelete != null && !PhoneNumberToDelete.isEmpty()) {
             custDAO.deleteCustomer(PhoneNumberToDelete);
-
             request.setAttribute("message", "Selected customer is deleted successfully");
 
         //edit customer    
-        } else if(UpdatedValues != null){
+        } else if(UpdatedValues != null && UpdatedValues.length == 0){
             System.out.println("UpdatedValues:  " + UpdatedValues[0]+" "+UpdatedValues[1]+" "+UpdatedValues[2]+" "+UpdatedValues[3]);
             String id = UpdatedValues[0];
             String phone = UpdatedValues[1];
@@ -89,8 +85,8 @@ public class CustomerController extends HttpServlet {
             
             
         //add new customer
-        } else if(addNewName != null){
-            Customer c = new Customer(addNewCustId,addNewName,addNewGender,addNewBirthDate,addNewPhoneNumber,addNewAddress, addNewPostal);
+        } else if(addNewName != null && !addNewName.isEmpty()){
+            Customer c = new Customer(addNewName,addNewPhoneNumber,addNewAddress, addNewPostal);
             int success = custDAO.addCustomer(c);
             if(success != 0){
                 request.setAttribute("message", "New customer is added successfully!");
@@ -100,24 +96,24 @@ public class CustomerController extends HttpServlet {
         //search customer    
         } else {
             //search customer by phone number
+            
             if (phoneNumber != null && !phoneNumber.isEmpty()) {
                 Customer customer = custDAO.retrieve(phoneNumber);
-
+                System.out.println("Hello");
                 if (customer != null) {
                     result.add(customer);
                 }
             }
 
-            //search customers by birthdate
-            if (birthdayDate != null && !birthdayDate.isEmpty()) {
-                ArrayList<Customer> custList = custDAO.retrieveCustomerList(birthdayDate);
+            //search customers by name
+            if (name != null && !name.isEmpty()) {
+                ArrayList<Customer> custList = custDAO.retrieveCustomerList(name);
 
                 for (Customer c : custList) {
-                    if (c.getBirthDate().equals(birthdayDate)) {
+                    if (c.getName().equals(name)) {
                         result.add(c);
                     }
                 }
-
             }
 
             if (result.isEmpty()) {

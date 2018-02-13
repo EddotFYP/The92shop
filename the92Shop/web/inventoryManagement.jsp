@@ -47,15 +47,15 @@
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
                 scanner.addListener('scan', function (content) {
 
-                /*var request = new XMLHttpRequest();
-
-                    /*request.open("POST", "InventoryController", true);
-                    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    request.send("cameraResult=" + content);*/
+                    /*var request = new XMLHttpRequest();
+                     
+                     /*request.open("POST", "InventoryController", true);
+                     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                     request.send("cameraResult=" + content);*/
                     document.getElementById('qrValue').value = content;
                     document.getElementById('myForm').submit();
                     scanner.stop();
-                    
+
                 });
 
                 //check if the device has cameras
@@ -77,7 +77,8 @@
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
                 <h1>Welcome to Inventory Management Page</h1>
-                <%                InventoryDAO dao = new InventoryDAO();
+                <%                
+                    InventoryDAO dao = new InventoryDAO();
                     ArrayList<Inventory> listOfInventory = dao.retrieveInventoryList();
                     ArrayList<String> allInventory = new ArrayList<>();
                     for (Inventory i : listOfInventory) {
@@ -100,24 +101,24 @@
 
                 <button type="button" onclick="initiateCamera()" class="searchBtn"><i class="fa fa-camera"> Scan</i></button>
                 <input type="hidden" id="qrValue" name="cameraResult" value="">
-                
+
                 <a href="addInventory.jsp" class="addBtn"><i class="fa fa-plus"> Add SKU</i></a>
 
         </form>
-                <video id="camera" width="420"></video>
-        <%
-            ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
-            String message = (String) request.getAttribute("message");
-            int id = 0;
-            String inventoryName = "";
-            int qty = 0;
-            String updatedDate = "";
-            double cost = 0.0;
-            double price = 0.0;
+        <video id="camera" width="420"></video>
+            <%
+                ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                String message = (String) request.getAttribute("message");
+                int id = 0;
+                String inventoryName = "";
+                int qty = 0;
+                String updatedDate = "";
+                double cost = 0.0;
+                double price = 0.0;
 
-            if (list != null && !list.isEmpty()) {
+                if (list != null && !list.isEmpty()) {
 
-        %>
+            %>
         <table id="invTable" border ="1">
             <thead>
                 <tr>
@@ -177,8 +178,8 @@
                 %>
             </tbody>
         </table>
-        
-        
+
+
         <%
             }
             if (message != null) {
