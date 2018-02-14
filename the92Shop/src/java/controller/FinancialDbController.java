@@ -40,11 +40,11 @@ public class FinancialDbController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String sortMonthlySales = request.getParameter("monthlySales");
-        String yearlySales = request.getParameter("yearlySales");
-        String sortMonthlyExpense = request.getParameter("monthlyExpense");
-        String yearlyExpenses = request.getParameter("yearlyExpense");
+        String yearlySales = request.getParameter("yearlyTrendSales");
+        String sortMonthlyExpense = request.getParameter("monthlyExpenses");
+        String yearlyExpenses = request.getParameter("yearData");
         String sortMonthlyProfits = request.getParameter("monthlyProfits");
-        String yearlyProfits = request.getParameter("yearlyProfits");
+        String yearlyProfits = request.getParameter("yearlyTrendProfits");
 
         PurchaseHistoryDAO custPurchaseDAO = new PurchaseHistoryDAO();
         ExpenseTrackerDAO expenseDAO = new ExpenseTrackerDAO();
@@ -64,73 +64,74 @@ public class FinancialDbController extends HttpServlet {
         ArrayList<String> monthlyExpenseResult = new ArrayList<>();
         LinkedHashMap<String, Double> yearlyExpenseList = new LinkedHashMap<>();
         ArrayList<Double> yearlyExpenseResult = new ArrayList<>();
-
+        
+       
         //Monthly profits
-        if (sortMonthlyProfits != null) {
+        if (sortMonthlyProfits != null && !sortMonthlyProfits.isEmpty()) {
+            
             monthlyGain = custPurchaseDAO.retrieveMonthlyGain();
             monthlyExpenseList = expenseDAO.retrieveMonthlyExpenses();
             
             profitsResult = retrieveMonthlyProfits(sortMonthlyProfits, monthlyGain, monthlyExpenseList);
-            
+         
             request.setAttribute("sortMonthlyProfits", sortMonthlyProfits);
             request.setAttribute("profitsResult", profitsResult);
-            RequestDispatcher view = request.getRequestDispatcher("monthlyProfits.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("financialDb.jsp");
             view.forward(request, response);
-        }
-       
-        //Monthly sales
-        if (sortMonthlySales != null) {
+            return;
+        }else if (sortMonthlySales != null && !sortMonthlySales.isEmpty()) {
+            //Monthly sales
+            
             monthlySalesList = custPurchaseDAO.retrieveMonthlySales();
             salesResult = sortListMonthly(sortMonthlySales, monthlySalesList);
             
             request.setAttribute("sortMonthlySales", sortMonthlySales);
             request.setAttribute("salesResult", salesResult);
-            RequestDispatcher view = request.getRequestDispatcher("monthlySales.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("sales.jsp");
             view.forward(request, response);
-        }
-        
-        //Monthly Expense
-        if (sortMonthlyExpense != null) {
+            return;
+        }else if (sortMonthlyExpense != null && !sortMonthlyExpense.isEmpty()) {
+             //Monthly Expense
             monthlyExpenseList = expenseDAO.retrieveMonthlyExpenses();
             monthlyExpenseResult = sortListMonthly(sortMonthlyExpense, monthlyExpenseList);
-            
+
             request.setAttribute("expenseResult", monthlyExpenseResult);
             request.setAttribute("sortMonthlyExpense", sortMonthlyExpense);
-            RequestDispatcher view = request.getRequestDispatcher("monthlyExpenses.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("expenses.jsp");
             view.forward(request, response);
-        }
-        
-        //Yearly trend for profits
-        if (yearlyProfits != null) {
+            return;
+        }else if (yearlyProfits != null) {
+             //Yearly trend for profits
             yearlyGain = custPurchaseDAO.retrieveYearlyGain();
             yearlyExp = expenseDAO.retrieveYearlyExpense();
             yearlyProfitsResult = retrieveYearlyProfits(yearlyGain, yearlyExp);
             
             request.setAttribute("yearlyProfitsResult", yearlyProfitsResult);
-            RequestDispatcher view = request.getRequestDispatcher("yearlyProfits.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("financialDb.jsp");
             view.forward(request, response);
-        }
-        
-        //Yearly trend for sales
-        if (yearlySales != null) {
+            return;
+        }else if (yearlySales != null) {
+            //Yearly trend for sales
             yearlySalesResult = custPurchaseDAO.retrieveYearlySales();
             
             request.setAttribute("yearlySalesResult", yearlySalesResult);
-            RequestDispatcher view = request.getRequestDispatcher("yearlySales.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("sales.jsp");
             view.forward(request, response);
-        }
-        
-        //Yearly trend for expense
-        if (yearlyExpenses != null) {
+            return;
+        }else if (yearlyExpenses != null) {
+            //Yearly trend for expense
+            
             yearlyExpenseList = expenseDAO.retrieveYearlyExpense();
             yearlyExpenseResult = retrieveExpense(yearlyExpenseList);
             
+           
+
             request.setAttribute("yearlyExpensesResult", yearlyExpenseResult);
-            RequestDispatcher view = request.getRequestDispatcher("yearlyExpenses.jsp");
+            RequestDispatcher view = request.getRequestDispatcher("expenses.jsp");
             view.forward(request, response);
+            return;
         }
-        
-         
+ 
     } 
     
     public ArrayList<String> sortListMonthly(String sortMonthly, LinkedHashMap<Integer, String[]> list) {
