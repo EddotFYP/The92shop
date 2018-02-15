@@ -29,6 +29,11 @@
             <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
 
             <div class="menu-list">
+                <ul id="menu-content" class="menu-content collapse out">              
+                    <li data-toggle="collapse" data-target="#admin" class="collapsed">
+                        <a href="addAdmin.jsp"><i class="fa fa-user fa-lg"></i> Admin Management</a>
+
+                    </li>
 
                 <ul id="menu-content" class="menu-content collapse out">              
                     <li data-toggle="collapse" data-target="#customer" class="collapsed">

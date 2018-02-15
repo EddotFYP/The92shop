@@ -41,6 +41,7 @@ public class UserController extends HttpServlet {
         
         
         UserDAO userDAO = new UserDAO();
+        
 
         if (name != null) {
             User user = new User(name, password);
@@ -50,7 +51,7 @@ public class UserController extends HttpServlet {
             }
         }
 
-        RequestDispatcher view = request.getRequestDispatcher("user.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("addAdmin.jsp");
         view.forward(request, response);
     }
 
