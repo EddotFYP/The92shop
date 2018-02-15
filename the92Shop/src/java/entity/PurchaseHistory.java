@@ -11,21 +11,33 @@ package entity;
  */
 public class PurchaseHistory {
     
-    private String custId;
+    private int custId;
     
     private String dateOfPurchase;
     
     private int quantity;
     
-    private String skuId;
+    private int skuId;
 
-    public PurchaseHistory(String custId, String dateOfPurchase, int quantity, String skuId) {
+    private int orderId;
+    
+    private String phone;
+
+    public PurchaseHistory(int custId, String dateOfPurchase, int quantity, int skuId) {
         this.custId = custId;
         this.dateOfPurchase = dateOfPurchase;
         this.quantity = quantity;
         this.skuId = skuId;
     }
     
+    public PurchaseHistory(int custId, String phone, int skuId, String dateOfPurchase, int quantity) {
+        
+        this.custId = custId;
+        this.phone = phone;
+        this.dateOfPurchase = dateOfPurchase;
+        this.quantity = quantity;
+        this.skuId = skuId;
+    }
     
     
     /**
@@ -33,7 +45,7 @@ public class PurchaseHistory {
      *
      * @return the value of skuId
      */
-    public String getSkuId() {
+    public int getSkuId() {
         return skuId;
     }
 
@@ -42,7 +54,7 @@ public class PurchaseHistory {
      *
      * @param skuId new value of skuId
      */
-    public void setSkuId(String skuId) {
+    public void setSkuId(int skuId) {
         this.skuId = skuId;
     }
 
@@ -87,7 +99,7 @@ public class PurchaseHistory {
      *
      * @return the value of custId
      */
-    public String getCustId() {
+    public int getCustId() {
         return custId;
     }
 
@@ -96,8 +108,24 @@ public class PurchaseHistory {
      *
      * @param custId new value of custId
      */
-    public void setCustId(String custId) {
+    public void setCustId(int custId) {
         this.custId = custId;
     }
+    
+    public int getOrderId() {
+        return orderId;
+    }
 
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getPhoneNum() {
+        return phone;
+    }
+
+    public void setPhoneNum(String phone) {
+        this.phone = phone;
+    }
+    
 }

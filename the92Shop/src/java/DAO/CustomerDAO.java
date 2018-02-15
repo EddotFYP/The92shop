@@ -36,7 +36,7 @@ public class CustomerDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String custId = rs.getString(1);
+                int custId = rs.getInt(1);
                 String name = rs.getString(2);
                 //String gender = rs.getString(3);
                 //String birthDate = rs.getString(4);
@@ -66,7 +66,7 @@ public class CustomerDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String retrievedCustId = rs.getString(1);
+                int retrievedCustId = rs.getInt(1);
                 String name = rs.getString(2);
                 //String gender = rs.getString(3);
                 //String birthDate = rs.getString(4);
@@ -95,7 +95,7 @@ public class CustomerDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String custId = rs.getString(1);
+                int custId = rs.getInt(1);
                 String name = rs.getString(2);
                 //String gender = rs.getString(3);
                 //String birthDate = rs.getString(4);
@@ -124,7 +124,7 @@ public class CustomerDAO {
             ResultSet rs = stmt.executeQuery();
             
             while(rs.next()){
-                String custId = rs.getString(1);
+                int custId = rs.getInt(1);
                 String name = rs.getString(2);
                 String phoneNum = rs.getString(3);
                 String address = rs.getString(4);

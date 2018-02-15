@@ -35,10 +35,10 @@ public class PurchaseHistoryDAO {
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                String custId = rs.getString(1);
+                int custId = rs.getInt(1);
                 String dateOfPurchase = rs.getString(2); 
                 int quantity = rs.getInt(3);
-                String skuId = rs.getString(4);
+                int skuId = rs.getInt(4);
                 result = new PurchaseHistory(custId, dateOfPurchase, quantity,skuId);
                 
             }
@@ -226,5 +226,57 @@ public class PurchaseHistoryDAO {
         return result;
     }
     
+    public int addRecord(PurchaseHistory p) {
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO customer_purchase VALUES (?,?,?,?,?,?)");
+            
+            stmt.setInt(1, p.getOrderId());
+            stmt.setInt(2, p.getCustId());
+            stmt.setString(3, p.getPhoneNum());
+            stmt.setInt(4, p.getQuantity());
+            stmt.setString(5, p.getDateOfPurchase());
+            stmt.setInt(6, p.getQuantity());
+            
+            
+
+            updateQuery = stmt.executeUpdate();
+
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+    }
     
+    /*public ArrayList<PurchaseHistory> retrievePurchaseHistory() {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConn();
+        ArrayList<PurchaseHistory> result = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select * from customer_purchase");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int orderId = rs.getInt(1);
+                int custId = rs.getInt(2);
+                String phone = rs.getString(3);
+                int skuId = rs.getInt(4);
+                String dateOfPurchase = rs.getString(5);
+                int qty = rs.getInt(6);
+                
+                result.add(new PurchaseHistory(orderId, custId, phone, skuId, dateOfPurchase, qty));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.closeConn();
+        return result;
+    }*/
 }

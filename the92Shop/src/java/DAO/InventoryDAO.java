@@ -488,6 +488,7 @@ public class InventoryDAO {
         return updateQuery;
 
     }
+    //also serve as deducting inventory
     public int addInventoryQty(String name, int qty, String date) {
         int updateQuery = 0;
         try {
@@ -509,6 +510,6 @@ public class InventoryDAO {
         return updateQuery;
 
     }
-
+    
 
 }

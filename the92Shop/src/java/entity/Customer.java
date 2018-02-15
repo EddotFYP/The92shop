@@ -19,9 +19,9 @@ public class Customer {
     private String phoneNum;
     private String address;
     private String postalCode;
-    private String custId;
+    private int custId;
 
-    public Customer(String custId, String name, String phoneNum, String address, String postalCode) {
+    public Customer(int custId, String name, String phoneNum, String address, String postalCode) {
         this.custId = custId;
         this.name = name;
         this.phoneNum = phoneNum;
@@ -38,7 +38,7 @@ public class Customer {
         
     }
     
-    public String getCustId(){
+    public int getCustId(){
         return custId;
     }
     
