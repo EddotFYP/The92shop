@@ -34,6 +34,7 @@
                         <a href="addAdmin.jsp"><i class="fa fa-user fa-lg"></i> Admin Management</a>
 
                     </li>
+                </ul>    
 
                 <ul id="menu-content" class="menu-content collapse out">              
                     <li data-toggle="collapse" data-target="#customer" class="collapsed">
@@ -73,6 +74,12 @@
                         </ul>
                     </li>
                 </ul>
+                <ul id="menu-content" class="menu-content collapse out">              
+                    <li data-toggle="collapse" data-target="#expense" class="collapsed">
+                        <a href="expenseForm.jsp"><i class="fa fa-user fa-lg"></i> Expense Management</a>
+
+                    </li>
+                </ul> 
                 <br>
                 <br>
                 <form action="logout.jsp">

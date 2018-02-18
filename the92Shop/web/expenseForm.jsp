@@ -6,7 +6,8 @@
 <%@page import="java.util.List"%>
 <%@page import="DAO.ExpenseTrackerDAO"%>
 <%@page import="DAO.ExpenseTypesDAO"%>
-
+<%@include file="sideNavBar.jsp" %>
+<%@include file="protect.jsp" %>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,18 +20,20 @@
     </head>
     
     <body>
-        <div id="navbar"><span>Expenses Form Filling</span></div>
-        <div id="wrapper">
+    <center>
+       
+        <div id="wrapper" align="center" >
+             <h1>Expenses Form Filling</h1>
             <form  action="ExpenseTrackerController" method="post">    
            
             <br>
-            Date:<br>
+            <b>Date:</b>
            
             <input type="date" id="date" name="date" min="2017-01-01"/>
             <br>
-           
-            Expenses:<br>
-            <select name ="expenseTypes" id="expensesType" selected = '3'>
+            <br>
+            <b>Expenses:</b>
+            <select  name ="expenseTypes" id="expensesType" selected = '3'>
                 
                 <%
                       ExpenseTypesDAO expDAO = new ExpenseTypesDAO();
@@ -47,15 +50,15 @@
             </select> <br>
             <br>
             
-            Remark: <br>
-            <textarea  name="remark" id="remark" rows="10" cols="20"></textarea><br>
+            <b>Remark:</b>
+            <textarea  name="remark" id="remark" rows="5" cols="22"></textarea><br>
             <br>
-            Cost($):
+            <b>Cost($):</b>
             <input type="text" id="cost" name="cost" value="" placeholder="0.0" /><br>
             
             
             <br>
-            <input type="submit" id="button" value="Submit"/>
+            <input align="center" type="submit" id="button" value="Submit"/>
             
          
         </form>    
@@ -94,7 +97,8 @@
 
             });
         </script>
-        
+           </center>
+ 
       
     </body>
 </html>
