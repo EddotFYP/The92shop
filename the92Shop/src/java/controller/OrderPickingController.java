@@ -56,9 +56,7 @@ public class OrderPickingController extends HttpServlet {
             PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
             String phone = request.getParameter("phone");
             Customer customer = cusDAO.retrieve(phone);
-            if (customer == null || phone == null || phone.isEmpty()) {
-                message.add("The customer doesn't exist!");
-            } else {
+            
 
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -107,7 +105,7 @@ public class OrderPickingController extends HttpServlet {
 
                     request.getSession().removeAttribute("currentList");
                 }
-            }
+            
             request.setAttribute("message", message);
             request.setAttribute("result", result);
             RequestDispatcher view = request.getRequestDispatcher("orderPicking.jsp");

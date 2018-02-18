@@ -102,7 +102,7 @@
                 ArrayList<Customer> custList = (ArrayList<Customer>) request.getAttribute("custList");
                 String error = (String) request.getAttribute("error");
                 String message = (String) request.getAttribute("message");
-                String custId = "";
+                int custId = 0;
                 String custName = "";
                 String phoneNum = "";
                 String address = "";

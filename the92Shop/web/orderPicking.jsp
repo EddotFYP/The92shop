@@ -19,12 +19,19 @@
         <script type="text/javascript" src="js/instascan.min.js"></script>
         <title>Order Picking Page</title>
         <script type="text/javascript">
+            function phoneNumCheck() {
+                    var p = document.getElementById("phone").value;
+                    
+                    if(!p){
+                        alert("Please key in customer's phone number!");
+                        return false;
+                    } else {
+                        return true;
+                    }
+                    
 
+            };
             
-
-           
-            
-
             function initiateCamera() {
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
                 scanner.addListener('scan', function (content) {
@@ -69,9 +76,9 @@
                 Scan your SKU:
 
                 <button type="button" onclick="initiateCamera()" class="searchBtn" style="margin-right: 70px"><i class="fa fa-camera"> Scan</i></button>
-                <button type="submit" name="btnSubmit" class="btn" id="btnSubmit"  > Submit the form </button>
+                <button type="submit" onclick="return phoneNumCheck()" name="btnSubmit" class="btn" id="btnSubmit"  > Submit the form </button>
                 <br/>
-                Please enter your customer's number: <input type="text" name="phone">
+                Please enter your customer's number: <input type="text" id="phone" name="phone">
                 <br/>
                 <input type="hidden" id="qrValue" name="cameraResult" value="">
 
