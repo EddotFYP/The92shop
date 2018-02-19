@@ -34,7 +34,6 @@
                         <a href="addAdmin.jsp"><i class="fa fa-user fa-lg"></i> Admin Management</a>
 
                     </li>
-                </ul>    
 
                 <ul id="menu-content" class="menu-content collapse out">              
                     <li data-toggle="collapse" data-target="#customer" class="collapsed">
@@ -58,6 +57,11 @@
                         
                     </li> 
                     
+                    <li data-toggle="collapse" data-target="#order" class="collapsed">
+                        <a href="purchaseHistory.jsp"><i class="fa fa-sticky-note fa-lg"></i> Purchase History </a>
+                        
+                    </li> 
+                    
                     <li  data-toggle="collapse" data-target="#products" class="collapsed">
                         <a href="#"><i class="fa fa-gift fa-lg"></i> Dashboard <span class="arrow"></span></a>
 
@@ -74,12 +78,6 @@
                         </ul>
                     </li>
                 </ul>
-                <ul id="menu-content" class="menu-content collapse out">              
-                    <li data-toggle="collapse" data-target="#expense" class="collapsed">
-                        <a href="expenseForm.jsp"><i class="fa fa-user fa-lg"></i> Expense Management</a>
-
-                    </li>
-                </ul> 
                 <br>
                 <br>
                 <form action="logout.jsp">

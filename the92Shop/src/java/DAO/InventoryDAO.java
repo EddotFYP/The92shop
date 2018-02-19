@@ -23,14 +23,14 @@ import java.util.LinkedHashMap;
 public class InventoryDAO {
     private ArrayList<Inventory> inventoryList; 
     
-    public Inventory retrieve(String skuId) {
+    public Inventory retrieve(int skuId) {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConn();
         Inventory result = null;
         
         try {
-            PreparedStatement stmt = conn.prepareStatement("select * from inventory where SKU_Id = '" + skuId + "'");
-            stmt.setString(1, skuId + '%');
+            PreparedStatement stmt = conn.prepareStatement("select * from inventory where SKU_Id = ?");
+            stmt.setInt(1, skuId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

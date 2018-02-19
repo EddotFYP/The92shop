@@ -39,6 +39,14 @@ public class PurchaseHistory {
         this.skuId = skuId;
     }
     
+    public PurchaseHistory(int orderId, int custId, String phone, int skuId, String dateOfPurchase, int quantity) {
+        this.orderId = orderId;
+        this.custId = custId;
+        this.phone = phone;
+        this.dateOfPurchase = dateOfPurchase;
+        this.quantity = quantity;
+        this.skuId = skuId;
+    }
     
     /**
      * Get the value of skuId

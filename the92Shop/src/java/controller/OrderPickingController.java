@@ -56,56 +56,72 @@ public class OrderPickingController extends HttpServlet {
             PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
             String phone = request.getParameter("phone");
             Customer customer = cusDAO.retrieve(phone);
-            
+            String ViewPurchaseHistory = request.getParameter("ViewPurchaseHistory");
 
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-                //QR code search 
-                if (cameraResult != null && !cameraResult.isEmpty()) {
+            //QR code search 
+            if (cameraResult != null && !cameraResult.isEmpty()) {
 
-                    System.out.println("in camera search");
-                    int firstQnMark = cameraResult.indexOf('?');
+                System.out.println("in camera search");
+                int firstQnMark = cameraResult.indexOf('?');
 
-                    String name = cameraResult.substring(0, firstQnMark);
-                    System.out.println("camera result name= " + name);
-                    Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
+                String name = cameraResult.substring(0, firstQnMark);
+                System.out.println("camera result name= " + name);
+                Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
 
-                    if (inventory != null) {
-                        System.out.println("retrieve success");
-                        result.add(inventory);
-                    }
-
-                    //process the list
-                } else if (currentList != null && currentList.size() != 0) {
-                    System.out.println("processing list");
-
-                    Date today = new Date();
-                    String dateString = df.format(today);
-
-                    for (Inventory i : currentList) {
-                        String name = i.getName();
-                        Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
-                        int diff = inventory.getQuantity() - i.getQuantity();
-
-                        if (diff > 0) {
-
-                            inventoryDAO.addInventoryQty(name, diff, dateString);
-                            message.add("The order of " + name + " is recorded!");
-                            int custId = customer.getCustId();
-                            int invId = inventory.getSKUID();
-                            
-                            purchaseHistoryDAO.addRecord(new PurchaseHistory(custId, phone, invId, dateString, i.getQuantity()));
-
-                        } else {
-
-                            message.add("The order of " + name + " has exceeded its stock");
-                        }
-
-                    }
-
-                    request.getSession().removeAttribute("currentList");
+                if (inventory != null) {
+                    System.out.println("retrieve success");
+                    result.add(inventory);
                 }
-            
+
+                //process the current list in orderPicking.jsp
+            } else if (currentList != null && currentList.size() != 0) {
+                System.out.println("processing list");
+
+                Date today = new Date();
+                String dateString = df.format(today);
+
+                for (Inventory i : currentList) {
+                    String name = i.getName();
+                    Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
+                    int diff = inventory.getQuantity() - i.getQuantity();
+
+                    if (diff > 0) {
+
+                        inventoryDAO.addInventoryQty(name, diff, dateString);
+                        message.add("The order of " + name + " is recorded!");
+                        int custId = customer.getCustId();
+                        int invId = inventory.getSKUID();
+
+                        purchaseHistoryDAO.addRecord(new PurchaseHistory(custId, phone, invId, dateString, i.getQuantity()));
+
+                    } else {
+
+                        message.add("The order of " + name + " has exceeded its stock");
+                    }
+
+                }
+
+                request.getSession().removeAttribute("currentList");
+
+                //purchase history
+            } else if (ViewPurchaseHistory.equals("1")) {
+                ArrayList<PurchaseHistory> list = purchaseHistoryDAO.retrievePurchaseHistory();
+                ArrayList<PurchaseHistory> history = new ArrayList<>();
+
+                if (list != null) {
+                    for (PurchaseHistory p : list) {
+                        history.add(p);
+                    }
+                    request.setAttribute("history", history);
+                    RequestDispatcher view = request.getRequestDispatcher("purchaseHistory.jsp");
+                    view.forward(request, response);
+                    return;
+
+                }
+            }
+
             request.setAttribute("message", message);
             request.setAttribute("result", result);
             RequestDispatcher view = request.getRequestDispatcher("orderPicking.jsp");

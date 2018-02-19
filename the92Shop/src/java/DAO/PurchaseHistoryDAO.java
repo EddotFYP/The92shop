@@ -252,7 +252,7 @@ public class PurchaseHistoryDAO {
         return updateQuery;
     }
     
-    /*public ArrayList<PurchaseHistory> retrievePurchaseHistory() {
+    public ArrayList<PurchaseHistory> retrievePurchaseHistory() {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConn();
         ArrayList<PurchaseHistory> result = new ArrayList<>();
@@ -278,5 +278,5 @@ public class PurchaseHistoryDAO {
 
         db.closeConn();
         return result;
-    }*/
+    }
 }
