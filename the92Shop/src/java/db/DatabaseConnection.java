@@ -26,7 +26,16 @@ public class DatabaseConnection {
     private void initialiseConnection() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/the92shop?rewriteBatchedStatements=true", "root", "");
+             // grab environment variable to check if we are on production environment
+            String osName = System.getProperty("os.name");
+            if (osName.equals("Linux")) {
+                // in production environment, use aws.db.password
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/the92shop?rewriteBatchedStatements=true", "root", "4LYqG1BZLLcr");
+            } else {
+                // in local environment, use db.password
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/the92shop?rewriteBatchedStatements=true", "root", "");
+            }
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

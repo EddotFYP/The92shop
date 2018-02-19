@@ -58,7 +58,7 @@
                     </li> 
                     
                     <li data-toggle="collapse" data-target="#order" class="collapsed">
-                        <a href="purchaseHistory.jsp"><i class="fa fa-sticky-note fa-lg"></i> Purchase History </a>
+                        <a href="purchaseHistory.jsp"><i class="fa fa-book fa-lg"></i> Purchase History </a>
                         
                     </li> 
                     
