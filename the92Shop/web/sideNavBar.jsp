@@ -35,7 +35,7 @@
 
                     </li>
 
-                <ul id="menu-content" class="menu-content collapse out">              
+                           
                     <li data-toggle="collapse" data-target="#customer" class="collapsed">
                         <a href="customerManagement.jsp"><i class="fa fa-user fa-lg"></i> Customer Management</a>
 
@@ -67,7 +67,7 @@
 
                         <ul class="sub-menu collapse" id="products">
                             <a href="financialDb.jsp">Financial Overview</a>
-                            <br />
+                            <br>
                             <a href="financialStatement.jsp"> Financial Statement</a>
                             <form action="InventoryDbController" method="post">       
                                 <input type="hidden" name="invLevel" value="inventoryLevel">
@@ -77,6 +77,16 @@
                             <a href="customerDashboard.jsp">Customer</a>
                         </ul>
                     </li>
+                    
+                     <li data-toggle="collapse" data-target="#expense" class="collapsed">
+                        <a href="#"><i class="fa fa-money  fa-lg"></i> Expense<span class="arrow"></span></a>
+                        <ul class="sub-menu collapse" id="expense">
+                            <a href="expenseForm.jsp">Input Expense</a>
+                            <br />
+                            
+                        </ul>
+                    </li> 
+
                 </ul>
                 <br>
                 <br>
