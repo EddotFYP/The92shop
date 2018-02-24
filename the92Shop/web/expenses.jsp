@@ -41,7 +41,7 @@
                 <h2>Yearly Trend for Expenses</h2>
                 <br />
 
-                <button type="submit" id="ybtn" onclick="yearlyExpenses()" class="btn">Yearly Trend</button>
+                <button type="submit" id="ybtn" onclick="yearlyExpenses()" class="btn" formnovalidate>Yearly Trend</button>
                 <input type="hidden" id="yearData" name="yearData" value="" >
                 <br />
                 <br />
@@ -50,7 +50,6 @@
                 Filter monthly expenses by:
                 <select name="monthlyExpenses" id="month" required>
                     <option value="" selected>Please select</option>
-                    <option value="2016">2016</option>
                     <option value="2017" >2017</option>
                     <option value="2018" >2018</option>
                 </select>
@@ -77,6 +76,10 @@
 
                         var yearlyExpense = <%=jsonYearlyExpenses%>;
                         $(document).ready(function () {
+                            var chart = {
+                              borderColor: '#000000',
+                              borderWidth: 1, 
+                            };
                             var title = {
                                 text: ''
                             };
@@ -84,19 +87,35 @@
                                 text: ''
                             };
                             var xAxis = {
-                                categories: [2016, 2017, 2018]
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13
+                                    }
+                                },
+                                categories: [2017, 2018],
+                                
                             };
                             var yAxis = {
-                                title: {
-                                    text: 'Expenses'
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13
+                                    }
                                 },
+                                title: {
+                                    text: 'Expenses',
+                                    color: '#000000'
+                                },
+                                
                                 min: 0,
                                 plotLines: [{
                                         value: 0,
                                         width: 1,
-                                        color: '#808080'
+                                        color: '#000000'
                                     }]
                             };
+                        
                             var tooltip = {
                                 valueSuffix: ' SGD'
                             }
@@ -111,6 +130,7 @@
                             };
                             var json = {
                             };
+                            json.chart = chart;
                             json.title = title;
                             json.subtitle = subtitle;
                             json.xAxis = xAxis;
@@ -134,6 +154,10 @@
                             //straight display latest monthly sales
                             var monthlyExpense = <%=jsonMonthlyExpenses%>;
                             $(document).ready(function () {
+                                var chart = {
+                                borderColor: '#000000',
+                                borderWidth: 1,  
+                                };
                                 var title = {
                                     text: ''
                                 };
@@ -141,10 +165,22 @@
                                     text: ''
                                 };
                                 var xAxis = {
+                                    labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13
+                                    }
+                                    },
                                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                                         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                                 };
                                 var yAxis = {
+                                    labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13
+                                    }
+                                    },
                                     title: {
                                         text: 'Expenses'
                                     },
@@ -170,6 +206,7 @@
                                 };
 
                                 var json = {};
+                                json.chart = chart;
                                 json.title = title;
                                 json.subtitle = subtitle;
                                 json.xAxis = xAxis;

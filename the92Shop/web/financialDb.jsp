@@ -42,7 +42,7 @@
                 <h2>Yearly Trend for Profits</h2>
                 <br />
 
-                <button type="submit" id="ybtn" onclick="yearlyProfits()" class="btn" >Yearly Trend</button>
+                <button type="submit" id="ybtn" onclick="yearlyProfits()" class="btn" formnovalidate>Yearly Trend</button>
                 <input type="hidden" id="yearlyTrendProfits" name="yearlyTrendProfits" value="">
 
                 <br />
@@ -51,7 +51,6 @@
                 Filter monthly profits by:
                 <select name="monthlyProfits" id="month" required>
                     <option value="" selected>Please select</option>
-                    <option value="2016">2016</option>
                     <option value="2017" >2017</option>
                     <option value="2018" >2018</option>
                 </select>
@@ -70,6 +69,10 @@
                     <script>
                         var yearlyProfits = <%=jsonYearlyProfits%>;
                         $(document).ready(function () {
+                            var chart = {
+                              borderColor: '#000000',
+                              borderWidth: 1,  
+                            };
                             var title = {
                                 text: ''
                             };
@@ -77,17 +80,31 @@
                                 text: ''
                             };
                             var xAxis = {
-                                categories: [2016, 2017]
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                },
+                                categories: [2017, 2018]
+                                
                             };
                             var yAxis = {
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                },
                                 title: {
-                                    text: 'Profits'
+                                    text: 'Profits',
+                                    color: '#000000'
                                 },
                                 min: 0,
                                 plotLines: [{
                                         value: 0,
                                         width: 1,
-                                        color: '#808080'
+                                        color: '#000000'
                                     }]
                             };
                             var tooltip = {
@@ -106,6 +123,7 @@
 
                             var json = {
                             };
+                            json.chart = chart;
                             json.title = title;
                             json.subtitle = subtitle;
                             json.xAxis = xAxis;
@@ -128,7 +146,7 @@
 
                     ArrayList<String> profitsResult = (ArrayList<String>) request.getAttribute("profitsResult");
                     String jsonMonthlyProfits = new Gson().toJson(profitsResult);
-
+                    
                     if (profitsResult != null) {
                         out.println("You have selected: " + text + "<br /><br />");
                 %>
@@ -136,6 +154,10 @@
                     <script>
                         var monthlyProfits = <%=jsonMonthlyProfits%>;
                         $(document).ready(function () {
+                            var chart = {
+                              borderColor: '#000000',
+                              borderWidth: 1,  
+                            };
                             var title = {
                                 text: ''
                             };
@@ -143,10 +165,22 @@
                                 text: ''
                             };
                             var xAxis = {
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                },
                                 categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                             };
                             var yAxis = {
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                },
                                 title: {
                                     text: 'Profits'
                                 },
@@ -172,6 +206,7 @@
                             };
 
                             var json = {};
+                            json.chart = chart;
                             json.title = title;
                             json.subtitle = subtitle;
                             json.xAxis = xAxis;

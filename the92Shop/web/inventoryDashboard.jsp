@@ -49,7 +49,6 @@
                             <th>SKU ID</th>
                             <th>Name</th>
                             <th>Quantity</th>
-                            <th>Item</th>
                         </tr>
                         <%
                             for (Inventory i : invList) {
@@ -63,8 +62,6 @@
                             <td><%=SKUId%></td>
                             <td><%=productName%></td>
                             <td><%=quantity%></td>
-
-                            <td><img border="0" src="<%=request.getContextPath()%>/image/<%=productName%>.png" width="50" height="120"></td>
                         </tr>
                         <%
                                 }
@@ -94,7 +91,6 @@
 
                 <select name="year">
                     <option value="none" selected>Please select</option>
-                    <option value="2016">2016</option>
                     <option value="2017" >2017</option>
                     <option value="2018" >2018</option>
                 </select>

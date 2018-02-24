@@ -20,8 +20,9 @@
     <body>
         <div class="subPageContent">
             <form id="myForm" action="InventoryController" method="post">
-                <fieldset  class="fieldset-auto-width">
-                    <legend>Add New Inventory</legend>
+                
+                <h1>Add New Inventory</h1>
+                <br />
                     <table>
 
                         <tr>
@@ -68,7 +69,7 @@
                         </tr>
 
                     </table>
-                </fieldset>
+               
                 <script type="text/javascript">
                     function makeCode() {
                         $("#qrcode").empty();

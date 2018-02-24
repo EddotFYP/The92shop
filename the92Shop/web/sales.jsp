@@ -40,7 +40,7 @@
                 <h2>Yearly Trend for Sales</h2>
                 <br />
 
-                <button type="submit" id="ybtn" onclick="yearlySales()" class="btn" >Yearly Trend</button>
+                <button type="submit" id="ybtn" onclick="yearlySales()" class="btn" formnovalidate>Yearly Trend</button>
                 <input type="hidden" id="yearlyTrendSales" name="yearlyTrendSales" value="">
                 <br />
                 <br />
@@ -49,7 +49,6 @@
                 Filter monthly sales by:
                 <select name="monthlySales" id="month" required>
                     <option value="" selected>Please select</option>
-                    <option value="2016">2016</option>
                     <option value="2017" >2017</option>
                     <option value="2018" >2018</option>
                 </select>
@@ -74,6 +73,10 @@
                     <script>
                         var yearlySales = <%=jsonYearlySales%>;
                         $(document).ready(function () {
+                            var chart = {
+                              borderColor: '#000000',
+                              borderWidth: 1,  
+                            };
                             var title = {
                                 text: ''
                             };
@@ -81,10 +84,23 @@
                                 text: ''
                             };
                             var xAxis = {
-                                categories: [2016, 2017, 2018]
+                                categories: [2017, 2018],
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                }
                             };
                             var yAxis = {
+                                labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                },
                                 title: {
+                                    
                                     text: 'Sales'
                                 },
                                 min: 0,
@@ -95,7 +111,7 @@
                                     }]
                             };
                             var tooltip = {
-                                valueSuffix: ''
+                                valueSuffix: ' SGD'
                             }
 
                             var series = [{
@@ -110,6 +126,7 @@
 
                             var json = {
                             };
+                            json.chart = chart;
                             json.title = title;
                             json.subtitle = subtitle;
                             json.xAxis = xAxis;
@@ -133,6 +150,10 @@
                             //straight display latest monthly sales
                             var monthlySales = <%=jsonMonthlySales%>;
                             $(document).ready(function () {
+                                var chart = {
+                                borderColor: '#000000',
+                                borderWidth: 1,  
+                                };
                                 var title = {
                                     text: ''
                                 };
@@ -140,10 +161,22 @@
                                     text: ''
                                 };
                                 var xAxis = {
+                                    labels: {
+                                    style: {
+                                    color: 'black',
+                                    fontSize: 13,
+                                    }
+                                },
                                     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                                         'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                                 };
                                 var yAxis = {
+                                    labels: {
+                                        style: {
+                                            color: 'black',
+                                            fontSize: 13
+                                        }
+                                    },
                                     title: {
                                         text: 'Sales'
                                     },
@@ -169,6 +202,7 @@
                                 };
 
                                 var json = {};
+                                json.chart = chart;
                                 json.title = title;
                                 json.subtitle = subtitle;
                                 json.xAxis = xAxis;

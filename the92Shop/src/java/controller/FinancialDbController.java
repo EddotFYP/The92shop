@@ -10,6 +10,7 @@ import DAO.PurchaseHistoryDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -73,6 +74,7 @@ public class FinancialDbController extends HttpServlet {
             monthlyExpenseList = expenseDAO.retrieveMonthlyExpenses();
             
             profitsResult = retrieveMonthlyProfits(sortMonthlyProfits, monthlyGain, monthlyExpenseList);
+           
          
             request.setAttribute("sortMonthlyProfits", sortMonthlyProfits);
             request.setAttribute("profitsResult", profitsResult);
@@ -105,6 +107,10 @@ public class FinancialDbController extends HttpServlet {
             yearlyGain = custPurchaseDAO.retrieveYearlyGain();
             yearlyExp = expenseDAO.retrieveYearlyExpense();
             yearlyProfitsResult = retrieveYearlyProfits(yearlyGain, yearlyExp);
+            
+             /*for(Double d:yearlyProfitsResult){
+                out.println(d);
+            }*/
             
             request.setAttribute("yearlyProfitsResult", yearlyProfitsResult);
             RequestDispatcher view = request.getRequestDispatcher("financialDb.jsp");
@@ -153,10 +159,14 @@ public class FinancialDbController extends HttpServlet {
     
     public ArrayList<Double> retrieveExpense(LinkedHashMap<String, Double> list) {
         ArrayList<Double> resultList = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("###.##");
+        
 
         for (String year : list.keySet()) {
             Double expense = list.get(year);
-            resultList.add(expense);
+            String formatString = df.format(expense);
+            resultList.add(Double.parseDouble(formatString));
+
         }
 
         return resultList;
@@ -164,6 +174,7 @@ public class FinancialDbController extends HttpServlet {
     
      public ArrayList<Double> retrieveYearlyProfits(LinkedHashMap<String, Double> gainList, LinkedHashMap<String, Double> expenseList) {
         ArrayList<Double> result = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("###.##");
 
         for (String year : gainList.keySet()) {
             double gain = gainList.get(year);
@@ -173,7 +184,8 @@ public class FinancialDbController extends HttpServlet {
                 double expense = expenseList.get(yr);
                 if (yr.equals(year)) {
                     profit = gain - expense;
-                    result.add(profit);
+                    String formatString = df.format(profit);
+                    result.add(Double.parseDouble(formatString));
                 }
             }
         }
@@ -183,6 +195,7 @@ public class FinancialDbController extends HttpServlet {
      
       public ArrayList<Double> retrieveMonthlyProfits(String sortMonthly, LinkedHashMap<Integer, String[]> gainList, LinkedHashMap<Integer, String[]> expenseList) {
         ArrayList<Double> result = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("###.##");
 
         for (int gainId : gainList.keySet()) {
             String year = gainList.get(gainId)[0];
@@ -200,7 +213,8 @@ public class FinancialDbController extends HttpServlet {
 
                 if (yr.equals(year) && month.equals(mth) && yr.equals(sortMonthly)) {
                     profit = gainAmt - expenseAmt;
-                    result.add(profit);
+                    String formatString = df.format(profit);
+                    result.add(Double.parseDouble(formatString));
                 }
             }
         }
