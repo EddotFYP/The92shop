@@ -70,6 +70,45 @@ public class ExpenseTypesDAO {
     }
     */
    
+   public int addExpenseType(ExpenseTypes expType) {
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO expensetypes VALUES (?)");
+             
+            stmt.setString(1, expType.getExpType());
+           
+
+            updateQuery = stmt.executeUpdate();
+
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+
+    }
+        
+        public int deleteSpecifiedExpense(String expenseType) {
+        int updateQuery = 0;
+        
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("delete from expensetypes where expenseType = ?");
+            stmt.setString(1, expenseType);
+            updateQuery = stmt.executeUpdate();
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+
+    }
+   
    public LinkedHashMap<String, Double> retrieveYearlyExpense() {
         LinkedHashMap<String, Double> list = new LinkedHashMap<>();
         

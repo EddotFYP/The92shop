@@ -24,6 +24,9 @@
        
         <div id="wrapper" align="center" >
              <h1>Expenses Form Filling</h1>
+             <form action="addExpenseType.jsp" method="post">
+            <button type="submit" width="50" height="50" style="position: absolute; left: 950;top:135 ">Add Expense</button>
+            </form>
             <form  action="ExpenseTrackerController" method="post">    
            
             <br>
