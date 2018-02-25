@@ -123,7 +123,7 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year, SUBSTRING(Date_Of_Purchase, 7, 1) as month, sum(selling_price*cp.quantity) as sales from customer_purchase cp inner join inventory i on i.sku_id = cp.sku_id group by month,year order by year ASC, month ASC");
+            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year, SUBSTRING(Date_Of_Purchase, 6, 2) as month, sum(selling_price*cp.quantity) as sales from customer_purchase cp inner join inventory i on i.sku_id = cp.sku_id group by month,year order by year ASC, month ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -182,18 +182,19 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year,SUBSTRING(Date_Of_Purchase, 7, 1) as month, sum((cp.quantity)*(selling_price-cost_price)) as gain from customer_purchase cp,inventory i where cp.sku_id = i.sku_id group by month,year order by year ASC,month ASC");
+            PreparedStatement stmt = conn.prepareStatement("select SUBSTRING(Date_Of_Purchase, 1, 4) as year,SUBSTRING(Date_Of_Purchase, 6,2) as month, sum((cp.quantity)*(selling_price-cost_price)) as gain from customer_purchase cp,inventory i where cp.sku_id = i.sku_id group by month,year order by year ASC,month ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 String year = rs.getString(1);
                 String month = rs.getString(2);
                 String gain = rs.getString(3);
-
+                //out.println(gain + " ");
                 array = new String[]{year,month,gain};
                 result.put(count, array);
                 count++;
             }
+             
             db.closeConn();
         } catch (Exception e) {
             e.printStackTrace();
@@ -215,7 +216,6 @@ public class PurchaseHistoryDAO {
             while (rs.next()) {
                 String year = rs.getString(1);
                 Double gain = rs.getDouble(2);
-
                 result.put(year, gain);
             }
             db.closeConn();

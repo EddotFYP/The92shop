@@ -46,7 +46,7 @@ public class FinancialDbController extends HttpServlet {
         String yearlyExpenses = request.getParameter("yearData");
         String sortMonthlyProfits = request.getParameter("monthlyProfits");
         String yearlyProfits = request.getParameter("yearlyTrendProfits");
-
+        
         PurchaseHistoryDAO custPurchaseDAO = new PurchaseHistoryDAO();
         ExpenseTrackerDAO expenseDAO = new ExpenseTrackerDAO();
 
@@ -55,7 +55,7 @@ public class FinancialDbController extends HttpServlet {
         ArrayList<Double> yearlyProfitsResult = new ArrayList<>();
         
         LinkedHashMap<Integer, String[]> monthlyGain = new LinkedHashMap<>();
-        ArrayList<Double> profitsResult = new ArrayList<>();
+        ArrayList<Double> profitsResults = new ArrayList<>();
         
         LinkedHashMap<Integer, String[]> monthlySalesList = new LinkedHashMap<>();
         ArrayList<String> salesResult = new ArrayList<>();
@@ -71,13 +71,13 @@ public class FinancialDbController extends HttpServlet {
         if (sortMonthlyProfits != null && !sortMonthlyProfits.isEmpty()) {
             
             monthlyGain = custPurchaseDAO.retrieveMonthlyGain();
+          
             monthlyExpenseList = expenseDAO.retrieveMonthlyExpenses();
             
-            profitsResult = retrieveMonthlyProfits(sortMonthlyProfits, monthlyGain, monthlyExpenseList);
-           
+            profitsResults = retrieveMonthlyProfits(sortMonthlyProfits, monthlyGain, monthlyExpenseList);
          
             request.setAttribute("sortMonthlyProfits", sortMonthlyProfits);
-            request.setAttribute("profitsResult", profitsResult);
+            request.setAttribute("profitsResults", profitsResults);
             RequestDispatcher view = request.getRequestDispatcher("financialDb.jsp");
             view.forward(request, response);
             return;
@@ -107,10 +107,6 @@ public class FinancialDbController extends HttpServlet {
             yearlyGain = custPurchaseDAO.retrieveYearlyGain();
             yearlyExp = expenseDAO.retrieveYearlyExpense();
             yearlyProfitsResult = retrieveYearlyProfits(yearlyGain, yearlyExp);
-            
-             /*for(Double d:yearlyProfitsResult){
-                out.println(d);
-            }*/
             
             request.setAttribute("yearlyProfitsResult", yearlyProfitsResult);
             RequestDispatcher view = request.getRequestDispatcher("financialDb.jsp");
@@ -179,12 +175,14 @@ public class FinancialDbController extends HttpServlet {
         for (String year : gainList.keySet()) {
             double gain = gainList.get(year);
             double profit = 0;
-
+            
             for (String yr : expenseList.keySet()) {
                 double expense = expenseList.get(yr);
                 if (yr.equals(year)) {
                     profit = gain - expense;
+                    //System.out.println(profit + "cl");
                     String formatString = df.format(profit);
+                    
                     result.add(Double.parseDouble(formatString));
                 }
             }
@@ -195,6 +193,7 @@ public class FinancialDbController extends HttpServlet {
      
       public ArrayList<Double> retrieveMonthlyProfits(String sortMonthly, LinkedHashMap<Integer, String[]> gainList, LinkedHashMap<Integer, String[]> expenseList) {
         ArrayList<Double> result = new ArrayList<>();
+        ArrayList<String> check = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("###.##");
 
         for (int gainId : gainList.keySet()) {
@@ -216,6 +215,7 @@ public class FinancialDbController extends HttpServlet {
                     String formatString = df.format(profit);
                     result.add(Double.parseDouble(formatString));
                 }
+
             }
         }
 

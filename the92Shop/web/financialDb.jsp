@@ -61,8 +61,10 @@
                 <br />
                 <%                    
                     ArrayList<Double> yearlyProfits = (ArrayList<Double>) request.getAttribute("yearlyProfitsResult");
+                 
+                    
                     String jsonYearlyProfits = new Gson().toJson(yearlyProfits);
-
+                    
                     if (yearlyProfits != null) {
                 %>
                 <div id = "yearlyProfitsContainer" class="containerDB" >
@@ -80,14 +82,13 @@
                                 text: ''
                             };
                             var xAxis = {
+                                categories: [2017, 2018],
                                 labels: {
                                     style: {
                                     color: 'black',
                                     fontSize: 13,
                                     }
-                                },
-                                categories: [2017, 2018]
-                                
+                                }
                             };
                             var yAxis = {
                                 labels: {
@@ -121,8 +122,7 @@
                                 enabled: false
                             };
 
-                            var json = {
-                            };
+                            var json = {};
                             json.chart = chart;
                             json.title = title;
                             json.subtitle = subtitle;
@@ -144,9 +144,9 @@
                 <%
                     String text = (String) request.getAttribute("sortMonthlyProfits");
 
-                    ArrayList<String> profitsResult = (ArrayList<String>) request.getAttribute("profitsResult");
+                    ArrayList<Double> profitsResult = (ArrayList<Double>) request.getAttribute("profitsResults");
                     String jsonMonthlyProfits = new Gson().toJson(profitsResult);
-                    
+                   
                     if (profitsResult != null) {
                         out.println("You have selected: " + text + "<br /><br />");
                 %>

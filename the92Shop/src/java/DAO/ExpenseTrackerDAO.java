@@ -188,7 +188,7 @@ public class ExpenseTrackerDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select EXTRACT(year FROM date) as year, EXTRACT(MONTH FROM date) as month, sum(cost) as expense from expensetracker e group by month,year order by year ASC, month ASC");
+            PreparedStatement stmt = conn.prepareStatement("select EXTRACT(year FROM date) as year, SUBSTRING(date, 6,2) as month, sum(cost) as expense from expensetracker e group by month,year order by year ASC, month ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
