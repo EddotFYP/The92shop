@@ -17,8 +17,8 @@
     <body>
         <div class="subPageContent">
             <form  action="UserController" method="post">
-             <!--   <fieldset  class="fieldset-auto-width"> -->
-                    <legend class="lg"><h2>Add New Admin</h2></legend>
+                    <h2>Add New Admin</h2>
+                    <br />
                     <table>
                         <tr>
                             <td>
@@ -54,10 +54,6 @@
                             </td>
                             
                         </tr>
-                       
-                        
-                        
-                        
                     </table>
                     <script>
                       var password = document.getElementById("password")

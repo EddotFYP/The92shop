@@ -19,9 +19,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/instascan.min.js"></script>
-        <style>
-
-        </style>
+<style>
+</style>
         <title>Inventory Management</title>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -88,6 +87,7 @@
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
                 <h1>Search Inventory</h1>
+                <br />
                 <%                InventoryDAO dao = new InventoryDAO();
                     ArrayList<Inventory> listOfInventory = dao.retrieveInventoryList();
                     ArrayList<String> allInventory = new ArrayList<>();

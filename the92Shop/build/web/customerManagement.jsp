@@ -20,37 +20,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script
-    <style>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script
+<style>
+</style>
+<script type="text/javascript">
+           $(document).ready(function () {
+                $('#edit').click(function () {
+                    $('#phone').attr('contenteditable', 'true');
+                    $('#address').attr('contenteditable', 'true');
+                    $('#postal').attr('contenteditable', 'true');
+		});
+                $('#save').click(function () {
 
-    </style>
-<script type="text/javas            cript">
-                    $(document).ready(functi            on () {
-            $('#edit').click(functi            on () {
-            $('#phone').attr('contenteditable', '                    true');
-            $('#address').attr('contenteditable', '                    true');
-            $('#postal').attr('contenteditable', '            true');
+                    $('#cId').attr("value", $('#invId').html());
+                    $('#newPhone').attr("value", $('#iName').html());
+                    $('#newAddress').attr("value", $('#quantity').html());
+                    $('#newPostal').attr("value", $('#date').html());
+                });
+                
             });
-            $('#save').click(functi            on () {
-            //alert($('#phone').h            tml());
-            $('#cId').attr("value", $('#cusId').h                    tml());
-            $('#newPhone').attr("value", $('#phone').h                    tml());
-            $('#newAddress').attr("value", $('#address').h                    tml());
-            $('#newPostal').attr("value", $('#postal').h            tml());
-            });
-            }
-            );
-            </script>
+</script>
             <title> Customer Search</title>            
         </head>
         <body>
             <div class="subPageContent">       
                 <form action="CustomerController" method="post">
-                    <br>
-                    <fieldset  class="fieldset-auto-                                        width">
-                        <legend class="lg"><h2> Search / Add Customer </h2></legend>
-                        <%                             
-                            CustomerDAO dao = new CustomerDAO();
+                        <h2> Search / Add Customer </h2>
+                        <br />
+                        <%  CustomerDAO dao = new CustomerDAO();
                             ArrayList<Customer> customerList = dao.retrieveAllCustomers();
                             ArrayList<String> phoneNumList = new ArrayList<>();
                             ArrayList<String> nameList = new ArrayList<>();
@@ -62,6 +59,8 @@
                         <table>
                             <tr>
                                 Please search either using Phone Number or Name
+                            <br />
+                            <br />
                             </tr>
                             <tr>
                                 <td>
@@ -77,7 +76,7 @@
                                     </datalist>
                                 </td>
                             </tr>
-                            <img  src="image/customer.png" align="right">
+
                             <tr>
                                 <td>
                                     Name:
@@ -89,14 +88,14 @@
                                         <option value="<%=i%>"><%=i%></option>
                                         <% }%>
                                     </datalist> 
-                            </td>
+                                </td>
                             </tr>
                         </table>
                         <br>
                         <button type="submit" name="submit" class="searchBtn"><i class="fa fa-search"> Search</i></button>
                         <a href="addCustomer.jsp" class="addBtn"><i class="fa fa-plus"> Add Customer</i></a>     
                 </form>
-            </fieldset>
+        
 
             <%
                 ArrayList<Customer> custList = (ArrayList<Customer>) request.getAttribute("custList");
