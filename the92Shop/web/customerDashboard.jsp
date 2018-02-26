@@ -24,7 +24,6 @@
                 <div id ="custDropdown">
                     <h2> Customer Dashboard </h2>
                     <br />
-                    <br />
                     Filter by monthly/yearly:
                     <select name="month">
                         <option value="none" selected>Please select</option>

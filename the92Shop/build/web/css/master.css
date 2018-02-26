@@ -281,14 +281,16 @@ border:2px solid black;
 }
 
 #lowInv {
-    padding-left:700px;
+    padding-left: 400px;
+    padding-top:370px;
     
 }
 
 #topProduct {
-    padding-left:400px;
-    padding-top:40px;
+    padding-right:200px;
+    padding-top: 70px;
     font-size: 18px;
+    float: right;
 }
 
 #custDropdown {
@@ -363,3 +365,9 @@ border:2px solid black;
     padding: 15px 32px;
 }
 
+#expenseForm {
+    display: inline-block;
+    padding-right:400px;
+    padding-top:30px;
+    font-size: 18px;
+}

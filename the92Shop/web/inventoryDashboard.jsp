@@ -35,43 +35,7 @@
                     }
                 %>
             </div> 
-            <br />
-            <br />
-            <%
-                ArrayList<Inventory> invList = (ArrayList<Inventory>) request.getAttribute("listResult");
-                if (invList != null || !invList.isEmpty()) {
-            %>
-            <div id="lowInv">
-                <h3> List of low inventory products:</h3>
-                <table border="1" id="invTable">
-                    <thead>
-                        <tr>
-                            <th>SKU ID</th>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                        </tr>
-                        <%
-                            for (Inventory i : invList) {
-                                int SKUId = i.getSKUID();
-                                String productName = i.getName();
-                                int quantity = i.getQuantity();
-                        %>    
-
-                    <tbody>
-                        <tr>
-                            <td><%=SKUId%></td>
-                            <td><%=productName%></td>
-                            <td><%=quantity%></td>
-                        </tr>
-                        <%
-                                }
-                            }
-                        %>
-                    </tbody>
-                </table>
-            </div>
-            <br />
-            <div id="topProduct">
+               <div id="topProduct">
                 Filter by (Monthly/Yearly):
                 <select name="month">
                     <option value="none" selected>Please select</option>
@@ -151,6 +115,43 @@
                     </tbody>
                 </table>
             </div>
+            <br />
+            <br />
+            <%
+                ArrayList<Inventory> invList = (ArrayList<Inventory>) request.getAttribute("listResult");
+                if (invList != null || !invList.isEmpty()) {
+            %>
+            <div id="lowInv">
+                <h3> List of low inventory products:</h3>
+                <table border="1" id="invTable">
+                    <thead>
+                        <tr>
+                            <th>SKU ID</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                        </tr>
+                        <%
+                            for (Inventory i : invList) {
+                                int SKUId = i.getSKUID();
+                                String productName = i.getName();
+                                int quantity = i.getQuantity();
+                        %>    
+
+                    <tbody>
+                        <tr>
+                            <td><%=SKUId%></td>
+                            <td><%=productName%></td>
+                            <td><%=quantity%></td>
+                        </tr>
+                        <%
+                                }
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+            <br />
+         
         </form>  
     </body>
 </html>

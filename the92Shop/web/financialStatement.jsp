@@ -73,8 +73,8 @@
                         <option value="2018" >2018</option>
                     </select>
 
-                    <button type="submit" name="submit">Go</button>
-                    <button type="submit" id="button" name="submit">GeneratePDF</button>
+                    <button type="submit" name="submit" class="searchBtn">Go</button>
+                    <button type="submit" id="button" name="submit" class="searchBtn">GeneratePDF</button>
 
                     <br>
 

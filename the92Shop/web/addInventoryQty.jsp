@@ -57,7 +57,7 @@
 
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
-                <h1>Add SKU Quantity</h1>
+                <h1>Add Inventory Quantity</h1>
 
                 <button type="button" onclick="initiateCamera()" class="searchBtn"><i class="fa fa-search"> Scan</i></button>
                 <input type="hidden" id="qrValue" name="addInventorySearch" value="">

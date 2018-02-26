@@ -18,8 +18,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
     </head>
-    <body bgcolor="#E6E6FA">
-
+    <body>
+       
         <div class="container" >
             <div ng-view class="col-sm-12" style="width: 600px; margin-left: 300px; margin-top: 125px;">
                 <div class="jumbotron">
