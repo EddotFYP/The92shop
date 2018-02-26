@@ -70,9 +70,11 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("message", "Selected customer is deleted successfully");
 
         //edit customer    
-        } else if(UpdatedValues != null && UpdatedValues.length == 0){
+        } else if(UpdatedValues != null && UpdatedValues.length != 0){
             System.out.println("UpdatedValues:  " + UpdatedValues[0]+" "+UpdatedValues[1]+" "+UpdatedValues[2]+" "+UpdatedValues[3]);
-            String id = UpdatedValues[0];
+            String idStr = UpdatedValues[0];
+            int id = Integer.parseInt(idStr);
+            
             String phone = UpdatedValues[1];
             String address = UpdatedValues[2];
             String postal = UpdatedValues[3];

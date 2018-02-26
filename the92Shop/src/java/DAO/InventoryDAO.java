@@ -56,8 +56,8 @@ public class InventoryDAO {
         Inventory result = null;
 
         try {
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM inventory where Name like ?");
-            stmt.setString(1, skuName + '%');
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM inventory where Name = ?");
+            stmt.setString(1, skuName);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

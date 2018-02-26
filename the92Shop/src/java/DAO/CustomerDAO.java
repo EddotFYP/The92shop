@@ -161,9 +161,9 @@ public class CustomerDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO customer VALUES (?,?,?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO customer VALUES (?,?,?,?,?)");
 
-            //stmt.setString(1, c.getCustId());
+            stmt.setInt(1, c.getCustId());
             stmt.setString(2, c.getName());
             //stmt.setString(3, c.getGender());
             //stmt.setString(4, c.getBirthDate());
@@ -182,7 +182,7 @@ public class CustomerDAO {
 
     }
 
-    public int editCustomer(String id, String newPhone, String newAddress, String newPostal) {
+    public int editCustomer(int id, String newPhone, String newAddress, String newPostal) {
         int updateQuery = 0;
         try {
             DatabaseConnection db = new DatabaseConnection();
@@ -192,7 +192,7 @@ public class CustomerDAO {
             stmt.setString(1, newPhone);
             stmt.setString(2, newAddress);
             stmt.setString(3, newPostal);
-            stmt.setString(4, id);
+            stmt.setInt(4, id);
 
             updateQuery = stmt.executeUpdate();
 

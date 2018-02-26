@@ -236,7 +236,7 @@ public class PurchaseHistoryDAO {
             stmt.setInt(1, p.getOrderId());
             stmt.setInt(2, p.getCustId());
             stmt.setString(3, p.getPhoneNum());
-            stmt.setInt(4, p.getQuantity());
+            stmt.setInt(4, p.getSkuId());
             stmt.setString(5, p.getDateOfPurchase());
             stmt.setInt(6, p.getQuantity());
             

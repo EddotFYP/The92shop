@@ -32,10 +32,10 @@
 		});
                 $('#save').click(function () {
 
-                    $('#cId').attr("value", $('#invId').html());
-                    $('#newPhone').attr("value", $('#iName').html());
-                    $('#newAddress').attr("value", $('#quantity').html());
-                    $('#newPostal').attr("value", $('#date').html());
+                    
+                    $('#newPhone').attr("value", $('#phone').html());
+                    $('#newAddress').attr("value", $('#address').html());
+                    $('#newPostal').attr("value", $('#postal').html());
                 });
                 
             });
@@ -111,7 +111,7 @@
             <table id="custTable" border ="1">
                 <thead>
                     <tr>
-                        <th> Customer Id </th>
+                        
                         <th> Name </th>
                         <th> Phone Number </th>
                         <th> Address </th>
@@ -133,7 +133,7 @@
                 <br>
                 <body>
                 <tr>
-                    <td id="custId"><%=custId%></td>
+                    
                     <td id="custName"><%=custName%></td>
                     <td id="phone"><%=phoneNum%></td>
                     <td id="address"><%=address%></td>
@@ -144,7 +144,7 @@
                     <td>
                         <form action="CustomerController" method="post">
                             <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
-                            <input type="hidden" id="cId" name="editAction" value="">
+                            <input type="hidden" id="cId" name="editAction" value="<%=custId%>">
                             <input type="hidden" id="newPhone" name="editAction" value="">
                             <input type="hidden" id="newAddress" name="editAction" value="">
                             <input type="hidden" id="newPostal" name="editAction" value="">

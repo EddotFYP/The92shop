@@ -84,6 +84,7 @@ public class OrderPickingController extends HttpServlet {
 
                 for (Inventory i : currentList) {
                     String name = i.getName();
+                    System.out.println("inventory name = "+name);
                     Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
                     int diff = inventory.getQuantity() - i.getQuantity();
 
@@ -93,6 +94,7 @@ public class OrderPickingController extends HttpServlet {
                         message.add("The order of " + name + " is recorded!");
                         int custId = customer.getCustId();
                         int invId = inventory.getSKUID();
+                        System.out.println("inventory id = "+invId);
 
                         purchaseHistoryDAO.addRecord(new PurchaseHistory(custId, phone, invId, dateString, i.getQuantity()));
 
