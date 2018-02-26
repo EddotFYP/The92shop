@@ -17,8 +17,8 @@
     <body>
         <div class="subPageContent">
             <form  action="CustomerController" method="post">
-                <fieldset  class="fieldset-auto-width">
-                    <legend>Add New Customer</legend>
+                    <h1>Add New Customer</h1>
+                    <br />
                     <table>
                         <tr>
                             <td>
@@ -68,7 +68,6 @@
                             out.print(message);
                         }
                     %>
-                </fieldset>
         </div>
 
     </form>

@@ -189,6 +189,7 @@ table#custTable td{
     background: #ffffff;
 }
 
+
 table#invTable th{
     border-collapse: collapse;
     padding: 8px;
@@ -288,7 +289,7 @@ border:2px solid black;
 
 #topProduct {
     padding-right:200px;
-    padding-top: 70px;
+    padding-bottom: 50px;
     font-size: 18px;
     float: right;
 }

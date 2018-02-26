@@ -22,7 +22,8 @@
          <div class="subPageContent">
             <form  action="ExpenseTypeController" method="post">
              
-                    <legend>Add Expense Type</legend>
+                <h1>Add Expense Type</h1>
+                <br />
                     <table>
 
                         <tr>

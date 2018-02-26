@@ -36,6 +36,7 @@
                 %>
             </div> 
                <div id="topProduct">
+                <h3>Top 5 Best Sellers:</h3>
                 Filter by (Monthly/Yearly):
                 <select name="month">
                     <option value="none" selected>Please select</option>
@@ -78,7 +79,7 @@
                     if (finalResult != null && !finalResult.isEmpty()) {
                 %>
                 
-                <h3>Top 5 Best Sellers:</h3>
+                
                 <table border="1" id="invTable">
                     <thead>
                         <tr>
@@ -122,7 +123,7 @@
                 if (invList != null || !invList.isEmpty()) {
             %>
             <div id="lowInv">
-                <h3> List of low inventory products:</h3>
+                <h3> List of low inventory items</h3>
                 <table border="1" id="invTable">
                     <thead>
                         <tr>
