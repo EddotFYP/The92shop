@@ -98,7 +98,7 @@
 
                 %>
 
-                Choose your SKU:
+                Enter product name:
                 <input type="text" list="sku" name="sku" required>
 
                 <datalist id="sku">

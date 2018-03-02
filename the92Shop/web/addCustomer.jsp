@@ -34,7 +34,7 @@
                                 Phone Number:
                             </td>
                             <td>
-                                <input type ="text" name ="newPhoneNumber" required/>
+                                <input type ="tel" pattern="[8\d|9\d]{8}" name ="newPhoneNumber" required/>
                             </td>
                         </tr>
                         <tr>
@@ -51,7 +51,7 @@
                             </td>
 
                             <td>
-                                <input type ="text" name ="newPostal" required/>
+                                <input type ="text" pattern="[0-9]{6}" name ="newPostal" required/>
                             </td>
                         </tr>
                         <tr>

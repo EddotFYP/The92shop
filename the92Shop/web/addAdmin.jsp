@@ -55,6 +55,18 @@
                             
                         </tr>
                     </table>
+                    <%
+                        
+                        String error = (String) request.getAttribute("error");
+                        String message = (String) request.getAttribute("message");
+                        if (error != null) {
+                            out.println("<p style='color:red'>" + error + "</p>");
+                        }
+
+                        if (message != null) {
+                            out.println("<p style='color:red'>" + message + "</p>");
+                        }
+                    %>
                     <script>
                       var password = document.getElementById("password")
                      , confirm_password = document.getElementById("confirm_password");
@@ -71,21 +83,6 @@
                     confirm_password.onkeyup = validatePassword;
                         
                     </script>    
-                    
-                    <%
-                        
-                        String error = (String) request.getAttribute("error");
-                        String message = (String) request.getAttribute("message");
-                        if (error != null) {
-                            out.println("<p style='color:red'>" + error + "</p>");
-                        }
-
-                        if (message != null) {
-                            out.println("<p style='color:red'>" + message + "</p>");
-                        }
-                    %>
-              <!--  </fieldset> -->
-
             </form>
         </div>
 

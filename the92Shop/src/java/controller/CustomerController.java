@@ -88,11 +88,16 @@ public class CustomerController extends HttpServlet {
             
         //add new customer
         } else if(addNewName != null && !addNewName.isEmpty()){
-            Customer c = new Customer(addNewName,addNewPhoneNumber,addNewAddress, addNewPostal);
-            int success = custDAO.addCustomer(c);
+            int success = checkDuplicate(addNewPhoneNumber);
+
             if(success != 0){
+                Customer c = new Customer(addNewName,addNewPhoneNumber,addNewAddress, addNewPostal);
+                success = custDAO.addCustomer(c);
                 request.setAttribute("message", "New customer is added successfully!");
+            }else{
+                request.setAttribute("message", "Duplicate customer!");
             }
+            
             
             
         //search customer    
@@ -127,7 +132,20 @@ public class CustomerController extends HttpServlet {
         RequestDispatcher view = request.getRequestDispatcher("customerManagement.jsp");
         view.forward(request, response);
     }
-
+    
+    public int checkDuplicate(String newPhoneNumber){
+        int result = 0;
+        CustomerDAO cDAO = new CustomerDAO();
+        ArrayList<Customer> cList = cDAO.retrieveAllCustomers();
+        
+        for(Customer c: cList){
+            if(c.getPhoneNum().equals(newPhoneNumber)){
+                return result;
+            }
+        }
+        return 1;
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

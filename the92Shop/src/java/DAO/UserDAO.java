@@ -70,4 +70,27 @@ public class UserDAO {
         return updateQuery;
 
     }
+    
+    public ArrayList<User> retrieveAllUsers() {
+        ArrayList<User> userList = new ArrayList<>();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConn();
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select * from user");
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                String name = rs.getString(1);
+                String password = rs.getString(2);
+                userList.add(new User(name,password));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.closeConn();
+        return userList;
+    }
+
 }

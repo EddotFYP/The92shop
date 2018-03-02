@@ -8,6 +8,7 @@ package controller;
 import DAO.UserDAO;
 import entity.User;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,18 +42,35 @@ public class UserController extends HttpServlet {
         
         
         UserDAO userDAO = new UserDAO();
-        
+
 
         if (name != null) {
-            User user = new User(name, password);
-            int success = userDAO.addUser(user);
+            int success = checkDuplicate(name,password);
+            
             if (success != 0) {
+                User user = new User(name, password);
+                success = userDAO.addUser(user);
                 request.setAttribute("message", "New user is added successfully!");
+            }else{
+                request.setAttribute("message", "Duplicate user!");
             }
         }
 
         RequestDispatcher view = request.getRequestDispatcher("addAdmin.jsp");
         view.forward(request, response);
+    }
+    
+     public int checkDuplicate(String username, String password){
+        int result = 0;
+        UserDAO uDAO = new UserDAO();
+        ArrayList<User> cList = uDAO.retrieveAllUsers();
+        
+        for(User u: cList){
+            if(u.getUsername().equals(username) && u.getPassword().equals(password)){
+                return result;
+            }
+        }
+        return 1;
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

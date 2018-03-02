@@ -76,9 +76,10 @@
                 Scan your SKU:
 
                 <button type="button" onclick="initiateCamera()" class="searchBtn" style="margin-right: 70px"><i class="fa fa-camera"> Scan</i></button>
-                <button type="submit" onclick="return phoneNumCheck()" name="btnSubmit" class="btn" id="btnSubmit"  > Submit the form </button>
+                
                 <br/>
-                Please enter your customer's number: <input type="text" id="phone" name="phone">
+                Please enter your customer's number: <input type="tel" pattern="[8\d|9\d]{8}"  id="phone" name="phone">
+                <button type="submit" onclick="return phoneNumCheck()" name="btnSubmit" class="btn" id="btnSubmit"  > Submit the form </button>
                 <br/>
                 <input type="hidden" id="qrValue" name="cameraResult" value="">
 

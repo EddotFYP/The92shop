@@ -212,10 +212,10 @@ table#invTable td{
 .addBtn{
     background-color: #008CBA;
     color: white;
-    padding: 8px;
+    padding: 9px;
     text-align: center;
     display: inline-block;
-    font-size: 14px;
+    font-size: 15px;
     cursor: pointer;
     border-radius: 8px;
 

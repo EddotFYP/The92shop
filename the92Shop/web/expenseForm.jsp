@@ -38,7 +38,7 @@
 
                                 </td>
                                 <td>
-                                    <input type="date" id="date" name="date" min="2017-01-01"/>
+                                    <input type="date" id="date" name="date" min="2017-01-01" required/>
                                     <br />
                                 </td>
                             </tr>
@@ -47,7 +47,7 @@
                                     <b>Expenses:</b>
                                 </td>
                                 <td>
-                                    <select  name ="expenseTypes" id="expensesType" selected = '3'>
+                                    <select  name ="expenseTypes" id="expensesType" selected = '3' required>
                                         <%                                     
                                             ExpenseTypesDAO expDAO = new ExpenseTypesDAO();
                                             ArrayList<ExpenseTypes> expTypeList = expDAO.getAllExpenseTypes();
@@ -69,7 +69,7 @@
                                     <b>Remark:</b>
                                 </td>
                                 <td>
-                                    <textarea  name="remark" id="remark" rows="5" cols="22"></textarea>
+                                    <textarea  name="remark" id="remark" rows="5" cols="22" required></textarea>
                                     <br />
                                 </td>
                             </tr>
@@ -78,7 +78,7 @@
                                     <b>Cost($):</b>
                                 </td>
                                 <td>
-                                    <input type="text" id="cost" name="cost" value="" placeholder="0.0" />
+                                    <input type="text" id="cost" name="cost" value="" placeholder="0.0" required/>
                                     <br />
                                    
                                 </td>

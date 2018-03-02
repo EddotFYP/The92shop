@@ -9,6 +9,7 @@
 <%@page import="entity.Inventory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="css/master.css">
+<link rel="stylesheet" href="css/dataTables.min.css">
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
 
@@ -17,6 +18,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inventory Dashboard</title>
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataTables.min.js"></script>
+        
+        <script>
+            $(document).ready(function () {
+            $('#myTable').dataTable({
+                "bPaginate": true,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bInfo": false,
+                "bAutoWidth": false,
+                "bSorted": false,
+                "order": [],
+                "ordering": false
+            }); 
+             });     
+ 
+        </script>
     </head>
     <body>
         <form action="InventoryDbController" method="post">
@@ -124,35 +144,36 @@
             %>
             <div id="lowInv">
                 <h3> List of low inventory items</h3>
-                <table border="1" id="invTable">
-                    <thead>
-                        <tr>
-                            <th>SKU ID</th>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                        </tr>
+                    <div class="table-responsive">
+                        <table border="1" id="myTable">
+                            <thead>
+                                <tr>
+                                    <th>SKU ID</th>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <%
+                                        for (Inventory i : invList) {
+                                            int SKUId = i.getSKUID();
+                                            String productName = i.getName();
+                                            int quantity = i.getQuantity();
+                                    %>    
+                                    <td><%=SKUId%></td>
+                                    <td><%=productName%></td>
+                                    <td><%=quantity%></td>
+                                </tr>
+                            <%
+                } %>
+                            </tbody>
+                        </table>      
                         <%
-                            for (Inventory i : invList) {
-                                int SKUId = i.getSKUID();
-                                String productName = i.getName();
-                                int quantity = i.getQuantity();
-                        %>    
-
-                    <tbody>
-                        <tr>
-                            <td><%=SKUId%></td>
-                            <td><%=productName%></td>
-                            <td><%=quantity%></td>
-                        </tr>
-                        <%
-                                }
                             }
                         %>
-                    </tbody>
-                </table>
+                    </div>
             </div>
-            <br />
-         
         </form>  
     </body>
 </html>

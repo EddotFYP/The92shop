@@ -50,8 +50,8 @@
 
                 <div id="selectionOfMonthNYear"  class="required" >
                     Filter by (Monthly/Yearly):
-                    <select name="month" >
-                        <option value='0' selected>Please select</option>
+                    <select name="month" required>
+                        <option value=''>Please select</option>
                         <option value='1'>January</option>
                         <option value='2' >February</option>
                         <option value='3' >March</option>
@@ -66,14 +66,14 @@
                         <option value='12' >December</option>
                     </select>
 
-                    <select name="year" class="required" >
-                        <option value="0" selected>Please select</option>
+                    <select name="year" class="required" required>
+                        <option value="" >Please select</option>
                         <option value="2017" >2017</option>
                         <option value="2018" >2018</option>
                     </select>
 
                     <button type="submit" name="submit" class="searchBtn">Go</button>
-                    <button type="submit" id="button" name="submit" class="searchBtn">GeneratePDF</button>
+                    <button type="submit" id="button" name="submit" class="searchBtn">Generate PDF</button>
 
                     <br>
 
