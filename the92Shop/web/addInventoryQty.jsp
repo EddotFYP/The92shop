@@ -7,8 +7,7 @@
 <%@page import="entity.Inventory"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/master.css">
-<%@include file="sideNavBar.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -54,12 +53,20 @@
         </script>
     </head>
     <body>
-
+               <%
+            String usernameAcc = (String) session.getAttribute("user");
+                    
+            if(!usernameAcc.equals("qingyang")){ %>
+                <%@include file="nonAdminSideNavBar.jsp" %>
+         <%}else{ %>
+               <%@include file="sideNavBar.jsp" %>
+         <%}
+        %>
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
                 <h1>Add Inventory Quantity</h1>
 
-                <button type="button" onclick="initiateCamera()" class="searchBtn"><i class="fa fa-search"> Scan</i></button>
+                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Scan</i></button>
                 <input type="hidden" id="qrValue" name="addInventorySearch" value="">
                 <br/>
                 <video id="camera" width="420"></video>

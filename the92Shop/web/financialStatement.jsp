@@ -11,10 +11,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Inventory"%>
 <%@page import="entity.ExpenseTracker"%>
-<link rel="stylesheet" href="css/master.css">
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
-
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="css/master.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -42,14 +41,13 @@
         <title>Financial Statement</title>
     </head>
     <body>
-        <form action="FinancialStatementController" method="post">
+        <form class="mui-form--inline" action="FinancialStatementController" method="post">
             <div id = "financialStatement">
 
-                <h2>Financial Statement</h2>
+                <h1>Financial Statement</h1>
 
-
-                <div id="selectionOfMonthNYear"  class="required" >
                     Filter by (Monthly/Yearly):
+                    <div class="mui-select">
                     <select name="month" required>
                         <option value=''>Please select</option>
                         <option value='1'>January</option>
@@ -65,22 +63,22 @@
                         <option value='11' >November</option>
                         <option value='12' >December</option>
                     </select>
-
+                    </div>
+                    
+                    <div class="mui-select">
                     <select name="year" class="required" required>
                         <option value="" >Please select</option>
                         <option value="2017" >2017</option>
                         <option value="2018" >2018</option>
                     </select>
+                    </div>
 
-                    <button type="submit" name="submit" class="searchBtn">Go</button>
-                    <button type="submit" id="button" name="submit" class="searchBtn">Generate PDF</button>
+                    &nbsp;
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
+                    <button type="submit" id="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-download" style="font-size:18px;"> Download as PDF </i></button>
 
                     <br>
-
-
                 </div>
-            </div>
-
         </form> 
 
         <div class="my_text" id="target" align="center" >

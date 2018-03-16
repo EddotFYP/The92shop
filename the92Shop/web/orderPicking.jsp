@@ -8,8 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.InventoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/master.css">
-<%@include file="sideNavBar.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -19,18 +18,6 @@
         <script type="text/javascript" src="js/instascan.min.js"></script>
         <title>Order Picking Page</title>
         <script type="text/javascript">
-            function phoneNumCheck() {
-                    var p = document.getElementById("phone").value;
-                    
-                    if(!p){
-                        alert("Please key in customer's phone number!");
-                        return false;
-                    } else {
-                        return true;
-                    }
-                    
-
-            };
             
             function initiateCamera() {
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
@@ -63,27 +50,46 @@
         </script>
     </head>
     <body>
-
-        <form id="myForm" action="OrderPickingController" method="post">
+         <%
+            String usernameAcc = (String) session.getAttribute("user");
+                    
+            if(!usernameAcc.equals("qingyang")){ %>
+                <%@include file="nonAdminSideNavBar.jsp" %>
+            <%}else{ %>
+                <%@include file="sideNavBar.jsp" %>
+            <% }
+            %>
+        <form id="myForm" class="mui-form--inline" action="OrderPickingController" method="post">
             <div class="subPageContent">
                 <h1>Order Picking</h1>
+                <br />
                 <%--                    ArrayList<Inventory> savedList = (ArrayList<Inventory>) session.getAttribute("currentList");
                     if (savedList != null) {
                         out.println(savedList.size());
                     }
                 --%>
 
-                Scan your SKU:
+                Scan SKU:
 
-                <button type="button" onclick="initiateCamera()" class="searchBtn" style="margin-right: 70px"><i class="fa fa-camera"> Scan</i></button>
+                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="margin-right: 70px"><i class="fa fa-camera"style="font-size:16px;"> Scan</i></button>
                 
                 <br/>
-                Please enter your customer's number: <input type="tel" pattern="[8\d|9\d]{8}"  id="phone" name="phone">
-                <button type="submit" onclick="return phoneNumCheck()" name="btnSubmit" class="btn" id="btnSubmit"  > Submit the form </button>
+                Enter customer's number: 
+                <div class="mui-textfield">
+                    <input type="tel" pattern="[8\d|9\d]{8}"  id="phone" name="phone" required>
+                 </div>
+                
+                <button type="submit"  name="btnSubmit" id="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"  style="font-size:18px;">Submit</button>
                 <br/>
                 <input type="hidden" id="qrValue" name="cameraResult" value="">
-
+                
                 </form>
+                <%
+                    String error = (String) request.getAttribute("error");
+                    if (error != null) {
+                        out.println("<p style='color:red'>" + error + "</p>");
+                    }
+                    %>
                 <video id="camera" width="420" align="center"></video>
                     <%                        ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
 

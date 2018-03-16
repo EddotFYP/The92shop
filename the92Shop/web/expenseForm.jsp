@@ -8,6 +8,7 @@
 <%@page import="DAO.ExpenseTypesDAO"%>
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,29 +25,28 @@
 
         <div id="wrapper" align="center" >
             <form action="addExpenseType.jsp" method="post">
-                <button type="submit" width="50" height="50" style="position: absolute; left: 710;top:135 " class="searchBtn">Add Expense</button>
+                <button type="submit" width="50" height="50" style="position: absolute; left: 580;top:210 " class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-plus" style="font-size:18px;"> Add Expense</i></button>
             </form>
-            <form  action="ExpenseTrackerController" method="post">    
-                <div id = "expenseForm">
+            <form  class="mui-form--inline" action="ExpenseTrackerController" method="post">    
+                 <div class = "subPageContent">
                     <h1>   Expenses Form Filling</h1>
                     <br>
-                    <table>
+                    <table id = "expenseTable">
                         <tbody>
                             <tr>
                                 <td>
-                                    <b>Date:</b>
-
+                                    Date:
                                 </td>
                                 <td>
-                                    <input type="date" id="date" name="date" min="2017-01-01" required/>
-                                    <br />
+                                    <input type="date" id="date" name="date" min="2017-01-01" style="font-family: Wellfleet; font-size: 18px" required/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Expenses:</b>
+                                    Expenses: &nbsp;
                                 </td>
                                 <td>
+                                    <div class="mui-select">
                                     <select  name ="expenseTypes" id="expensesType" selected = '3' required>
                                         <%                                     
                                             ExpenseTypesDAO expDAO = new ExpenseTypesDAO();
@@ -61,34 +61,38 @@
                                         %>
 
                                     </select>
-                                    <br />
+                                    
+                                    </div>
+                                 
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <b>Remark:</b>
+                                    Remark:
                                 </td>
                                 <td>
+                                    <div class="mui-textfield">
                                     <textarea  name="remark" id="remark" rows="5" cols="22" required></textarea>
-                                    <br />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Cost($):</b>
-                                </td>
-                                <td>
-                                    <input type="text" id="cost" name="cost" value="" placeholder="0.0" required/>
-                                    <br />
                                    
                                 </td>
                             </tr>
                             <tr>
                                 <td>
+                                    Cost($):
                                 </td>
                                 <td>
-                                    
-                                    <input align="center" type="submit" id="button" value="Submit" class="searchBtn"/>
+                                    <div class="mui-textfield">
+                                    <input type="number" step="any"  id="cost" name="cost" value="" placeholder="0.0" required/>
+                                    </div>
+                              
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                </td>
+                                <td>
+                                    <br />
+                                    <input align="center" type="submit" id="button" value="Submit" class="mui-btn mui-btn--raised mui-btn--primary" id="btnSubmit" style="font-size: 18px" ></input>
                                 </td>
                             </tr>
                         </tbody>

@@ -13,6 +13,7 @@ import static java.lang.System.out;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -52,19 +53,21 @@ public class FinancialDbController extends HttpServlet {
 
         LinkedHashMap<String, Double> yearlyGain = new LinkedHashMap<>();
         LinkedHashMap<String, Double> yearlyExp = new LinkedHashMap<>();
-        ArrayList<Double> yearlyProfitsResult = new ArrayList<>();
+        LinkedHashMap<String, String> yearlyProfitsResult = new LinkedHashMap<>();
+        ArrayList<String> yearInProfits = new ArrayList<>();
+        ArrayList<String> profitInProfits = new ArrayList<>();
         
         LinkedHashMap<Integer, String[]> monthlyGain = new LinkedHashMap<>();
         ArrayList<Double> profitsResults = new ArrayList<>();
         
         LinkedHashMap<Integer, String[]> monthlySalesList = new LinkedHashMap<>();
         ArrayList<String> salesResult = new ArrayList<>();
-        ArrayList<Double> yearlySalesResult = new ArrayList<>();
+        LinkedHashMap<String, Double> yearlySalesResult = new LinkedHashMap<>();
         
         LinkedHashMap<Integer, String[]> monthlyExpenseList = new LinkedHashMap<>();
         ArrayList<String> monthlyExpenseResult = new ArrayList<>();
         LinkedHashMap<String, Double> yearlyExpenseList = new LinkedHashMap<>();
-        ArrayList<Double> yearlyExpenseResult = new ArrayList<>();
+        LinkedHashMap<String, String> yearlyExpenseResult = new LinkedHashMap<>();
         
        
         //Monthly profits
@@ -108,7 +111,14 @@ public class FinancialDbController extends HttpServlet {
             yearlyExp = expenseDAO.retrieveYearlyExpense();
             yearlyProfitsResult = retrieveYearlyProfits(yearlyGain, yearlyExp);
             
-            request.setAttribute("yearlyProfitsResult", yearlyProfitsResult);
+            for(String year: yearlyProfitsResult.keySet()){
+                String profit = yearlyProfitsResult.get(year);
+                //System.out.println(year);
+                yearInProfits.add(year);
+                profitInProfits.add(profit);
+            }
+            request.setAttribute("yearInProfits", yearInProfits);
+            request.setAttribute("profitInProfits", profitInProfits);
             RequestDispatcher view = request.getRequestDispatcher("financialDb.jsp");
             view.forward(request, response);
             return;
@@ -116,7 +126,16 @@ public class FinancialDbController extends HttpServlet {
             //Yearly trend for sales
             yearlySalesResult = custPurchaseDAO.retrieveYearlySales();
             
-            request.setAttribute("yearlySalesResult", yearlySalesResult);
+            ArrayList<String> yearInSales = new ArrayList<>();
+            ArrayList<String> salesInSales = new ArrayList<>();
+            
+            for(String year: yearlySalesResult.keySet()){
+                double sales = yearlySalesResult.get(year);
+                yearInSales.add(year);
+                salesInSales.add(Double.toString(sales));
+            }
+            request.setAttribute("yearInSales", yearInSales);
+            request.setAttribute("salesInSales", salesInSales);
             RequestDispatcher view = request.getRequestDispatcher("sales.jsp");
             view.forward(request, response);
             return;
@@ -126,9 +145,17 @@ public class FinancialDbController extends HttpServlet {
             yearlyExpenseList = expenseDAO.retrieveYearlyExpense();
             yearlyExpenseResult = retrieveExpense(yearlyExpenseList);
             
-           
-
-            request.setAttribute("yearlyExpensesResult", yearlyExpenseResult);
+            ArrayList<String> yearInExpense = new ArrayList<>();
+            ArrayList<String> expInExpense = new ArrayList<>();
+            
+            for(String year: yearlyExpenseResult.keySet()){
+                String expense = yearlyExpenseResult.get(year);
+                yearInExpense.add(year);
+                expInExpense.add(expense);
+            }
+            
+            request.setAttribute("yearInExpense", yearInExpense);
+            request.setAttribute("expInExpense", expInExpense);
             RequestDispatcher view = request.getRequestDispatcher("expenses.jsp");
             view.forward(request, response);
             return;
@@ -153,23 +180,24 @@ public class FinancialDbController extends HttpServlet {
         return resultList;
     }
     
-    public ArrayList<Double> retrieveExpense(LinkedHashMap<String, Double> list) {
-        ArrayList<Double> resultList = new ArrayList<>();
+    public LinkedHashMap<String, String> retrieveExpense(LinkedHashMap<String, Double> list) {
+        LinkedHashMap<String, String> resultList = new LinkedHashMap<>();
         DecimalFormat df = new DecimalFormat("###.##");
         
 
         for (String year : list.keySet()) {
             Double expense = list.get(year);
             String formatString = df.format(expense);
-            resultList.add(Double.parseDouble(formatString));
+            resultList.put(year,formatString);
 
         }
 
         return resultList;
     }
     
-     public ArrayList<Double> retrieveYearlyProfits(LinkedHashMap<String, Double> gainList, LinkedHashMap<String, Double> expenseList) {
-        ArrayList<Double> result = new ArrayList<>();
+     public LinkedHashMap<String, String> retrieveYearlyProfits(LinkedHashMap<String, Double> gainList, LinkedHashMap<String, Double> expenseList) {
+        LinkedHashMap<String, String> resultList = new LinkedHashMap<>();
+        //ArrayList<Double> result = new ArrayList<>();
         DecimalFormat df = new DecimalFormat("###.##");
 
         for (String year : gainList.keySet()) {
@@ -180,15 +208,16 @@ public class FinancialDbController extends HttpServlet {
                 double expense = expenseList.get(yr);
                 if (yr.equals(year)) {
                     profit = gain - expense;
-                    //System.out.println(profit + "cl");
+                   
                     String formatString = df.format(profit);
-                    
-                    result.add(Double.parseDouble(formatString));
+                    resultList.put(yr,formatString);
+                     System.out.println(yr + "cl");
+                    //result.add(Double.parseDouble(formatString));
                 }
             }
         }
 
-        return result;
+        return resultList;
     }
      
       public ArrayList<Double> retrieveMonthlyProfits(String sortMonthly, LinkedHashMap<Integer, String[]> gainList, LinkedHashMap<Integer, String[]> expenseList) {

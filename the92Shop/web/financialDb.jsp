@@ -8,7 +8,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
-<link rel="stylesheet" href="css/master.css">
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -29,9 +29,9 @@
 
     </script>
     <body>
-        <form id="myForm" action="FinancialDbController" method="post">
+        <form id="myForm" class="mui-form--inline" action="FinancialDbController" method="post">
 
-            <div id = "financialDashboard">
+            <div class = "subPageContent">
                 <a href="financialDb.jsp" class="navDbButton">Profits</a>
                 <a href="sales.jsp" class="navDbButton">Sales</a>
                 <a href="expenses.jsp" class="navDbButton">Expenses</a>
@@ -39,37 +39,41 @@
                 <br />
                 <br />
                 <br />
-                <h2>Yearly Trend for Profits</h2>
+                <h1>Yearly Trend for Profits</h1>
                 <br />
 
-                <button type="submit" id="ybtn" onclick="yearlyProfits()" class="btn" formnovalidate>Yearly Trend</button>
+                 <button type="submit" id="ybtn" onclick="yearlyProfits()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate><i class="fa fa-bar-chart-o"style="font-size:18px;"> Yearly Trend</i></button>
                 <input type="hidden" id="yearlyTrendProfits" name="yearlyTrendProfits" value="">
 
                 <br />
                 <br />
-                <h2>Monthly Profits</h2>
-                Filter monthly profits by:
+                <h1>Monthly Profits</h1>
+                Filter monthly profits by: &nbsp;
+                <div class="mui-select">
                 <select name="monthlyProfits" id="month" required>
                     <option value="" selected>Please select</option>
                     <option value="2017" >2017</option>
                     <option value="2018" >2018</option>
                 </select>
-
-                <button type="submit" name="btnSubmit" class="btn">Filter</button>
+                </div>
+                &nbsp;
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
 
                 <br />
                 <br />
-                <%                    
-                    ArrayList<Double> yearlyProfits = (ArrayList<Double>) request.getAttribute("yearlyProfitsResult");
-                 
+               <%                    
+                    ArrayList<String> yearInProfits = (ArrayList<String>) request.getAttribute("yearInProfits");
+                    String jsonYear = new Gson().toJson(yearInProfits);
                     
-                    String jsonYearlyProfits = new Gson().toJson(yearlyProfits);
+                    ArrayList<String> profitInProfits = (ArrayList<String>) request.getAttribute("profitInProfits");
+                    String jsonProfit = new Gson().toJson(profitInProfits);
                     
-                    if (yearlyProfits != null) {
+                    if (yearInProfits != null && profitInProfits != null) {
                 %>
                 <div id = "yearlyProfitsContainer" class="containerDB" >
                     <script>
-                        var yearlyProfits = <%=jsonYearlyProfits%>;
+                        var year = <%=jsonYear%>;
+                        var profit = <%=jsonProfit%>;
                         $(document).ready(function () {
                             var chart = {
                               borderColor: '#000000',
@@ -82,7 +86,7 @@
                                 text: ''
                             };
                             var xAxis = {
-                                categories: [2017, 2018],
+                                categories: year,
                                 labels: {
                                     style: {
                                     color: 'black',
@@ -114,7 +118,8 @@
 
                             var series = [{
                                     name: 'Yearly Trend',
-                                    data: JSON.parse("[" + yearlyProfits + "]")
+                                    color: '#009688',
+                                    data: JSON.parse("[" + profit + "]")
                                 }
                             ];
 
@@ -196,6 +201,7 @@
 
                             var series = [{
                                     name: 'Monthly Profits',
+                                    color: '#009688',
                                     data: JSON.parse("[" + monthlyProfits + "]")
 
                                 }

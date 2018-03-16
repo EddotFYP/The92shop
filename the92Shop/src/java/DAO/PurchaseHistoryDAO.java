@@ -60,21 +60,21 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select name,c.Phone_number,sum(cp.quantity) as qty,SUBSTRING(Date_Of_Purchase, 7, 1) as month, SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,month ASC,qty DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as qty,SUBSTRING(Date_Of_Purchase, 6,2) as month, SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,month ASC,qty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 
                 custId++;
                 String name = rs.getString(1);
-                String phoneNum = rs.getString(2);
-                String quantity = rs.getString(3);
-                String month = rs.getString(4);
-                String year = rs.getString(5);
+                String quantity = rs.getString(2);
+                String month = rs.getString(3);
+                String year = rs.getString(4);
 
-                array = new String[]{name, phoneNum, quantity, month, year};
+                array = new String[]{name, quantity, month, year};
 
                 result.put(custId, array);
+                
             }
             db.closeConn();
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class PurchaseHistoryDAO {
 
         return result;
     }
-
+    
     public LinkedHashMap<Integer, String[]> sortByYear() {
 
         LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
@@ -93,16 +93,16 @@ public class PurchaseHistoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select name,c.Phone_number,SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,sum(cp.quantity) DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as qty,SUBSTRING(Date_Of_Purchase, 1, 4) as year from customer c inner join customer_purchase cp on c.Phone_number = cp.Phone_number group by name order by year ASC,qty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 custId++;
                 String name = rs.getString(1);
-                String phoneNum = rs.getString(2);
+                String quantity = rs.getString(2);
                 String year = rs.getString(3);
 
-                array = new String[]{name, phoneNum, year};
+                array = new String[]{name, quantity, year};
 
                 result.put(custId, array);
             }
@@ -144,9 +144,9 @@ public class PurchaseHistoryDAO {
         return result;
     }
 
-    public ArrayList<Double> retrieveYearlySales() {
+    public LinkedHashMap<String, Double> retrieveYearlySales() {
 
-        ArrayList<Double> list = new ArrayList<>();
+        LinkedHashMap<String, Double> result = new LinkedHashMap<>();
 
         try {
             DatabaseConnection db = new DatabaseConnection();
@@ -159,18 +159,16 @@ public class PurchaseHistoryDAO {
                 Double sales = rs.getDouble(2);
 
                 //array = new String[]{sales};
-                list.add(sales);
+                result.put(year,sales);
                  
             }
-             for(Double s: list){
-            out.println(s);
-        }
+
             db.closeConn();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return list;
+        return result;
     }
     
     public LinkedHashMap<Integer, String[]> retrieveMonthlyGain() {

@@ -92,5 +92,54 @@ public class UserDAO {
         db.closeConn();
         return userList;
     }
+    
+    public User retrieveUserAcc(String currPassword) {
+        DatabaseConnection db = new DatabaseConnection();
+        
+        User result = null;
+        
+        try {
+
+            Connection conn = db.getConn();
+
+            PreparedStatement stmt = conn.prepareStatement("select * from user where password like ?");
+            stmt.setString(1, currPassword + '%');
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString(1);
+                String password = rs.getString(2);
+                result = new User(name, password);
+            }
+            db.closeConn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
+        return result;
+    }
+     
+      public int editUser(User user, String passwordChange) {
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE user SET Password = '" + passwordChange + "' where Name = ?");
+
+            stmt.setString(1, user.getUsername());
+
+            updateQuery = stmt.executeUpdate();
+            System.out.println("return value is " + updateQuery);
+            
+            db.closeConn();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+
+    }
 
 }

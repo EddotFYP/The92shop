@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/master.css">
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
@@ -16,17 +16,19 @@
     </head>
     <body>
         <div class="subPageContent">
-            <form  action="UserController" method="post">
-                    <h2>Add New Admin</h2>
+            <form class="mui-form" action="UserController" method="post">
+                    <h1>Add New Admin</h1>
                     <br />
-                    <table>
+                    <table id="AdminTable">
                         <tr>
                             <td>
                                 Admin Name:
                             </td>
 
                             <td>
+                                <div class="mui-textfield">
                                 <input type ="text" name ="name" id="name" required/>
+                                </div>
                             </td>
                         </tr>
                         
@@ -36,7 +38,9 @@
                             </td>
 
                             <td>
+                                <div class="mui-textfield">
                                  <input type="password" placeholder="Password" id="password" name="password" required/>
+                                 </div>
                             </td>
                         </tr>
                         <tr>
@@ -44,13 +48,15 @@
                                 Confirm Password:
                             </td>    
                             <td>
+                                <div class="mui-textfield">
                                 <input type="password" placeholder="Confirm Password" id="confirm_password" required>
+                                </div>
                             </td>
                         </tr>
                         
                         <tr>
                             <td>
-                              <button type="submit" name="submit" class="btn"><i class="fa  fa-plus"> Add</i></button>
+                              <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
                             </td>
                             
                         </tr>

@@ -17,7 +17,7 @@
     <body>
        <%@include file="sideNavBar.jsp" %>
        <div class="subPageContent">
-        <img  src="image/Eddot_Logo.jpg" align="centre" class="img">
+
         </div>
     </body>
 </html>

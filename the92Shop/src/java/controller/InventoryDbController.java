@@ -95,7 +95,7 @@ public class InventoryDbController extends HttpServlet {
         //never select month and year
         try {
             if (sortMonth.equals("none") && sortYear.equals("none")) {
-                error = "Please select month or/and year to see monthly and yearly results";
+                error = "Please select month or/and year to see monthly/yearly results";
             }
         } catch (Exception e) {
             error = "Please remember to select month or/and year";
@@ -103,10 +103,21 @@ public class InventoryDbController extends HttpServlet {
 
         //limit only top 5 product
         LinkedHashMap<String, String> topList = limitTop5(result);
+        
+        ArrayList<String> itemNameList = new ArrayList<String>();
+        ArrayList<String> itemQtyList = new ArrayList<String>();
+        
+        for (String name : topList.keySet()) {
+            String quantity = topList.get(name);
+
+            itemNameList.add(name);
+            itemQtyList.add(quantity);
+        }
 
         request.setAttribute("word", text);
         request.setAttribute("error", error);
-        request.setAttribute("result", topList);
+        request.setAttribute("itemNameResult", itemNameList);
+        request.setAttribute("itemQtyResult", itemQtyList);
 
         RequestDispatcher view = request.getRequestDispatcher("inventoryDashboard.jsp");
         view.forward(request, response);
@@ -178,23 +189,23 @@ public class InventoryDbController extends HttpServlet {
             String month = inventoryList.get(count)[2];
             String year = inventoryList.get(count)[3];
 
-            if (month.equals("1")) {
+            if (month.equals("01")) {
                 month = "January";
-            } else if (month.equals("2")) {
+            } else if (month.equals("02")) {
                 month = "Febuary";
-            } else if (month.equals("3")) {
+            } else if (month.equals("03")) {
                 month = "March";
-            } else if (month.equals("4")) {
+            } else if (month.equals("04")) {
                 month = "April";
-            } else if (month.equals("5")) {
+            } else if (month.equals("05")) {
                 month = "May";
-            } else if (month.equals("6")) {
+            } else if (month.equals("06")) {
                 month = "June";
-            } else if (month.equals("7")) {
+            } else if (month.equals("07")) {
                 month = "July";
-            } else if (month.equals("8")) {
+            } else if (month.equals("08")) {
                 month = "August";
-            } else if (month.equals("9")) {
+            } else if (month.equals("09")) {
                 month = "September";
             } else if (month.equals("10")) {
                 month = "October";

@@ -5,70 +5,43 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link href="css/master.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <!DOCTYPE html>
 <html>
     <head>
         <script src="js/jquery.min.js" type="text/javascript"></script>
         <script src="js/bootstrap.min.js" type="text/javascript"></script>
         <link rel="stylesheet" href="css/bootstrap.min.css">
-
-
-
-
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login Page</title>
     </head>
-    <body>
+    <body background="image/loginPic.jpg">
        
-        <div class="container" >
-            <div ng-view class="col-sm-12" style="width: 600px; margin-left: 300px; margin-top: 125px;">
-                <div class="jumbotron">
-
-
-                    <div ng-view class="form-group">
-                        <h3 class="form-signin-heading"style="margin-left: 10px">Welcome To The 92 Shop Inventory Management System</h3>
-                    </div>
-
-                    <form ng-view class="form-horizontal" style="margin-left: 100px" action="LoginController" onsubmit="return validation()" method="post">
-                        <div class="form-group input-group">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-user">
-
-                                </span>
-                            </span>
-
-                            <input type="text" name="username" id="username" class="form-control" placeholder="username"  style="width: 300px;" required autofocus /><br />
-
-                        </div>
-                        <div ng-view class="form-group input-group">
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-lock">
-
-                                </span>
-                            </span>
-
-                            <input type="password" name="password" id="password" class="form-control" placeholder="password" style="width: 300px;" required  /><br/>
-
-                        </div>
-                        <div ng-view class="form-group ">
-                            <input type="submit" class="btn btn-primary" value="submit" ><br>
-                        </div>
-                        <div ng-view class="form-group ">
-
-                            <label id ="warning"> 
-
-                                <%
-                                    String error = request.getParameter("error");
-                                    if (error != null) {
-
-                                        out.print(error);
-                                    }
-
-                                %></label>
-                        </div>
-                    </form>
+        <div id ="loginContainer">
+            <img class ="loginpic" src="image/Eddot_Logo.jpg" />
+            <h2>Inventory Management System</h2>
+            <form class="mui-form--inline" action="LoginController" method="post">
+                
+                <div class="mui-textfield">
+                <input type="text" name="username" id="username" placeholder="Username"  style="width: 300px;" required /><br />
                 </div>
-            </div>
+                <br />
+                <div class="mui-textfield">
+                <input type="password" name="password" id="password" placeholder="Password" style="width: 300px;" required/><br/>
+                </div>
+                <br />
+                <button type="submit" name="login" class="mui-btn mui-btn--raised mui-btn--danger "><i class="fa fa-sign-in" style="font-size:18px;"> Login</i></button>
+                 </form>
+                <%
+                    String error = (String) request.getAttribute("error");
+                    if (error != null) {
+                        out.println("<p style='color:red'>" + error + "</p>");
+                    }
+                %>
+           
         </div>
     </body>
 </html>

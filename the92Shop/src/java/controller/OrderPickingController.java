@@ -92,12 +92,18 @@ public class OrderPickingController extends HttpServlet {
 
                         inventoryDAO.addInventoryQty(name, diff, dateString);
                         message.add("The order of " + name + " is recorded!");
+                        if(customer == null){
+                            request.setAttribute("error", "Invalid phone number!");
+                            RequestDispatcher view = request.getRequestDispatcher("orderPicking.jsp");
+                            view.forward(request, response);
+                        }else{
                         int custId = customer.getCustId();
                         int invId = inventory.getSKUID();
                         System.out.println("inventory id = "+invId);
 
                         purchaseHistoryDAO.addRecord(new PurchaseHistory(custId, phone, invId, dateString, i.getQuantity()));
 
+                        }
                     } else {
 
                         message.add("The order of " + name + " has exceeded its stock");

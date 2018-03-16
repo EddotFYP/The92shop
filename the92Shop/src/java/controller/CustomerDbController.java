@@ -8,6 +8,7 @@ package controller;
 import DAO.PurchaseHistoryDAO;
 import java.io.IOException;
 import static java.lang.System.out;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -74,9 +75,21 @@ public class CustomerDbController extends HttpServlet {
         
         LinkedHashMap<Integer, String[]> custHashmap = limitTop5(result);
         
+        ArrayList<String> customerNameList = new ArrayList<String>();
+        ArrayList<String> customerQtyList = new ArrayList<String>();
+        
+        for (int cid : custHashmap.keySet()) {
+            String name = custHashmap.get(cid)[0];
+            String quantity = custHashmap.get(cid)[1];
+
+            customerNameList.add(name);
+            customerQtyList.add(quantity);
+        }
+
         request.setAttribute("errorMsg", error);
         request.setAttribute("word", text);
-        request.setAttribute("result", custHashmap);
+        request.setAttribute("custNameResult", customerNameList);
+        request.setAttribute("custQtyResult", customerQtyList);
 
         RequestDispatcher view = request.getRequestDispatcher("customerDashboard.jsp");
         view.forward(request, response);
@@ -120,7 +133,7 @@ public class CustomerDbController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
     public LinkedHashMap<Integer, String[]> limitTop5(LinkedHashMap<Integer, String[]> customerList) {
         LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
@@ -128,10 +141,10 @@ public class CustomerDbController extends HttpServlet {
 
         for (int cid : customerList.keySet()) {
             String name = customerList.get(cid)[0];
-            String phoneNumber = customerList.get(cid)[1];
+            String quantity = customerList.get(cid)[1];
 
             if (count < 5) {
-                array = new String[]{name, phoneNumber};
+                array = new String[]{name, quantity};
                 result.put(cid, array);
                 count++;
             }
@@ -145,28 +158,27 @@ public class CustomerDbController extends HttpServlet {
 
         for (int cid : customerList.keySet()) {
             String name = customerList.get(cid)[0];
-            String phoneNumber = customerList.get(cid)[1];
-            String quantity = customerList.get(cid)[2];
-            String month = customerList.get(cid)[3];
-            String year = customerList.get(cid)[4];
+            String quantity = customerList.get(cid)[1];
+            String month = customerList.get(cid)[2];
+            String year = customerList.get(cid)[3];
 
-            if (month.equals("1")) {
+            if (month.equals("01")) {
                 month = "January";
-            } else if (month.equals("2")) {
+            } else if (month.equals("02")) {
                 month = "Febuary";
-            } else if (month.equals("3")) {
+            } else if (month.equals("03")) {
                 month = "March";
-            } else if (month.equals("4")) {
+            } else if (month.equals("04")) {
                 month = "April";
-            } else if (month.equals("5")) {
+            } else if (month.equals("05")) {
                 month = "May";
-            } else if (month.equals("6")) {
+            } else if (month.equals("06")) {
                 month = "June";
-            } else if (month.equals("7")) {
+            } else if (month.equals("07")) {
                 month = "July";
-            } else if (month.equals("8")) {
+            } else if (month.equals("08")) {
                 month = "August";
-            } else if (month.equals("9")) {
+            } else if (month.equals("09")) {
                 month = "September";
             } else if (month.equals("10")) {
                 month = "October";
@@ -177,7 +189,7 @@ public class CustomerDbController extends HttpServlet {
             }
 
             if (month.equals(sortMonth) && year.equals(sortYear)) {
-                array = new String[]{name, phoneNumber};
+                array = new String[]{name, quantity};
                 result.put(cid, array);
             }
         }
@@ -189,14 +201,15 @@ public class CustomerDbController extends HttpServlet {
     public LinkedHashMap<Integer, String[]> sortCustListByYear(String sortYear, LinkedHashMap<Integer, String[]> customerList) {
         LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
         String[] array;
-
+         
         for (int cid : customerList.keySet()) {
             String name = customerList.get(cid)[0];
-            String phoneNumber = customerList.get(cid)[1];
+            String quantity = customerList.get(cid)[1];
             String year = customerList.get(cid)[2];
 
+
             if (year.equals(sortYear)) {
-                array = new String[]{name, phoneNumber};
+                array = new String[]{name, quantity};
                 result.put(cid, array);
             }
         }

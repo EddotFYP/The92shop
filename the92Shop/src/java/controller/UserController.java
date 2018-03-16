@@ -38,11 +38,11 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String name = request.getParameter("name");
         String password = request.getParameter("password");
-        
-        
-        
-        UserDAO userDAO = new UserDAO();
+        String passwordChange = request.getParameter("passwordChange");
+        String currPassword = request.getParameter("currentpassword");
+        String newPassword = request.getParameter("newpassword");
 
+        UserDAO userDAO = new UserDAO();
 
         if (name != null) {
             int success = checkDuplicate(name,password);
@@ -51,13 +51,40 @@ public class UserController extends HttpServlet {
                 User user = new User(name, password);
                 success = userDAO.addUser(user);
                 request.setAttribute("message", "New user is added successfully!");
+                RequestDispatcher view = request.getRequestDispatcher("addAdmin.jsp");
+                view.forward(request, response);
             }else{
                 request.setAttribute("message", "Duplicate user!");
             }
-        }
+        }else if(passwordChange != null && currPassword != null){
+            User user = userDAO.retrieveUserAcc(currPassword);
+            
+            if(user != null){
+                if(currPassword.equals(passwordChange)){
+                    request.setAttribute("message", "Your old password and new password is the same!");
+                }
+                
+                else if(!passwordChange.equals(newPassword)){
+                    request.setAttribute("message", "Your password does not match!");
 
-        RequestDispatcher view = request.getRequestDispatcher("addAdmin.jsp");
-        view.forward(request, response);
+                }else if (passwordChange.equals(newPassword)){
+                    int success = userDAO.editUser(user, passwordChange);
+                    
+                    if(success != 0){
+                        request.setAttribute("message", "Your password has been changed!");
+                        
+                    }
+                }
+ 
+            }else{
+                request.setAttribute("message", "Your current password is wrong!");
+                RequestDispatcher view = request.getRequestDispatcher("changePassword.jsp");
+                view.forward(request, response);
+            }
+
+        }
+            RequestDispatcher view = request.getRequestDispatcher("changePassword.jsp");
+            view.forward(request, response);
     }
     
      public int checkDuplicate(String username, String password){

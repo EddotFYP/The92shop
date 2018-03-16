@@ -12,6 +12,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,21 +25,22 @@
              
                 <h1>Add Expense Type</h1>
                 <br />
-                    <table>
-
+                    <table id="expenseTable">
                         <tr>
                             <td>
-                                Expense Type :
+                                Expense Type : &nbsp;
                             </td>
 
                             <td>
+                                <div class="mui-textfield">
                                 <input type ="text" name ="newExpType" id="newExpType" required/>
-                                <button type="submit" name="submit" class="btn"><i class="fa  fa-plus"> Add</i></button>
+                                </div>
+                            </td>
+                            <td>
+                                 &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus"> Add</i></button>
                             </td>
                         </tr>
-                        
-                        
-                       
+
                     </table>
                     
                        <%
@@ -52,15 +54,7 @@
                             out.println("<p style='color:red'>" + message + "</p>");
                         }
                     %>
-                    
-                
-               
-                  
             </form>
-
-           
-
-
         </div>
     </body>
 </html>

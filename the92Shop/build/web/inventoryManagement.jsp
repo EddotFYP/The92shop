@@ -9,8 +9,7 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Inventory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/master.css">
-<%@include file="sideNavBar.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="protect.jsp" %>
 
 <!DOCTYPE html>
@@ -84,6 +83,15 @@
         </script>
     </head>
     <body>
+                <%
+            String usernameAcc = (String) session.getAttribute("user");
+                    
+            if(!usernameAcc.equals("qingyang")){ %>
+                <%@include file="nonAdminSideNavBar.jsp" %>
+         <%}else{ %>
+               <%@include file="sideNavBar.jsp" %>
+         <%}
+        %>
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
                 <h1>Search Inventory</h1>
@@ -107,9 +115,9 @@
                     <% }%>
                 </datalist>
 
-                <button type="submit" name="btnSubmit" class="searchBtn"><i class="fa fa-search"> Search</i></button>
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
 
-                <button type="button" onclick="initiateCamera()" class="searchBtn"><i class="fa fa-camera"> Scan</i></button>
+                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
                 <br/>
                 <input type="hidden" id="qrValue" name="cameraResult" value="">
                 

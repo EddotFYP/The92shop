@@ -5,8 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/master.css">
-<%@include file="sideNavBar.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -18,58 +17,68 @@
         <script type="text/javascript" src="js/addimage.js"></script>
     </head>
     <body>
+        <%            
+           String usernameAcc = (String) session.getAttribute("user");
+
+            if (!usernameAcc.equals("qingyang")) { %>
+                <%@include file="nonAdminSideNavBar.jsp" %>
+          <%}else{ %>
+                <%@include file="sideNavBar.jsp" %>
+          <%}
+        %>
         <div class="subPageContent">
-            <form id="myForm" action="InventoryController" method="post">
-                
+            <form id="myForm" class="mui-form" action="InventoryController" method="post">
+
                 <h1>Add New Inventory</h1>
                 <br />
-                    <table>
+                <table id="AdminTable">
+                    <tr>
+                        <td>
+                            Product Name:
+                        </td>
 
-                        <tr>
-                            <td>
-                                Product Name:
-                            </td>
+                        <td>
+                            <div class="mui-textfield">
+                            <input type ="text" name ="newName" id="name" autocomplete="off" required/>
+                            </div>
+                        </td>
+                    </tr>
 
-                            <td>
-                                <input type ="text" name ="newName" id="name" autocomplete="off" required/>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            Cost:
+                        </td>
+                        <td>
+                            <div class="mui-textfield">
+                            <input type ="number" step="any" name ="newCost" id="cost" autocomplete="off" placeholder="0.0" required/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Price:
+                        </td>
+                        <td>
+                            <div class="mui-textfield">
+                            <input type ="number" step="any" name ="newPrice" id="price" autocomplete="off" placeholder="0.0" required/>
+                            </div>
+                        </td>
+                    </tr>
 
-                        <tr>
-                            <td>
-                                Cost:
-                            </td>
-                            <td>
-                                <input type ="text" name ="newCost" id="cost" autocomplete="off" required/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Price:
-                            </td>
-                            <td>
-                                <input type ="text" name ="newPrice" id="price" autocomplete="off" required/>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <button type="button" onclick="makeCode()" name="btSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add & Download QR code</i></button>
 
-                        <tr>
-                            <td>
-                                <button type="button" onclick="makeCode()" name="btSubmit" class="btn"><i class="fa  fa-plus"> Add and Download QR code</i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div id="qrcode" style="width:180px; height:180px; margin-top:15px;"></div>
+                        </td>
+                    </tr>
 
-                            </td>
+                </table>
 
-                        </tr>
-
-
-
-                        <tr>
-                            <td>
-                                <div id="qrcode" style="width:180px; height:180px; margin-top:15px;"></div>
-                            </td>
-                        </tr>
-
-                    </table>
-               
                 <script type="text/javascript">
                     function makeCode() {
                         $("#qrcode").empty();

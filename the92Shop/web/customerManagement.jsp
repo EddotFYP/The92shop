@@ -13,8 +13,7 @@
 <%@page import="java.sql.Date"%>
 <%@page import="entity.Customer"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/master.css">
-<%@include file="sideNavBar.jsp" %>
+<<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -40,12 +39,29 @@
                 
             });
 </script>
+        <script type="text/javascript">
+ function openPage(pageURL)
+ {
+ window.location.href = pageURL;
+ }
+</script>
             <title> Customer Search</title>            
         </head>
         <body>
+            <%
+                    String usernameAcc = (String) session.getAttribute("user");
+                    
+                    if(!usernameAcc.equals("qingyang")){ %>
+                        <%@include file="nonAdminSideNavBar.jsp" %>
+                    <%}else{ %>
+                        <%@include file="sideNavBar.jsp" %>
+                   <% }
+                    
+
+                %>
             <div class="subPageContent">       
                 <form action="CustomerController" method="post">
-                        <h2> Search / Add Customer </h2>
+                        <h1> Search / Add Customer </h1>
                         <br />
                         <%  CustomerDAO dao = new CustomerDAO();
                             ArrayList<Customer> customerList = dao.retrieveAllCustomers();
@@ -92,8 +108,8 @@
                             </tr>
                         </table>
                         <br>
-                        <button type="submit" name="submit" class="searchBtn"><i class="fa fa-search"> Search</i></button>
-                        <a href="addCustomer.jsp" class="addBtn"><i class="fa fa-plus"> Add Customer</i></a>     
+                        <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary "><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
+                        <input type="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" onclick="openPage('addCustomer.jsp')" value="&#xf067 Add Customer" class="fa fa-input" style="font-family: FontAwesome; font-size:18px;">
                 </form>
         
 

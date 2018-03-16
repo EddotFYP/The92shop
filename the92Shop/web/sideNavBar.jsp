@@ -1,102 +1,65 @@
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" >
-<link rel="stylesheet" href="css/master.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 <%@include file="protect.jsp" %>
+<link rel="stylesheet" href="css/master.css">
+<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
+
 <html>
     <head>
         <meta http-equiv="Conteant-Type" content="text/html; charset=UTF-8">
         <title>Inventory Management System</title>
     </head>
     <body>
+
         <div class="nav-side-menu">
-            <div class="brand">
-                The 92 Shop
-                <%
-                    String username = (String) session.getAttribute("user");
-                    String name = "";
-                    if(username != null){
-                        String[] nameArr = username.split("\\.");
-                        name = nameArr[0].toUpperCase();
-                    }
-                    
-
-                %>
-                <h5>Current User:  <%=name%></h5>
-            </div>
-            <i class="fa fa-bars fa-2x toggle-btn" data-toggle="collapse" data-target="#menu-content"></i>
-
-            <div class="menu-list">
-                <ul id="menu-content" class="menu-content collapse out">              
-                    <li data-toggle="collapse" data-target="#admin" class="collapsed">
-                        <a href="addAdmin.jsp"><i class="fa fa-user fa-lg"></i> Admin Management</a>
-
-                    </li>
-
-                           
-                    <li data-toggle="collapse" data-target="#customer" class="collapsed">
-                        <a href="customerManagement.jsp"><i class="fa fa-user fa-lg"></i> Customer Management</a>
-
-                    </li>
-                    <li data-toggle="collapse" data-target="#inventory" class="collapsed">
-                        <a href="#"><i class="fa fa-inbox  fa-lg"></i> Inventory Management<span class="arrow"></span></a></a>
-                        <ul class="sub-menu collapse" id="inventory">
-                            <a href="inventoryManagement.jsp">Search Inventory</a>
-                            <br />
-                            <a href="addInventory.jsp">Add Inventory</a>
-                            <br />
-                            <a href="addInventoryQty.jsp">Add Inventory Quantity</a>
-                            <br />
-                        </ul>
-                    </li> 
-                    
-                    <li data-toggle="collapse" data-target="#order" class="collapsed">
-                        <a href="orderPicking.jsp"><i class="fa fa-archive  fa-lg"></i> Order Picking </a>
-                        
-                    </li> 
-                    
-                    <li data-toggle="collapse" data-target="#order" class="collapsed">
-                        <a href="purchaseHistory.jsp"><i class="fa fa-book fa-lg"></i> Purchase History </a>
-                        
-                    </li> 
-                    
-                    <li  data-toggle="collapse" data-target="#products" class="collapsed">
-                        <a href="#"><i class="fa fa-gift fa-lg"></i> Dashboard <span class="arrow"></span></a>
-
-                        <ul class="sub-menu collapse" id="products">
-                            <a href="financialDb.jsp">Financial Overview</a>
-                            <br>
-                            <a href="financialStatement.jsp"> Financial Statement</a>
-                            <form action="InventoryDbController" method="post">       
+            <ul class="drawer">
+                <li> <a href="home.jsp" style="text-decoration:none;" > <i class="fa fa-line-chart"></i> <span> Analytics</span> </a>
+                     <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-tachometer"></i> <span>Dashboard</span> </a>
+                     <ul>
+                        <li> <a href="financialDb.jsp" style="text-decoration:none;"> <i class="fa fa-signal"></i> <span>Financial Overview</span> </a> </li>
+                        <li> <a href="financialStatement.jsp" style="text-decoration:none;"> <i class="fa fa-briefcase"></i> <span>Financial Statement</span> </a> </li>
+                        <li> 
+                                <form id = "invForm" action="InventoryDbController" method="post">
+                                <a href="#" onclick="document.getElementById('invForm').submit();" style="text-decoration:none;"><i class="fa fa-bar-chart"></i><span>Inventory</span></a>    
                                 <input type="hidden" name="invLevel" value="inventoryLevel">
                                 <input type="hidden" name="invList" value="lowInvList">
-                                <button type="submit" name="submit" class="navButton">Inventory</button>
-                            </form>
-                            <a href="customerDashboard.jsp">Customer</a>
-                        </ul>
-                    </li>
-                    
-                     <li data-toggle="collapse" data-target="#expense" class="collapsed">
-                        <a href="#"><i class="fa fa-money  fa-lg"></i> Expense<span class="arrow"></span></a>
-                        <ul class="sub-menu collapse" id="expense">
-                            <a href="expenseForm.jsp">Input Expense</a>
-                            <br />
-                            
-                        </ul>
-                    </li> 
-
-                </ul>
-                <br>
-                <br>
-                <form action="logout.jsp">
-                    <div class="form-group input-group">
-                        <input type="submit" class="btn " name="logout" value="Logout">
-
-                    </div>
-                </form>
-            </div>
+                                </form>
+                        </li>
+                        <li> <a href="customerDashboard.jsp" style="text-decoration:none;"> <i class="fa fa-list-alt"></i> <span>Customer</span> </a> </li>
+                    </ul>
+                <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-money "></i> <span>Expense</span> </a>
+                    <ul>
+                        <li> <a href="expenseForm.jsp" style="text-decoration:none;"> <i class="fa fa-dollar"></i> <span>Input Expense</span> </a> </li>
+                    </ul>
+                <li> <a href="addAdmin.jsp" style="text-decoration:none;" > <i class="fa fa-user-plus"></i> <span> Admin Management</span> </a>
+                <li> <a href="customerManagement.jsp" style="text-decoration:none;"> <i class="fa fa-users"></i> <span>Customer Management</span> </a>
+                <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-inbox"></i> <span>Inventory Management</span> </a>    
+                    <ul>
+                        <li> <a href="inventoryManagement.jsp" style="text-decoration:none;"> <i class="fa fa-search-plus"></i> <span>Search Inventory</span> </a> </li>
+                        <li> <a href="addInventory.jsp" style="text-decoration:none;"> <i class="fa fa-cart-plus"></i> <span>Add Inventory</span> </a> </li>
+                        <li> <a href="addInventoryQty.jsp" style="text-decoration:none;"> <i class="fa fa-qrcode"></i> <span>Add Inventory Quantity</span> </a> </li>
+                    </ul>
+                <li> <a href="orderPicking.jsp" style="text-decoration:none;"> <i class="fa fa-archive"></i> <span>Order Picking</span> </a>   
+                <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book"></i> <span>Purchase History</span> </a>
+               
+            </ul>
         </div>
+            <div id="userBar">
+                <%
+                    String choosenUsername = (String) session.getAttribute("user");
+                    String nameOfUser = "";
+                    if(choosenUsername != null){
+                        String[] nameArr = choosenUsername.split("\\.");
+                        nameOfUser = nameArr[0].toUpperCase();
+                    }
+                %>
+                <h3 style="font-family: Wellfleet"><b>Current User: <%=nameOfUser%></b></h3>
+                </div>
+                <div id="logoutBtn">
+                <form action="logout.jsp">
+                  <button type="submit" name="logout" class="mui-btn mui-btn--raised mui-btn--danger "><i class="fa fa-sign-out" style="font-size:18px;"> Logout</i></button>
+                </form>
+                </div>
+            
     </body>
 </html>

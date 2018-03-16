@@ -219,7 +219,7 @@ public class InventoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as totalQty,SUBSTRING(Date_Of_Purchase, 7, 1) as month,SUBSTRING(Date_Of_Purchase, 1, 4) as year from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id group by cp.sku_id,month order by month ASC,year ASC,totalQty DESC");
+            PreparedStatement stmt = conn.prepareStatement("select name,sum(cp.quantity) as totalQty,SUBSTRING(Date_Of_Purchase, 6,2) as month,SUBSTRING(Date_Of_Purchase, 1, 4) as year from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id group by cp.sku_id,month order by month ASC,year ASC,totalQty DESC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

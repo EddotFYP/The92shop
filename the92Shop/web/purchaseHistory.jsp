@@ -10,7 +10,7 @@
 <%@page import="DAO.InventoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="css/master.css">
-<%@include file="sideNavBar.jsp" %>
+<link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -19,11 +19,22 @@
         <title>Purchase History</title>
     </head>
     <body> 
+        <%
+                    String usernameAcc = (String) session.getAttribute("user");
+                    
+                    if(!usernameAcc.equals("qingyang")){ %>
+                        <%@include file="nonAdminSideNavBar.jsp" %>
+                    <%}else{ %>
+                        <%@include file="sideNavBar.jsp" %>
+                   <% }
+                    
+
+                %>
         <form id="myForm" action="OrderPickingController" method="post">
             <div class="subPageContent">
-                <h1>Purchase History Page</h1>
-
-                <button type="submit" name="btnSubmit" class="searchBtn"><i class="fa fa-search"> View History</i></button>
+                <h1>Purchase History</h1>
+                <br />
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search"> View History</i></button>
                 <input type="hidden" name="ViewPurchaseHistory" value="1">
 
                 </form>

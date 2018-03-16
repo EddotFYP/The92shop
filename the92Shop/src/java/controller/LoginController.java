@@ -40,35 +40,30 @@ public class LoginController extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
+        UserDAO userDAO = new UserDAO();
+        User user = userDAO.retrieve(username);
 
-            UserDAO userDAO = new UserDAO();
-            User user = userDAO.retrieve(username);
-           
-            if (user != null && user.authenticate(password)) {
+        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
+            if (username.equals("qingyang") && password.equals("the92shop")) {
                 session.setAttribute("user", username);
                 response.sendRedirect("home.jsp");
             } else {
-                request.setAttribute("error", "Invalid username/password");
-                RequestDispatcher view = request.getRequestDispatcher("login.jsp");
-                view.forward(request, response);
-            }
-            
-            /*
-                if (username.equals("hi") && password.equals("hello")) {
+                if (user != null && user.authenticate(password)) {
                     session.setAttribute("user", username);
-                    response.sendRedirect("home.jsp");
+                    response.sendRedirect("changePassword.jsp");
                 } else {
                     request.setAttribute("error", "Invalid username/password");
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                     view.forward(request, response);
                 }
-             */
+
+            }
         } else {
             request.setAttribute("error", "Invalid username/password");
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
         }
+
     }
         /*else{
     }
