@@ -20,11 +20,12 @@
         <title>Edit Expense Type</title>
     </head>
     <body>
-         <div class="subPageContent">
+        <div class="subPageContent">
             <form  action="ExpenseTypeController" method="post">
-             
-                <h1>Add Expense Type</h1>
-                <br />
+                <div class ="mui-panel ">    
+                    <h1>Add Expense Type</h1>
+                    <div class="mui-divider"></div>
+                    <br />
                     <table id="expenseTable">
                         <tr>
                             <td>
@@ -33,18 +34,17 @@
 
                             <td>
                                 <div class="mui-textfield">
-                                <input type ="text" name ="newExpType" id="newExpType" required/>
+                                    <input type ="text" name ="newExpType" id="newExpType" required/>
                                 </div>
                             </td>
                             <td>
-                                 &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus"> Add</i></button>
+                                &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus"> Add</i></button>
                             </td>
                         </tr>
 
                     </table>
-                    
-                       <%
-                      String error = (String) request.getAttribute("error");
+
+                    <%                           String error = (String) request.getAttribute("error");
                         String message = (String) request.getAttribute("message");
                         if (error != null) {
                             out.println("<p style='color:red'>" + error + "</p>");
@@ -56,6 +56,7 @@
                     %>
             </form>
         </div>
-    </body>
+    </div>
+</body>
 </html>
 

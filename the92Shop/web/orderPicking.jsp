@@ -61,26 +61,21 @@
             %>
         <form id="myForm" class="mui-form--inline" action="OrderPickingController" method="post">
             <div class="subPageContent">
+                <div class ="mui-panel orderPickingPanel ">    
                 <h1>Order Picking</h1>
+                <div class="mui-divider"></div>
                 <br />
                 <%--                    ArrayList<Inventory> savedList = (ArrayList<Inventory>) session.getAttribute("currentList");
                     if (savedList != null) {
                         out.println(savedList.size());
                     }
                 --%>
-
                 Scan SKU:
 
-                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="margin-right: 70px"><i class="fa fa-camera"style="font-size:16px;"> Scan</i></button>
+                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px; margin-right: 70px"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
                 
                 <br/>
-                Enter customer's number: 
-                <div class="mui-textfield">
-                    <input type="tel" pattern="[8\d|9\d]{8}"  id="phone" name="phone" required>
-                 </div>
-                
-                <button type="submit"  name="btnSubmit" id="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"  style="font-size:18px;">Submit</button>
-                <br/>
+               
                 <input type="hidden" id="qrValue" name="cameraResult" value="">
                 
                 </form>
@@ -90,6 +85,7 @@
                         out.println("<p style='color:red'>" + error + "</p>");
                     }
                     %>
+                <br />
                 <video id="camera" width="420" align="center"></video>
                     <%                        ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
 
@@ -131,7 +127,8 @@
 
 
                     %>
-                <table id="invTable" border ="1" >
+                <div class="orderPicking">
+                <table class="invMgt-table">
                     <thead>
                         <tr>
 
@@ -167,20 +164,17 @@
                         %>
                     </tbody>
                 </table>
+                  </div>
                 <br/>
-                <br/>
-
                 <%-- "discard" and "submit" form --%>
+                 <div class="orderPickingcustNum">
+                 Enter customer's number: 
+                <div class="mui-textfield">
+                    <input type="tel" pattern="[8\d|9\d]{8}"  id="phone" name="phone" required>
+                 </div>
                 
-                    
-                    
-                
-
-
-
-
-
-
+                <button type="submit"  name="btnSubmit" id="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"  style="font-size:18px;">Submit</button>
+                <br/>
                 <%                    
                     
                     
@@ -192,7 +186,8 @@
                         
                     }
                 %>
-
+                 </div>
+                </div>
             </div>
 
     </body>

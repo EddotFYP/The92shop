@@ -279,16 +279,15 @@ public class InventoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("SELECT SKU_Id,Name, Quantity FROM inventory WHERE Quantity < 30 order by quantity ASC");
+            PreparedStatement stmt = conn.prepareStatement("SELECT Name, Quantity FROM inventory WHERE Quantity < 30 order by quantity ASC");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
+                
+                String name = rs.getString(1);
+                int quantity = rs.getInt(2);
 
-                int SKUId = rs.getInt(1);
-                String name = rs.getString(2);
-                int quantity = rs.getInt(3);
-
-                inv = new Inventory(SKUId, name, quantity);
+                inv = new Inventory(name, quantity);
                 invList.add(inv);
                 
                 for(Inventory i: invList){

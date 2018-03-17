@@ -27,50 +27,40 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-             .my_text
-            {
-                font-family:    Arial, Helvetica, sans-serif;
-                font-size:      40px;
-                font-weight:    bold;
-            }
-        </style>
-
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Financial Statement</title>
     </head>
     <body>
         <form class="mui-form--inline" action="FinancialStatementController" method="post">
             <div id = "financialStatement">
-
-                <h1>Financial Statement</h1>
-
+                <div class ="mui-panel">
+                    <h1>Financial Statement</h1>
+                    <div class="mui-divider"></div>
                     Filter by (Monthly/Yearly):
                     <div class="mui-select">
-                    <select name="month" required>
-                        <option value=''>Please select</option>
-                        <option value='1'>January</option>
-                        <option value='2' >February</option>
-                        <option value='3' >March</option>
-                        <option value='4' >April</option>
-                        <option value='5' >May</option>
-                        <option value='6' >June</option>
-                        <option value='7' >July</option>
-                        <option value='8' >August</option>
-                        <option value='9' >September</option>
-                        <option value='10' >October</option>
-                        <option value='11' >November</option>
-                        <option value='12' >December</option>
-                    </select>
+                        <select name="month" required>
+                            <option value=''>Please select</option>
+                            <option value='1'>January</option>
+                            <option value='2' >February</option>
+                            <option value='3' >March</option>
+                            <option value='4' >April</option>
+                            <option value='5' >May</option>
+                            <option value='6' >June</option>
+                            <option value='7' >July</option>
+                            <option value='8' >August</option>
+                            <option value='9' >September</option>
+                            <option value='10' >October</option>
+                            <option value='11' >November</option>
+                            <option value='12' >December</option>
+                        </select>
                     </div>
-                    
+
                     <div class="mui-select">
-                    <select name="year" class="required" required>
-                        <option value="" >Please select</option>
-                        <option value="2017" >2017</option>
-                        <option value="2018" >2018</option>
-                    </select>
+                        <select name="year" class="required" required>
+                            <option value="" >Please select</option>
+                            <option value="2017" >2017</option>
+                            <option value="2018" >2018</option>
+                        </select>
                     </div>
 
                     &nbsp;
@@ -79,9 +69,10 @@
 
                     <br>
                 </div>
+            </div>
         </form> 
 
-        <div class="my_text" id="target" align="center" >
+        <div class="my_text mui-panel" id="target" align="center" >
 
 
 
@@ -93,33 +84,33 @@
                 HashMap<String, Double> retrieveSalesGained = (HashMap<String, Double>) request.getAttribute("retrieveSalesGained");
                 if (retrieveSalesGained != null && !retrieveSalesGained.isEmpty()) {
             %>
-          
+
             <table id="basic-table" border="0" cellpadding="2" cellspacing="5" >
                 <h1>the92 shop Income Statement</h1>
                 <thead>
-                    
+
                     <tr>
-                      
-                         <th style="padding-left:15px;padding-bottom:25px"><b>Income Statement for <%=monthString%> <%=year%></b></th>
-                         <th style="padding-left:30px;padding-bottom:25px"><b>$</b></th>
+
+                        <th style="padding-left:15px;padding-bottom:25px"><b>Income Statement for <%=monthString%> <%=year%></b></th>
+                        <th style="padding-left:30px;padding-bottom:25px"><b>$</b></th>
 
                     </tr>
                 </thead>     
-                    
+
                 <tr>
-                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Revenues</td>
-                        <td style="padding-left:15px"><b></b></td>
+                    <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Revenues</td>
+                    <td style="padding-left:15px"><b></b></td>
 
-                    </tr>
-                
-
-                    <%
-                        for (String goods : retrieveSalesGained.keySet()) {
-                            String goodsSold = goods;
-                            double profit = retrieveSalesGained.get(goods);
+                </tr>
 
 
-                    %>
+                <%
+                    for (String goods : retrieveSalesGained.keySet()) {
+                        String goodsSold = goods;
+                        double profit = retrieveSalesGained.get(goods);
+
+
+                %>
 
                 <tbody>
                     <tr>
@@ -160,7 +151,7 @@
 
                 </tr>
 
-                
+
 
 
                 <%                        for (String expTrackerItems : retrieveTypewithCost.keySet()) {
@@ -241,24 +232,24 @@
         <br>
 
         <script>
-            
-
-                
-               
-                $('#button').click(function () {
-                    var doc = new jsPDF('p', 'pt', 'a4');
-                     var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
-                      doc.autoTable(res.columns, res.data, {
-                      startY: 80
-                      });
-                   
-                      doc.save('sample-file.pdf');
-                            
-                    
 
 
 
-               
+
+            $('#button').click(function () {
+                var doc = new jsPDF('p', 'pt', 'a4');
+                var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
+                doc.autoTable(res.columns, res.data, {
+                    startY: 80
+                });
+
+                doc.save('sample-file.pdf');
+
+
+
+
+
+
             });
         </script> 
 

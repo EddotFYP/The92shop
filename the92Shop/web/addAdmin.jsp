@@ -17,24 +17,26 @@
     <body>
         <div class="subPageContent">
             <form class="mui-form" action="UserController" method="post">
-                    <h1>Add New Admin</h1>
+                <div class ="mui-panel ">    
+                <h1>Add New Admin</h1>
+                <div class="mui-divider"></div>
                     <br />
                     <table id="AdminTable">
                         <tr>
                             <td>
-                                Admin Name:
+                                <span>Admin Name</span><span style="float:right">:</span>
                             </td>
 
                             <td>
                                 <div class="mui-textfield">
-                                <input type ="text" name ="name" id="name" required/>
+                                <input type ="text" placeholder="Name" name ="name" id="name" required/>
                                 </div>
                             </td>
                         </tr>
                         
                         <tr>
                             <td>
-                                Password:
+                                <span>Password</span><span style="float:right">:</span>
                             </td>
 
                             <td>
@@ -45,7 +47,7 @@
                         </tr>
                         <tr>
                             <td>
-                                Confirm Password:
+                                <span>Confirm Password</span><span style="float:right">:</span>
                             </td>    
                             <td>
                                 <div class="mui-textfield">
@@ -56,7 +58,9 @@
                         
                         <tr>
                             <td>
-                              <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
+                            </td>
+                            <td>
+                              <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="float:right;"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
                             </td>
                             
                         </tr>
@@ -91,6 +95,6 @@
                     </script>    
             </form>
         </div>
-
+        </div>
 </body>
 </html>

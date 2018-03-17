@@ -9,10 +9,13 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.Inventory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="css/dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -23,82 +26,129 @@
         <script src="js/jquery.min.js"></script>
         <script src="js/dataTables.min.js"></script>
         <script src = "js/highcharts.js"></script>
-        
+
         <script>
             $(document).ready(function () {
-            $('#myTable').dataTable({
-                "bPaginate": true,
-                "bLengthChange": false,
-                "bFilter": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bSorted": false,
-                "order": [],
-                "ordering": false
-            }); 
-             });     
- 
+                $('#myTable').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": false,
+                    "order": [],
+                    "ordering": false
+                });
+            });
+
         </script>
     </head>
     <body>
         <form action="InventoryDbController" method="post" class="mui-form--inline">
             <input type="hidden" name="invLevel" value="inventoryLevel">
             <input type="hidden" name="invList" value="lowInvList">
+                <div class="mui-panel subPageContentInventory">
+                <h1>Inventory Dashboard</h1>
+                <div class="mui-divider"></div>
+                <%
+                    int qty = (Integer) request.getAttribute("alertResult");
+                    %>
+               
+                     
+                    <%if (qty >= 0) {%>
+               
+                    <h2>Low inventory alert: </h2>
+                    <h2><strong style="color: red;"><%=qty%></strong> products</h2>
+                    
+                     </div>
+                    <%}
 
-            <div class="subPageContent"><h1>Inventory Dashboard</h1></div>
-            <div id="topProduct">
-            <h2>Top 5 Best Sellers:</h2>
-            Filter by (Monthly/Yearly): &nbsp;
-            <div class="mui-select">
-            <select name="month">
-                <option value="none" selected>Please select</option>
-                <option value="January">January</option>
-                <option value="Febuary" >February</option>
-                <option value="March" >March</option>
-                <option value="April" >April</option>
-                <option value="May" >May</option>
-                <option value="June" >June</option>
-                <option value="July" >July</option>
-                <option value="August" >August</option>
-                <option value="September" >September</option>
-                <option value="October" >October</option>
-                <option value="November" >November</option>
-                <option value="December" >December</option>
-            </select>
-            </div>
-            <div class="mui-select">
-            <select name="year">
-                <option value="none" selected>Please select</option>
-                <option value="2017" >2017</option>
-                <option value="2018" >2018</option>
-            </select>
-            </div>
-            <br />
-            <br />
-            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
-            <br>
+                        ArrayList<Inventory> invList = (ArrayList<Inventory>) request.getAttribute("listResult");
+                        if (invList != null || !invList.isEmpty()) {
+                    %>
+               
+                    <br /> 
+                    
+                    <div class=" table-responsive mui-panel subPageContentInventory">
+                        <h2> List of low inventory products</h2>
+                        <table  id="myTable" >
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <%
+                                        for (Inventory i : invList) {
+                                            String productName = i.getName();
+                                            int quantity = i.getQuantity();
+                                    %>    
+                                    <td ><%=productName%></td>
+                                    <td ><%=quantity%></td>
+                                </tr>
+                                <%
+                            } %>
+                            </tbody>
+                        </table>      
+                        <%
+                            }
+                        %>
+                    </div>
+                    
+                    <div class="mui-panel topProduct">
+                    <h2>Top 5 Best Sellers:</h2>
+                    Filter by (Monthly/Yearly): &nbsp;
+                    <div class="mui-select">
+                        <select name="month">
+                            <option value="none" selected>Please select</option>
+                            <option value="January">January</option>
+                            <option value="Febuary" >February</option>
+                            <option value="March" >March</option>
+                            <option value="April" >April</option>
+                            <option value="May" >May</option>
+                            <option value="June" >June</option>
+                            <option value="July" >July</option>
+                            <option value="August" >August</option>
+                            <option value="September" >September</option>
+                            <option value="October" >October</option>
+                            <option value="November" >November</option>
+                            <option value="December" >December</option>
+                        </select>
+                    </div>
+                    <div class="mui-select">
+                        <select name="year">
+                            <option value="none" selected>Please select</option>
+                            <option value="2017" >2017</option>
+                            <option value="2018" >2018</option>
+                        </select>
+                    </div>
+                    <br />
+                    <br />
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
+                    <br>
 
 
-            <%
-                ArrayList<String> itemNameList = (ArrayList<String>) request.getAttribute("itemNameResult");
-                String jsonItemName = new Gson().toJson(itemNameList);
-                
-                ArrayList<String> itemQtyList = (ArrayList<String>) request.getAttribute("itemQtyResult");
-                String jsonItemQty = new Gson().toJson(itemQtyList);   
-                
-                String text = (String) request.getAttribute("word");
-                String error = (String) request.getAttribute("error");
+                    <%                ArrayList<String> itemNameList = (ArrayList<String>) request.getAttribute("itemNameResult");
+                        String jsonItemName = new Gson().toJson(itemNameList);
 
-                if (text != null && !text.isEmpty()) {
-                    if (!text.equals("none")) {
-                        out.println("<br />" + "You have selected: " + text + "<br />");
-                    }
-                }
+                        ArrayList<String> itemQtyList = (ArrayList<String>) request.getAttribute("itemQtyResult");
+                        String jsonItemQty = new Gson().toJson(itemQtyList);
 
-                if (itemNameList != null && !itemNameList.isEmpty() && itemQtyList != null && !itemQtyList.isEmpty()) {
-            %>
-                <br />
-                <div id = "inventoryContainer" >
+                        String text = (String) request.getAttribute("word");
+                        String error = (String) request.getAttribute("error");
+
+                        if (text != null && !text.isEmpty()) {
+                            if (!text.equals("none")) {
+                                out.println("<br />" + "You have selected: " + text + "<br />");
+                            }
+                        }
+
+                        if (itemNameList != null && !itemNameList.isEmpty() && itemQtyList != null && !itemQtyList.isEmpty()) {
+                    %>
+                    <br />
+                    <div id = "inventoryContainer" >
                         <script>
                             var nameList = <%=jsonItemName%>;
                             var qtyList = <%=jsonItemQty%>;
@@ -116,7 +166,7 @@
                                 };
                                 var xAxis = {
                                     categories: nameList,
-                                    
+
                                     labels: {
                                         style: {
                                             color: 'black',
@@ -143,7 +193,7 @@
                                         }]
                                 };
                                 var tooltip = {
-                                    valueSuffix: ' items'
+                                    valueSuffix: ' products'
                                 };
 
                                 var series = [{
@@ -172,8 +222,8 @@
                             });
                         </script>
                     </div>
-            
-            <%
+
+                    <%
                         } else {
 
                             if (error == null) {
@@ -183,54 +233,7 @@
                             }
                         }
                     %>
-        </div>
-        <br />
-        <br />
-        <%
-            int qty = (Integer) request.getAttribute("alertResult");
-            
-            if (qty >= 0){  %>
-                <div id="lowInv">
-                <h2>Low inventory alert: </h2>
-                <h2><strong style="color: red;"><%=qty%></strong> items</h2>
-            <%}
-            
-            ArrayList<Inventory> invList = (ArrayList<Inventory>) request.getAttribute("listResult");
-            if (invList != null || !invList.isEmpty()) {
-        %>
-        
-            <br /> 
-            <h2> List of low inventory items</h2>
-            <div class="table-responsive">
-                <table border="1" id="myTable">
-                    <thead>
-                        <tr>
-                            <th>SKU ID</th>
-                            <th>Name</th>
-                            <th>Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <%
-                                for (Inventory i : invList) {
-                                    int SKUId = i.getSKUID();
-                                    String productName = i.getName();
-                                    int quantity = i.getQuantity();
-                            %>    
-                            <td ><%=SKUId%></td>
-                            <td ><%=productName%></td>
-                            <td ><%=quantity%></td>
-                        </tr>
-                        <%
-                                } %>
-                    </tbody>
-                </table>      
-                <%
-                    }
-                %>
-            </div>
-        </div>
+                </div>
         </form>  
     </body>
 </html>

@@ -18,8 +18,9 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/instascan.min.js"></script>
-<style>
-</style>
+        <script src="js/dataTables.min.js"></script>
+        <style>
+        </style>
         <title>Inventory Management</title>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -40,31 +41,32 @@
                     $('#newPrice').attr("value", $('#iPrice').html());
 
                 });
-                
+
             });
             function confirmation() {
-                    
-                    var ans = confirm("Are you sure you want to delete this item?");
-                    if(ans){
-                        return true;
-                    } else {
-                        return false;
-                    }
 
-            };
+                var ans = confirm("Are you sure you want to delete this item?");
+                if (ans) {
+                    return true;
+                } else {
+                    return false;
+                }
+
+            }
+            ;
             function initiateCamera() {
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
                 scanner.addListener('scan', function (content) {
 
-                /*var request = new XMLHttpRequest();
-
-                    /*request.open("POST", "InventoryController", true);
-                    request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                    request.send("cameraResult=" + content);*/
+                    /*var request = new XMLHttpRequest();
+                     
+                     /*request.open("POST", "InventoryController", true);
+                     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                     request.send("cameraResult=" + content);*/
                     document.getElementById('qrValue').value = content;
                     document.getElementById('myForm').submit();
                     scanner.stop();
-                    
+
                 });
 
                 //check if the device has cameras
@@ -83,127 +85,134 @@
         </script>
     </head>
     <body>
-                <%
-            String usernameAcc = (String) session.getAttribute("user");
-                    
-            if(!usernameAcc.equals("qingyang")){ %>
-                <%@include file="nonAdminSideNavBar.jsp" %>
-         <%}else{ %>
-               <%@include file="sideNavBar.jsp" %>
-         <%}
+        <%                    String usernameAcc = (String) session.getAttribute("user");
+
+                    if (!usernameAcc.equals("qingyang")) {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="sideNavBar.jsp" %>
+        <%}
         %>
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
-                <h1>Search Inventory</h1>
-                <br />
-                <%                InventoryDAO dao = new InventoryDAO();
-                    ArrayList<Inventory> listOfInventory = dao.retrieveInventoryList();
-                    ArrayList<String> allInventory = new ArrayList<>();
-                    for (Inventory i : listOfInventory) {
-                        allInventory.add(i.getName());
-                    }
-                    //Collections.sort(allInventory);
+                <div class ="mui-panel">
+                    <h1>Search Inventory</h1>
+                    <div class="mui-divider"></div>
+                    <br />
+                    <%                InventoryDAO dao = new InventoryDAO();
+                        ArrayList<Inventory> listOfInventory = dao.retrieveInventoryList();
+                        ArrayList<String> allInventory = new ArrayList<>();
+                        for (Inventory i : listOfInventory) {
+                            allInventory.add(i.getName());
+                        }
+                        //Collections.sort(allInventory);
 
-                %>
+                    %>
 
-                Enter product name:
-                <input type="text" list="sku" name="sku" required>
+                    Enter product name:
+                    <input type="text" list="sku" name="sku" required>
 
-                <datalist id="sku">
-                    <%for (String i : allInventory) {%>
-                    <option value="<%=i%>"><%=i%></option>
-                    <% }%>
-                </datalist>
+                    <datalist id="sku">
+                        <%for (String i : allInventory) {%>
+                        <option value="<%=i%>"><%=i%></option>
+                        <% }%>
+                    </datalist>
 
-                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
+                    <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
 
-                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
-                <br/>
-                <input type="hidden" id="qrValue" name="cameraResult" value="">
-                
-        </form>
-                <video id="camera" width="420"></video>
-        <%
-            ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
-            String message = (String) request.getAttribute("message");
-            int id = 0;
-            String inventoryName = "";
-            int qty = 0;
-            String updatedDate = "";
-            double cost = 0.0;
-            double price = 0.0;
+                    <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
+                    <br/>
+                    <input type="hidden" id="qrValue" name="cameraResult" value="">
 
-            if (list != null && !list.isEmpty()) {
+                    </form>
+                   
+                        <%
+                            ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                            String message = (String) request.getAttribute("message");
+                            
+                            if (message != null) {
+                            out.println("<p style='color:red'>" + message + "</p>");
+                            }
+                            
+                            int id = 0;
+                            String inventoryName = "";
+                            int qty = 0;
+                            String updatedDate = "";
+                            double cost = 0.0;
+                            double price = 0.0;
 
-        %>
-        <table id="invTable" border ="1">
-            <thead>
-                <tr>
-                    <th> SKU ID </th>
-                    <th> Name </th>
-                    <th> Quantity </th>
-                    <th> Updated Date </th>
-                    <th> Cost </th>
-                    <th> Selling Price </th>
-                    <th> Edit </th>
-                    <th> Save </th>
-                    <th> Delete </th>
+                            if (list != null && !list.isEmpty()) {
 
-                </tr>
-            </thead>
-            <%for (Inventory i : list) {
-                    id = i.getSKUID();
-                    inventoryName = i.getName();
-                    qty = i.getQuantity();
-                    updatedDate = i.getPurchaseDate();
-                    cost = i.getCostPrice();
-                    price = i.getSellingPrice();
-            %>
-            <tbody>
-                <tr>
-                    <td id="invId"><%=id%></td>
-                    <td id="iName"><%=inventoryName%></td>
-                    <td id="quantity"><%=qty%></td>
-                    <td id="date"><%=updatedDate%></td>
-                    <td id="iCost"><%=cost%></td>
-                    <td id="iPrice"><%=price%></td>
-                    <td>
-                        <form>
-                            <button type="button" name="edit" class="btn" id="edit"><i class="fa fa-edit"></i></button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="InventoryController" method="post">
-                            <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
-                            <input type="hidden" id="iId" name="editAction" value="">
-                            <input type="hidden" id="newName" name="editAction" value="">
-                            <input type="hidden" id="newQuantity" name="editAction" value="">
-                            <input type="hidden" id="newDate" name="editAction" value="">
-                            <input type="hidden" id="newCost" name="editAction" value="">
-                            <input type="hidden" id="newPrice" name="editAction" value="">
-                        </form>
-                    </td>
-                    <td>
-                        <form action="InventoryController" method="post" onclick="return confirmation()">
-                            <button type="submit" name="delete" class="btn" id="deleteButton"><i class="fa  fa-trash"></i></button>
-                            <input type="hidden" name="deleteAction" value="<%=id%>">
-                        </form>
-                    </td>
-                </tr>
-                <%
-                    }
-                %>
-            </tbody>
-        </table>
-        
-        
-        <%
-            }
-            if (message != null) {
-                out.println("<p style='color:red'>" + message + "</p>");
-            }
-        %>
+                        %>
+                    <br />
+               
+                    <table class="invMgt-table">
+                        <thead>
+                            <tr>
+                                <th> SKU ID </th>
+                                <th> Name </th>
+                                <th> Quantity </th>
+                                <th> Updated Date </th>
+                                <th> Cost </th>
+                                <th> Selling Price </th>
+                                <th> Edit </th>
+                                <th> Save </th>
+                                <th> Delete </th>
 
-    </div>
-</body>
+                            </tr>
+                        </thead>
+                        <%for (Inventory i : list) {
+                                id = i.getSKUID();
+                                inventoryName = i.getName();
+                                qty = i.getQuantity();
+                                updatedDate = i.getPurchaseDate();
+                                cost = i.getCostPrice();
+                                price = i.getSellingPrice();
+                        %>
+                        <tbody>
+                            <tr>
+                                <td id="invId"><%=id%></td>
+                                <td id="iName"><%=inventoryName%></td>
+                                <td id="quantity"><%=qty%></td>
+                                <td id="date"><%=updatedDate%></td>
+                                <td id="iCost"><%=cost%></td>
+                                <td id="iPrice"><%=price%></td>
+                                <td>
+                                    <form>
+                                        <button type="button" name="edit" class="btn" id="edit"><i class="fa fa-edit"></i></button>
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="InventoryController" method="post">
+                                        <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
+                                        <input type="hidden" id="iId" name="editAction" value="">
+                                        <input type="hidden" id="newName" name="editAction" value="">
+                                        <input type="hidden" id="newQuantity" name="editAction" value="">
+                                        <input type="hidden" id="newDate" name="editAction" value="">
+                                        <input type="hidden" id="newCost" name="editAction" value="">
+                                        <input type="hidden" id="newPrice" name="editAction" value="">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="InventoryController" method="post" onclick="return confirmation()">
+                                        <button type="submit" name="delete" class="btn" id="deleteButton"><i class="fa  fa-trash"></i></button>
+                                        <input type="hidden" name="deleteAction" value="<%=id%>">
+                                    </form>
+                                </td>
+                            </tr>
+                            <%
+                                }
+                            %>
+                        </tbody>
+                    </table>
+                 
+
+                    <%
+                        }
+                        
+                    %>
+                     <video id="camera" width="420"></video>
+                </div>
+            </div>
+    </body>
 </html>

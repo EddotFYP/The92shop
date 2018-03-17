@@ -36,15 +36,16 @@
                 
                 <br />
                 <br />
-                <br />
+                <div class ="mui-panel profits">
                 <h1>Yearly Trend for Sales</h1>
                 <br />
 
                 <button type="submit" id="ybtn" onclick="yearlySales()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate><i class="fa fa-bar-chart-o" style="font-size:18px;"> Yearly Trend</i></button>
                 <input type="hidden" id="yearlyTrendSales" name="yearlyTrendSales" value="">
+                </div>
                 <br />
                 <br />
-
+                <div class ="mui-panel monthlyprofits">
                 <h1>Monthly Sales</h1>
                 Filter monthly sales by:
                 <div class="mui-select">
@@ -57,10 +58,7 @@
 
                &nbsp;
                 <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
-
-                <br />
-                <br />
-
+                </div>
                 <%                    
                     //yearly sales 
                     ArrayList<String> yearInSales = (ArrayList<String>) request.getAttribute("yearInSales");
@@ -76,6 +74,7 @@
 
                     if (yearInSales != null && salesInSales != null) {
                 %>
+                <div class="mui-panel profitYearlyResult" >
                 <div id = "yearlySalesContainer" class="containerDB" >
                     <script>
                         var year = <%=jsonYear%>;
@@ -148,12 +147,13 @@
                         });
                     </script>
                 </div>
+                 </div>
                 <%
                     }
                     if (salesResult != null) {
-                        out.println("You have selected: " + text + "<br /><br />");
+                        out.println("<div class='mui-panel monthlysales'>You have selected: " + text);
                 %>
-                <div>
+                
                     <div id = "monthlySalesContainer" class="containerDB" >
                         <script>
                             //straight display latest monthly sales
@@ -226,7 +226,7 @@
 
                         </script>
                     </div>
-                </div>
+                
                 <% }
 
                 %>

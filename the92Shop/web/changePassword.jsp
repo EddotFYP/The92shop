@@ -17,12 +17,14 @@
     <body>
         <div class="subPageContent">
             <form class="mui-form" action="UserController" method="post" >
+                <div class ="mui-panel "> 
                 <h1>Change Password</h1>
+                <div class="mui-divider"></div>
                 <br />
                 <table id="AdminTable">
                     <tr>
                         <td>
-                            Current Password:
+                            <span>Current Password</span><span style="float:right">:</span>
                         </td>
 
                         <td>
@@ -33,7 +35,7 @@
                     </tr>
                     <tr>
                         <td>
-                            New Password:
+                            <span>New Password</span><span style="float:right">:</span>
                         </td>
 
                         <td>
@@ -44,7 +46,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Confirm New Password:
+                            <span>Confirm New Password</span><span style="float:right">:</span>
                         </td>
 
                         <td>
@@ -54,6 +56,7 @@
                         </td>
                     </tr>
                     <tr>
+                        <td></td>
                         <td>
                             <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-check" style="font-size:18px;"> Change Password</i></button>
                         </td>
@@ -72,6 +75,7 @@
                 %>
 
             </form>
+                </div>
         </div>
 
     </body>

@@ -44,7 +44,10 @@ public class Inventory {
         this.quantity = quantity;     
     }
      
-    
+     public Inventory(String name, int quantity) {
+        this.name = name;
+        this.quantity = quantity;     
+    }
     /**
      * Get the value of name
      *

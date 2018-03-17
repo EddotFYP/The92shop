@@ -30,25 +30,27 @@
     </script>
     <body>
         <form id="myForm" class="mui-form--inline" action="FinancialDbController" method="post">
-
             <div class = "subPageContent">
-                <a href="financialDb.jsp" class="navDbButton">Profits</a>
+                <a href="financialDb.jsp" class="navDbButton">Profits</a> 
                 <a href="sales.jsp" class="navDbButton">Sales</a>
                 <a href="expenses.jsp" class="navDbButton">Expenses</a>
 
                 <br />
                 <br />
-                <br />
+                
+                <div class ="mui-panel profits">
                 <h1>Yearly Trend for Profits</h1>
                 <br />
 
-                 <button type="submit" id="ybtn" onclick="yearlyProfits()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate><i class="fa fa-bar-chart-o"style="font-size:18px;"> Yearly Trend</i></button>
+                <button type="submit" id="ybtn" onclick="yearlyProfits()" class="mui-btn mui-btn--raised mui-btn--primary buttonType" formnovalidate><i class="fa fa-bar-chart-o"style="font-size:18px;"> Yearly Trend</i></button>
                 <input type="hidden" id="yearlyTrendProfits" name="yearlyTrendProfits" value="">
-
+                </div>
                 <br />
                 <br />
+                
+                <div class ="mui-panel monthlyprofits">
                 <h1>Monthly Profits</h1>
-                Filter monthly profits by: &nbsp;
+                Filter monthly profits by:
                 <div class="mui-select">
                 <select name="monthlyProfits" id="month" required>
                     <option value="" selected>Please select</option>
@@ -57,10 +59,8 @@
                 </select>
                 </div>
                 &nbsp;
-                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
-
-                <br />
-                <br />
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary buttonType "><i class="fa fa-filter" style=" font-size:18px;"> Filter </i></button>
+                </div>
                <%                    
                     ArrayList<String> yearInProfits = (ArrayList<String>) request.getAttribute("yearInProfits");
                     String jsonYear = new Gson().toJson(yearInProfits);
@@ -70,7 +70,9 @@
                     
                     if (yearInProfits != null && profitInProfits != null) {
                 %>
-                <div id = "yearlyProfitsContainer" class="containerDB" >
+                
+                <div class="mui-panel profitYearlyResult" >
+                <div id = "yearlyProfitsContainer" >
                     <script>
                         var year = <%=jsonYear%>;
                         var profit = <%=jsonProfit%>;
@@ -140,12 +142,13 @@
                             $('#yearlyProfitsContainer').highcharts(json);
                         });
                     </script>
-                </div>
+                
                 <%
                     }
                 %>
-
-
+                </div>
+                </div>
+                
                 <%
                     String text = (String) request.getAttribute("sortMonthlyProfits");
 
@@ -153,8 +156,9 @@
                     String jsonMonthlyProfits = new Gson().toJson(profitsResult);
                    
                     if (profitsResult != null) {
-                        out.println("You have selected: " + text + "<br /><br />");
+                        out.println("<div class='mui-panel profitMonthlyResult' style='font-size: 20px;'>You have selected: " + text);
                 %>
+                
                 <div id = "monthlyProfitsContainer" class="containerDB" >
                     <script>
                         var monthlyProfits = <%=jsonMonthlyProfits%>;
@@ -228,6 +232,7 @@
                 </div>
                 <% }
                 %>
+                
             </div>
         </form>
     </body>

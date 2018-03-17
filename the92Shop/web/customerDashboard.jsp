@@ -14,7 +14,6 @@
 <%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
-<script src="//cdn.muicss.com/mui-0.9.36/js/mui.min.js"></script>
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,8 +25,9 @@
     <body>
         <form class="mui-form--inline" action="CustomerDbController" method="post">
             <div class = "subPageContent">
-                
-                    <h1> Customer Dashboard </h1>
+                <div class ="mui-panel ">   
+                <h1> Customer Dashboard </h1>
+                <div class="mui-divider"></div>
                     <br />
                     Filter by monthly/yearly: 
                     <div class="mui-select">
@@ -58,7 +58,7 @@
                     </div>
 
                     <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
-
+                
                     <%                        
                         ArrayList<String> customerNameList = (ArrayList<String>) request.getAttribute("custNameResult");
                         String jsonCustName = new Gson().toJson(customerNameList);
@@ -69,11 +69,13 @@
                         String text = (String) request.getAttribute("word");
                         if (text != null) {
 
-                            out.println("<br /><br />" + "You have selected: " + text + "<br /><br />");
+                            out.println("<br /><br />   " + "You have selected: " + text + "<br /><br />");
                         }
 
                         if (customerNameList != null && !customerNameList.isEmpty() && customerQtyList != null && !customerQtyList.isEmpty()) {
                     %>
+                    </div>
+                   <div class ='mui-panel'>
                     <div id = "customerContainer" >
                         <script>
                             var nameList = <%=jsonCustName%>;
@@ -161,7 +163,7 @@
                     
                                 
                     %>  
-                 
+                    </div>
             </div>
         </form>
     </body>

@@ -1,8 +1,74 @@
 body,
 ul {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    background-color: whitesmoke !important;
+    height: 100%;
+    padding: 0px;
+
 }
+
+#header {
+    width: 100%;
+    height: 50px;
+    background-color: #01579B;
+    position: fixed;
+    z-index:999;
+    text-transform: capitalize;
+}
+
+#header button {
+    text-transform: capitalize;
+    border-radius: 8px;
+}
+
+#parent {
+    width:100%;
+    height:100%;
+}
+#sidebar {
+    padding-top:50px; /* padding-top must be the same as header height */
+    width:200px;
+    height:100%;
+    bottom:0;
+    box-sizing:border-box;
+    position: fixed;
+    z-index:99;
+}
+
+.nonadminsidebar {
+    width: 250px;
+    position: absolute;
+    bottom: 0;
+    z-index:99;
+}
+
+#sidebar_back {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 200px;
+    background: #263238;
+    position: absolute;
+}
+
+
+#main-content {
+    position: relative;
+    width: 100%;
+    padding-left:200px; /* padding-left must be the same as sidebar width */
+    height: 100px; /* This could be anything, content should scroll vertical */
+    background: green;
+    box-sizing:border-box;
+    padding-top: 50px; /* padding-top must be the same as header height */
+    margin-left:220px;
+    margin-top:70px;
+    height: 100%;
+    font-family: Varela Round !important;
+    position: absolute;  
+    font-size: 20px !important;
+}
+
 .nav-side-menu {
     height: 100%;
     width: 300px;
@@ -11,115 +77,213 @@ ul {
     top: 0;
     left: 0;
     padding-top: 20px;
+
+}
+
+.admimdrawer {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom: 0;
+    background: #263238;
+    color: white;
+    text-align: center;
+}
+
+.admimdrawer li {
+    pointer-events: none;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    list-style: none;
+    transform: translateZ(0);
+    height: 73px;
+
+}
+
+.admimdrawer a {
+    pointer-events: auto;
+    position: relative;
+    display: block;
+    min-width: 5em;
+    margin-bottom: .4em;
+    padding: .4em;
+    line-height: 100%;
+    font-size: 18px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
+}
+
+.admimdrawer a:active,
+.admimdrawer a:focus { background: #263238 !important; }
+
+.admimdrawer i {
+    display: block;
+    margin-bottom: .2em;
+    font-size: 2em;
+
+}
+
+.admimdrawer span {
+    font-size: .8em;
+}
+
+.admimdrawer li:hover ul {
+    transform: translateX(0);
+    background: #263238!important;/* Enable this if you wish to replicate hoverIntent */
+}
+
+.admimdrawer > li { display: block;}
+
+.admimdrawer > li > a { background: #263238!important; }
+
+.admimdrawer > li:hover { z-index: 100; }
+
+.admimdrawer > li:hover a { background: #263238!important; }
+
+.admimdrawer > li a:hover { background: #263238!important; }
+
+.admimdrawer > li > a:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 4px;
+    opacity: 0;
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0.65)), color-stop(100%, transparent));
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -o-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -ms-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000', GradientType=1 );
+    transition: opacity 0.5s;
+}
+
+.admimdrawer > li:hover a:after { opacity: 1; }
+
+.admimdrawer > li ul {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 100%;
+    height: 100%;
+    width: auto;
+    white-space: nowrap;
+    transform: translateX(-100%);
+    background: #8B9DC3;
+    transition: 0.5s transform;
 }
 
 .drawer {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background: #263238;
-  color: white;
-  text-align: center;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    bottom: 0;
+    background: #263238;
+    color: white;
+    text-align: center;
 }
 
 .drawer li {
-  pointer-events: none;
-  position: relative;
-  display: inline-block;
-  vertical-align: middle;
-  list-style: none;
-  transform: translateZ(0);
-  height: 89px;
+    pointer-events: none;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    list-style: none;
+    transform: translateZ(0);
+    height: 118px;
+
 }
 
 .drawer a {
-  pointer-events: auto;
-  position: relative;
-  display: block;
-  min-width: 5em;
-  margin-bottom: .4em;
-  padding: .4em;
-  line-height: 100%;
-  font-size: 22px;
-  text-decoration: none;
-  color: white;
-  transition: background 0.3s;
+    pointer-events: auto;
+    position: relative;
+    display: block;
+    min-width: 5em;
+    margin-bottom: .4em;
+    padding: .4em;
+    line-height: 100%;
+    font-size: 22px;
+    text-decoration: none;
+    color: white;
+    transition: background 0.3s;
 }
 
 .drawer a:active,
-.drawer a:focus { background: #263238; }
+.drawer a:focus { background: #263238 !important; }
 
 .drawer i {
-  display: block;
-  margin-bottom: .2em;
-  font-size: 2em;
+    display: block;
+    margin-bottom: .2em;
+    font-size: 2em;
+    margin-top: 20px;
+    padding-bottom: 10px;
 }
 
 .drawer span {
-  font-size: .625em;
-  font-family: sans-serif;
-  text-transform: uppercase;
+    font-size: .625em;
 }
 
 .drawer li:hover ul {
-  transform: translateX(0);
-  background: #263238;/* Enable this if you wish to replicate hoverIntent */
+    transform: translateX(0);
+    background: #263238!important;/* Enable this if you wish to replicate hoverIntent */
 }
 
 .drawer > li { display: block;}
 
-.drawer > li > a { background: #263238; }
+.drawer > li > a { background: #263238!important; }
 
 .drawer > li:hover { z-index: 100; }
 
-.drawer > li:hover a { background: #263238; }
+.drawer > li:hover a { background: #263238!important; }
 
-.drawer > li a:hover { background: #263238; }
+.drawer > li a:hover { background: #263238!important; }
 
 .drawer > li > a:after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 100%;
-  width: 4px;
-  opacity: 0;
-  background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
-  background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0.65)), color-stop(100%, transparent));
-  background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
-  background: -o-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
-  background: -ms-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000', GradientType=1 );
-  transition: opacity 0.5s;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: 4px;
+    opacity: 0;
+    background: -moz-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%, rgba(0, 0, 0, 0.65)), color-stop(100%, transparent));
+    background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -o-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: -ms-linear-gradient(left, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.65) 0%, transparent 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000', GradientType=1 );
+    transition: opacity 0.5s;
 }
 
 .drawer > li:hover a:after { opacity: 1; }
 
 .drawer > li ul {
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 100%;
-  height: 100%;
-  width: auto;
-  white-space: nowrap;
-  transform: translateX(-100%);
-  background: #8B9DC3;
-  transition: 0.5s transform;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 100%;
+    height: 100%;
+    width: auto;
+    white-space: nowrap;
+    transform: translateX(-100%);
+    background: #8B9DC3;
+    transition: 0.5s transform;
 }
 
-
 .navButton {
-     background:none!important;
-     color:inherit;
-     border:none; 
-     padding:0!important;
-     font: inherit;
-     /*border is optional*/
-     cursor: pointer;
-     font-family: sans-serif;
+    background:none!important;
+    color:inherit;
+    border:none; 
+    padding:0!important;
+    font: inherit;
+    /*border is optional*/
+    cursor: pointer;
+    font-family: sans-serif;
 }
 
 #userBar {
@@ -131,56 +295,122 @@ ul {
 
 #logoutBtn{
     position: absolute;
-    bottom:630px;
-    left: 1340px;
-    font-size: 18px;
+    right: 10px;
+    top: 5px;
+}
+
+.topnav {
+    width: 100%;
+    height: 50px;
+    background-color: whitesmoke;
+    position: absolute;
+    z-index:999;
+}
+
+.topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.topnav button{
+    position: absolute;
+    right: 10px;
+    top: 5px;
 }
 
 #loginContainer{
-    position: absolute;
-    bottom: 100px;
-    left: 560px;
+
+ position: absolute;
+    bottom: 50px;
+    left: 500px;
     font-size: 18px;
-    font-family: Wellfleet;
     padding-left: 40px;
     padding-right: 40px;
     padding-top: 40px;
     padding-bottom: 40px;
     background-color: white;
     border-radius: 25px;
+    text-transform: capitalize;
 }
 
+#loginContainer button{
+    border-radius: 8px;
+    text-transform: capitalize;
+}
+
+#loginContent{
+
+    background-color: white;
+    border-radius: 15px;
+    font-size: 18px;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    left: 300px;
+    text-transform: capitalize;
+
+}
+
+
 img {
-    display: block;
+    display: table;
     margin-left: auto;
     margin-right: auto;
 }
 
 
 .subPageContent{
-    margin-left:270px;
+    margin-left:220px;
     margin-top:70px;
     height: 100%;
-    font-family: Wellfleet;
     position: absolute;  
     font-size: 20px !important;
+
 }
 
-table#invTable th{
-    border-collapse: collapse;
-    padding: 8px;
-    background: #3F51B5;
-    color: whitesmoke;
-    text-align: center; 
-    border-spacing: 0;
+.subPageContent button{
+    text-transform: capitalize;
+    border-radius: 8px;
 }
 
-table#invTable td{
-    border-spacing: 0;
-    text-align: center;
-    padding: 8px;
-    background: #ffffff;
+.subPageContentInventory{
+    margin-left:180px;
+    top:100px;
+    position: relative; 
+    font-size: 20px !important;
+    display: inline-block;
 }
+
+.subPageContentInventory button{
+    text-transform: capitalize;
+    border-radius: 8px;
+}
+
+.addExpense{
+    margin-left:600px;
+    margin-top:450px;
+    height: 100%;
+    font-family: Varela Round !important;
+    position: absolute;  
+    font-size: 20px !important;
+
+}
+
+
 
 table#inventoryTable th{
     border-collapse: collapse;
@@ -200,17 +430,16 @@ table#inventoryTable td{
 
 #inventoryTable{
     position: absolute;
-    
+
 }
 
 table#expenseTable td{
-    font-family: Wellfleet;
     font-size: 20px !important;
 }
 
 #FinancialStmt {
     position: absolute;
-    font-family: Wellfleet;
+    font-family: Varela Round;
     font-size: 20px !important;
     padding-left:350px;
     padding-top:290px;
@@ -219,18 +448,21 @@ table#expenseTable td{
 #financialStatement {
     display: inline-block;
     font-size: 18px;
-    margin-left:270px;
+    margin-left:220px;
     margin-top:70px;
     height: 100%;
-    font-family: Wellfleet;
     position: absolute;  
     font-size: 20px !important;
 
 }
 
+#financialStatement button{
+    text-transform: capitalize;
+    border-radius: 8px;
+}
+
 .my_text {
     position: absolute;
-    font-family: Wellfleet;
     font-size: 20px !important;
     left:350px;
     top:230px;
@@ -251,7 +483,6 @@ table#custTable td{
 }
 
 table#AdminTable td{
-    font-family: Wellfleet;
     font-size: 20px !important;
 }
 
@@ -264,27 +495,28 @@ table#AdminTable td{
 
 }
 
-#topProduct {
-    padding-right:50px;
-    padding-top: 140px;
+.topProduct {
+    bottom: 130px;
     font-size: 18px;
     float: right;
-    font-family: Wellfleet;
     font-size: 20px !important;
+    position: relative;
+}
+
+.topProduct button {
+    text-transform: capitalize;
 }
 
 
-#lowInv {
-    position: absolute;
-    padding-left: 280px !important;
-    padding-top:100px !important;
-    font-family: Wellfleet;
+.lowInv {
+    position: relative;
+    right: 400px !important;
+    top:200px !important;
     font-size: 20px !important;
-    
+
 }
 
 table#myTable th{
-    border-collapse: collapse;
     padding: 8px;
     text-align: center; 
 }
@@ -297,14 +529,13 @@ table#myTable td{
 }
 
 #invDbTitle{
-    
+
     padding-left:400px;
     padding-top:40px;
 }
 
 .navDbButton {
-    cursor: pointer;
-    background-color: #5C6BC0;
+    background-color: #01579B;
     border: none;
     color: white;
     text-align: center;
@@ -313,9 +544,8 @@ table#myTable td{
     font-size: 18px;
     vertical-align: middle;
     cursor: pointer;
-    float: left;
-    padding: 15px 32px;
-    font-family: Wellfleet;
+    padding: 10px 25px;
+    border-radius: 12px;
 }
 
 .btn{
@@ -332,3 +562,251 @@ table#myTable td{
     border-radius: 8px;
 }
 
+.addexpenseButton{
+    border: none;
+    color: white;
+    padding: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 8px !important;
+    text-transform: capitalize;
+}
+
+.profits{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-block;
+    overflow: hidden;
+
+}
+
+.monthlyprofits{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 270px;
+    bottom: 220px;
+    width: 520px;
+    margin-left: 150px;
+    position: relative;
+}
+
+.monthlysales{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    right: 150px;
+    bottom: 210px;
+    width: 520px;
+    margin-left: 150px;
+    position: relative;
+}
+
+.monthlyexpenses{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 300px;
+    bottom: 220px;
+    width: 550px;
+    margin-left: 150px;
+    position: relative;
+}
+
+.profitYearlyResult {
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: absolute;
+    left: 5px;
+    top: 250px;
+    width: 480px;
+}
+
+.profitMonthlyResult {
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: absolute;
+    left: 220px;
+    top: 350px;
+    width: 480px;
+}
+
+.expenseYearlyResult {
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    position: absolute;
+    left: 5px;
+    top: 250px;
+    width: 480px;
+}
+
+.expenseFormPanel{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-block;
+    overflow: hidden;
+    width: 570px;
+}
+
+.addInventoryPanel{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-block;
+    overflow: hidden;
+    width: 570px;
+    height: 700px;
+}
+
+.searchCustomerPanel{
+    display: inline-block;
+    overflow: hidden;
+    width: 500px;
+    bottom: 190px;
+    position: relative;
+}
+
+.addCustomerPanel{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 420px;
+    top: 10px;
+    width: 300px;
+    margin-left: 150px;
+    position: relative;
+}
+
+.customerTableResult{
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+    bottom: 180px;
+
+}
+
+.addInvQtyPanel{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 300px;
+    bottom: 210px;
+    width: 620px;
+    margin-left: 150px;
+    position: relative;
+}
+
+.orderPickingPanel{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 1000px;
+
+}
+
+.orderPicking{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 290px;
+    bottom: 300px;
+    width: 620px;
+    margin-left: 150px;
+    position: relative;
+}
+
+.orderPickingcustNum{
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    left: 290px;
+    bottom: 350px;
+    width: 620px;
+    margin-left: 150px;
+    position: relative;;
+}
+
+.buttonType{
+    font-family : Valera Round!important;
+    font-size: 1em;
+
+}
+
+
+.invMgt-table {
+    margin: 1em 0;
+    min-width: 300px;
+}
+.invMgt-table tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.invMgt-table th {
+    display: none;
+}
+.invMgt-table td {
+    display: block;
+}
+.invMgt-table td:first-child {
+    padding-top: .5em;
+}
+.invMgt-table td:last-child {
+    padding-bottom: .5em;
+}
+.invMgt-table td:before {
+    content: attr(data-th) ": ";
+    font-weight: bold;
+    width: 6.5em;
+    display: inline-block;
+}
+@media (min-width: 480px) {
+    .invMgt-table td:before {
+        display: none;
+    }
+}
+.invMgt-table th, .invMgt-table td {
+    text-align: center;
+}
+@media (min-width: 480px) {
+    .invMgt-table th, .invMgt-table td {
+        display: table-cell;
+        padding: .25em .5em;
+    }
+    .invMgt-table th:first-child, .invMgt-table td:first-child {
+        padding-left: 0;
+    }
+    .invMgt-table th:last-child, .invMgt-table td:last-child {
+        padding-right: 0;
+    }
+}
+
+
+
+.invMgt-table {
+    background: #EEEEEE;
+    color: black;
+    border-radius: .8em;
+    overflow: hidden;
+}
+.invMgt-table tr {
+    border-color: #46637f;
+}
+.invMgt-table th, .invMgt-table td {
+    margin: .5em 1em;
+}
+@media (min-width: 480px) {
+    .invMgt-table th, .invMgt-table td {
+        padding: 1em !important;
+    }
+}
+.invMgt-table th, invMgt-table td:before {
+    color: black;
+}

@@ -21,16 +21,12 @@
     </head>
 
     <body>
-    <center>
-
-        <div id="wrapper" align="center" >
-            <form action="addExpenseType.jsp" method="post">
-                <button type="submit" width="50" height="50" style="position: absolute; left: 580;top:210 " class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-plus" style="font-size:18px;"> Add Expense</i></button>
-            </form>
             <form  class="mui-form--inline" action="ExpenseTrackerController" method="post">    
                  <div class = "subPageContent">
+                    <div class ="mui-panel expenseFormPanel">   
                     <h1>   Expenses Form Filling</h1>
-                    <br>
+                    <div class="mui-divider"></div>
+                    <br />
                     <table id = "expenseTable">
                         <tbody>
                             <tr>
@@ -38,7 +34,7 @@
                                     Date:
                                 </td>
                                 <td>
-                                    <input type="date" id="date" name="date" min="2017-01-01" style="font-family: Wellfleet; font-size: 18px" required/>
+                                    <input type="date" id="date" name="date" min="2017-01-01" style="font-size: 18px" required/>
                                 </td>
                             </tr>
                             <tr>
@@ -72,7 +68,7 @@
                                 </td>
                                 <td>
                                     <div class="mui-textfield">
-                                    <textarea  name="remark" id="remark" rows="5" cols="22" required></textarea>
+                                    <textarea  name="remark" id="remark" rows="5" cols="22" placeholder="Enter remarks here" required></textarea>
                                    
                                 </td>
                             </tr>
@@ -92,14 +88,29 @@
                                 </td>
                                 <td>
                                     <br />
-                                    <input align="center" type="submit" id="button" value="Submit" class="mui-btn mui-btn--raised mui-btn--primary" id="btnSubmit" style="font-size: 18px" ></input>
+                                    <input align="center" type="submit" id="button" value="Submit" class="mui-btn mui-btn--raised mui-btn--primary addexpenseButton" id="btnSubmit" style="font-family: Varela Round; font-size: 18px; text-transform:capitalize; float:right;" ></input>
+                                
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>  
+                                  
+                </div>
             </form>    
-
+             <form action="addExpenseType.jsp" method="post">
+                 <div class = "addExpense">
+                 <table>
+                     <tbody>
+                         <tr>
+                             <td>
+                                 <button type="submit" width="50" height="50"  class="mui-btn mui-btn--raised mui-btn--primary" style="font-family: Varela Round; font-size: 18px; text-transform:capitalize; border-radius: 8px;"><i class="fa fa-plus addexpenseButton" style="font-size:18px;"> Add Expense</i></button>
+                             </td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 </div>
+            </form>                           
             <script>
 
                 $('#button').click(function () {
@@ -134,9 +145,6 @@
 
                 });
             </script>
-    </center>
-
-
-</body>
+<body>
 </html>
 

@@ -32,7 +32,9 @@
                 %>
         <form id="myForm" action="OrderPickingController" method="post">
             <div class="subPageContent">
+                <div class ="mui-panel ">    
                 <h1>Purchase History</h1>
+                <div class="mui-divider"></div>
                 <br />
                 <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search"> View History</i></button>
                 <input type="hidden" name="ViewPurchaseHistory" value="1">
@@ -53,7 +55,7 @@
                             InventoryDAO dao = new InventoryDAO();
 
                     %>
-                <table id="invTable" border ="1">
+                <table class="invMgt-table">
                     <thead>
                         <tr>
                             <th> Phone </th>
@@ -95,7 +97,7 @@
                         out.println("<p style='color:red'>" + message + "</p>");
                     }
                 %>
-
+</div>
             </div>
     </body>
 </html>

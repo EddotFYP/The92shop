@@ -62,23 +62,30 @@
                <%@include file="sideNavBar.jsp" %>
          <%}
         %>
+         
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
+               <div class="mui-panel">
                 <h1>Add Inventory Quantity</h1>
-
+                <div class="mui-divider"></div>
+                <br />
                 <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Scan</i></button>
                 <input type="hidden" id="qrValue" name="addInventorySearch" value="">
                 <br/>
-                <video id="camera" width="420"></video>
-
-
-
-
-
-        </form>
-        <%            ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                <br />
+                <%
+                 ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
             String message = (String) request.getAttribute("message");
-
+            
+            if (message != null) {
+                out.println("<p style='color:red'>" + message + "</p>");
+            }
+                %>
+                   <%            
+            
+            
+           
+            
             String inventoryName = "";
             int qty = 0;
             String updatedDate = "";
@@ -86,7 +93,9 @@
             if (list != null && !list.isEmpty()) {
 
         %>
-        <table id="invTable" border ="1">
+        
+        
+        <table class="invMgt-table">
             <thead>
                 <tr>
 
@@ -130,14 +139,20 @@
                 %>
             </tbody>
         </table>
-
+        
 
         <%
             }
-            if (message != null) {
-                out.println("<p style='color:red'>" + message + "</p>");
-            }
+            
         %>
+                
+                <video id="camera" width="420"></video>
+        
+     
+        </div>
+ </div>
+</form>
+       
     </body>
-</div>
+
 </html>

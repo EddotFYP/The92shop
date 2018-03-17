@@ -37,17 +37,18 @@
                 
                 <br />
                 <br />
-                <br />
+                <div class ="mui-panel profits">
                 <h1>Yearly Trend for Expenses</h1>
                 <br />
 
                 <button type="submit" id="ybtn" onclick="yearlyExpenses()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate><i class="fa fa-bar-chart-o"style="font-size:18px;"> Yearly Trend</i></button>
                 <input type="hidden" id="yearData" name="yearData" value="" >
+                </div>
                 <br />
                 <br />
-
+                <div class ="mui-panel monthlyexpenses">
                 <h1>Monthly Expenses</h1>
-                Filter monthly expenses by: &nbsp
+                Filter monthly expenses by: 
                 <div class="mui-select">
                 <select name="monthlyExpenses" id="month" required>
                     <option value="" selected>Please select</option>
@@ -58,8 +59,7 @@
                 
                 &nbsp;
                 <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter"style="font-size:18px;"> Filter </i></button>
-                <br />
-                <br />
+                </div>
                 <%                    
                     //yearly expense 
                     ArrayList<String> yearInExpense = (ArrayList<String>) request.getAttribute("yearInExpense");
@@ -76,6 +76,7 @@
                     if (yearInExpense != null && expInExpense != null) {
 
                 %>
+               <div class="mui-panel expenseYearlyResult" >
                 <div id = "yearlyExpensesContainer" class="containerDB" >
                     <script>
 
@@ -149,13 +150,12 @@
                         });
                     </script>
                 </div>
-
+                 </div>       
                 <%
                     }
                     if (expenseResult != null) {
-                        out.println("You have selected: " + text + " <br /><br />");
+                        out.println("<div class='mui-panel monthlysales'>You have selected: " + text);
                 %>
-                <div>
                     <div id = "monthlyExpensesContainer" class="containerDB" >
                         <script>
                             //straight display latest monthly sales
@@ -228,11 +228,10 @@
 
                         </script>
                     </div>
-                </div>
+                
                 <% }
                 %>
             </div>
-
         </form>
     </body>
 </html>

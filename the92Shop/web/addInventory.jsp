@@ -28,25 +28,26 @@
         %>
         <div class="subPageContent">
             <form id="myForm" class="mui-form" action="InventoryController" method="post">
-
+                <div class ="mui-panel addInventoryPanel ">    
                 <h1>Add New Inventory</h1>
+                <div class="mui-divider"></div>
                 <br />
                 <table id="AdminTable">
                     <tr>
                         <td>
-                            Product Name:
+                            <span>Product Name</span><span style="float:right">:</span>
                         </td>
 
                         <td>
                             <div class="mui-textfield">
-                            <input type ="text" name ="newName" id="name" autocomplete="off" required/>
+                            <input type ="text" name ="newName" id="name" placeholder="Name" autocomplete="off" required/>
                             </div>
                         </td>
                     </tr>
 
                     <tr>
                         <td>
-                            Cost:
+                            <span>Cost</span><span style="float:right">:</span>
                         </td>
                         <td>
                             <div class="mui-textfield">
@@ -56,7 +57,7 @@
                     </tr>
                     <tr>
                         <td>
-                            Price:
+                            <span>Price</span><span style="float:right">:</span>
                         </td>
                         <td>
                             <div class="mui-textfield">
@@ -67,18 +68,22 @@
 
                     <tr>
                         <td>
+                            
+                        </td>
+                        <td>
                             <button type="button" onclick="makeCode()" name="btSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add & Download QR code</i></button>
 
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <div id="qrcode" style="width:180px; height:180px; margin-top:15px;"></div>
-                        </td>
-                    </tr>
-
+      
                 </table>
-
+                 <%                        
+                String message = (String) request.getAttribute("message");
+                if (message != null) {
+                    out.println("<p style='color:red'>" + message + "</p>");
+                }
+            %>
+             <div id="qrcode" style="width:180px; height:180px; margin-top:15px;"></div>
                 <script type="text/javascript">
                     function makeCode() {
                         $("#qrcode").empty();
@@ -127,15 +132,15 @@
 
 
                 </script>
-            </form>
+                
+           
 
-            <%                        String message = (String) request.getAttribute("message");
-                if (message != null) {
-                    out.println("<p style='color:red'>" + message + "</p>");
-                }
-            %>
+           
 
-
-        </div>
+</div>
+       
+             </form>
+             </div>
     </body>
+    
 </html>
