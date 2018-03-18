@@ -56,7 +56,7 @@ public class OrderPickingController extends HttpServlet {
             PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
             String phone = request.getParameter("phone");
             Customer customer = cusDAO.retrieve(phone);
-            String ViewPurchaseHistory = request.getParameter("ViewPurchaseHistory");
+            String viewPurchaseHistory = request.getParameter("ViewPurchaseHistory");
 
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -114,7 +114,7 @@ public class OrderPickingController extends HttpServlet {
                 request.getSession().removeAttribute("currentList");
 
                 //purchase history
-            } else if (ViewPurchaseHistory.equals("1")) {
+            } else if (viewPurchaseHistory != null && viewPurchaseHistory.equals("1")) {
                 ArrayList<PurchaseHistory> list = purchaseHistoryDAO.retrievePurchaseHistory();
                 ArrayList<PurchaseHistory> history = new ArrayList<>();
 

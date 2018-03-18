@@ -45,9 +45,9 @@ public class CustomerController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         //for customer management
-        String phoneNumber = request.getParameter("phoneNumList");
+        String phoneNumberAndName = request.getParameter("phoneAndNameList");
         //String birthdayDate = request.getParameter("birthDate");
-        String name = request.getParameter("nameList");
+        
         String PhoneNumberToDelete = request.getParameter("deleteAction");
         String[] UpdatedValues = request.getParameterValues("editAction");
         //System.out.println("birthdate :"+birthdayDate);
@@ -102,18 +102,29 @@ public class CustomerController extends HttpServlet {
             
         //search customer    
         } else {
-            //search customer by phone number
+            //search customer by phone number and name
             
-            if (phoneNumber != null && !phoneNumber.isEmpty()) {
-                Customer customer = custDAO.retrieve(phoneNumber);
-                System.out.println("Hello");
-                if (customer != null) {
-                    result.add(customer);
-                }
-            }
+            if (phoneNumberAndName != null && !phoneNumberAndName.isEmpty()) {
+                if(phoneNumberAndName.matches("[0-9]+") && phoneNumberAndName.length() > 2){
+                    Customer customer = custDAO.retrieve(phoneNumberAndName);
+                    
+                    if (customer != null) {
+                        result.add(customer);
+                    }
+                } else {
+                    ArrayList<Customer> custList = custDAO.retrieveCustomerList(phoneNumberAndName);
 
+                    for (Customer c : custList) {
+                        if (c.getName().equals(phoneNumberAndName)) {
+                            result.add(c);
+                        }
+                    }
+                }
+                
+            }
+            
             //search customers by name
-            if (name != null && !name.isEmpty()) {
+            /*if (name != null && !name.isEmpty()) {
                 ArrayList<Customer> custList = custDAO.retrieveCustomerList(name);
 
                 for (Customer c : custList) {
@@ -122,7 +133,7 @@ public class CustomerController extends HttpServlet {
                     }
                 }
             }
-
+            */
             if (result.isEmpty()) {
                 request.setAttribute("error", "No result is found");
             } else {

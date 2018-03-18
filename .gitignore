@@ -13,3 +13,5 @@ the92Shop/nbproject/private/private.xml
 the92Shop/nbproject/private/private.properties
 the92Shop/nbproject/private/private.properties
 the92Shop/nbproject/private/private.properties
+the92Shop/build/web/WEB-INF/classes/DAO/PurchaseHistoryDAO.class
+the92Shop/web/inventoryManagement.jsp

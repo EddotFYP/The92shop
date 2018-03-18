@@ -69,8 +69,7 @@
                     <%for (PurchaseHistory ph : list) {
                             phone = ph.getPhoneNum();
                             skuId = ph.getSkuId();
-                            Inventory i = dao.retrieve(skuId);
-                            inventoryName = i.getName();
+                            inventoryName = dao.retrieveInventoryNameById(skuId);
                             dateOfPurchase = ph.getDateOfPurchase(); 
                             qty = ph.getQuantity();
                             

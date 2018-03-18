@@ -33,7 +33,7 @@
                 });
                 $('#save').click(function () {
 
-                    $('#iId').attr("value", $('#invId').html());
+                    
                     $('#newName').attr("value", $('#iName').html());
                     $('#newQuantity').attr("value", $('#quantity').html());
                     $('#newDate').attr("value", $('#date').html());
@@ -82,12 +82,17 @@
 
 
             }
+
+            function showDiv() {
+                document.getElementById('editButtonDiv').style.display = "none";
+                document.getElementById('saveButtonDiv').style.display = "block";
+            }
         </script>
     </head>
     <body>
         <%                    String usernameAcc = (String) session.getAttribute("user");
 
-                    if (!usernameAcc.equals("qingyang")) {%>
+            if (!usernameAcc.equals("qingyang")) {%>
         <%@include file="nonAdminSideNavBar.jsp" %>
         <%} else {%>
         <%@include file="sideNavBar.jsp" %>
@@ -125,38 +130,37 @@
                     <input type="hidden" id="qrValue" name="cameraResult" value="">
 
                     </form>
-                   
-                        <%
-                            ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
-                            String message = (String) request.getAttribute("message");
-                            
-                            if (message != null) {
+
+                    <%
+                        ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                        String message = (String) request.getAttribute("message");
+
+                        if (message != null) {
                             out.println("<p style='color:red'>" + message + "</p>");
-                            }
-                            
-                            int id = 0;
-                            String inventoryName = "";
-                            int qty = 0;
-                            String updatedDate = "";
-                            double cost = 0.0;
-                            double price = 0.0;
+                        }
 
-                            if (list != null && !list.isEmpty()) {
+                        int id = 0;
+                        String inventoryName = "";
+                        int qty = 0;
+                        String updatedDate = "";
+                        double cost = 0.0;
+                        double price = 0.0;
 
-                        %>
+                        if (list != null && !list.isEmpty()) {
+
+                    %>
                     <br />
-               
+
                     <table class="invMgt-table">
                         <thead>
                             <tr>
-                                <th> SKU ID </th>
+                                
                                 <th> Name </th>
                                 <th> Quantity </th>
                                 <th> Updated Date </th>
                                 <th> Cost </th>
                                 <th> Selling Price </th>
-                                <th> Edit </th>
-                                <th> Save </th>
+                                <th> Edit/Save </th>
                                 <th> Delete </th>
 
                             </tr>
@@ -171,27 +175,30 @@
                         %>
                         <tbody>
                             <tr>
-                                <td id="invId"><%=id%></td>
+                                
                                 <td id="iName"><%=inventoryName%></td>
                                 <td id="quantity"><%=qty%></td>
                                 <td id="date"><%=updatedDate%></td>
                                 <td id="iCost"><%=cost%></td>
                                 <td id="iPrice"><%=price%></td>
                                 <td>
-                                    <form>
-                                        <button type="button" name="edit" class="btn" id="edit"><i class="fa fa-edit"></i></button>
-                                    </form>
-                                </td>
-                                <td>
-                                    <form action="InventoryController" method="post">
-                                        <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
-                                        <input type="hidden" id="iId" name="editAction" value="">
-                                        <input type="hidden" id="newName" name="editAction" value="">
-                                        <input type="hidden" id="newQuantity" name="editAction" value="">
-                                        <input type="hidden" id="newDate" name="editAction" value="">
-                                        <input type="hidden" id="newCost" name="editAction" value="">
-                                        <input type="hidden" id="newPrice" name="editAction" value="">
-                                    </form>
+                                    <div id="editButtonDiv" class="answer_list" >
+                                        <form action="InventoryController" method="post">
+                                            <button type="button" name="edit" class="btn" id="edit" onclick="showDiv()"><i class="fa fa-edit"></i></button>
+                                        </form>
+                                    </div>
+                                
+                                    <div id="saveButtonDiv"  style="display:none;" class="answer_list" >
+                                        <form action="InventoryController" method="post">
+                                            <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
+                                            <input type="hidden" id="iId" name="editAction" value="<%=id%>">
+                                            <input type="hidden" id="newName" name="editAction" value="">
+                                            <input type="hidden" id="newQuantity" name="editAction" value="">
+                                            <input type="hidden" id="newDate" name="editAction" value="">
+                                            <input type="hidden" id="newCost" name="editAction" value="">
+                                            <input type="hidden" id="newPrice" name="editAction" value="">
+                                        </form>
+                                    </div>
                                 </td>
                                 <td>
                                     <form action="InventoryController" method="post" onclick="return confirmation()">
@@ -205,13 +212,13 @@
                             %>
                         </tbody>
                     </table>
-                 
+
 
                     <%
                         }
-                        
+
                     %>
-                     <video id="camera" width="420"></video>
+                    <video id="camera" width="420"></video>
                 </div>
             </div>
     </body>

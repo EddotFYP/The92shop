@@ -50,6 +50,29 @@ public class InventoryDAO {
         return result;
     }
     
+    public String retrieveInventoryNameById(int skuId) {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConn();
+        String result = null;
+        
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select * from inventory where SKU_Id = ?");
+            stmt.setInt(1, skuId);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                
+                result = rs.getString(2);
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        db.closeConn();
+        return result;
+    }
+    
     public Inventory retrieveInventoryByName(String skuName) {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConn();

@@ -90,10 +90,11 @@ public class InventoryController extends HttpServlet {
                 double price = Double.parseDouble(addNewPrice);
 
                 Date today = new Date();
-                String dateString = df.format(today);
-                System.out.println("------------- today= " + dateString + "----------------");
+                String updateDate = df.format(today);
+                
+                System.out.println("------------- today= " + updateDate + "----------------");
 
-                Inventory i = new Inventory(addNewName, 0, dateString, cost, price);
+                Inventory i = new Inventory(addNewName, 0, updateDate, cost, price);
 
                 int success = inventoryDAO.addInventory(i);
                 if (success != 0) {
@@ -103,7 +104,7 @@ public class InventoryController extends HttpServlet {
                 RequestDispatcher view = request.getRequestDispatcher("addInventory.jsp");
                 view.forward(request, response);
                 return;
-                /*} else if (skuName.equals("select")) {
+            } else if (skuName.length() == 0) {
                 ArrayList<Inventory> list = inventoryDAO.retrieveInventoryList();
 
                 if (list != null) {
@@ -112,7 +113,7 @@ public class InventoryController extends HttpServlet {
                     }
 
                 }
-                 */
+            
                 //QR code search 
             } else if (cameraResult != null && !cameraResult.isEmpty()) {
 
