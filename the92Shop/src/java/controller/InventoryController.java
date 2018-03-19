@@ -65,7 +65,7 @@ public class InventoryController extends HttpServlet {
             if (inventoryToDelete != null) {
                 inventoryDAO.deleteSpecifiedInventory(inventoryToDelete);
 
-                request.setAttribute("message", "Selected SKU is deleted successfully");
+                request.setAttribute("message", "Selected SKU is deleted successfully!");
 
                 //update
             } else if (UpdatedValues != null) {
@@ -80,7 +80,7 @@ public class InventoryController extends HttpServlet {
 
                 int success = inventoryDAO.editInventory(id, name, quantity, dateString, cost, price);
                 if (success != 0) {
-                    request.setAttribute("message", "Selected SKU is updated successfully");
+                    request.setAttribute("message", "Selected SKU is updated successfully!");
                 }
 
                 //add
@@ -98,7 +98,7 @@ public class InventoryController extends HttpServlet {
 
                 int success = inventoryDAO.addInventory(i);
                 if (success != 0) {
-                    request.setAttribute("message", "Selected SKU is added successfully");
+                    request.setAttribute("message", "Selected SKU is added successfully!");
                 }
                 
                 RequestDispatcher view = request.getRequestDispatcher("addInventory.jsp");
@@ -175,7 +175,7 @@ public class InventoryController extends HttpServlet {
                 
                 int success = inventoryDAO.addInventoryQty(name, newQty, dateString);
                 if (success != 0) {
-                    request.setAttribute("message", "Selected SKU is updated successfully");
+                    request.setAttribute("message", "Selected SKU is updated successfully!");
                 }
                 RequestDispatcher view = request.getRequestDispatcher("addInventoryQty.jsp");
                 view.forward(request, response);

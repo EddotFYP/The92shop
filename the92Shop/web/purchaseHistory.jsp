@@ -36,7 +36,7 @@
                 <h1>Purchase History</h1>
                 <div class="mui-divider"></div>
                 <br />
-                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search"> View History</i></button>
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> View History</i></button>
                 <input type="hidden" name="ViewPurchaseHistory" value="1">
 
                 </form>

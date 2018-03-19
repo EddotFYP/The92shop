@@ -26,7 +26,7 @@
                     <h1>Add Expense Type</h1>
                     <div class="mui-divider"></div>
                     <br />
-                    <table id="expenseTable">
+                    <table id="AdminTable">
                         <tr>
                             <td>
                                 Expense Type : &nbsp;
@@ -38,7 +38,7 @@
                                 </div>
                             </td>
                             <td>
-                                &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus"> Add</i></button>
+                                &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
                             </td>
                         </tr>
 

@@ -27,14 +27,14 @@
                     <h1>   Expenses Form Filling</h1>
                     <div class="mui-divider"></div>
                     <br />
-                    <table id = "expenseTable">
+                    <table id = "AdminTable">
                         <tbody>
                             <tr>
                                 <td>
                                     Date:
                                 </td>
                                 <td>
-                                    <input type="date" id="date" name="date" min="2017-01-01" style="font-size: 18px" required/>
+                                    <input type="date" id="date" name="date" min="2017-01-01"  required/>
                                 </td>
                             </tr>
                             <tr>
@@ -56,10 +56,8 @@
 
                                         %>
 
-                                    </select>
-                                    
-                                    </div>
-                                 
+                                    </select>  
+                                    </div>                    
                                 </td>
                             </tr>
                             <tr>
@@ -68,8 +66,7 @@
                                 </td>
                                 <td>
                                     <div class="mui-textfield">
-                                    <textarea  name="remark" id="remark" rows="5" cols="22" placeholder="Enter remarks here" required></textarea>
-                                   
+                                    <textarea  name="remark" id="remark" rows="5" cols="22" placeholder="Enter remarks here" required></textarea>   
                                 </td>
                             </tr>
                             <tr>
@@ -104,7 +101,7 @@
                      <tbody>
                          <tr>
                              <td>
-                                 <button type="submit" width="50" height="50"  class="mui-btn mui-btn--raised mui-btn--primary" style="font-family: Varela Round; font-size: 18px; text-transform:capitalize; border-radius: 8px;"><i class="fa fa-plus addexpenseButton" style="font-size:18px;"> Add Expense</i></button>
+                                 <button type="submit" class="mui-btn mui-btn--raised mui-btn--primary" style=" text-transform:capitalize; border-radius: 8px;"><i class="fa fa-plus addexpenseButton" style="font-size:18px;"> Add Expense</i></button>
                              </td>
                          </tr>
                      </tbody>

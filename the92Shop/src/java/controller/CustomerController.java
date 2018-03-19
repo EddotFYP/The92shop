@@ -135,7 +135,7 @@ public class CustomerController extends HttpServlet {
             }
             */
             if (result.isEmpty()) {
-                request.setAttribute("error", "No result is found");
+                request.setAttribute("error", "No result is found!");
             } else {
                 request.setAttribute("custList", result);
             }

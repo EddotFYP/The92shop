@@ -52,7 +52,9 @@ public class OrderPickingController extends HttpServlet {
             CustomerDAO cusDAO = new CustomerDAO();
             String cameraResult = request.getParameter("cameraResult");
             ArrayList<Inventory> currentList = (ArrayList<Inventory>) request.getSession(false).getAttribute("currentList");
-            ArrayList<String> message = new ArrayList<>();
+            String orderSuccessMsg = "";
+            String orderNoStockMsg = "";
+            String hpErrorMsg = "";
             PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
             String phone = request.getParameter("phone");
             Customer customer = cusDAO.retrieve(phone);
@@ -87,26 +89,32 @@ public class OrderPickingController extends HttpServlet {
                     System.out.println("inventory name = "+name);
                     Inventory inventory = inventoryDAO.retrieveInventoryByName(name);
                     int diff = inventory.getQuantity() - i.getQuantity();
-
+                    System.out.println(diff + "diff");
                     if (diff > 0) {
 
-                        inventoryDAO.addInventoryQty(name, diff, dateString);
-                        message.add("The order of " + name + " is recorded!");
                         if(customer == null){
-                            request.setAttribute("error", "Invalid phone number!");
-                            RequestDispatcher view = request.getRequestDispatcher("orderPicking.jsp");
-                            view.forward(request, response);
+                            hpErrorMsg = "Invalid phone number!";
+                            
                         }else{
-                        int custId = customer.getCustId();
-                        int invId = inventory.getSKUID();
-                        System.out.println("inventory id = "+invId);
+                            inventoryDAO.addInventoryQty(name, diff, dateString);
+                       
+                            orderSuccessMsg = "The order of " + name + " is recorded!";
+                            System.out.print("customer not null");
+                            
+                            int custId = customer.getCustId();
+                            int invId = inventory.getSKUID();
+                            System.out.println("inventory id = "+invId);
 
-                        purchaseHistoryDAO.addRecord(new PurchaseHistory(custId, phone, invId, dateString, i.getQuantity()));
+                            purchaseHistoryDAO.addRecord(new PurchaseHistory(custId, phone, invId, dateString, i.getQuantity()));
 
                         }
                     } else {
+                         if(customer == null){
+                            hpErrorMsg = "Invalid phone number!";
+                        }else{
 
-                        message.add("The order of " + name + " has exceeded its stock");
+                            orderNoStockMsg = "The order of " + name + " has exceeded its stock!";
+                        }
                     }
 
                 }
@@ -130,7 +138,9 @@ public class OrderPickingController extends HttpServlet {
                 }
             }
 
-            request.setAttribute("message", message);
+            request.setAttribute("orderSuccessMsg", orderSuccessMsg);
+            request.setAttribute("orderNoStockMsg", orderNoStockMsg);
+            request.setAttribute("hpErrorMsg", hpErrorMsg);
             request.setAttribute("result", result);
             RequestDispatcher view = request.getRequestDispatcher("orderPicking.jsp");
             view.forward(request, response);

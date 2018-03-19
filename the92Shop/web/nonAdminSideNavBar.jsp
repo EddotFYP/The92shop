@@ -9,7 +9,7 @@
     </head>
     <body>
         <div id="header">
-            <%                    
+            <%
                 String choosenUsername = (String) session.getAttribute("user");
             %>
 
@@ -19,20 +19,26 @@
                 <button type="submit" name="logout" id="logoutBtn" class="mui-btn mui-btn--raised mui-btn--danger "><i class="fa fa-sign-out" style="font-size:18px;"> Logout</i></button>
             </form>
         </div>
-  
+
         <div class="nav-side-menu">
-            <ul class="drawer">
-                <li> <a href="changePassword.jsp" style="text-decoration:none;"> <i class="fa fa-edit"></i> <span>Change Password</span> </a>     
-                <li> <a href="customerManagement.jsp" style="text-decoration:none;"> <i class="fa fa-users"></i> <span>Customer Management</span> </a>
-                <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-clipboard"></i> <span>Inventory Management</span> </a>    
-                    <ul>
-                        <li> <a href="inventoryManagement.jsp" style="text-decoration:none;"> <i class="fa fa-search-plus"></i> <span>Search Inventory</span> </a> </li>
-                        <li> <a href="addInventory.jsp" style="text-decoration:none;"> <i class="fa fa-cart-plus"></i> <span>Add New Inventory</span> </a> </li>
-                        <li> <a href="addInventoryQty.jsp" style="text-decoration:none;"> <i class="fa fa-qrcode"></i> <span>Add Inventory Quantity</span> </a> </li>
-                    </ul>
-                <li> <a href="orderPicking.jsp" style="text-decoration:none;"> <i class="fa fa-archive"></i> <span>Order Picking</span> </a>   
-                <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book"></i> <span>Purchase History</span> </a>              
-            </ul>
+            <center>
+                <ul class="drawer">
+                    <li> <a href="changePassword.jsp" style="text-decoration:none;"> <i class="fa fa-edit"></i> <span>Change Password</span> </a>     
+                    <li> <a href="customerManagement.jsp" style="text-decoration:none;"> <i class="fa fa-users"></i> <span>Customer Management</span> </a>
+                    <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-clipboard"></i> <span>Inventory Management</span> </a>    
+                        <ul>
+                            <li> <a href="inventoryManagement.jsp" style="text-decoration:none;"> <i class="fa fa-search-plus"></i> <span>Search Inventory</span> </a> </li>
+                            <li> <a href="addInventory.jsp" style="text-decoration:none;"> <i class="fa fa-cart-plus"></i> <span>Add New Inventory</span> </a> </li>
+                            <li> <a href="addInventoryQty.jsp" style="text-decoration:none;"> <i class="fa fa-qrcode"></i> <span>Add Inventory Quantity</span> </a> </li>
+                        </ul>
+                    <li> <a href="orderPicking.jsp" style="text-decoration:none;"> <i class="fa fa-archive"></i> <span>Order Picking</span> </a>   
+                    <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book"></i> <span>Purchase History</span> </a>              
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </center>
         </div>
     </body>
 </html>

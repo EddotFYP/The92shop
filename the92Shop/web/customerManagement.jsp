@@ -51,18 +51,18 @@
                 }
 
             }
-
-        </script>
-        <script type="text/javascript">
+            
             function openPage(pageURL)
             {
                 window.location.href = pageURL;
             }
+
         </script>
         <title> Customer Search</title>            
     </head>
     <body>
-        <%                String usernameAcc = (String) session.getAttribute("user");
+        <%                
+            String usernameAcc = (String) session.getAttribute("user");
 
             if (!usernameAcc.equals("qingyang")) {%>
         <%@include file="nonAdminSideNavBar.jsp" %>
@@ -95,13 +95,14 @@
                             nameList.add(c.getName());
                         }
                     %>
-                    <table >
+                    <table id="AdminTable">
 
                         <tr>
                             <td>
                                 Phone Number / Name:
                             </td>
                             <td> 
+                                <div class="mui-textfield">
                                 <input type ="text" list ="phoneAndNameList" name = "phoneAndNameList" placeholder=" &#xf007;" style="font-family:Arial,FontAwesome"/>
                                 <%--<datalist id="phoneNumList">
                                     <%for (String i : phoneNumList) {%>
@@ -109,6 +110,7 @@
                                     <% }%>
 
                                             </datalist>--%>
+                                </div>
                             </td>
                         </tr>
 
@@ -125,18 +127,29 @@
                                 </datalist> 
                             </td>
                         </tr>--%>
-
+                        <td></td>
                         <td>
                             <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style=float:right;"><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
                         </td>
                     </table>
                 </form>
-            </div>
+           
 
             <%
                 ArrayList<Customer> custList = (ArrayList<Customer>) request.getAttribute("custList");
                 String error = (String) request.getAttribute("error");
                 String message = (String) request.getAttribute("message");
+                
+                 if (error != null) {
+                        out.println("<p style='color:red'>" + error + "</p>");
+                    }
+
+                    if (message != null) {
+                        out.println("<p style='color:red'>" + message + "</p>");
+                    }
+                  %>
+                   </div>
+                   <%
                 int custId = 0;
                 String custName = "";
                 String phoneNum = "";
@@ -199,13 +212,7 @@
                 <%}
 
                     }
-                    if (error != null) {
-                        out.println("<p style='color:red'>" + error + "</p>");
-                    }
-
-                    if (message != null) {
-                        out.println("<p style='color:red'>" + message + "</p>");
-                    }
+                   
                 %>
             </div>
 

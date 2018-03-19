@@ -67,14 +67,8 @@
                     <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
                     <button type="submit" id="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-download" style="font-size:18px;"> Download as PDF </i></button>
 
-                    <br>
-                </div>
-            </div>
-        </form> 
-
-        <div class="my_text mui-panel" id="target" align="center" >
-
-
+                    <br />
+                     <br />
 
             <%String monthString = (String) request.getAttribute("monthString"); %>
             <%String year = (String) request.getAttribute("year"); %>
@@ -85,8 +79,8 @@
                 if (retrieveSalesGained != null && !retrieveSalesGained.isEmpty()) {
             %>
 
-            <table id="basic-table" border="0" cellpadding="2" cellspacing="5" >
-                <h1>the92 shop Income Statement</h1>
+            <table id="basic-table" border="0" cellpadding="2" cellspacing="5" align="center" >
+                <center><h1>the92 shop Income Statement</h1></center>
                 <thead>
 
                     <tr>
@@ -180,9 +174,6 @@
                     </tr>
 
                 </thead>  --%>
-
-
-
                 <% HashMap<String, Double> retrieveInvGoodPurchasedwithCost = (HashMap<String, Double>) request.getAttribute("retrieveInvGoodPurchasedwithCost");
                     if (retrieveInvGoodPurchasedwithCost != null && !retrieveInvGoodPurchasedwithCost.isEmpty()) {
 
@@ -196,8 +187,6 @@
                 <tbody>
                     <tr>
                         <td style="padding-left:15px; padding-bottom:10px"><%=cogItems%></td>
-
-
                         <td style="padding-left:15px; padding-bottom:10px ; padding-bottom:10px"><%=expenses%></td>
 
                         <%
@@ -219,14 +208,8 @@
                         }
 
                     %>
-
                 </tbody> 
-
-
-
-
             </table>
-        </div>    
 
         <br>
         <br>
@@ -252,8 +235,9 @@
 
             });
         </script> 
-
-
+ </div>
+            </div>
+</form> 
 
     </body> 
 

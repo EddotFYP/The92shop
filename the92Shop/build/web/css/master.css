@@ -35,40 +35,6 @@ ul {
     z-index:99;
 }
 
-.nonadminsidebar {
-    width: 250px;
-    position: absolute;
-    bottom: 0;
-    z-index:99;
-}
-
-#sidebar_back {
-    top: 0;
-    left: 0;
-    bottom: 0;
-    z-index: -1;
-    width: 200px;
-    background: #263238;
-    position: absolute;
-}
-
-
-#main-content {
-    position: relative;
-    width: 100%;
-    padding-left:200px; /* padding-left must be the same as sidebar width */
-    height: 100px; /* This could be anything, content should scroll vertical */
-    background: green;
-    box-sizing:border-box;
-    padding-top: 50px; /* padding-top must be the same as header height */
-    margin-left:220px;
-    margin-top:70px;
-    height: 100%;
-    font-family: Varela Round !important;
-    position: absolute;  
-    font-size: 20px !important;
-}
-
 .nav-side-menu {
     height: 100%;
     width: 300px;
@@ -80,16 +46,6 @@ ul {
 
 }
 
-.admimdrawer {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    bottom: 0;
-    background: #263238;
-    color: white;
-    text-align: center;
-}
-
 .admimdrawer li {
     pointer-events: none;
     position: relative;
@@ -98,7 +54,8 @@ ul {
     list-style: none;
     transform: translateZ(0);
     height: 73px;
-
+    background: #263238;
+    
 }
 
 .admimdrawer a {
@@ -115,14 +72,14 @@ ul {
     transition: background 0.3s;
 }
 
-.admimdrawer a:active,
+.admimdrawer a:active ,
 .admimdrawer a:focus { background: #263238 !important; }
 
 .admimdrawer i {
     display: block;
     margin-bottom: .2em;
     font-size: 2em;
-
+    
 }
 
 .admimdrawer span {
@@ -133,6 +90,7 @@ ul {
     transform: translateX(0);
     background: #263238!important;/* Enable this if you wish to replicate hoverIntent */
 }
+
 
 .admimdrawer > li { display: block;}
 
@@ -173,7 +131,7 @@ ul {
     width: auto;
     white-space: nowrap;
     transform: translateX(-100%);
-    background: #8B9DC3;
+    background: #263238;
     transition: 0.5s transform;
 }
 
@@ -194,8 +152,9 @@ ul {
     vertical-align: middle;
     list-style: none;
     transform: translateZ(0);
-    height: 118px;
-
+    height: 75px;
+    background: #263238;
+    
 }
 
 .drawer a {
@@ -206,31 +165,32 @@ ul {
     margin-bottom: .4em;
     padding: .4em;
     line-height: 100%;
-    font-size: 22px;
+    font-size: 18px;
     text-decoration: none;
     color: white;
     transition: background 0.3s;
 }
 
-.drawer a:active,
+.drawer a:active ,
 .drawer a:focus { background: #263238 !important; }
 
 .drawer i {
     display: block;
     margin-bottom: .2em;
     font-size: 2em;
-    margin-top: 20px;
-    padding-bottom: 10px;
+  
+
 }
 
 .drawer span {
-    font-size: .625em;
+    font-size: 0.8em;
 }
 
 .drawer li:hover ul {
     transform: translateX(0);
     background: #263238!important;/* Enable this if you wish to replicate hoverIntent */
 }
+
 
 .drawer > li { display: block;}
 
@@ -271,7 +231,7 @@ ul {
     width: auto;
     white-space: nowrap;
     transform: translateX(-100%);
-    background: #8B9DC3;
+    background: #263238;
     transition: 0.5s transform;
 }
 
@@ -281,52 +241,10 @@ ul {
     border:none; 
     padding:0!important;
     font: inherit;
-    /*border is optional*/
     cursor: pointer;
-    font-family: sans-serif;
-}
-
-#userBar {
-    position: absolute;
-    bottom: 650px;
-    left: 1090px;
-    font-size: 20px;
 }
 
 #logoutBtn{
-    position: absolute;
-    right: 10px;
-    top: 5px;
-}
-
-.topnav {
-    width: 100%;
-    height: 50px;
-    background-color: whitesmoke;
-    position: absolute;
-    z-index:999;
-}
-
-.topnav a {
-    float: left;
-    color: #f2f2f2;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 17px;
-}
-
-.topnav a:hover {
-    background-color: #ddd;
-    color: black;
-}
-
-.topnav a.active {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.topnav button{
     position: absolute;
     right: 10px;
     top: 5px;
@@ -378,7 +296,7 @@ img {
     margin-top:70px;
     height: 100%;
     position: absolute;  
-    font-size: 20px !important;
+    font-size: 18px !important;
 
 }
 
@@ -388,11 +306,19 @@ img {
 }
 
 .subPageContentInventory{
-    margin-left:180px;
+    margin-left:200px;
     top:100px;
     position: relative; 
     font-size: 20px !important;
-    display: inline-block;
+    width:610px;
+}
+
+.subPageTitleContentInventory{
+    margin-left:200px;
+    top:100px;
+    position: relative; 
+    font-size: 20px !important;
+    width:610px;
 }
 
 .subPageContentInventory button{
@@ -401,16 +327,14 @@ img {
 }
 
 .addExpense{
-    margin-left:600px;
-    margin-top:450px;
+    margin-left:550px;
+    margin-top:442px;
     height: 100%;
     font-family: Varela Round !important;
     position: absolute;  
-    font-size: 20px !important;
+    font-size: 18px !important;
 
 }
-
-
 
 table#inventoryTable th{
     border-collapse: collapse;
@@ -433,17 +357,6 @@ table#inventoryTable td{
 
 }
 
-table#expenseTable td{
-    font-size: 20px !important;
-}
-
-#FinancialStmt {
-    position: absolute;
-    font-family: Varela Round;
-    font-size: 20px !important;
-    padding-left:350px;
-    padding-top:290px;
-}
 
 #financialStatement {
     display: inline-block;
@@ -452,8 +365,6 @@ table#expenseTable td{
     margin-top:70px;
     height: 100%;
     position: absolute;  
-    font-size: 20px !important;
-
 }
 
 #financialStatement button{
@@ -483,7 +394,7 @@ table#custTable td{
 }
 
 table#AdminTable td{
-    font-size: 20px !important;
+    font-size: 18px !important;
 }
 
 
@@ -496,11 +407,11 @@ table#AdminTable td{
 }
 
 .topProduct {
-    bottom: 130px;
-    font-size: 18px;
+    left: 845px;
+    top: 100px !important;
     float: right;
-    font-size: 20px !important;
-    position: relative;
+    position: absolute;
+    width: 500px;
 }
 
 .topProduct button {
@@ -654,6 +565,7 @@ table#myTable td{
     display: inline-block;
     overflow: hidden;
     width: 570px;
+    font-size: 18px !important;
 }
 
 .addInventoryPanel{
@@ -669,17 +581,14 @@ table#myTable td{
 .searchCustomerPanel{
     display: inline-block;
     overflow: hidden;
-    width: 500px;
+    width: 450px;
     bottom: 190px;
     position: relative;
 }
 
 .addCustomerPanel{
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    left: 420px;
-    top: 10px;
+    left: 350px;
+    top: 7px;
     width: 300px;
     margin-left: 150px;
     position: relative;
@@ -727,9 +636,8 @@ table#myTable td{
     padding-bottom: 15px;
     padding-left: 15px;
     padding-right: 15px;
-    left: 290px;
-    bottom: 350px;
-    width: 620px;
+    right: 160px;
+    width: 550px;
     margin-left: 150px;
     position: relative;;
 }

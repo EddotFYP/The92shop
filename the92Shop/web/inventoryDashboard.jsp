@@ -47,7 +47,7 @@
         <form action="InventoryDbController" method="post" class="mui-form--inline">
             <input type="hidden" name="invLevel" value="inventoryLevel">
             <input type="hidden" name="invList" value="lowInvList">
-                <div class="mui-panel subPageContentInventory">
+                <div class="mui-panel subPageTitleContentInventory">
                 <h1>Inventory Dashboard</h1>
                 <div class="mui-divider"></div>
                 <%
@@ -99,7 +99,7 @@
                     
                     <div class="mui-panel topProduct">
                     <h2>Top 5 Best Sellers:</h2>
-                    Filter by (Monthly/Yearly): &nbsp;
+                    Filter by (Monthly/Yearly):
                     <div class="mui-select">
                         <select name="month">
                             <option value="none" selected>Please select</option>
