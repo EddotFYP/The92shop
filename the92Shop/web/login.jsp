@@ -16,9 +16,10 @@
         <link rel="stylesheet" href="css/bootstrap.min.css">
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login Page</title>
     </head>
-    <body background="image/loginPic.jpg">
+    <body background="image/loginPic.jpg" style="background-repeat: no-repeat;">
        
         <div id ="loginContainer">
             <img class ="loginpic" src="image/Eddot_Logo.jpg" />
@@ -35,6 +36,8 @@
                 <br />
                 <button type="submit" name="login" class="mui-btn mui-btn--raised mui-btn--danger " style="float:right"><i class="fa fa-sign-in" style="font-size:18px;"> Login</i></button>
                  </form>
+            <br />
+            <br />
                 <%
                     String error = (String) request.getAttribute("error");
                     if (error != null) {

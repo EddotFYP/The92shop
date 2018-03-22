@@ -4,16 +4,26 @@ ul {
     background-color: whitesmoke !important;
     height: 100%;
     padding: 0px;
+    
 
 }
 
 #header {
+    overflow: hidden;
     width: 100%;
     height: 50px;
-    background-color: #01579B;
+    background-color: #263238;
     position: fixed;
-    z-index:999;
-    text-transform: capitalize;
+    z-index:10;
+    text-transform: capitalize;   
+    padding-bottom:5px;
+    
+}
+
+#currentUser{
+    position: absolute; 
+    left: 970px;
+    width:100%;
 }
 
 #header button {
@@ -26,7 +36,7 @@ ul {
     height:100%;
 }
 #sidebar {
-    padding-top:50px; /* padding-top must be the same as header height */
+    padding-top: 20px;
     width:200px;
     height:100%;
     bottom:0;
@@ -36,13 +46,14 @@ ul {
 }
 
 .nav-side-menu {
-    height: 100%;
-    width: 300px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
     padding-top: 20px;
+    width:200px;
+    height:100%;
+    bottom:0;
+    box-sizing:border-box;
+    position: fixed;
+    z-index:99;
+
 
 }
 
@@ -53,7 +64,7 @@ ul {
     vertical-align: middle;
     list-style: none;
     transform: translateZ(0);
-    height: 73px;
+    height: 75px;
     background: #263238;
     
 }
@@ -135,15 +146,6 @@ ul {
     transition: 0.5s transform;
 }
 
-.drawer {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    bottom: 0;
-    background: #263238;
-    color: white;
-    text-align: center;
-}
 
 .drawer li {
     pointer-events: none;
@@ -178,12 +180,11 @@ ul {
     display: block;
     margin-bottom: .2em;
     font-size: 2em;
-  
-
+    
 }
 
 .drawer span {
-    font-size: 0.8em;
+    font-size: .8em;
 }
 
 .drawer li:hover ul {
@@ -235,6 +236,8 @@ ul {
     transition: 0.5s transform;
 }
 
+
+
 .navButton {
     background:none!important;
     color:inherit;
@@ -245,24 +248,25 @@ ul {
 }
 
 #logoutBtn{
-    position: absolute;
+    position: fixed; 
     right: 10px;
     top: 5px;
 }
 
 #loginContainer{
 
- position: absolute;
-    bottom: 50px;
+ position: fixed;
+    bottom: 20px;
     left: 500px;
     font-size: 18px;
-    padding-left: 40px;
-    padding-right: 40px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-left: 45px;
+    padding-right: 45px;
+    padding-top: 55px;
+    padding-bottom: 45px;
     background-color: white;
     border-radius: 25px;
     text-transform: capitalize;
+    
 }
 
 #loginContainer button{
@@ -271,7 +275,6 @@ ul {
 }
 
 #loginContent{
-
     background-color: white;
     border-radius: 15px;
     font-size: 18px;
@@ -280,16 +283,13 @@ ul {
     margin-right: auto;
     left: 300px;
     text-transform: capitalize;
-
 }
-
 
 img {
     display: table;
     margin-left: auto;
     margin-right: auto;
 }
-
 
 .subPageContent{
     margin-left:220px;
@@ -357,7 +357,6 @@ table#inventoryTable td{
 
 }
 
-
 #financialStatement {
     display: inline-block;
     font-size: 18px;
@@ -397,13 +396,60 @@ table#AdminTable td{
     font-size: 18px !important;
 }
 
+.financeSubPageContent{
+    margin-left:200px;
+    margin-top:50px;
+    height: 100%;
+    position:absolute;
+    font-size: 18px !important;
+    
+}
+
+.financeSubPageContent button{
+    text-transform: capitalize;
+    font-size: 18px !important;
+    border-radius: 8px;
+}
 
 #financialDashboard {
     display: inline-block;
     padding-left:350px;
     padding-top:30px;
     font-size: 18px;
+}
 
+
+.navDbButton {
+    background-color: #01579B;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 18px;
+    vertical-align: middle;
+    cursor: pointer;
+    padding: 10px 25px;
+    border-radius: 12px;
+}
+
+#financeNavigation{
+    padding: 12px;
+    background-color: #01579B;
+    text-transform: capitalize;   
+    position: fixed;  
+    width:100%; 
+    z-index:1;
+}
+
+#financeNavigation a{
+    color: white;
+  
+}
+
+#financeNavigation button{
+    border-radius: 24px;
+  
 }
 
 .topProduct {
@@ -445,19 +491,6 @@ table#myTable td{
     padding-top:40px;
 }
 
-.navDbButton {
-    background-color: #01579B;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 18px;
-    vertical-align: middle;
-    cursor: pointer;
-    padding: 10px 25px;
-    border-radius: 12px;
-}
 
 .btn{
     background-color: #0091EA;
@@ -487,73 +520,56 @@ table#myTable td{
 }
 
 .profits{
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
     display: inline-block;
     overflow: hidden;
+    position: relative;
+    top:17px;
+    left:20px;
 
 }
 
 .monthlyprofits{
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    left: 270px;
-    bottom: 220px;
+    left: 290px;
+    bottom:195px;
     width: 520px;
     margin-left: 150px;
     position: relative;
+    display: inline-block;
+    
 }
 
 .monthlysales{
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    right: 150px;
-    bottom: 210px;
-    width: 520px;
-    margin-left: 150px;
-    position: relative;
+    position: absolute;
+    right: 170px;
+    top: 250px;
+    width: 480px;
 }
 
 .monthlyexpenses{
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
-    left: 300px;
-    bottom: 220px;
+    left: 320px;
+    bottom: 195px;
     width: 550px;
     margin-left: 150px;
     position: relative;
 }
 
 .profitYearlyResult {
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
     position: absolute;
-    left: 5px;
+    right: 170px;
     top: 250px;
     width: 480px;
 }
 
 .profitMonthlyResult {
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
     position: absolute;
-    left: 220px;
-    top: 350px;
+    right: 620px;
+    top: 300px;
     width: 480px;
 }
 
 .expenseYearlyResult {
-    padding-bottom: 15px;
-    padding-left: 15px;
-    padding-right: 15px;
     position: absolute;
-    left: 5px;
+    right: 200px;
     top: 250px;
     width: 480px;
 }

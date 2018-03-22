@@ -14,7 +14,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Yearly Trend for Expenses</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Financial Overview</title>
         <script src="js/jquery.min.js"></script>
         <script src = "js/highcharts.js"></script>
     </head>
@@ -30,11 +31,22 @@
     </script>
     <body>
         <form id="myForm" class="mui-form--inline" action="FinancialDbController" method="post">
-            <div class = "subPageContent">
-                <a href="financialDb.jsp" class="navDbButton">Profits</a> 
-                <a href="sales.jsp" class="navDbButton">Sales</a>
-                <a href="expenses.jsp" class="navDbButton">Expenses</a>
-
+            <div class = "financeSubPageContent">
+                <div id="financeNavigation"> 
+                <table>
+                    <tbody>
+                    <th style="width:150px"></th>
+                    <th style="width:150px"><a href="financialDb.jsp"><i class="fa fa-bar-chart-o fa-lg"></i> Profits</a></th>
+                    <th style="width:150px"></th>
+                    <th style="width:150px"><a href="sales.jsp"><i class="fa fa-line-chart fa-lg"></i> Sales</a></th>
+                    <th style="width:150px"></th>
+                    <th style="width:150px"><i class="fa fa-dollar fa-lg" style="color:white"></i><a href="expenses.jsp"> Expenses</a></th>
+                    
+                    </tbody>
+                </table>
+                    
+                </div>
+               
                 <br />
                 <br />
                 
