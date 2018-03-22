@@ -27,6 +27,7 @@ public class ExpenseTrackerDAO {
     
 }
     
+    //retrieve the expenseTypes and the cost of the expenses
     public HashMap<String,Double> retrieveExpTypesNCost(int month , String year){
         HashMap<String,Double> map = new HashMap<String, Double>();
         try {
@@ -53,6 +54,7 @@ public class ExpenseTrackerDAO {
         
     }
     
+    // expense cost
       public double retrieveExpCost(int month , String year){
         double totalCost = 0.0;
         try {
@@ -76,33 +78,6 @@ public class ExpenseTrackerDAO {
         
     }
     
-    
-  //  private ArrayList<ExpenseTracker> expTrackers;
-    
-  
-    //private Connection conn;
-    //private PreparedStatement stmt;
-  //  private ResultSet rs;
-   /*
-     public void insertExpenseTracker(ExpenseTracker exp) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
-        DatabaseConnection db = new DatabaseConnection();
-        conn = db.getConn();
-        
-
-        stmt = conn.prepareStatement("INSERT INTO expensetracker VALUES (?,?,?,?)");
-            stmt.setDate(1, exp.getDate());
-            stmt.setString(2, exp.getExpenseType());
-            stmt.setString(3, exp.getRemark());
-            stmt.setDouble(4, exp.getCost());
-       
-            
-      
-        stmt.executeUpdate();
-       
-        db.closeConn();
-    }
-    */
-     
      public int insertExpenseTracker(ExpenseTracker exp) {
         int updateQuery = 0;
         try {

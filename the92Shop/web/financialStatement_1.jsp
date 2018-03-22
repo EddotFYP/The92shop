@@ -78,7 +78,10 @@
             <%String year = (String) request.getAttribute("year"); %>
             
             <!--  Starts ---->
-            
+            <%
+                HashMap<String, Double> invGoodPurchasedwithCost = (HashMap<String, Double>) request.getAttribute("retrieveInvGoodPurchasedwithCost");
+                if (invGoodPurchasedwithCost != null && !invGoodPurchasedwithCost.isEmpty()) {
+            %>
             <table id="basic-table" border="0" cellpadding="2" cellspacing="5" >
                 <h1>the92 shop Income Statement</h1>
                 <thead>
@@ -89,18 +92,13 @@
                          <th style="padding-left:30px;padding-bottom:25px"><b>$</b></th>
 
                     </tr>
-                </thead>   
-                
+                </thead>     
                     
                 <tr>
-                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Cost Of Goods Sold</td>
+                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Revenues</td>
                         <td style="padding-left:15px"><b></b></td>
 
                     </tr>
-                <%
-                HashMap<String, Double> invGoodPurchasedwithCost = (HashMap<String, Double>) request.getAttribute("retrieveInvGoodPurchasedwithCost");
-                if (invGoodPurchasedwithCost != null && !invGoodPurchasedwithCost.isEmpty()) {
-                %>    
     
 
                 <%
