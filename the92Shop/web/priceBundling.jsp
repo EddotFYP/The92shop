@@ -24,11 +24,12 @@
             <form class="mui-form" action="PriceBundlingController" method="post">
                     <h1>Bundle Pricing Recommendation</h1>
                     <br />
-                    <table id="pricingBundleTable">
-                         <div class="mui-select">
-                          Month
-                        <select name="month" class="required" required>
-                            <option value='0' selected>Please select</option>
+             <div class="mui-select">
+                    <div class="mui-divider"></div>
+                    Filter by Month:
+                    <div class="mui-select">
+                        <select name="month" required>
+                            <option value=''>Please select</option>
                             <option value='1'>January</option>
                             <option value='2' >February</option>
                             <option value='3' >March</option>
@@ -40,19 +41,19 @@
                             <option value='9' >September</option>
                             <option value='10' >October</option>
                             <option value='11' >November</option>
-                            <option value='12'> December</option>   
+                            <option value='12' >December</option>
                         </select>
-                        </div> 
-                        
+                    </div>
+                     Filter by Year:
                     <div class="mui-select">
-                       Year
                         <select name="year" class="required" required>
-                            <option value="none" selected>Please select</option>
+                            <option value="" >Please select</option>
+                            <option value="2017" >2017</option>
                             <option value="2018" >2018</option>
                         </select>
                     </div>
-                        
-                    <div  class="mui-select" class="required" required>
+                    
+                     <div  class="mui-select" class="required" required>
                         Number of result to display
                         <select name="numResult">
                             <option value='0' selected>Please select</option>
@@ -62,18 +63,16 @@
                         </select>
                     </div>    
                        
-                     
-                            <td>
-                              <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Submit</i></button>
-                            </td>
-                            
-                        
-                  
-                    
-                  </table>     
-                   
-            </form>
-       
+
+                    &nbsp;
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"><i class="fa fa-submit" style="font-size:18px;"> Submit </i></button>
+
+                    <br />
+                     <br />
+           
+            </div>
+              
+        </form> 
         
                 <%
                    

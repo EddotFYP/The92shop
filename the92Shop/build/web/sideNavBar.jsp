@@ -57,7 +57,7 @@
                     </ul>
                 <li> <a href="orderPicking.jsp" style="text-decoration:none;"> <i class="fa fa-archive fa-sm"></i> <span>Order Picking</span> </a>   
                 <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book fa-sm"></i> <span>Purchase History</span> </a>
-                
+                <li> <a href="priceBundling.jsp" style="text-decoration:none;"> <i class="fa fa-search fa-sm"></i> <span>Bundle Recommendation</span> </a>
                 <% 
                     for(int i=0; i<30; i++){
                         out.println("<li></li>");
