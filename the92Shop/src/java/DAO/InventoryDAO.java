@@ -533,5 +533,81 @@ public class InventoryDAO {
 
     }
     
+     public ArrayList<Inventory> retrievePromoItem(int month, String year){
+         Inventory inv = null;
+        ArrayList<Inventory> promoItemList = new ArrayList<>();
+
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select i.SKU_ID, i.Name,  i.Quantity, count(i.SKU_ID) from inventory i inner join customer_purchase cp "
+                    + "where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by SKU_ID");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int SKUId = rs.getInt(1);
+                String name = rs.getString(2);
+                int quantity = rs.getInt(3);
+                
+                inv = new Inventory(SKUId,name,quantity);
+
+                promoItemList.add(inv);
+            }
+            db.closeConn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return promoItemList;
+    }
+    
+     public ArrayList<String> retrievePromoName(int month, String year){
+         
+        ArrayList<String> promoNameList = new ArrayList<>();
+
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select i.Name from inventory i inner join customer_purchase cp "
+                    + "where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by SKU_ID");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                String name = rs.getString(1);
+                promoNameList.add(name);
+            }
+            db.closeConn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return promoNameList;
+    }
+     
+    public HashMap<String, String> retrievePromoInfo(int month, String year){
+        HashMap<String, String>resultList = new HashMap<>();
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select i.Name, count(i.SKU_ID) as totalQuantity from inventory i inner join customer_purchase cp where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by i.SKU_ID");                 
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String name = rs.getString(1);
+                int quantity = rs.getInt(2);
+                String totalQty = Integer.toString(quantity);
+                
+               resultList.put(name, totalQty);
+            }
+            db.closeConn();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    } 
+    
+    
 
 }

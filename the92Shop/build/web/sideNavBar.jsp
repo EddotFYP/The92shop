@@ -29,7 +29,7 @@
             <center>
             <ul class="admimdrawer">
                
-                <li><a href="home.jsp" style="text-decoration:none;" > <i class="fa fa-line-chart fa-xs"></i> <span> Analytics</span> </a>
+                <li><a href="productBundlingOutcome.jsp" style="text-decoration:none;" > <i class="fa fa-line-chart fa-xs"></i> <span> Analytics</span> </a>
                 <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-tachometer fa-xs"></i> <span>Dashboard</span> </a>
                     <ul>
                         <li> <a href="financialDb.jsp" style="text-decoration:none;"> <i class="fa fa-signal fa-sm"></i> <span>Financial Overview</span> </a> </li>

@@ -16,6 +16,8 @@
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="css/master.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jspdf.js"></script>
 <script type="text/javascript" src="js/addimage.js"></script>
@@ -72,200 +74,120 @@
             </div>
             </div>    
         </form> 
+       
         
-        <div class="my_text" id="target" align="center" >
-            
-            <%String monthString = (String) request.getAttribute("monthString"); %>
-            <%String year = (String) request.getAttribute("year"); %>
-            
-            <!--  Starts ---->
-            
-            <table id="basic-table" border="0" cellpadding="2" cellspacing="5" >
+        
+        <div style="margin-top:50px;" class="my_text" id="target" align="center" >            
+            <table bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
+                <%
+                %>
                 <h1>the92 shop Income Statement</h1>
                 <thead>
-                    
                     <tr>
-                      
-                         <th style="padding-left:15px;padding-bottom:25px"><b>Income Statement for <%=monthString%> <%=year%></b></th>
-                         <th style="padding-left:30px;padding-bottom:25px"><b>$</b></th>
+                        
+                         <%String monthString = (String) request.getAttribute("monthString"); %>
+                         <%String year = (String) request.getAttribute("year"); %>
+                         <th style="padding-left:15px;"><b>Income Statement for <%=monthString%> <%=year%></b></th>   
+                         <th style="padding-left:15px;"><b>($)</b></th>
 
                     </tr>
-                </thead>   
+                </thead>
+            
                 
-                    
-                <tr>
-                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Cost Of Goods Sold</td>
-                        <td style="padding-left:15px"><b></b></td>
-
-                    </tr>
+                <tbody>
+                <!--- retrieved the cost of goods sold ---->
                 <%
                 HashMap<String, Double> invGoodPurchasedwithCost = (HashMap<String, Double>) request.getAttribute("retrieveInvGoodPurchasedwithCost");
                 if (invGoodPurchasedwithCost != null && !invGoodPurchasedwithCost.isEmpty()) {
                 %>    
-    
-
-                <%
-                    for (String invPurchasedItems : invGoodPurchasedwithCost.keySet()) {
-                        String goodsBrought = invPurchasedItems;
-                        double cogs = invGoodPurchasedwithCost.get(goodsBrought);
-
-
+                
+                
+                <% 
+                 double totalCostOfGoodsSold = (Double) request.getAttribute("totalInvCost");
                 %>
 
-                 <tbody>
-                    <tr>
-                        <td style="padding-left:15px ; padding-bottom:10px"><%=goodsBrought%></td>
-                        <td style="padding-left:15px; padding-bottom:10px"><%=cogs%></td>
-
-                    </tr>
-
-
-                    <%
-                        }
-                        double totalInventoryCost = (Double) request.getAttribute("totalInvCost");
-                    %>
-
-                <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px"><u>Total COGS</u></td>
-                <td style="padding-left:15px; padding-top:15px;padding-bottom:15px "><%=totalInventoryCost%></td>
+                <td font style="font-weight:bold; font-size:18px;color:#4000BF;padding-top:15px;padding-left:15px; padding-bottom:10px">Total COGS</td>
+                <td style="padding-top:15px;padding-left:15px;font-size:18px;color:#1f2e2e; padding-bottom:10px "><b>$ <u><%=totalCostOfGoodsSold%></b></u></td>
                 <%
                     }
-
                 %>
-
                 </tbody> 
-            
-            
-            
-            
-        <!---------------------------------------------------------->
-            
-            
-
-
-            <%
-                HashMap<String, Double> retrieveSalesGained = (HashMap<String, Double>) request.getAttribute("retrieveSalesGained");
-                if (retrieveSalesGained != null && !retrieveSalesGained.isEmpty()) {
-            %>
- 
-
-                <tr>
-                    <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px">Revenues</td>
-                    <td style="padding-left:15px"><b></b></td>
-
-                </tr>
-
-
-                <%
-                    for (String goods : retrieveSalesGained.keySet()) {
-                        String goodsSold = goods;
-                        double profit = retrieveSalesGained.get(goods);
-
-
-                %>
-
+                
+                
+                <!--- retrieved GROSS Profit ---->
                 <tbody>
-                    <tr>
-                        <td style="padding-left:15px ; padding-bottom:10px"><%=goodsSold%></td>
-                        <td style="padding-left:15px; padding-bottom:10px"><%=profit%></td>
-
-                    </tr>
-
-
-                    <%
-                        }
-                        double totalSales = (Double) request.getAttribute("totalSales");
-                    %>
-
-                <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px"><u>Total Revenues</u></td>
-                <td style="padding-left:15px; padding-top:15px;padding-bottom:15px "><%=totalSales%></td>
-                <%
-                    }
-
-                %>
-
-                </tbody> 
-
-
-
-
-                <%  HashMap<String, Double> retrieveTypewithCost = (HashMap<String, Double>) request.getAttribute("retrieveTypewithCost");
-                    if (retrieveTypewithCost != null && !retrieveTypewithCost.isEmpty()) {
-
+                    <% 
+                       double profit = (Double) request.getAttribute("profit"); 
+                    %>    
+                <tr>
+                    <td font style="font-weight:bold;font-size:18px;color:#4000BF;padding-left:15px; ">Gross Profit</td>
+                    <td style="padding-left:15px; font-size:18px;color:#1f2e2e;padding-top:15px;"><b>$ <u><%=profit%></b></u></td>
+                </tr>
+            
+                </tbody>
+     
+                 <!--retrieve the list of expenses------------------------------>
+                <tbody>
+  
+                <% HashMap<String,Double>retrieveExpenses = (HashMap<String, Double>) request.getAttribute("retrieveExpTypesNCost");
+                    if (retrieveExpenses != null && !retrieveExpenses.isEmpty()) {
                 %>        
-
-
-                <tr>
-
-                    <td font style="font-weight:bold;color:#0000FF;padding-left:15px; padding-bottom:10px">Expense</td>
-                    <th style="padding-left:15px"></th>
-
-
+                <tr><td font style="font-weight:bold;font-size:15px;color:#4D00B2;padding-left:15px; padding-top:10px;">Less:Expenses</td>
+ 
+              
                 </tr>
 
-
-
-
-                <%                        for (String expTrackerItems : retrieveTypewithCost.keySet()) {
+                  <%    for (String expTrackerItems : retrieveExpenses.keySet()) {
                         String expItems = expTrackerItems;
-                        double expenses = retrieveTypewithCost.get(expTrackerItems);
+                        double expenses = retrieveExpenses.get(expItems );
+                %>
+
+                    <tr>
+                        <td style="padding-left:15px; padding-top:5px; color:#1f2e2e;"><%=expItems%> </td> 
+                        <td style="padding-left:15px; padding-top:5px; color:#1f2e2e;">$ <%=expenses%></td>
+
+                    </tr>
+                    
+                    <% 
+                        } 
+                        double totalExpensesCost = (Double) request.getAttribute("totalExpCost");
+                    %>
+                    
+                    <tr>
+                     <td font style="font-weight:bold;color:#4D00B2;font-size:18px;padding-left:15px;">Total Expenses</td>
+                     <td style="padding-left:15px; padding-top:15px;color:#1f2e2e;font-size:18px; "><b>$ <u><%=totalExpensesCost%></b></u></td>
+                    </tr>
+
+
+                    <%
+                     }  
+                        
+                    %>
+                
+                </tbody>
+                
+               <!---------------------------------- Profit--------------------------------------------------------->
+               <tbody>
+                <%
+                    HashMap<String, Double> retrieveSalesGained = (HashMap<String, Double>) request.getAttribute("retrieveSalesGained");
+                    if (retrieveSalesGained != null && !retrieveSalesGained.isEmpty()) {
+                %>
+                <%        
+                    double totalSales = (Double) request.getAttribute("totalSales");
+                %>
+                    
+                    <tr>
+                     <td font style="font-weight:bold;color:#4D00B2;font-size:18px;padding-left:15px;">Profit</td>
+                     <td style="padding-left:15px; padding-top:15px;font-size:18px;padding-bottom:15px "><b>$ <u><%=totalSales%></u></b></td>
+                    </tr>
+
+                <%
+                    }
 
                 %>
 
-                <tbody>
-
-                    <tr>
-                        <td style="padding-left:15px; padding-bottom:10px"><%=expItems%></td>
-                        <td style="padding-left:15px; padding-bottom:10px"><%=expenses%></td>
-
-                    </tr>
-
-                    <%
-                            }
-                        }
-
-                    %>
-
                 </tbody> 
-                <%--<thead>
-                    <tr>
-                    </tr>
-
-                </thead>  --%>
-                <% HashMap<String, Double> retrieveInvGoodPurchasedwithCost = (HashMap<String, Double>) request.getAttribute("retrieveInvGoodPurchasedwithCost");
-                    if (retrieveInvGoodPurchasedwithCost != null && !retrieveInvGoodPurchasedwithCost.isEmpty()) {
-
-                        for (String costofgoods : retrieveInvGoodPurchasedwithCost.keySet()) {
-                            String cogItems = costofgoods;
-                            double expenses = retrieveInvGoodPurchasedwithCost.get(costofgoods);
-
-
-                %>
-
-                <tbody>
-                    <tr>
-                        <td style="padding-left:15px; padding-bottom:10px"><%=cogItems%></td>
-                        <td style="padding-left:15px; padding-bottom:10px ; padding-bottom:10px"><%=expenses%></td>
-
-                        <%
-                            }
-                            double totalInvCost = (Double) request.getAttribute("totalInvCost");
-                            double totalExpCost = (Double) request.getAttribute("totalExpCost");
-                            double totalExpensesCost = totalInvCost + totalExpCost;
-                            double profit = (Double) request.getAttribute("profit");
-                        %>
-                    <tr>
-                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-bottom:10px"><u>Total Expenses</u></td>
-                        <td style="padding-left:15px; padding-bottom:10px;"><%=totalExpensesCost%></td>
-                    </tr>
-                    <tr>
-                        <td font style="font-weight:bold;color:	#0000FF;padding-left:15px; padding-top:15px"><u>Profit</u></td>
-                        <td style="padding-left:15px; padding-top:15px;"><u><%=profit%></u></td>
-                    </tr>
-                    <%
-                        }
-
-                    %>
-                </tbody> 
+   
             </table>
 
         <br>
@@ -273,28 +195,31 @@
 
         <script>
 
+ $('#button').click(function () {
+var doc = new jsPDF('p', 'pt');
+var img = new Image;
+img.src = 'image/ExpenseTrackerV1.jpg';
+var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"),false);
+doc.autoTable(res.columns, res.rows, {
+    styles: {fillColor: [255, 255, 255], fontSize: 15},
+    columnStyles: {
+    	id: {fillColor: 255}
+    },
+    margin: {top: 60},
+    addPageContent: function(data) {
+    	doc.text("Header", 40, 30);
+        doc.addImage(img, 'jpeg', 10, 10);
+      
+        
+    }
+});
+doc.save('table.pdf');
 
-
-
-            $('#button').click(function () {
-                var doc = new jsPDF('p', 'pt', 'a4');
-                var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
-                doc.autoTable(res.columns, res.data, {
-                    startY: 80
-                });
-
-                doc.save('sample-file.pdf');
-
-
-
-
-
-
+         
             });
         </script> 
  </div>
-            </div>
-</form> 
+            
 
     </body> 
 

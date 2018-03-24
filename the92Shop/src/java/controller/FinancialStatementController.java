@@ -10,6 +10,7 @@ import DAO.InventoryDAO;
 import entity.Inventory;
 import entity.ExpenseTracker;
 import DAO.ExpenseTrackerDAO;
+import DAO.InventoryPurchaseDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -84,18 +85,27 @@ public class FinancialStatementController extends HttpServlet {
         InventoryDAO invDAO = new InventoryDAO();
 
         //Based on ExpenseTracker (EXPENSES)
-        HashMap<String,Double> retrieveTypewithCost=expTrackerDAO.retrieveExpTypesNCost(month,year);
-        request.setAttribute("retrieveTypewithCost",retrieveTypewithCost);
+        HashMap<String,Double> retrieveExpTypesNCost=expTrackerDAO.retrieveExpTypesNCost(month,year);
+        request.setAttribute("retrieveExpTypesNCost",retrieveExpTypesNCost);
         
         double totalExpCost = expTrackerDAO.retrieveExpCost(month, year);
+        
+        
+        for(String a : retrieveExpTypesNCost.keySet()){
+            System.out.println(a);
+           
+        }
+        System.out.print(totalExpCost);
+        
         request.setAttribute("totalExpCost",totalExpCost);
         
         
+        InventoryPurchaseDAO invPurchaseDAO = new InventoryPurchaseDAO();
         
         //Based on GOODS PURCHASED (EXPENSES)
-        HashMap<String,Double> retrieveInvGoodPurchasedwithCost = invDAO.retrieveGoodsNCost(month, year);
+        HashMap<String,Double> retrieveInvGoodPurchasedwithCost = invPurchaseDAO.retrieveGoodsNCost(month, year);
         request.setAttribute("retrieveInvGoodPurchasedwithCost",retrieveInvGoodPurchasedwithCost);
-        double totalInvCost = invDAO.retreiveGoodsCost(month, year);
+        double totalInvCost = invPurchaseDAO.retreiveGoodsCost(month, year);
         request.setAttribute("totalInvCost",totalInvCost);
          
         //BASED on SALES ( GAINED)
@@ -145,10 +155,5 @@ public class FinancialStatementController extends HttpServlet {
     }// </editor-fold>
     
 
-
-   
-    
-
-    
     
 }

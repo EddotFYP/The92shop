@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 /**
@@ -276,5 +277,62 @@ public class PurchaseHistoryDAO {
 
         db.closeConn();
         return result;
+    }
+    
+    
+     public HashMap<Integer, Integer> getTopLowestStock(int month, String year, int checkquantity ){ 
+
+        HashMap<Integer,Integer> lowStockList = new HashMap<>();
+     
+
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+         //   PreparedStatement stmt = conn.prepareStatement("select DISTINCT(SKU_Id), Quantity from customer_purchase where EXTRACT(MONTH FROM Date_Of_Purchase) = "
+         //           + "'"+ month +"' and EXTRACT(YEAR FROM Date_Of_Purchase) = '"+ year +"' and Quantity < 7 GROUP by SKU_Id  DESC Limit '"+ checkquantity +"'");
+           PreparedStatement stmt = conn.prepareStatement("select DISTINCT(SKU_Id), Quantity from customer_purchase where EXTRACT(MONTH FROM Date_Of_Purchase) = "
+                  + "'"+ month +"' and EXTRACT(YEAR FROM Date_Of_Purchase) = '"+ year +"' and Quantity > 5 GROUP by Quantity DESC Limit "+ checkquantity );
+              
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int skuID = rs.getInt(1);
+                int skuQuantity = rs.getInt(2);
+                
+                lowStockList.put(skuID, skuQuantity);
+                
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return lowStockList;
+    }
+    
+    
+     public HashMap<Integer, Integer> getTopHighestStock(int month, String year, int checkquantity ){ 
+
+        HashMap<Integer,Integer> highStockList = new HashMap<>();
+     
+
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select DISTINCT(SKU_Id), Quantity from customer_purchase where EXTRACT(MONTH FROM Date_Of_Purchase) = '"+ month +"' and EXTRACT(YEAR FROM Date_Of_Purchase) = '"+ year +"' and Quantity <= 5 GROUP by Quantity  ASC Limit "+ checkquantity);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int skuID = rs.getInt(1);
+                int skuQuantity = rs.getInt(2);
+                highStockList.put(skuID, skuQuantity);
+                
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return highStockList;
     }
 }

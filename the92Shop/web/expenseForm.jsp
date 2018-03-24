@@ -115,7 +115,8 @@
                     var img = new Image;
 
 
-                    img.onload = function () {
+               
+        img.onload = function () {
                         doc.addImage(this, 10, 10);
                         doc.text(80, 135, date.toLocaleDateString());
                         doc.text(80, 165, expensesType);
