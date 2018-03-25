@@ -41,7 +41,7 @@
              <form class="mui-form--inline" action="AnalyticsDB" method="post">
             <div id = "pricingBundleTable">
                 <div class ="mui-panel">
-                    <h1>Bundle Pricing Recommendation</h1>
+                    <h1>Product Bundling Sales</h1>
                     <div class="mui-divider"></div>
                     Filter by (Monthly/Yearly):
                     <div class="mui-select">

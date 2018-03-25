@@ -77,10 +77,12 @@
        
         
         
-        <div style="margin-top:50px;" class="my_text" id="target" align="center" >            
+        <div style="margin-top:50px;" class="my_text" id="target" align="center" >   
+           
             <table bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
                 <%
                 %>
+                <img src="image/Eddot_Logo.jpg"/>
                 <h1>the92 shop Income Statement</h1>
                 <thead>
                     <tr>
@@ -198,17 +200,22 @@
  $('#button').click(function () {
 var doc = new jsPDF('p', 'pt');
 var img = new Image;
-img.src = 'image/ExpenseTrackerV1.jpg';
+img.src = "image/ExpenseTrackerV1.jpg";
 var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"),false);
+doc.text(7,15,"the92 shop Income Statement");
 doc.autoTable(res.columns, res.rows, {
     styles: {fillColor: [255, 255, 255], fontSize: 15},
     columnStyles: {
     	id: {fillColor: 255}
+        
     },
     margin: {top: 60},
-    addPageContent: function(data) {
+    beforePageContent: function(data) {
+        var img = new Image;
+        img.src = "image/ExpenseTrackerV1.jpg";
+        doc.addtext("the92 shop Income Statement");
     	doc.text("Header", 40, 30);
-        doc.addImage(img, 'jpeg', 10, 10);
+        doc.addImage(img, 'JPEG');
       
         
     }
