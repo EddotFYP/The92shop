@@ -15,25 +15,28 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/instascan.min.js"></script>
         <title>Order Picking Page</title>
         <script type="text/javascript">
 
-            function initiateCamera() {
+
+            $(document).ready(function () {
+
+                if ($('table#main').length) {
+                    document.getElementById("opCustNum").style.display = "block";
+                }
+
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
                 scanner.addListener('scan', function (content) {
 
                     $('#qrValue').attr("value", content);
-
-
                     document.getElementById('myForm').submit();
-
-
                     //Actions after submitting the form
                     //scanner.stop();
+
+
+
 
                 });
 
@@ -47,20 +50,19 @@
                 }).catch(function (e) {
                     console.error(e);
                 });
-            }
-
-            $(document).ready(function show() {
-
-                if ($('table#main').length) {
-                    document.getElementById("opCustNum").style.display = "block";
-                }
             });
 
+            window.onbeforeunload = function () {
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", "OrderPickingController?clearSession=", true);
+                xhttp.send();
+
+            };
         </script>
     <body>
         <%             String usernameAcc = (String) session.getAttribute("user");
 
-             if (!usernameAcc.equals("qingyang")) {%>
+            if (!usernameAcc.equals("qingyang")) {%>
         <%@include file="nonAdminSideNavBar.jsp" %>
         <%} else {%>
         <%@include file="sideNavBar.jsp" %>
@@ -72,16 +74,7 @@
                     <h1>Order Picking</h1>
                     <div class="mui-divider"></div>
                     <br />
-                    <%--                    ArrayList<Inventory> savedList = (ArrayList<Inventory>) session.getAttribute("currentList");
-                        if (savedList != null) {
-                            out.println(savedList.size());
-                        }
-                    --%>
-                    Scan SKU:
 
-                    <button type="button" id="check" onclick="initiateCamera(), show()" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px; margin-right: 70px"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
-
-                    <br/>
 
                     <input type="hidden" id="qrValue" name="cameraResult" value="">
 
@@ -104,17 +97,17 @@
                         String hpErrorMsg = (String) request.getAttribute("hpErrorMsg");
                         if (orderSuccessMsg != null) {
                             out.println("<p style='color:red'>" + orderSuccessMsg + "</p>");
-                            
+
                         }
 
-                       if (orderNoStockMsg != null) {
+                        if (orderNoStockMsg != null) {
                             out.println("<p style='color:red'>" + orderNoStockMsg + "</p>");
-                            
+
                         }
-                       
-                     if (hpErrorMsg != null) {
+
+                        if (hpErrorMsg != null) {
                             out.println("<p style='color:red'>" + hpErrorMsg + "</p>");
-                            
+
                         }
                     %>
                     <br />

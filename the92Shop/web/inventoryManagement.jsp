@@ -17,9 +17,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="js/instascan.min.js"></script>
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
         <script src="js/dataTables.min.js"></script>
+        <script type="text/javascript" src="js/instascan.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
         <style>
         </style>
         <title>Inventory Management</title>
@@ -42,6 +44,43 @@
                     $('#newPrice').attr("value", $('#iPrice').html());
 
                 });
+                
+                $.ajax({
+                    type: 'POST',
+                    url: 'inventoryJson',
+                    headers: {
+                        Accept: "application/json; charset=utf-8",
+                        "Content-Type": "application/json; charset=utf-8"
+                    },
+                    success: function (result) {
+                        var json = $.parseJSON(result);
+                        var str = '';
+
+                        for (var i = 0; i < json.names.length; i++) {
+                            str += '<option value="' + json.names[i].name + '" />'; // Storing options in variable
+
+                        }
+
+                        document.getElementById("sku").innerHTML = str;
+
+                        
+                    }
+
+                });
+                
+                $('#myTable').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": true,
+                    "order": [],
+                    "ordering": true,
+                    "pageLength": 5
+                    
+                    
+                });
 
             });
             function confirmation() {
@@ -56,18 +95,15 @@
             }
             ;
             function initiateCamera() {
+                document.getElementById('camera').style.display = "block";
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
                 scanner.addListener('scan', function (content) {
-
-                    /*var request = new XMLHttpRequest();
-                     
-                     /*request.open("POST", "InventoryController", true);
-                     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                     request.send("cameraResult=" + content);*/
-                    document.getElementById('qrValue').value = content;
-                    document.getElementById('myForm').submit();
+                    
+                    var name = content.substr(0,content.indexOf('?'));
+                    
+                    $('input[type="search"]').val(name).keyup();
                     scanner.stop();
-
+                    document.getElementById('camera').style.display = "none";
                 });
 
                 //check if the device has cameras
@@ -105,24 +141,11 @@
                     <h1>Search Inventory</h1>
                     <div class="mui-divider"></div>
                     <br />
-                    <%                InventoryDAO dao = new InventoryDAO();
-                        ArrayList<Inventory> listOfInventory = dao.retrieveInventoryList();
-                        ArrayList<String> allInventory = new ArrayList<>();
-                        for (Inventory i : listOfInventory) {
-                            allInventory.add(i.getName());
-                        }
-                        //Collections.sort(allInventory);
-
-                    %>
-
+                    <%--
                     Enter product name:
-                    <input type="text" list="sku" name="sku" required>
+                    <input type="text" list="sku" name="sku" autocomplete="off">
 
-                    <datalist id="sku">
-                        <%for (String i : allInventory) {%>
-                        <option value="<%=i%>"><%=i%></option>
-                        <% }%>
-                    </datalist>
+                    <datalist id="sku"></datalist>
 
                     <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
 
@@ -131,15 +154,21 @@
                     <input type="hidden" id="qrValue" name="cameraResult" value="">
 
                     </form>
-
+                    --%>
+                    <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
+                    <br/>
+                    <div><video id="camera" width="420" style="display:none;"></video></div>
                     <%
-                        ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                        /*ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
                         String message = (String) request.getAttribute("message");
 
                         if (message != null) {
                             out.println("<p style='color:red'>" + message + "</p>");
-                        }
-
+                        }*/
+                        
+                        InventoryDAO dao = new InventoryDAO();
+                        ArrayList<Inventory> list = dao.retrieveInventoryList();
+                        
                         int id = 0;
                         String inventoryName = "";
                         int qty = 0;
@@ -152,7 +181,7 @@
                     %>
                     <br />
 
-                    <table class="invMgt-table">
+                    <table id="myTable" class="invMgt-table">
                         <thead>
                             <tr>
                                 
@@ -166,6 +195,8 @@
 
                             </tr>
                         </thead>
+                        <tbody>
+                            <tr>
                         <%for (Inventory i : list) {
                                 id = i.getSKUID();
                                 inventoryName = i.getName();
@@ -174,9 +205,7 @@
                                 cost = i.getCostPrice();
                                 price = i.getSellingPrice();
                         %>
-                        <tbody>
-                            <tr>
-                                
+                            
                                 <td id="iName"><%=inventoryName%></td>
                                 <td id="quantity"><%=qty%></td>
                                 <td id="date"><%=updatedDate%></td>
@@ -219,7 +248,7 @@
                         }
 
                     %>
-                    <video id="camera" width="420"></video>
+                    
                 </div>
             </div>
     </body>

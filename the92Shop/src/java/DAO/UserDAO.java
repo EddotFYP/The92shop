@@ -120,7 +120,7 @@ public class UserDAO {
         return result;
     }
      
-      public int editUser(User user, String passwordChange) {
+    public int editUser(User user, String passwordChange) {
         int updateQuery = 0;
         try {
             DatabaseConnection db = new DatabaseConnection();
@@ -141,5 +141,5 @@ public class UserDAO {
         return updateQuery;
 
     }
-
+      
 }

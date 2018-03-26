@@ -21,6 +21,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
         <style>
         </style>
         <script type="text/javascript">
@@ -34,6 +38,19 @@
                     $('#newPhone').attr("value", $('#phone').html());
                     $('#newAddress').attr("value", $('#address').html());
                     $('#newPostal').attr("value", $('#postal').html());
+                });
+                
+                $('#myTable').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": true,
+                    "order": [],
+                    "ordering": true,
+                    "pageLength": 5
+                    
                 });
 
             });
@@ -159,7 +176,7 @@
 
                 if (custList != null && !custList.isEmpty()) {%>
             <div class ="mui-panel customerTableResult">  
-                <table class="invMgt-table">
+                <table id="myTable" class="invMgt-table">
                     <thead>
                         <tr>
 
@@ -171,6 +188,8 @@
                             <th> Delete </th>
                         </tr>
                     </thead>
+                    <tbody>
+                    <tr>
                     <%for (Customer cus : custList) {
                             custId = cus.getCustId();
                             custName = cus.getName();
@@ -179,8 +198,7 @@
                             address = cus.getAddress();
                             postalCode = cus.getPostalCode();
                     %>
-                    <body>
-                    <tr>
+                    
 
                         <td id="custName"><%=custName%></td>
                         <td id="phone"><%=phoneNum%></td>
@@ -208,10 +226,18 @@
                             </form>
                         </td>
                     </tr>
+                    <% }; %>
                     </tbody>
                 </table>
-                <%}
+                <%
 
+                    }
+                    if (error != null) {
+                        out.println("<p style='color:red'>" + error + "</p>");
+                    }
+
+                    if (message != null) {
+                        out.println("<p style='color:red'>" + message + "</p>");
                     }
                    
                 %>

@@ -4,6 +4,7 @@
     Author     : Xiao Weikun
 --%>
 
+<%@page import="DAO.PurchaseHistoryDAO"%>
 <%@page import="entity.PurchaseHistory"%>
 <%@page import="entity.Inventory"%>
 <%@page import="java.util.ArrayList"%>
@@ -17,7 +18,30 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
         <title>Purchase History</title>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#myTable').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": true,
+                    "order": [],
+                    "ordering": true,
+                    "pageLength": 5
+                    
+                });
+
+            });
+        </script>
     </head>
     <body> 
         <%
@@ -33,17 +57,17 @@
                 %>
         <form id="myForm" action="OrderPickingController" method="post">
             <div class="subPageContent">
-                <div class ="mui-panel ">    
+                <div class ="mui-panel invMgt-table">    
                 <h1>Purchase History</h1>
                 <div class="mui-divider"></div>
                 <br />
-                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> View History</i></button>
-                <input type="hidden" name="ViewPurchaseHistory" value="1">
 
                 </form>
                 
                     <%
-                        ArrayList<PurchaseHistory> list = (ArrayList<PurchaseHistory>) request.getAttribute("history");
+                        PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
+                        ArrayList<PurchaseHistory> list = purchaseHistoryDAO.retrievePurchaseHistory();
+                        //ArrayList<PurchaseHistory> list = (ArrayList<PurchaseHistory>) request.getAttribute("history");
                         String message = (String) request.getAttribute("message");
                         String phone = "";
                         int skuId = 0;
@@ -56,7 +80,7 @@
                             InventoryDAO dao = new InventoryDAO();
 
                     %>
-                <table class="invMgt-table">
+                <table id="myTable">
                     <thead>
                         <tr>
                             <th> Phone </th>
@@ -67,6 +91,8 @@
 
                         </tr>
                     </thead>
+                    <tbody>
+                        <tr>
                     <%for (PurchaseHistory ph : list) {
                             phone = ph.getPhoneNum();
                             skuId = ph.getSkuId();
@@ -75,8 +101,7 @@
                             qty = ph.getQuantity();
                             
                     %>
-                    <tbody>
-                        <tr>
+                    
                             <td id="phone"><%=phone%></td>
                             <td id="iName"><%=inventoryName%></td>
                             <td id="quantity"><%=qty%></td>

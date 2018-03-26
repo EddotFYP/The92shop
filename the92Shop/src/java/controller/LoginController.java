@@ -43,21 +43,21 @@ public class LoginController extends HttpServlet {
         UserDAO userDAO = new UserDAO();
         User user = userDAO.retrieve(username);
 
-        if (username != null && password != null && !username.isEmpty() && !password.isEmpty()) {
+        if (username != null && password != null && !username.isEmpty()) {
             if (username.equals("qingyang") && password.equals("the92shop")) {
                 session.setAttribute("user", username);
                 response.sendRedirect("home.jsp");
             } else {
                 if (user != null && user.authenticate(password)) {
                     session.setAttribute("user", username);
-                    response.sendRedirect("changePassword.jsp");
+                    response.sendRedirect("home.jsp");
                 } else {
                     request.setAttribute("error", "Invalid username/password");
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                     view.forward(request, response);
                 }
 
-            }
+            }      
         } else {
             request.setAttribute("error", "Invalid username/password");
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");

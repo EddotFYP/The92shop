@@ -121,6 +121,13 @@ public class CustomerController extends HttpServlet {
                     }
                 }
                 
+            } else {
+                ArrayList<Customer> custList = custDAO.retrieveAllCustomers();
+                
+                for(Customer c : custList){
+                    result.add(c);
+                }
+                
             }
             
             //search customers by name

@@ -45,7 +45,7 @@
                             </div>
                         </td>
                     </tr>
-
+                                        
                     <tr>
                         <td>
                             <span>Cost</span><span style="float:right">:</span>
@@ -63,6 +63,18 @@
                         <td>
                             <div class="mui-textfield">
                             <input type ="number" step="any" name ="newPrice" id="price" autocomplete="off" placeholder="0.0" required/>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td>
+                            <span>Quantity</span><span style="float:right">:</span>
+                        </td>
+
+                        <td>
+                            <div class="mui-textfield">
+                            <input type ="text" name ="newQty" id="qty" placeholder="Quantity" autocomplete="off" required/>
                             </div>
                         </td>
                     </tr>
@@ -91,11 +103,12 @@
 
                         var qrcode = new QRCode(document.getElementById("qrcode"));
                         var name = document.getElementById("name");
+                        var qty = document.getElementById("qty");
                         var cost = document.getElementById("cost");
                         var price = document.getElementById("price");
 
-                        if (name.value != "" && cost.value != "" && price.value != "") {
-                            qrcode.makeCode(name.value + "?" + cost.value + "?" + price.value);
+                        if (name.value != "" && cost.value != "" && price.value != "" && qty.value != "") {
+                            qrcode.makeCode(name.value + "?" + cost.value + "?" + price.value + "?" + qty.value);
 
                             setTimeout(function () {
                                 var specialElementHandlers = {

@@ -94,5 +94,27 @@ public class InventoryPurchaseDAO {
     
     }
     
-    
+    public int addRecord(int skuId, int qty, String date) {
+        int updateQuery = 0;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO inventory_purchase VALUES (?,?,?)");
+            
+            stmt.setInt(1, skuId);
+            stmt.setInt(2, qty);
+            stmt.setString(3, date);
+            
+            
+            
+
+            updateQuery = stmt.executeUpdate();
+
+            db.closeConn();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return updateQuery;
+    }
 }

@@ -17,7 +17,7 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
+    
     /**
      * Get the value of Username
      *

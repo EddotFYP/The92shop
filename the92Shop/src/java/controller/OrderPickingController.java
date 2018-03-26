@@ -51,6 +51,7 @@ public class OrderPickingController extends HttpServlet {
             ArrayList<Inventory> result = new ArrayList<>();
             CustomerDAO cusDAO = new CustomerDAO();
             String cameraResult = request.getParameter("cameraResult");
+            String clearSession = request.getParameter("clearSession");
             ArrayList<Inventory> currentList = (ArrayList<Inventory>) request.getSession(false).getAttribute("currentList");
             String orderSuccessMsg = "";
             String orderNoStockMsg = "";
@@ -136,6 +137,8 @@ public class OrderPickingController extends HttpServlet {
                     return;
 
                 }
+            } else if(clearSession.equals("1")){
+                request.getSession().removeAttribute("currentList");
             }
 
             request.setAttribute("orderSuccessMsg", orderSuccessMsg);
