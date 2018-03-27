@@ -6,11 +6,10 @@
 package controller;
 
 
-import DAO.InventoryDAO;
-import entity.Inventory;
-import entity.ExpenseTracker;
-import DAO.ExpenseTrackerDAO;
-import DAO.InventoryPurchaseDAO;
+
+import DAO.PurchaseHistoryDAO;
+import entity.InventoryPurchase;
+import entity.PurchaseHistory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -29,8 +28,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jacquelyn
  */
-@WebServlet(name = "FinancialStatementController", urlPatterns = {"/FinancialStatementController"})
-public class FinancialStatementController extends HttpServlet {
+@WebServlet(name = "ProfitController", urlPatterns = {"/ProfitController"})
+public class ProfitController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +45,6 @@ public class FinancialStatementController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         int month = Integer.parseInt(request.getParameter("month"));
-        request.setAttribute("month",month);
         String year = request.getParameter("year");
         request.setAttribute("year",year);
         
@@ -82,48 +80,34 @@ public class FinancialStatementController extends HttpServlet {
     
         request.setAttribute("monthString", monthString);
         
-        ExpenseTrackerDAO expTrackerDAO = new ExpenseTrackerDAO();
-        InventoryDAO invDAO = new InventoryDAO();
-
-        //Based on ExpenseTracker (EXPENSES)
-        HashMap<String,Double> retrieveExpTypesNCost=expTrackerDAO.retrieveExpTypesNCost(month,year);
-        request.setAttribute("retrieveExpTypesNCost",retrieveExpTypesNCost);
+        System.out.print(month);
+        System.out.print(year);
         
-        double totalExpCost = expTrackerDAO.retrieveExpCost(month, year);
+        PurchaseHistoryDAO purchaseHisDAO = new PurchaseHistoryDAO();
         
         
-       /* for(String a : retrieveExpTypesNCost.keySet()){
-            System.out.println(a);
-           
-        }
-        System.out.print(totalExpCost);
-        */
-        request.setAttribute("totalExpCost",totalExpCost);
+       //To list of the COGS
+        ArrayList<PurchaseHistory> retreiveListOfSoldProducts = purchaseHisDAO.retreiveListOfSoldProducts(month, year);
+        request.setAttribute("retreiveListOfSoldProducts", retreiveListOfSoldProducts);
+       for(int i = 0 ; i<retreiveListOfSoldProducts.size() ; i++){
+          
+                PurchaseHistory ph= retreiveListOfSoldProducts.get(i);
+                System.out.println(ph.getSkuId());
+                System.out.println(ph.getQuantity());
+                System.out.println(ph.getDateOfPurchase());
+                
+            }
+       
+    
         
-        
-        InventoryPurchaseDAO invPurchaseDAO = new InventoryPurchaseDAO();
-        
-        //Based on GOODS PURCHASED (EXPENSES)
-        HashMap<String,Double> retrieveInvGoodPurchasedwithCost = invPurchaseDAO.retrieveGoodsNCost(month, year);
-        request.setAttribute("retrieveInvGoodPurchasedwithCost",retrieveInvGoodPurchasedwithCost);
-        double totalInvCost = invPurchaseDAO.retreiveGoodsCost(month, year);
-        request.setAttribute("totalInvCost",totalInvCost);
-         
-        //BASED on SALES ( GAINED)
-        HashMap<String,Double> retrieveSalesGained = invDAO.retrieveSellingProductsNCost(month, year);
-        request.setAttribute("retrieveSalesGained",retrieveSalesGained);
-        double totalSales = invDAO.retrieveSales(month, year);
-        request.setAttribute("totalSales",totalSales);
-        
-        double profit = totalSales -(totalExpCost + totalInvCost);
-        request.setAttribute("profit",profit);
-        
-        
-        RequestDispatcher view = request.getRequestDispatcher("financialStatement.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("listOfSoldProducts.jsp");
         view.forward(request, response);
         
-        
+    
+       
     }
+        
+       
     
        @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

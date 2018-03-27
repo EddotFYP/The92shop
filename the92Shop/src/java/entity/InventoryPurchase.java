@@ -13,6 +13,7 @@ public class InventoryPurchase {
     private int skuId;
     private int quantity;
     private String dateOfPurchase;
+    private String name;
     
     
     public InventoryPurchase(int skuId, int quantity, String dateOfPurchase){
@@ -20,6 +21,14 @@ public class InventoryPurchase {
         this.quantity= quantity;
         this.dateOfPurchase = dateOfPurchase;
     }
+    
+     public InventoryPurchase(int skuId, String name, String dateOfPurchase, int quantity){
+        this.name = name;
+        this.skuId = skuId;
+        this.quantity= quantity;
+        this.dateOfPurchase = dateOfPurchase;
+    }
+
 
     public int getSkuId() {
         return skuId;
@@ -32,7 +41,10 @@ public class InventoryPurchase {
     public String getDateOfPurchase() {
         return dateOfPurchase;
     }
-
+    
+     public String getName(){
+        return name;
+    }
     public void setSkuId(int skuId) {
         this.skuId = skuId;
     }

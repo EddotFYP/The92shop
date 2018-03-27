@@ -39,7 +39,7 @@
                     <div class="mui-divider"></div>
                     Filter by (monthly/yearly):
                     <div class="mui-select">
-                        <select name="month" required>
+                        <select name="month" value ="${month}" required>
                             <option value=''>Please select</option>
                             <option value='1'>January</option>
                             <option value='2' >February</option>
@@ -55,6 +55,8 @@
                             <option value='12' >December</option>
                         </select>
                     </div>
+                    
+                    
 
                     <div class="mui-select">
                         <select name="year" class="required" required>
@@ -74,7 +76,7 @@
                     <img src="image/Eddot_Logo.jpg"/>
                 <h1 align="center">the92 shop Income Statement</h1>
                     <tr>
-                        
+                         <%int month = (Integer)request.getAttribute("month");%>
                          <%String monthString = (String) request.getAttribute("monthString"); %>
                          <%String year = (String) request.getAttribute("year"); %>
                          <th style="padding-left:15px;"><b>Income Statement for <%=monthString%> <%=year%></b></th>   
@@ -96,7 +98,7 @@
                  double totalCostOfGoodsSold = (Double) request.getAttribute("totalInvCost");
                 %>
 
-                <td font style="font-weight:bold; font-size:18px;color:#4000BF;padding-top:15px;padding-left:15px; padding-bottom:10px">Total COGS</td>
+                <td font style="font-weight:bold; font-size:18px;color:#4000BF;padding-top:15px;padding-left:15px; padding-bottom:10px"><a href='CostOfGoodsController?month=<%=month%>&year=<%=year%>'>Total COGS</a></td>
                 <td style="padding-top:15px;padding-left:15px;font-size:18px;color:#1f2e2e; padding-bottom:10px "><b>$ <u><%=totalCostOfGoodsSold%></b></u></td>
                 <%
                     }
@@ -167,7 +169,7 @@
                 %>
                     
                     <tr>
-                     <td font style="font-weight:bold;color:#4D00B2;font-size:18px;padding-left:15px;">Profit</td>
+                     <td font style="font-weight:bold;color:#4D00B2;font-size:18px;padding-left:15px;"><a href='ProfitController?month=<%=month%>&year=<%=year%>'>Profit</a></td>
                      <td style="padding-left:15px; padding-top:15px;font-size:18px;padding-bottom:15px "><b>$ <u><%=totalSales%></u></b></td>
                     </tr>
 
@@ -196,7 +198,8 @@
                       id: {fillColor: 255} },
                       margin: {top: 60},
                       beforePageContent: function() {
-                      doc.text(40, 30, "Header");
+                      doc.text(160, 60, "the92 shop Income Statement");
+                      
                       
                     }
                       });

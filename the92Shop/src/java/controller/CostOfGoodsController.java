@@ -11,6 +11,7 @@ import entity.Inventory;
 import entity.ExpenseTracker;
 import DAO.ExpenseTrackerDAO;
 import DAO.InventoryPurchaseDAO;
+import entity.InventoryPurchase;
 import java.io.IOException;
 import java.io.PrintWriter;
 import static java.lang.System.out;
@@ -29,8 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jacquelyn
  */
-@WebServlet(name = "FinancialStatementController", urlPatterns = {"/FinancialStatementController"})
-public class FinancialStatementController extends HttpServlet {
+@WebServlet(name = "CostOfGoodsController", urlPatterns = {"/CostOfGoodsController"})
+public class CostOfGoodsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,7 +47,6 @@ public class FinancialStatementController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         int month = Integer.parseInt(request.getParameter("month"));
-        request.setAttribute("month",month);
         String year = request.getParameter("year");
         request.setAttribute("year",year);
         
@@ -82,48 +82,34 @@ public class FinancialStatementController extends HttpServlet {
     
         request.setAttribute("monthString", monthString);
         
-        ExpenseTrackerDAO expTrackerDAO = new ExpenseTrackerDAO();
-        InventoryDAO invDAO = new InventoryDAO();
-
-        //Based on ExpenseTracker (EXPENSES)
-        HashMap<String,Double> retrieveExpTypesNCost=expTrackerDAO.retrieveExpTypesNCost(month,year);
-        request.setAttribute("retrieveExpTypesNCost",retrieveExpTypesNCost);
-        
-        double totalExpCost = expTrackerDAO.retrieveExpCost(month, year);
-        
-        
-       /* for(String a : retrieveExpTypesNCost.keySet()){
-            System.out.println(a);
-           
-        }
-        System.out.print(totalExpCost);
-        */
-        request.setAttribute("totalExpCost",totalExpCost);
-        
+        System.out.print(month);
+        System.out.print(year);
         
         InventoryPurchaseDAO invPurchaseDAO = new InventoryPurchaseDAO();
         
-        //Based on GOODS PURCHASED (EXPENSES)
-        HashMap<String,Double> retrieveInvGoodPurchasedwithCost = invPurchaseDAO.retrieveGoodsNCost(month, year);
-        request.setAttribute("retrieveInvGoodPurchasedwithCost",retrieveInvGoodPurchasedwithCost);
-        double totalInvCost = invPurchaseDAO.retreiveGoodsCost(month, year);
-        request.setAttribute("totalInvCost",totalInvCost);
-         
-        //BASED on SALES ( GAINED)
-        HashMap<String,Double> retrieveSalesGained = invDAO.retrieveSellingProductsNCost(month, year);
-        request.setAttribute("retrieveSalesGained",retrieveSalesGained);
-        double totalSales = invDAO.retrieveSales(month, year);
-        request.setAttribute("totalSales",totalSales);
         
-        double profit = totalSales -(totalExpCost + totalInvCost);
-        request.setAttribute("profit",profit);
+       //To list of the COGS
+        ArrayList<InventoryPurchase> listofCOGSItems = invPurchaseDAO.listCogItems(month, year);
+        request.setAttribute("listofCOGSItems", listofCOGSItems);
+       for(int i = 0 ; i<listofCOGSItems.size() ; i++){
+          
+                InventoryPurchase purchase = listofCOGSItems.get(i);
+                System.out.println(purchase.getSkuId());
+                System.out.println(purchase.getQuantity());
+                System.out.println(purchase.getDateOfPurchase());
+                
+            }
+       
+    
         
-        
-        RequestDispatcher view = request.getRequestDispatcher("financialStatement.jsp");
+        RequestDispatcher view = request.getRequestDispatcher("costOfGoods.jsp");
         view.forward(request, response);
         
-        
+    
+       
     }
+        
+       
     
        @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

@@ -11,6 +11,7 @@ import entity.InventoryPurchase;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -117,4 +118,36 @@ public class InventoryPurchaseDAO {
         }
         return updateQuery;
     }
+    
+    //--------------------Just Added --------------------------------   
+    
+    public ArrayList<InventoryPurchase> listCogItems(int month, String year){
+        ArrayList<InventoryPurchase> resultList = new ArrayList<>();
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select i.sku_id, i.name, ip.date_of_purchase, ip.quantity from inventory_purchase ip inner join inventory i on i.sku_id = ip.sku_id where EXTRACT(month FROM date_of_purchase) = '"+ month +"' AND EXTRACT(year FROM date_of_purchase) = '"+ year +"' group by  date_of_purchase DESC");           
+             //           PreparedStatement stmt = conn.prepareStatement("select sku_id, quantity, date_of_purchase from inventory_purchase where EXTRACT(month FROM date_of_purchase) = '"+ month +"' AND EXTRACT(year FROM date_of_purchase) = '"+ year +"' group by  date_of_purchase DESC");           
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt(1);
+               String name = rs.getString(2);
+                int quantity = rs.getInt(3);
+                String date = rs.getString(4);
+
+                resultList.add(new InventoryPurchase(id, name, date,quantity));
+               
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultList;
+    
+
+    } 
+    
 }

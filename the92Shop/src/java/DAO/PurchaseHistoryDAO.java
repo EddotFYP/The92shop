@@ -278,8 +278,38 @@ public class PurchaseHistoryDAO {
         db.closeConn();
         return result;
     }
+    // to store the sales product information
+    public ArrayList<PurchaseHistory> retreiveListOfSoldProducts(int month, String year) {
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConn();
+        ArrayList<PurchaseHistory> result = new ArrayList<>();
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select cp.sku_id,name, cp.quantity,sum(cp.quantity)* Selling_Price as Sales, date_of_purchase from inventory i inner join customer_purchase cp on i.SKU_Id = cp.SKU_Id where EXTRACT(month FROM Date_Of_Purchase)= '"+ month +"' AND EXTRACT(year FROM Date_Of_Purchase)= '"+ year +"' group by date_of_purchase DESC");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                int skuId = rs.getInt(1);
+                String productName = rs.getString(2);
+                int quantity = rs.getInt(3);
+                double sales = rs.getDouble(4);
+                String date = rs.getString(5);
+                
+                
+                result.add(new PurchaseHistory(skuId, productName, quantity,sales, date));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        db.closeConn();
+        return result;
+    }
     
     
+    
+    // Lowest X Socks
      public HashMap<Integer, Integer> getTopLowestStock(int month, String year, int checkquantity ){ 
 
         HashMap<Integer,Integer> lowStockList = new HashMap<>();

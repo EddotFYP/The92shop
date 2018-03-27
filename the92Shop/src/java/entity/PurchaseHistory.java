@@ -22,6 +22,10 @@ public class PurchaseHistory {
     private int orderId;
     
     private String phone;
+    
+    private String productName;
+    
+    private double sales;
 
     public PurchaseHistory(int custId, String dateOfPurchase, int quantity, int skuId) {
         this.custId = custId;
@@ -48,6 +52,14 @@ public class PurchaseHistory {
         this.skuId = skuId;
     }
     
+    public PurchaseHistory(int skuId, String product_name, int quantity, double sales, String dateOfPurchase){
+        this.skuId = skuId;
+        this.productName = product_name;
+        this.quantity = quantity;
+        this.sales = sales;
+        this.dateOfPurchase = dateOfPurchase;
+    }
+    
     /**
      * Get the value of skuId
      *
@@ -55,6 +67,14 @@ public class PurchaseHistory {
      */
     public int getSkuId() {
         return skuId;
+    }
+    
+    public String getProductName() {
+        return productName;
+    }
+    
+    public double getSales() {
+        return sales;
     }
 
     /**
