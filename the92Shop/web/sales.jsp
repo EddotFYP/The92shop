@@ -49,7 +49,7 @@
                 <h1>Yearly Trend for Sales</h1>
                 <br />
 
-                <button type="submit" id="ybtn" onclick="yearlySales()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate><i class="fa fa-bar-chart-o" style="font-size:18px;"> Yearly Trend</i></button>
+                <button type="submit" id="ybtn" onclick="yearlySales()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate> Yearly Trend <i class="fa fa-bar-chart-o" style="font-size:18px;"></i></button>
                 <input type="hidden" id="yearlyTrendSales" name="yearlyTrendSales" value="">
                 </div>
                 <br />
@@ -66,7 +66,7 @@
                 </div>
 
                &nbsp;
-                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
                 </div>
                 <%                    
                     //yearly sales 

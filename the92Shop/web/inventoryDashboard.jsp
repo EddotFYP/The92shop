@@ -58,7 +58,7 @@
                      
                     <%if (qty >= 0) {%>
                
-                    <h2>Low inventory alert: </h2>
+                    <h2>Low inventory alert </h2>
                     <h2><strong style="color: red;"><%=qty%></strong> products</h2>
                     
                      </div>
@@ -99,9 +99,12 @@
                     </div>
                     
                     <div class="mui-panel topProduct">
-                    <h2>Top 5 Best Sellers:</h2>
-                    Filter by (Monthly/Yearly):
-                    <div class="mui-select">
+                    <h2>Top 5 Best Sellers</h2>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><span class="priceBundleSpan">Filter by (monthly/yearly):</span></td>
+                                <td><div class="mui-select">
                         <select name="month">
                             <option value="none" selected>Please select</option>
                             <option value="January">January</option>
@@ -117,20 +120,23 @@
                             <option value="November" >November</option>
                             <option value="December" >December</option>
                         </select>
-                    </div>
-                    <div class="mui-select">
+                    </div></td>
+                    <td><div class="mui-select">
                         <select name="year">
                             <option value="none" selected>Please select</option>
                             <option value="2017" >2017</option>
                             <option value="2018" >2018</option>
                         </select>
-                    </div>
-                    <br />
-                    <br />
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
-                    <br>
-
-
+                    </div></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><br /><button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="text-transform: capitalize; border-radius:8px;  font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
                     <%                ArrayList<String> itemNameList = (ArrayList<String>) request.getAttribute("itemNameResult");
                         String jsonItemName = new Gson().toJson(itemNameList);
 
@@ -142,7 +148,7 @@
 
                         if (text != null && !text.isEmpty()) {
                             if (!text.equals("none")) {
-                                out.println("<br />" + "You have selected: " + text + "<br />");
+                                out.println("<br /><p style='font-size:18px;'>" + "You have selected: " + text + "</p><br />");
                             }
                         }
 
@@ -230,7 +236,7 @@
                             if (error == null) {
                                 error = "";
                             } else {
-                                out.println("<br /><p style='color:red'>" + error + "</p>");
+                                out.println("<br /><p style='color:red; font-size:18px;'>" + error + "</p>");
                             }
                         }
                     %>

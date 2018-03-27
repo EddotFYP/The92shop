@@ -61,7 +61,7 @@
                             <td>
                             </td>
                             <td>
-                              <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style=" float:right;"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
+                              <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="float:right; font-size:18px;"> Add <i class="fa  fa-plus" style="font-size:18px;"></i></button>
                             </td>
                             
                         </tr>

@@ -10,7 +10,6 @@
 <%@page import="DAO.InventoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
-<%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -19,15 +18,27 @@
         <title>Price Bundling</title>
     </head>
     <body>
-     
-        <div class="subPageContent">
-            <form class="mui-form" action="PriceBundlingController" method="post">
+         <%
+                    String usernameAcc = (String) session.getAttribute("user");
+                    
+                    if(!usernameAcc.equals("qingyang")){ %>
+                        <%@include file="nonAdminSideNavBar.jsp" %>
+                    <%}else{ %>
+                        <%@include file="sideNavBar.jsp" %>
+                   <% }
+                    
+
+                %>
+            <form class="mui-form--inline" action="PriceBundlingController" method="post">
+                <div class="subPageContent">
+                <div class ="mui-panel "> 
                     <h1>Bundle Pricing Recommendation</h1>
-                    <br />
-             <div class="mui-select">
-                    <div class="mui-divider"></div>
-                    Filter by Month:
-                    <div class="mui-select">
+                   <div class="mui-divider"></div>
+                   <table>
+                       <tbody>
+                           <tr>
+                               <td><span class="priceBundleSpan">Filter by month/year</span><span class="priceBundleSpan" style="float:right">:</span> </td>
+                               <td><div class="mui-select">
                         <select name="month" required>
                             <option value=''>Please select</option>
                             <option value='1'>January</option>
@@ -43,37 +54,34 @@
                             <option value='11' >November</option>
                             <option value='12' >December</option>
                         </select>
-                    </div>
-                     Filter by Year:
-                    <div class="mui-select">
-                        <select name="year" class="required" required>
+                    </div></td>
+                    <td><div class="mui-select">
+                        <select name="year" required>
                             <option value="" >Please select</option>
                             <option value="2017" >2017</option>
                             <option value="2018" >2018</option>
                         </select>
-                    </div>
-                    
-                     <div  class="mui-select" class="required" required>
-                        Number of result to display
-                        <select name="numResult">
-                            <option value='0' selected>Please select</option>
+                    </div></td>
+                           </tr>
+                           <tr>
+                               <td><span class="priceBundleSpan">Number of result to display:</span></td>
+                               <td> <div class="mui-select">
+                        <select name="numResult" required>
+                            <option value='' selected>Please select</option>
                             <option value='5' >5</option>
                             <option value='10' >10</option>
                             <option value='15' >15</option>
                         </select>
-                    </div>    
-                       
-
-                    &nbsp;
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"><i class="fa fa-submit" style="font-size:18px;"> Submit </i></button>
-
-                    <br />
-                     <br />
-           
-            </div>
-              
-        </form> 
-        
+                    </div> </td>
+                           </tr>
+                           <tr>
+                               <td></td>
+                                <td></td>
+                                 <td><button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;float:right" > Submit <i class="fa fa-caret-right" style="font-size:18px;"></i></button></td>
+                           </tr>
+                       </tbody>
+                   </table>
+ 
                 <%
                    
                     HashMap<Integer,Integer> topXStockList = (HashMap<Integer,Integer>)request.getAttribute("topXStock");
@@ -81,19 +89,27 @@
                     InventoryDAO inventoryDAO = new InventoryDAO();
                     String inventoryName ="";
                     int quantity =0;
+                    
+                    HashMap<Integer,Integer> lowXStockList = (HashMap<Integer,Integer>)request.getAttribute("lowXStock");
+                    purchaseDao = new PurchaseHistoryDAO();
+                    inventoryDAO = new InventoryDAO();
                      
-                    if(topXStockList !=null && !topXStockList.isEmpty()){                    
+                    String text = (String) request.getAttribute("word");
+                        if (text != null) {
 
+                            out.println("You have selected: " + text + "<br /><br />");
+                        }
+                        
+                    if(topXStockList !=null && !topXStockList.isEmpty() && lowXStockList !=null){                    
+                        int numResult = (Integer)request.getAttribute("numResult"); 
                     %>
-                
-                <%int numResult = (Integer)request.getAttribute("numResult"); %>
-                <h3 style="padding-left:30px"> Top <%=numResult%> Selling Sock</h3>    
-                <h3 style="padding-right:39px"> Least <%=numResult%> Selling Sock</h3>
-                
-                <table id="priceBundlingTable" border ="1" style="float: left">
+                     </div>
+                <div class ="leastPriceBundle">
+                    <div class ="mui-panel">
+                         <h3> Least <%=numResult%> Selling Sock</h3>
+                <table id="priceBundlingTable" class="invMgt-table">
                     <thead>
-                        <tr>
-                            
+                        <tr> 
                             <th> Product Name </th>
                             <th> Quantity </th>
                         </tr>
@@ -106,14 +122,10 @@
                         quantity = topXStockList.get(keyId);
 
                     %>
-                    
                     <tbody>
-                        <tr>
-                           
-                            <td id="iName"><%=inventoryName%></td>
-                            
+                        <tr>    
+                            <td id="iName"><%=inventoryName%></td>                  
                             <td id="quantity"><%=quantity%></td>
-                            
                         </tr>
                         <%
                         }
@@ -122,22 +134,13 @@
                       
                     </tbody>
                 </table>
-                    <%
-                        
-                            }
-                        %>
-                  <%
-                    HashMap<Integer,Integer> lowXStockList = (HashMap<Integer,Integer>)request.getAttribute("lowXStock");
-                    purchaseDao = new PurchaseHistoryDAO();
-                    inventoryDAO = new InventoryDAO();
-                    if(lowXStockList !=null){                    
-                     
-                   inventoryName ="";
-                   quantity =0;
-                     
-                   %>    
-               
-               <table id="priceBundlingTable" border ="1" style="float: left">
+                        </div>
+                </div>
+                  
+               <div class="topPriceBundle">
+                    <div class ="mui-panel">
+                         <h3> Top <%=numResult%> Selling Sock</h3>    
+               <table id="priceBundlingTable" class="invMgt-table">
                     <thead>
                         
                         <tr>
@@ -162,13 +165,23 @@
                             }
                         %>    
                     </tbody>
-                </table>     
+                </table>
+                    </div>
+                </div>
                 <%
                     
-                    }
+                    }else {
+                                String error = (String) request.getAttribute("errorMsg");
+                                if (error == null) {
+                                    error = "";
+                                } else {
+                                    out.println("<p style='color:red'>" + error + "</p>");
+                                }
+                            }
                     
                 %>
                     
  </div>
+                  </form> 
 </body>
 </html>

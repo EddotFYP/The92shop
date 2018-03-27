@@ -39,7 +39,7 @@
                                 </div>
                             </td>
                             <td>
-                                &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
+                                &nbsp;<button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Add <i class="fa  fa-plus" style="font-size:18px;"></i></button>
                             </td>
                         </tr>
 

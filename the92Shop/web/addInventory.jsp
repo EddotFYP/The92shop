@@ -84,7 +84,7 @@
                             
                         </td>
                         <td>
-                            <button type="button" onclick="makeCode()" name="btSubmit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-plus" style="font-size:18px;"> Add & Download QR code</i></button>
+                            <button type="button" onclick="makeCode()" name="btSubmit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Add & Download QR code <i class="fa  fa-plus" style="font-size:18px;"> </i></button>
 
                         </td>
                     </tr>

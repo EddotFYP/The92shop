@@ -37,7 +37,7 @@
                 <div class ="mui-panel">
                     <h1>Financial Statement</h1>
                     <div class="mui-divider"></div>
-                    Filter by (Monthly/Yearly):
+                    Filter by (monthly/yearly):
                     <div class="mui-select">
                         <select name="month" required>
                             <option value=''>Please select</option>
@@ -63,28 +63,17 @@
                             <option value="2018" >2018</option>
                         </select>
                     </div>
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Download as PDF <i class="fa fa-download" style="font-size:18px;"></i></button>
+         
 
-                    &nbsp;
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
-                    <button type="submit" id="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-download" style="font-size:18px;"> Download as PDF </i></button>
-
-                    <br />
-                     <br />
-           
-            </div>
-            </div>    
-        </form> 
-       
-        
-        
-        <div style="margin-top:50px;" class="my_text" id="target" align="center" >   
-           
-            <table bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
-                <%
-                %>
-                <img src="image/Eddot_Logo.jpg"/>
-                <h1>the92 shop Income Statement</h1>
+            <br />
+            <br />
+            <table align="center" bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
+               
                 <thead>
+                    <img src="image/Eddot_Logo.jpg"/>
+                <h1 align="center">the92 shop Income Statement</h1>
                     <tr>
                         
                          <%String monthString = (String) request.getAttribute("monthString"); %>
@@ -191,7 +180,7 @@
                 </tbody> 
    
             </table>
-
+         
         <br>
         <br>
 
@@ -225,11 +214,10 @@ doc.save('table.pdf');
          
             });
         </script> 
- </div>
+  </div>
+               
             
-
+            </div>    
+        </form> 
     </body> 
-
-
-
 </html>

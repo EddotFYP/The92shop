@@ -9,7 +9,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="DAO.InventoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@include file="sideNavBar.jsp" %>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -37,13 +36,24 @@
         <title>Analytics </title>
     </head>
     <body>
+         <%
+                    String usernameAcc = (String) session.getAttribute("user");
+                    
+                    if(!usernameAcc.equals("qingyang")){ %>
+                        <%@include file="nonAdminSideNavBar.jsp" %>
+                    <%}else{ %>
+                        <%@include file="sideNavBar.jsp" %>
+                   <% }
+                    
+
+                %>
          <div class="subPageContent">
              <form class="mui-form--inline" action="AnalyticsDB" method="post">
             <div id = "pricingBundleTable">
                 <div class ="mui-panel">
                     <h1>Product Bundling Sales</h1>
                     <div class="mui-divider"></div>
-                    Filter by (Monthly/Yearly):
+                    Filter by (monthly/yearly):
                     <div class="mui-select">
                         <select name="month" required>
                             <option value=''>Please select</option>
@@ -71,7 +81,7 @@
                     </div>
 
                     &nbsp;
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"><i class="fa fa-submit" style="font-size:18px;"> Submit </i></button>
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Submit <i class="fa fa-caret-right" style="font-size:18px;"></i></button>
 
                     <br />
                      <br />

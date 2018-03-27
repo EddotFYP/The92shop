@@ -34,7 +34,7 @@
                 <input type="password" name="password" id="password" placeholder="Password" style="width: 300px;" required/><br/>
                 </div>
                 <br />
-                <button type="submit" name="login" class="mui-btn mui-btn--raised mui-btn--danger " style="float:right"><i class="fa fa-sign-in" style="font-size:18px;"> Login</i></button>
+                <button type="submit" name="login" class="mui-btn mui-btn--raised mui-btn--danger " style="float:right; font-size:18px"> Login <i class="fa fa-sign-in" style="font-size:18px;"></i></button>
             </form>
             <br />
             <br />

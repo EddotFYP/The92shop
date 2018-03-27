@@ -30,7 +30,7 @@
 
                         <td>
                             <div class="mui-textfield">
-                                <input type ="text" name ="currentpassword" id="currentpassword" required />
+                                <input type ="text" placeholder="Current Password" name ="currentpassword" id="currentpassword" required />
                             </div>
                         </td>
                     </tr>
@@ -41,7 +41,7 @@
 
                         <td>
                             <div class="mui-textfield">
-                                <input type ="text" name ="passwordChange" id="passwordChange" required />
+                                <input type ="text" placeholder="New Password"name ="passwordChange" id="passwordChange" required />
                             </div>
                         </td>
                     </tr>
@@ -52,14 +52,14 @@
 
                         <td>
                             <div class="mui-textfield">
-                                <input type ="text" name ="newpassword" id="newpassword" required />
+                                <input type ="text" placeholder="Confirm New Password" name ="newpassword" id="newpassword" required />
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-                            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa  fa-check" style="font-size:18px;"> Change Password</i></button>
+                            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Change Password <i class="fa fa-check" style="font-size:18px;"></i></button>
                         </td>
 
                     </tr>

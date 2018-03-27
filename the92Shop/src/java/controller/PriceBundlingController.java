@@ -70,25 +70,34 @@ public class PriceBundlingController extends HttpServlet{
         request.setAttribute("numResult", numResult);
         PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
        
+        String text = "";
+        String error = "";
+        HashMap<Integer, Integer> topXStock = new HashMap<>();
+        HashMap<Integer, Integer> lowXStock = new HashMap<>();
         
-        HashMap<Integer,Integer> topXStock = purchaseHistoryDAO.getTopHighestStock(month, year, numResult);
-        for(Integer key : topXStock.keySet()){
-            System.out.println(key);
-            int value = topXStock.get(key);
-            System.out.println(value);
-            System.out.println("bybye");
+        if (month != 0 && year != null && numResult != 0) {
+           topXStock = purchaseHistoryDAO.getTopHighestStock(month, year, numResult);
+            
+
+             lowXStock = purchaseHistoryDAO.getTopLowestStock(month, year, numResult);
+            
+            if ((topXStock == null || topXStock.isEmpty()) && (lowXStock == null || lowXStock.isEmpty())) {
+                text = monthString + " " + year;
+                error = "There are no records!";
+                request.setAttribute("word", text);
+            } else {
+
+                text = monthString + " " + year;
+            }
+
         }
-        
+
+        request.setAttribute("errorMsg", error);
+        request.setAttribute("word", text);
         request.setAttribute("topXStock", topXStock);
-        
-        
-        
-        HashMap<Integer,Integer> lowXStock = purchaseHistoryDAO.getTopLowestStock(month, year, numResult); 
         request.setAttribute("lowXStock", lowXStock);
-    
-    RequestDispatcher view = request.getRequestDispatcher("priceBundling.jsp");
-    view.forward(request, response);   
-    
+        RequestDispatcher view = request.getRequestDispatcher("priceBundling.jsp");
+        view.forward(request, response);
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

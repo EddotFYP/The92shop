@@ -11,10 +11,10 @@
     <body>
         <div id="header">
             <%
-                String choosenUsername = (String) session.getAttribute("user");
+                String username = (String) session.getAttribute("user");
             %>
 
-            <div id="currentUser"><h3 style="color: white">&nbsp; Current User: <%= choosenUsername%></h3></div>
+            <div id="currentUser"><h3 style="color: white">&nbsp; Current User: <%= username%></h3></div>
 
             <form action="logout.jsp">
                 <button type="submit" name="logout" id="logoutBtn" class="mui-btn mui-btn--raised mui-btn--danger "><i class="fa fa-sign-out" style="font-size:18px;"> Logout</i></button>
@@ -24,7 +24,13 @@
         <div class="nav-side-menu">
             <center>
                 <ul class="drawer">
-                    <li> <a href="changePassword.jsp" style="text-decoration:none;"> <i class="fa fa-edit"></i> <span>Change Password</span> </a>     
+                    <li><a href="#" style="text-decoration:none;" > <i class="fa fa-line-chart fa-xs"></i> <span>Product Bundling </span> </a>
+                <ul>
+                        <li> <a href="priceBundling.jsp" style="text-decoration:none;"> <i class="fa fa-table fa-sm"></i> <span>Table View</span> </a> </li>
+                        <li> <a href="productBundlingOutcome.jsp" style="text-decoration:none;"> <i class="fa fa-signal fa-sm"></i> <span>Graph View</span> </a> </li>                   
+                        
+                </ul>
+                   
                     <li> <a href="customerManagement.jsp" style="text-decoration:none;"> <i class="fa fa-users"></i> <span>Customer Management</span> </a>
                     <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-clipboard"></i> <span>Inventory Management</span> </a>    
                         <ul>
@@ -33,7 +39,8 @@
                             <li> <a href="addInventoryQty.jsp" style="text-decoration:none;"> <i class="fa fa-qrcode"></i> <span>Add Inventory Quantity</span> </a> </li>
                         </ul>
                     <li> <a href="orderPicking.jsp" style="text-decoration:none;"> <i class="fa fa-archive"></i> <span>Order Picking</span> </a>   
-                    <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book"></i> <span>Purchase History</span> </a>              
+                    <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book"></i> <span>Purchase History</span> </a>    
+                         <li> <a href="changePassword.jsp" style="text-decoration:none;"> <i class="fa fa-edit"></i> <span>Change Password</span> </a>     
                     <% 
                     for(int i=0; i<30; i++){
                         out.println("<li></li>");

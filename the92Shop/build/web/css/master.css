@@ -374,8 +374,7 @@ table#inventoryTable td{
 .my_text {
     position: absolute;
     font-size: 20px !important;
-    left:350px;
-    top:230px;
+    top:180px;
 }
 
 table#custTable th{
@@ -546,7 +545,7 @@ table#myTable td{
 }
 
 .monthlyexpenses{
-    left: 320px;
+    left: 340px;
     bottom: 195px;
     width: 550px;
     margin-left: 150px;
@@ -733,4 +732,38 @@ table#myTable td{
 }
 .invMgt-table th, invMgt-table td:before {
     color: black;
+}
+
+h1{
+    font-weight: bold !important;
+}
+
+.leastPriceBundle {
+    position: absolute;
+    left: 500px;
+    top: 320px;
+    width: 480px;
+}
+
+.topPriceBundle{
+    position: absolute;
+    right: 85px;
+    top: 320px;
+    width: 480px;
+}
+
+.priceBundleSpan {
+    display:inline-block; 
+    position: relative;
+    top: 12px;
+}
+
+span > i {
+    color: white;
+}
+span > input {
+    background: none;
+    color: white;
+    padding: 0;
+    border: 0;
 }

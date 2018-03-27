@@ -303,6 +303,8 @@ public class PurchaseHistoryDAO {
                 
             }
             
+             System.out.println("lowStockList" + lowStockList);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

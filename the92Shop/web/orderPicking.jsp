@@ -185,7 +185,7 @@
                                 <input type="tel" pattern="[8\d|9\d]{8}"  id="phone" name="phone" required>
                             </div>
 
-                            <button type="submit"  name="btnSubmit" id="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"  style="font-size:18px;">Submit</button>
+                            <button type="submit"  name="btnSubmit" id="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"  style="font-size:18px;">Submit <i class="fa fa-caret-right" style="font-size:18px;"></i></button>
                             <br/>
 
                         </div>

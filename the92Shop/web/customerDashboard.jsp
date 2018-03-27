@@ -58,7 +58,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-filter" style="font-size:18px;"> Filter </i></button>
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
                 
                     <%                        
                         ArrayList<String> customerNameList = (ArrayList<String>) request.getAttribute("custNameResult");

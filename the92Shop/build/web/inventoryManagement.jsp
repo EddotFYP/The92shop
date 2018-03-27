@@ -155,7 +155,7 @@
 
                     </form>
                     --%>
-                    <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-camera" style="font-size:18px;"> Scan</i></button>
+                    <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Scan <i class="fa fa-camera" style="font-size:18px;"></i></button>
                     <br/>
                     <div><video id="camera" width="420" style="display:none;"></video></div>
                     <%

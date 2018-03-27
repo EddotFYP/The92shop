@@ -13,14 +13,14 @@
     <body>
         <div id="header">
             <%                    
-                String choosenUsername = (String) session.getAttribute("user");
+                String choosenUserNameForAcc = (String) session.getAttribute("user");
                 
             %>
 
-            <div id="currentUser" style="display: inline"><h3 style="color: white">&nbsp; Current User: <%= choosenUsername%></h3></div>
+            <div id="currentUser" style="display: inline"><h3 style="color: white">&nbsp; Current User: <%= choosenUserNameForAcc%></h3></div>
 
             <form action="logout.jsp">
-                <button type="submit" name="logout" id="logoutBtn" class="mui-btn mui-btn--raised mui-btn--danger "><i class="fa fa-sign-out" style="font-size:18px;"> Logout</i></button>
+                <button type="submit" name="logout" id="logoutBtn" class="mui-btn mui-btn--raised mui-btn--danger " style="font-size:18px;">Logout <i class="fa fa-sign-out" style="font-size:18px;"> </i></button>
             </form>
             
         </div>
@@ -29,10 +29,15 @@
             <center>
             <ul class="admimdrawer">
                
-                <li><a href="productBundlingOutcome.jsp" style="text-decoration:none;" > <i class="fa fa-line-chart fa-xs"></i> <span> Analytics</span> </a>
+                <li><a href="#" style="text-decoration:none;" > <i class="fa fa-line-chart fa-xs"></i> <span>Product Bundling </span> </a>
+                <ul>
+                        <li> <a href="priceBundling.jsp" style="text-decoration:none;"> <i class="fa fa-table fa-sm"></i> <span>Table View</span> </a> </li>
+                        <li> <a href="productBundlingOutcome.jsp" style="text-decoration:none;"> <i class="fa fa-signal fa-sm"></i> <span>Graph View</span> </a> </li>                   
+                        
+                </ul>
                 <li> <a href="#" style="text-decoration:none;"> <i class="fa fa-tachometer fa-xs"></i> <span>Dashboard</span> </a>
                     <ul>
-                        <li> <a href="financialDb.jsp" style="text-decoration:none;"> <i class="fa fa-signal fa-sm"></i> <span>Financial Overview</span> </a> </li>
+                        <li> <a href="financialDb.jsp" style="text-decoration:none;"> <i class="fa fa-sitemap fa-sm"></i> <span>Financial Overview</span> </a> </li>
                         <li> <a href="financialStatement.jsp" style="text-decoration:none;"> <i class="fa fa-briefcase fa-sm"></i> <span>Financial Statement</span> </a> </li>
                         <li> 
                             <form id = "invForm" action="InventoryDbController" method="post">
@@ -57,7 +62,7 @@
                     </ul>
                 <li> <a href="orderPicking.jsp" style="text-decoration:none;"> <i class="fa fa-archive fa-sm"></i> <span>Order Picking</span> </a>   
                 <li> <a href="purchaseHistory.jsp" style="text-decoration:none;"> <i class="fa fa-book fa-sm"></i> <span>Purchase History</span> </a>
-                <li> <a href="priceBundling.jsp" style="text-decoration:none;"> <i class="fa fa-search fa-sm"></i> <span>Bundle Recommendation</span> </a>
+                
                 <% 
                     for(int i=0; i<30; i++){
                         out.println("<li></li>");

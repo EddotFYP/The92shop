@@ -38,7 +38,7 @@
 
                         <td>
                             <div class="mui-textfield">
-                            <input type ="text" name ="newName" required/>
+                            <input type ="text" placeholder="Name" name ="newName" required/>
                             </div>
                         </td>
                     </tr>
@@ -48,7 +48,7 @@
                         </td>
                         <td>
                             <div class="mui-textfield">
-                            <input type ="tel" pattern="[8\d|9\d]{8}" name ="newPhoneNumber" required/>
+                            <input type ="tel" pattern="[8\d|9\d]{8}" placeholder="Phone Number" name ="newPhoneNumber" required/>
                             </div>
                         </td>
                     </tr>
@@ -58,7 +58,7 @@
                         </td>
                         <td>
                             <div class="mui-textfield">
-                            <input type ="text" name ="newAddress" required/>
+                            <input type ="text" placeholder="Address"  name ="newAddress" required/>
                             </div>
                         </td>
                     </tr>
@@ -69,7 +69,7 @@
 
                         <td>
                             <div class="mui-textfield">
-                            <input type ="text" pattern="[0-9]{6}" name ="newPostal" required/>
+                            <input type ="text" pattern="[0-9]{6}" placeholder="Postal Code"  name ="newPostal" required/>
                             </div>
                         </td>
                     </tr>
@@ -77,7 +77,7 @@
                         <td>
                         </td>
                         <td>
-                            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="float:right;"><i class="fa  fa-plus" style="font-size:18px;"> Add</i></button>
+                            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="float:right; font-size:18px"> Add <i class="fa  fa-plus" style="font-size:18px;"></i></button>
                         </td>
                     </tr>
 

@@ -69,8 +69,7 @@
                <div class="mui-panel">
                 <h1>Add Inventory Quantity</h1>
                 <div class="mui-divider"></div>
-                <br />
-                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary"><i class="fa fa-search" style="font-size:18px;"> Scan</i></button>
+                <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Scan <i class="fa fa-camera" style="font-size:18px;"></i></button>
                 <input type="hidden" id="qrValue" name="addInventorySearch" value="">
                 <br/>
                 <br />

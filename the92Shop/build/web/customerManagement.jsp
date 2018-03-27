@@ -39,7 +39,7 @@
                     $('#newAddress').attr("value", $('#address').html());
                     $('#newPostal').attr("value", $('#postal').html());
                 });
-                
+
                 $('#myTable').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
@@ -50,7 +50,7 @@
                     "order": [],
                     "ordering": true,
                     "pageLength": 5
-                    
+
                 });
 
             });
@@ -69,7 +69,7 @@
                 }
 
             }
-            
+
             function openPage(pageURL)
             {
                 window.location.href = pageURL;
@@ -79,8 +79,7 @@
         <title> Customer Search</title>            
     </head>
     <body>
-        <%                
-            String usernameAcc = (String) session.getAttribute("user");
+        <%            String usernameAcc = (String) session.getAttribute("user");
 
             if (!usernameAcc.equals("qingyang")) {%>
         <%@include file="nonAdminSideNavBar.jsp" %>
@@ -96,7 +95,11 @@
                 <h1>Add Customer</h1>
                 <div class="mui-divider"></div>
                 <br />
-                <input type="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" onclick="openPage('addCustomer.jsp')" value="&#xf067 Add Customer" class="fa fa-input" style="font-family: FontAwesome; text-transform: capitalize; border-radius:8px;  font-size:18px;">
+                <span class="mui-btn mui-btn--raised mui-btn--primary" style="text-transform: capitalize; border-radius:8px;  font-size:18px;">
+                    <input type="button" name="submit" onclick="openPage('addCustomer.jsp')" value=" Add Customer" />
+                    <i class="fa fa-plus" style="font-size:18px;"></i> 
+                </span>
+
             </div>
             <div class ="mui-panel searchCustomerPanel ">    
                 <form action="CustomerController" method="post">
@@ -121,11 +124,11 @@
                             </td>
                             <td> 
                                 <div class="mui-textfield">
-                                <input type ="text" list ="phoneAndNameList" name = "phoneAndNameList" placeholder=" &#xf007;" style="font-family:Arial,FontAwesome"/>
-                                <%--<datalist id="phoneNumList">
-                                    <%for (String i : phoneNumList) {%>
-                                    <option value="<%=i%>"><%=i%></option>
-                                    <% }%>
+                                    <input type ="text" list ="phoneAndNameList" name = "phoneAndNameList" placeholder=" &#xf007;" style="font-family:Arial,FontAwesome"/>
+                                    <%--<datalist id="phoneNumList">
+                                        <%for (String i : phoneNumList) {%>
+                                        <option value="<%=i%>"><%=i%></option>
+                                        <% }%>
 
                                             </datalist>--%>
                                 </div>
@@ -147,34 +150,34 @@
                         </tr>--%>
                         <td></td>
                         <td>
-                            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style=float:right;"><i class="fa fa-search" style="font-size:18px;"> Search</i></button>
+                            <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="float:right; font-size:18px;">Search <i class="fa fa-search" style="font-size:18px;"> </i></button>
                         </td>
                     </table>
                 </form>
-           
 
-            <%
-                ArrayList<Customer> custList = (ArrayList<Customer>) request.getAttribute("custList");
-                String error = (String) request.getAttribute("error");
-                String message = (String) request.getAttribute("message");
-                
-                 if (error != null) {
+
+                <%
+                    ArrayList<Customer> custList = (ArrayList<Customer>) request.getAttribute("custList");
+                    String error = (String) request.getAttribute("error");
+                    String message = (String) request.getAttribute("message");
+
+                    if (error != null) {
                         out.println("<p style='color:red'>" + error + "</p>");
                     }
 
                     if (message != null) {
                         out.println("<p style='color:red'>" + message + "</p>");
                     }
-                  %>
-                   </div>
-                   <%
+                %>
+            </div>
+            <%
                 int custId = 0;
                 String custName = "";
                 String phoneNum = "";
                 String address = "";
                 String postalCode = "";
 
-                if (custList != null && !custList.isEmpty()) {%>
+                       if (custList != null && !custList.isEmpty()) {%>
             <div class ="mui-panel customerTableResult">  
                 <table id="myTable" class="invMgt-table">
                     <thead>
@@ -189,44 +192,44 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                    <%for (Customer cus : custList) {
-                            custId = cus.getCustId();
-                            custName = cus.getName();
-                            phoneNum = cus.getPhoneNum();
+                        <tr>
+                            <%for (Customer cus : custList) {
+                                    custId = cus.getCustId();
+                                    custName = cus.getName();
+                                    phoneNum = cus.getPhoneNum();
 
-                            address = cus.getAddress();
-                            postalCode = cus.getPostalCode();
-                    %>
-                    
+                                    address = cus.getAddress();
+                                    postalCode = cus.getPostalCode();
+                            %>
 
-                        <td id="custName"><%=custName%></td>
-                        <td id="phone"><%=phoneNum%></td>
-                        <td id="address"><%=address%></td>
-                        <td id="postal"><%=postalCode%></td>
-                        <td>
-                            <div id="editButtonDiv" class="answer_list" >
-                                <button type="submit" name="submit" class="btn" id="edit" onclick="showDiv()">  <i class="fa fa-edit"></i></button>
-                            </div>
 
-                            <div id="saveButtonDiv"  style="display:none;" class="answer_list" >
-                                <form action="CustomerController" method="post">
-                                    <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
-                                    <input type="hidden" id="cId" name="editAction" value="<%=custId%>">
-                                    <input type="hidden" id="newPhone" name="editAction" value="">
-                                    <input type="hidden" id="newAddress" name="editAction" value="">
-                                    <input type="hidden" id="newPostal" name="editAction" value="">
+                            <td id="custName"><%=custName%></td>
+                            <td id="phone"><%=phoneNum%></td>
+                            <td id="address"><%=address%></td>
+                            <td id="postal"><%=postalCode%></td>
+                            <td>
+                                <div id="editButtonDiv" class="answer_list" >
+                                    <button type="submit" name="submit" class="btn" id="edit" onclick="showDiv()">  <i class="fa fa-edit"></i></button>
+                                </div>
+
+                                <div id="saveButtonDiv"  style="display:none;" class="answer_list" >
+                                    <form action="CustomerController" method="post">
+                                        <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
+                                        <input type="hidden" id="cId" name="editAction" value="<%=custId%>">
+                                        <input type="hidden" id="newPhone" name="editAction" value="">
+                                        <input type="hidden" id="newAddress" name="editAction" value="">
+                                        <input type="hidden" id="newPostal" name="editAction" value="">
+                                    </form>
+                                </div>
+                            </td>
+                            <td>
+                                <form action="CustomerController" method="post" onclick="return confirmation()">
+                                    <button type="submit" name="delete" class="btn" id="deleteButton"><i class="fa  fa-trash"></i></button>
+                                    <input type="hidden" name="deleteAction" value="<%=phoneNum%>">
                                 </form>
-                            </div>
-                        </td>
-                        <td>
-                            <form action="CustomerController" method="post" onclick="return confirmation()">
-                                <button type="submit" name="delete" class="btn" id="deleteButton"><i class="fa  fa-trash"></i></button>
-                                <input type="hidden" name="deleteAction" value="<%=phoneNum%>">
-                            </form>
-                        </td>
-                    </tr>
-                    <% }; %>
+                            </td>
+                        </tr>
+                        <% }; %>
                     </tbody>
                 </table>
                 <%
@@ -239,7 +242,7 @@
                     if (message != null) {
                         out.println("<p style='color:red'>" + message + "</p>");
                     }
-                   
+
                 %>
             </div>
 

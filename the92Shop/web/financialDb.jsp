@@ -54,7 +54,7 @@
                 <h1>Yearly Trend for Profits</h1>
                 <br />
 
-                <button type="submit" id="ybtn" onclick="yearlyProfits()" class="mui-btn mui-btn--raised mui-btn--primary buttonType" formnovalidate><i class="fa fa-bar-chart-o"style="font-size:18px;"> Yearly Trend</i></button>
+                <button type="submit" id="ybtn" onclick="yearlyProfits()" class="mui-btn mui-btn--raised mui-btn--primary" formnovalidate> Yearly Trend <i class="fa fa-bar-chart-o"style="font-size:18px;"></i></button>
                 <input type="hidden" id="yearlyTrendProfits" name="yearlyTrendProfits" value="">
                 </div>
                 <br />
@@ -71,7 +71,7 @@
                 </select>
                 </div>
                 &nbsp;
-                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary buttonType "><i class="fa fa-filter" style=" font-size:18px;"> Filter </i></button>
+                <button type="submit" name="btnSubmit" class="mui-btn mui-btn--raised mui-btn--primary"> Filter <i class="fa fa-filter" style=" font-size:18px;"></i></button>
                 </div>
                <%                    
                     ArrayList<String> yearInProfits = (ArrayList<String>) request.getAttribute("yearInProfits");
