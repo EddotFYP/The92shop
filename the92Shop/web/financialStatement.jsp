@@ -64,12 +64,11 @@
                         </select>
                     </div>
                     <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Download as PDF <i class="fa fa-download" style="font-size:18px;"></i></button>
+                    <button type="submit" id="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Download as PDF <i class="fa fa-download" style="font-size:18px;"></i></button>
          
-
             <br />
             <br />
-            <table align="center" bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
+            <table id="basic-table" align="center" bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
                
                 <thead>
                     <img src="image/Eddot_Logo.jpg"/>
@@ -111,8 +110,8 @@
                        double profit = (Double) request.getAttribute("profit"); 
                     %>    
                 <tr>
-                    <td font style="font-weight:bold;font-size:18px;color:#4000BF;padding-left:15px; ">Gross Profit</td>
-                    <td style="padding-left:15px; font-size:18px;color:#1f2e2e;padding-top:15px;"><b>$ <u><%=profit%></b></u></td>
+                    <td font style="font-weight:bold;font-size:18px;color:#4000BF;padding-left:15px ">Gross Profit</td>
+                    <td style="padding-left:15px; font-size:18px;color:#1f2e2e;padding-top:15px"><b>$ <u><%=profit%></b></u></td>
                 </tr>
             
                 </tbody>
@@ -187,31 +186,23 @@
         <script>
 
  $('#button').click(function () {
-var doc = new jsPDF('p', 'pt');
-var img = new Image;
-img.src = "image/ExpenseTrackerV1.jpg";
-var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"),false);
-doc.text(7,15,"the92 shop Income Statement");
-doc.autoTable(res.columns, res.rows, {
-    styles: {fillColor: [255, 255, 255], fontSize: 15},
-    columnStyles: {
-    	id: {fillColor: 255}
-        
-    },
-    margin: {top: 60},
-    beforePageContent: function(data) {
-        var img = new Image;
-        img.src = "image/ExpenseTrackerV1.jpg";
-        doc.addtext("the92 shop Income Statement");
-    	doc.text("Header", 40, 30);
-        doc.addImage(img, 'JPEG');
-      
-        
-    }
-});
-doc.save('table.pdf');
+                    var doc = new jsPDF('p', 'pt', 'a4');
+                    var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
 
-         
+                      doc.autoTable(res.columns, res.data, {
+                      startY: 100, 
+                      styles: {fillColor: [196, 201, 254]},
+                      columnStyles: {
+                      id: {fillColor: 255} },
+                      margin: {top: 60},
+                      beforePageContent: function() {
+                      doc.text(40, 30, "Header");
+                      
+                    }
+                      });
+                   
+                      doc.save('sample-file.pdf');
+               
             });
         </script> 
   </div>

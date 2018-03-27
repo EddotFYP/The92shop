@@ -34,7 +34,7 @@
                     <h1>   Expenses Form Filling</h1>
                     <div class="mui-divider"></div>
                     <br />
-                    <table id = "AdminTable">
+                    <table id = "expenseTable">
                         <tbody>
                             <tr>
                                 <td>
@@ -98,7 +98,7 @@
                                 </td>
                                 <td>
                                     <span class="mui-btn mui-btn--raised mui-btn--primary" style="text-transform: capitalize; border-radius:8px;  font-size:18px; float:right;">
-                                        <input type="submit" name="submit"  value="Submit "  />
+                                        <input type="submit" id="button" name="submit"  value="Submit "  />
                                         <i class="fa fa-caret-right"></i> 
                                     </span>
 
