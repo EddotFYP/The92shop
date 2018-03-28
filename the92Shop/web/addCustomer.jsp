@@ -86,7 +86,7 @@
                 <%                        
                     String message = (String) request.getAttribute("messages");
                     if (message != null) {
-                        out.print(message);
+                        out.println("<p style='color:red'>" + message + "</p>");
                     }
                 %>
                  </div>

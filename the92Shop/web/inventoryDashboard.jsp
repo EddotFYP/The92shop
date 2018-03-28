@@ -10,7 +10,6 @@
 <%@page import="entity.Inventory"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@include file="sideNavBar.jsp" %>
@@ -236,7 +235,7 @@
                             if (error == null) {
                                 error = "";
                             } else {
-                                out.println("<br /><p style='color:red; font-size:18px;'>" + error + "</p>");
+                                out.println("<p style='color:red; font-size:18px;'>" + error + "</p>");
                             }
                         }
                     %>

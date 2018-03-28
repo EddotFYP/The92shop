@@ -95,7 +95,9 @@ public class CustomerController extends HttpServlet {
                 success = custDAO.addCustomer(c);
                 request.setAttribute("message", "New customer is added successfully!");
             }else{
-                request.setAttribute("message", "Duplicate customer!");
+                request.setAttribute("messages", "Duplicate customer!");
+                RequestDispatcher view = request.getRequestDispatcher("addCustomer.jsp");
+                view.forward(request, response);
             }
             
             

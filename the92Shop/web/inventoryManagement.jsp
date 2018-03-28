@@ -181,7 +181,7 @@
                     %>
                     <br />
 
-                    <table id="myTable" class="invMgt-table">
+                    <table id="myTable">
                         <thead>
                             <tr>
                                 

@@ -111,7 +111,7 @@ ul {
 
 .admimdrawer > li:hover a { background: #263238!important; }
 
-.admimdrawer > li a:hover { background: #263238!important; }
+.admimdrawer > li a:hover { background: #37474F!important; }
 
 .admimdrawer > li > a:after {
     content: "";

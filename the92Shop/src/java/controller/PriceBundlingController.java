@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package controller;
+
 import DAO.PurchaseHistoryDAO;
 import entity.PurchaseHistory;
 import java.io.IOException;
@@ -19,77 +20,85 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Jacquelyn
  */
-
 @WebServlet(name = "PriceBundlingController", urlPatterns = {"/PriceBundlingController"})
 
-public class PriceBundlingController extends HttpServlet{
+public class PriceBundlingController extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-   
-        
-       int month = Integer.parseInt(request.getParameter("month"));
-       System.out.println(month);
-       request.setAttribute("month",month);
+
+        int month = Integer.parseInt(request.getParameter("month"));
+        System.out.println(month);
+        request.setAttribute("month", month);
         String year = request.getParameter("year");
-        request.setAttribute("year",year);
-        
-        String monthString ="";
+        request.setAttribute("year", year);
+
+        String monthString = "";
         switch (month) {
-            case 1:  monthString = "January";
-                     break;
-            case 2:  monthString = "February";
-                     break;
-            case 3:  monthString = "March";
-                     break;
-            case 4:  monthString = "April";
-                     break;
-            case 5:  monthString = "May";
-                     break;
-            case 6:  monthString = "June";
-                     break;
-            case 7:  monthString = "July";
-                     break;
-            case 8:  monthString = "August";
-                     break;
-            case 9:  monthString = "September";
-                     break;
-            case 10: monthString = "October";
-                     break;
-            case 11: monthString = "November";
-                     break;
-            case 12: monthString = "December";
-                     break;
-            default: monthString = "Invalid month";
-                     break;
+            case 1:
+                monthString = "January";
+                break;
+            case 2:
+                monthString = "February";
+                break;
+            case 3:
+                monthString = "March";
+                break;
+            case 4:
+                monthString = "April";
+                break;
+            case 5:
+                monthString = "May";
+                break;
+            case 6:
+                monthString = "June";
+                break;
+            case 7:
+                monthString = "July";
+                break;
+            case 8:
+                monthString = "August";
+                break;
+            case 9:
+                monthString = "September";
+                break;
+            case 10:
+                monthString = "October";
+                break;
+            case 11:
+                monthString = "November";
+                break;
+            case 12:
+                monthString = "December";
+                break;
+            default:
+                monthString = "Invalid month";
+                break;
         }
-    
+
         request.setAttribute("monthString", monthString);
-        
+
         int numResult = Integer.parseInt(request.getParameter("numResult"));
         request.setAttribute("numResult", numResult);
         PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
-       
+
         String text = "";
         String error = "";
         HashMap<Integer, Integer> topXStock = new HashMap<>();
         HashMap<Integer, Integer> lowXStock = new HashMap<>();
-        
-        if (month != 0 && year != null && numResult != 0) {
-           topXStock = purchaseHistoryDAO.getTopHighestStock(month, year, numResult);
+
+        topXStock = purchaseHistoryDAO.getTopHighestStock(month, year, numResult);
+
+        lowXStock = purchaseHistoryDAO.getTopLowestStock(month, year, numResult);
+
+        if ((topXStock == null || topXStock.isEmpty()) || (lowXStock == null || lowXStock.isEmpty())) {
+            text = monthString + " " + year;
+            error = "There are no records!";
             
+        } else {
 
-             lowXStock = purchaseHistoryDAO.getTopLowestStock(month, year, numResult);
-            
-            if ((topXStock == null || topXStock.isEmpty()) && (lowXStock == null || lowXStock.isEmpty())) {
-                text = monthString + " " + year;
-                error = "There are no records!";
-                request.setAttribute("word", text);
-            } else {
-
-                text = monthString + " " + year;
-            }
-
+            text = monthString + " " + year;
         }
 
         request.setAttribute("errorMsg", error);
@@ -99,7 +108,7 @@ public class PriceBundlingController extends HttpServlet{
         RequestDispatcher view = request.getRequestDispatcher("priceBundling.jsp");
         view.forward(request, response);
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -140,4 +149,3 @@ public class PriceBundlingController extends HttpServlet{
     }// </editor-fold>
 
 }
-

@@ -14,94 +14,97 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/dataTables.min.js"></script>
         <script src = "js/highcharts.js"></script>
-          <script>
+        <script>
             $(document).ready(function () {
-            $('#myTable').dataTable({
-                "bPaginate": true,
-                "bLengthChange": false,
-                "bFilter": false,
-                "bInfo": false,
-                "bAutoWidth": false,
-                "bSorted": false,
-                "order": [],
-                "ordering": false
-            }); 
-             });     
- 
+                $('#myTable').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": false,
+                    "order": [],
+                    "ordering": false
+                });
+            });
+
         </script>
         <title>Analytics </title>
     </head>
     <body>
-         <%
-                    String usernameAcc = (String) session.getAttribute("user");
-                    
-                    if(!usernameAcc.equals("qingyang")){ %>
-                        <%@include file="nonAdminSideNavBar.jsp" %>
-                    <%}else{ %>
-                        <%@include file="sideNavBar.jsp" %>
-                   <% }
-                    
+        <%             String usernameAcc = (String) session.getAttribute("user");
 
-                %>
-         <div class="subPageContent">
-             <form class="mui-form--inline" action="AnalyticsDB" method="post">
-            <div id = "pricingBundleTable">
-                <div class ="mui-panel">
-                    <h1>Product Bundling Sales</h1>
-                    <div class="mui-divider"></div>
-                    Filter by (monthly/yearly):
-                    <div class="mui-select">
-                        <select name="month" required>
-                            <option value=''>Please select</option>
-                            <option value='1'>January</option>
-                            <option value='2' >February</option>
-                            <option value='3' >March</option>
-                            <option value='4' >April</option>
-                            <option value='5' >May</option>
-                            <option value='6' >June</option>
-                            <option value='7' >July</option>
-                            <option value='8' >August</option>
-                            <option value='9' >September</option>
-                            <option value='10' >October</option>
-                            <option value='11' >November</option>
-                            <option value='12' >December</option>
-                        </select>
-                    </div>
+            if (!usernameAcc.equals("qingyang")) {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="sideNavBar.jsp" %>
+        <% }
 
-                    <div class="mui-select">
-                        <select name="year" class="required" required>
-                            <option value="" >Please select</option>
-                            <option value="2017" >2017</option>
-                            <option value="2018" >2018</option>
-                        </select>
-                    </div>
 
-                    &nbsp;
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Submit <i class="fa fa-caret-right" style="font-size:18px;"></i></button>
+        %>
 
-                    <br />
-                     <br />
-           
-            </div>
-            </div>    
-        </form> 
-             
-            
+        <form class="mui-form--inline" action="AnalyticsDB" method="post">
+            <div class="subPageContent">
+                <div id = "pricingBundleTable">
+                    <div class ="mui-panel">
+                        <h1>Product Bundling Sales</h1>
+                        <div class="mui-divider"></div>
+                        Filter by (monthly/yearly):
+                        <div class="mui-select">
+                            <select name="month" required>
+                                <option value=''>Please select</option>
+                                <option value='1'>January</option>
+                                <option value='2' >February</option>
+                                <option value='3' >March</option>
+                                <option value='4' >April</option>
+                                <option value='5' >May</option>
+                                <option value='6' >June</option>
+                                <option value='7' >July</option>
+                                <option value='8' >August</option>
+                                <option value='9' >September</option>
+                                <option value='10' >October</option>
+                                <option value='11' >November</option>
+                                <option value='12' >December</option>
+                            </select>
+                        </div>
+
+                        <div class="mui-select">
+                            <select name="year" class="required" required>
+                                <option value="" >Please select</option>
+                                <option value="2017" >2017</option>
+                                <option value="2018" >2018</option>
+                            </select>
+                        </div>
+
+                        &nbsp;
+                        <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Submit <i class="fa fa-caret-right" style="font-size:18px;"></i></button>
+
+                        <br />
+                        <br />
+                               
+                    <%                 
+                        InventoryDAO invDAO = new InventoryDAO();
+                        ArrayList<String> promoNameList = (ArrayList<String>) request.getAttribute("promoNameResult");
+                        String jsonPromoName = new Gson().toJson(promoNameList);
+                        ArrayList<String> promoQtyList = (ArrayList<String>) request.getAttribute("promoQtyResult");
+                        String jsonPromoQty = new Gson().toJson(promoQtyList);
                         
-             <%
-                 InventoryDAO invDAO = new InventoryDAO();
-                 ArrayList<String> promoNameList = (ArrayList<String>)request.getAttribute("promoNameResult");
-                 String jsonPromoName = new Gson().toJson(promoNameList); 
-                 ArrayList<String> promoQtyList = (ArrayList<String>)request.getAttribute("promoQtyResult");
-                 String jsonPromoQty = new Gson().toJson(promoQtyList);
-                 if (promoNameList != null && !promoNameList.isEmpty() && promoQtyList != null && !promoQtyList.isEmpty()) {
-             %>    
-              <br />
-             <div id = "inventoryContainer" >
+                        String text = (String) request.getAttribute("word");
+                            if (text != null) {
+
+                                out.println("You have selected: " + text + "<br /><br />");
+                            }
+                        if (promoNameList != null && !promoNameList.isEmpty() && promoQtyList != null && !promoQtyList.isEmpty()) {
+                            
+                    %>    
+                </div>   
+                <div class ="mui-panel">
+                    <div id = "inventoryContainer" >
                         <script>
                             var nameList = <%=jsonPromoName%>;
                             var qtyList = <%=jsonPromoQty%>;
@@ -109,7 +112,7 @@
                                 var chart = {
                                     borderColor: '#000000',
                                     borderWidth: 1,
-                                    type:'spline'
+                                    type: 'spline'
                                 };
                                 var title = {
                                     text: ''
@@ -119,7 +122,7 @@
                                 };
                                 var xAxis = {
                                     categories: nameList,
-                                    
+
                                     labels: {
                                         style: {
                                             color: 'black',
@@ -175,15 +178,18 @@
                             });
                         </script>
                     </div>
-            
-                            <%
-                                }
-                                %>
-             
-             
-             
-                        
-        </div>                
 
+                    <%
+                        } else {
+                            String error = (String) request.getAttribute("errorMsg");
+                            if (error == null) {
+                                error = "";
+                            } else {
+                                out.println("<p style='color:red'>" + error + "</p>");
+                            }
+                        }
+                    %>
+                </div>                
+        </form> 
     </body>
 </html>

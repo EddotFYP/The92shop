@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2018 at 04:09 PM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Mar 28, 2018 at 08:00 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `the92shop`
@@ -26,13 +26,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
-CREATE TABLE `customer` (
-  `Cust_Id` int(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customer` (
+  `Cust_Id` int(30) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `Address` varchar(100) NOT NULL,
-  `Postal_Code` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Postal_Code` varchar(30) NOT NULL,
+  PRIMARY KEY (`Cust_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=490 ;
 
 --
 -- Dumping data for table `customer`
@@ -42,7 +43,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (1, 'Racheal Loy', '96245546', '410 Canberra Road #13-55', '750410'),
 (2, 'Jean Wong', '98685252', '30 Jalan Bahagia #12-33', '320030'),
 (3, 'Jiao Jun', '85467999', '155 Mei Ling Street #23-44', '140155'),
-(4, 'Joanna Thew', '85879988', '15 Queen\'s Close #17-66', '140015'),
+(4, 'Joanna Thew', '85879988', '15 Queen''s Close #17-66', '140015'),
 (5, 'Marge Fung', '95549989', '34 Eunos Crescent #15-90', '400034'),
 (6, 'Tang Ming Kit', '97552119', '17 Ghim Moh Road #02-45', '270017'),
 (7, 'Fan Ke Lin', '88228946', '89 Tanglin Halt Road #22-89', '142089'),
@@ -50,7 +51,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (9, 'Mavis Tan', '93378829', '518 Jelapang Road #11-38', '670518'),
 (10, 'Fiona Choy', '81045489', '55 Geylang Bahru #12-44', '330055'),
 (11, 'Clarice Tan', '99229885', '16 Telok Blangah Crescent #09-74', '90016'),
-(12, 'Wendy How', '94553321', '20 Queen\'s Close #12-37', '140020'),
+(12, 'Wendy How', '94553321', '20 Queen''s Close #12-37', '140020'),
 (13, 'Pierce Low', '86675522', '160 Mei Ling Street #09-89', '140160'),
 (14, 'Aeddon Tan', '84436578', '415 Canberra Road #10-99', '750415'),
 (15, 'Rena Chua', '94459072', '165 Stirling Road #16-67', '140165'),
@@ -325,7 +326,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (284, 'Lianne Ong', '90010082', 'Fulton Hill Fulton Road 7', '578891'),
 (285, 'Buan Pong Chua', '96190661', '20 Namly Drive', '267434'),
 (286, 'Noor Hafizah', '90617694', 'Yishun Street 22 #05-61', '760279'),
-(287, 'Jenny O\'Connor', '90013894', 'Trevose 12 19B Trevose Crescent', '298098'),
+(287, 'Jenny O''Connor', '90013894', 'Trevose 12 19B Trevose Crescent', '298098'),
 (288, 'Nabilah Khan Badin', '81852443', '182 Jelebu Road #24-54', '670182'),
 (289, 'Sherylyn Chong', '90071807', '296 Choa Chu Kang Avenue 2 #13-04', '680296'),
 (290, 'Wong Yet Hwa', '85519576', '171 Woodlands Street 11 #04-47', '730171'),
@@ -535,14 +536,17 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 -- Table structure for table `customer_purchase`
 --
 
-CREATE TABLE `customer_purchase` (
-  `Order_Id` int(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customer_purchase` (
+  `Order_Id` int(30) NOT NULL AUTO_INCREMENT,
   `Cust_Id` int(30) NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `SKU_Id` int(255) DEFAULT NULL,
   `Date_Of_Purchase` date NOT NULL,
-  `Quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Quantity` int(11) NOT NULL,
+  PRIMARY KEY (`Order_Id`),
+  KEY `Cust_Id` (`Cust_Id`),
+  KEY `customer_purchase_ibfk_2_idx` (`SKU_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=595 ;
 
 --
 -- Dumping data for table `customer_purchase`
@@ -1148,7 +1152,7 @@ INSERT INTO `customer_purchase` (`Order_Id`, `Cust_Id`, `Phone_number`, `SKU_Id`
 -- Table structure for table `expensetracker`
 --
 
-CREATE TABLE `expensetracker` (
+CREATE TABLE IF NOT EXISTS `expensetracker` (
   `date` varchar(45) NOT NULL,
   `expenseTypes` varchar(45) NOT NULL,
   `remark` varchar(100) NOT NULL,
@@ -1177,7 +1181,11 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 ('2018-01-24', 'Utilities', 'For office', 93),
 ('2018-01-25', 'Marketing', 'For shopping plaforms x3', 33),
 ('2018-02-15', 'Bank Charges', 'Bank Payment made', 45),
-('2018-02-15', 'Packaging Materials', 'Packaging of plastic', 10);
+('2018-02-15', 'Packaging Materials', 'Packaging of plastic', 10),
+('2017-09-24', 'Utilities', 'Utility bill for Septempber 2017', 85),
+('2017-10-20', 'Delivery', 'Delivery to Ang Mo Kio Ave 4', 50),
+('2017-11-22', 'Taxes', 'Government Tax for November 2017', 52),
+('2017-12-19', 'Utility', 'Utility Bill for December 2017', 46);
 
 -- --------------------------------------------------------
 
@@ -1185,8 +1193,9 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 -- Table structure for table `expensetypes`
 --
 
-CREATE TABLE `expensetypes` (
-  `ExpenseType` varchar(100) NOT NULL
+CREATE TABLE IF NOT EXISTS `expensetypes` (
+  `ExpenseType` varchar(100) NOT NULL,
+  PRIMARY KEY (`ExpenseType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1227,14 +1236,15 @@ INSERT INTO `expensetypes` (`ExpenseType`) VALUES
 -- Table structure for table `inventory`
 --
 
-CREATE TABLE `inventory` (
-  `SKU_Id` int(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `inventory` (
+  `SKU_Id` int(255) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   `Quantity` int(11) NOT NULL,
   `Updated_Date` varchar(50) NOT NULL,
   `Cost_Price` decimal(12,2) NOT NULL,
-  `Selling_Price` decimal(12,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Selling_Price` decimal(12,2) NOT NULL,
+  PRIMARY KEY (`SKU_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=644 ;
 
 --
 -- Dumping data for table `inventory`
@@ -1892,10 +1902,11 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 -- Table structure for table `inventory_purchase`
 --
 
-CREATE TABLE `inventory_purchase` (
+CREATE TABLE IF NOT EXISTS `inventory_purchase` (
   `SKU_Id` int(255) NOT NULL,
   `Quantity` int(11) NOT NULL,
-  `Date_Of_Purchase` date NOT NULL
+  `Date_Of_Purchase` date NOT NULL,
+  KEY `inventory_purchase_ibfk_1_idx` (`SKU_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1918,9 +1929,10 @@ INSERT INTO `inventory_purchase` (`SKU_Id`, `Quantity`, `Date_Of_Purchase`) VALU
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(30) NOT NULL,
-  `Password` varchar(50) NOT NULL
+  `Password` varchar(50) NOT NULL,
+  PRIMARY KEY (`Name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1930,67 +1942,6 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`Name`, `Password`) VALUES
 ('qingyang', 'the92shop');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`Cust_Id`);
-
---
--- Indexes for table `customer_purchase`
---
-ALTER TABLE `customer_purchase`
-  ADD PRIMARY KEY (`Order_Id`),
-  ADD KEY `Cust_Id` (`Cust_Id`),
-  ADD KEY `customer_purchase_ibfk_2_idx` (`SKU_Id`);
-
---
--- Indexes for table `expensetypes`
---
-ALTER TABLE `expensetypes`
-  ADD PRIMARY KEY (`ExpenseType`);
-
---
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`SKU_Id`);
-
---
--- Indexes for table `inventory_purchase`
---
-ALTER TABLE `inventory_purchase`
-  ADD KEY `inventory_purchase_ibfk_1_idx` (`SKU_Id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`Name`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `Cust_Id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=490;
---
--- AUTO_INCREMENT for table `customer_purchase`
---
-ALTER TABLE `customer_purchase`
-  MODIFY `Order_Id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=595;
---
--- AUTO_INCREMENT for table `inventory`
---
-ALTER TABLE `inventory`
-  MODIFY `SKU_Id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=644;
 --
 -- Constraints for dumped tables
 --

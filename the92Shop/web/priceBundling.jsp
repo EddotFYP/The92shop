@@ -10,12 +10,20 @@
 <%@page import="DAO.InventoryDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Price Bundling</title>
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataTables.min.js"></script>
+        <script src = "js/highcharts.js"></script>
+        
     </head>
     <body>
          <%
@@ -29,6 +37,33 @@
                     
 
                 %>
+                 <script>
+            $(document).ready(function () {
+                $('#myTable').dataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": false,
+                    "order": [],
+                    "ordering": false
+                });
+            });
+
+            $(document).ready(function () {
+                $('#topTable').dataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": false,
+                    "order": [],
+                    "ordering": false
+                });
+            });
+        </script>
             <form class="mui-form--inline" action="PriceBundlingController" method="post">
                 <div class="subPageContent">
                 <div class ="mui-panel "> 
@@ -81,7 +116,7 @@
                            </tr>
                        </tbody>
                    </table>
- 
+                   
                 <%
                    
                     HashMap<Integer,Integer> topXStockList = (HashMap<Integer,Integer>)request.getAttribute("topXStock");
@@ -99,7 +134,7 @@
 
                             out.println("You have selected: " + text + "<br /><br />");
                         }
-                        
+                    
                     if(topXStockList !=null && !topXStockList.isEmpty() && lowXStockList !=null){                    
                         int numResult = (Integer)request.getAttribute("numResult"); 
                     %>
@@ -107,7 +142,7 @@
                 <div class ="leastPriceBundle">
                     <div class ="mui-panel">
                          <h3> Least <%=numResult%> Selling Sock</h3>
-                <table id="priceBundlingTable" class="invMgt-table">
+                <table id="myTable">
                     <thead>
                         <tr> 
                             <th> Product Name </th>
@@ -117,7 +152,7 @@
                          <%for(int keyId : topXStockList.keySet()){
                        Inventory i = inventoryDAO.retrieve(keyId);
                        inventoryName = i.getName();
-                    //    System.out.println(inventoryName);
+                    System.out.println("top name is" + inventoryName);
                     //    inventoryName = keyId;
                         quantity = topXStockList.get(keyId);
 
@@ -140,7 +175,7 @@
                <div class="topPriceBundle">
                     <div class ="mui-panel">
                          <h3> Top <%=numResult%> Selling Sock</h3>    
-               <table id="priceBundlingTable" class="invMgt-table">
+               <table id="topTable">
                     <thead>
                         
                         <tr>
@@ -152,7 +187,7 @@
                         Inventory i = inventoryDAO.retrieve(keyId);
                         inventoryName = i.getName();
                         quantity = lowXStockList.get(keyId);
-                        System.out.println(inventoryName);
+                        System.out.println("name is" + inventoryName);
                         System.out.println(quantity);
                     %>
                     

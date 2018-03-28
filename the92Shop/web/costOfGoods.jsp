@@ -11,21 +11,38 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+
 <link rel="stylesheet" href="css/master.css">
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Cost Of Goods Page</title>
+        <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataTables.min.js"></script>
     </head>
     <body>
-        
+        <script>
+            $(document).ready(function () {
+                $('#myTable').dataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": false,
+                    "order": [],
+                    "ordering": false
+                });
+            });
+
+        </script>
         <form class="mui-form--inline" action="CostOfGoodsController" method="post">
                      <input type="hidden" value='<%=request.getParameter("month")%>' name="month" id="month"/>
                     <input type="hidden" value='<%=request.getParameter("year")%>' name="year" id="year"/>
-        `   
-               
-             
         </form>                
                  <%String monthString = (String) request.getAttribute("monthString"); %>
                  <%String year = (String) request.getAttribute("year"); %>
@@ -39,10 +56,13 @@
                 if (listofCOGSItems != null && !listofCOGSItems.isEmpty()) {
                 %>    
                 
-              <div class ="mui-panel costOfGoodsTable">  
-                <table class="cogTable">
+              <div class ="mui-panel subPageContent">  
+                  
+                <table class="cogTable" id="myTable">
                     <thead>
                         <h1> Cost of Goods for <%=monthString%> <%=year%></h1>
+                        <div class="mui-divider"></div>
+                        <br />
                         <tr>
 
                             <th> SKU_ID </th>

@@ -124,7 +124,7 @@
                             </td>
                             <td> 
                                 <div class="mui-textfield">
-                                    <input type ="text" list ="phoneAndNameList" name = "phoneAndNameList" placeholder=" &#xf007;" style="font-family:Arial,FontAwesome"/>
+                                    <input type ="text" list ="phoneAndNameList" name = "phoneAndNameList"/>
                                     <%--<datalist id="phoneNumList">
                                         <%for (String i : phoneNumList) {%>
                                         <option value="<%=i%>"><%=i%></option>
@@ -179,7 +179,7 @@
 
                        if (custList != null && !custList.isEmpty()) {%>
             <div class ="mui-panel customerTableResult">  
-                <table id="myTable" class="invMgt-table">
+                <table id="myTable" >
                     <thead>
                         <tr>
 
@@ -235,13 +235,7 @@
                 <%
 
                     }
-                    if (error != null) {
-                        out.println("<p style='color:red'>" + error + "</p>");
-                    }
-
-                    if (message != null) {
-                        out.println("<p style='color:red'>" + message + "</p>");
-                    }
+                    
 
                 %>
             </div>
