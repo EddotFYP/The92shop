@@ -67,8 +67,8 @@
 
                             <th> SKU_ID </th>
                             <th> Name </th>
-                            <th> Date Of Purchase </th>
                             <th> Quantity </th>
+                            <th> Date Of Purchase </th>
                             
                         </tr>
                     </thead>
@@ -85,8 +85,8 @@
 
                         <td id="sku_id"><%=sku_id%></td>
                         <td id="name"><%=name%></td>
-                        <td id="date"><%=date%></td>
                         <td id="qty"><%=qty%></td>
+                        <td id="date"><%=date%></td>
                     </tr>    
                     
                 

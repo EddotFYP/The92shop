@@ -22,7 +22,7 @@ public class InventoryPurchase {
         this.dateOfPurchase = dateOfPurchase;
     }
     
-     public InventoryPurchase(int skuId, String name, String dateOfPurchase, int quantity){
+     public InventoryPurchase(int skuId, String name,int quantity,  String dateOfPurchase){
         this.name = name;
         this.skuId = skuId;
         this.quantity= quantity;

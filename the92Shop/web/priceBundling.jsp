@@ -135,7 +135,7 @@
                         String text = (String) request.getAttribute("word");
                         if (text != null) {
 
-                            out.println("You have selected: " + text + "<br /><br />");
+                            out.println("You have selected: <b><u>" + text + "</b></u><br /><br />");
                         }
 
                         if (topXStockList != null && !topXStockList.isEmpty() && lowXStockList != null) {
@@ -144,7 +144,7 @@
                 </div>
                 <div class ="leastPriceBundle">
                     <div class ="mui-panel">
-                        <h3> Least <%=numResult%> Selling Sock</h3>
+                        <h3> Least <u><b><%=numResult%></b></u> Selling Sock</h3>
                         <table id="myTable">
                             <thead>
                                 <tr> 
@@ -177,7 +177,7 @@
 
                 <div class="topPriceBundle">
                     <div class ="mui-panel">
-                        <h3> Top <%=numResult%> Selling Sock</h3>    
+                        <h3> Top <u><b><%=numResult%></b></u> Selling Sock</h3>    
                         <table id="topTable">
                             <thead>
 
