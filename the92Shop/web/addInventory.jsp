@@ -129,9 +129,7 @@
                                         }
                                 );
                             }, 1000)
-                            setTimeout(function () {
-                                document.getElementById('myForm').submit();
-                            }, 1000)
+                            
                         } else {
                             alert("Please fill in the missing fields");
                         }

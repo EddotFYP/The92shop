@@ -8,7 +8,11 @@ package controller;
 import DAO.PurchaseHistoryDAO;
 import entity.PurchaseHistory;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -85,8 +89,8 @@ public class PriceBundlingController extends HttpServlet {
 
         String text = "";
         String error = "";
-        HashMap<Integer, Integer> topXStock = new HashMap<>();
-        HashMap<Integer, Integer> lowXStock = new HashMap<>();
+        LinkedHashMap<Integer, Integer> topXStock = new LinkedHashMap<>();
+        LinkedHashMap<Integer, Integer> lowXStock = new LinkedHashMap<>();
 
         topXStock = purchaseHistoryDAO.getTopHighestStock(month, year, numResult);
 
@@ -95,18 +99,25 @@ public class PriceBundlingController extends HttpServlet {
         if ((topXStock == null || topXStock.isEmpty()) || (lowXStock == null || lowXStock.isEmpty())) {
             text = monthString + " " + year;
             error = "There are no records!";
+            request.setAttribute("errorMsg", error);
             
         } else {
 
             text = monthString + " " + year;
+ 
+            request.setAttribute("word", text);
+            
+            request.setAttribute("topXStock", topXStock);
+            request.setAttribute("lowXStock", lowXStock);
+        
         }
-
-        request.setAttribute("errorMsg", error);
-        request.setAttribute("word", text);
-        request.setAttribute("topXStock", topXStock);
-        request.setAttribute("lowXStock", lowXStock);
+        
+        
+        
         RequestDispatcher view = request.getRequestDispatcher("priceBundling.jsp");
         view.forward(request, response);
+
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
