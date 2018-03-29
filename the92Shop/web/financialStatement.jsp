@@ -16,7 +16,7 @@
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="css/master.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>   
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/2.3.2/jspdf.plugin.autotable.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script type="text/javascript" src="js/jspdf.js"></script>
@@ -189,22 +189,28 @@
 
  $('#button').click(function () {
                     var doc = new jsPDF('p', 'pt', 'a4');
+                    doc.setFontSize(50);
                     var res = doc.autoTableHtmlToJson(document.getElementById("basic-table"));
-
+                    var img = new Image;
+                    img.src = "image/ExpenseTrackerV1.jpg";
+                    
+                      
                       doc.autoTable(res.columns, res.data, {
-                      startY: 100, 
-                      styles: {fillColor: [196, 201, 254]},
+                      startY: 80, 
+                      styles: {fillColor: [224, 224, 235], textColor: 20, fontSize:15, cellPadding:10,  font: "helvetica"},
                       columnStyles: {
-                      id: {fillColor: 255} },
-                      margin: {top: 60},
-                      beforePageContent: function() {
-                      doc.text(160, 60, "the92 shop Income Statement");
-                      
-                      
-                    }
+                      id: {fillColor: 0} 
+                      },
+                      margin: {top: 100},
+                      beforePageContent: function(data) {
+                     // doc.setTextColor(224, 224, 235);
+                      doc.setFontSize(25);
+                      doc.text(130, 60, "the92 shop Income Statement");
+                      }
+
                       });
                    
-                      doc.save('sample-file.pdf');
+                      doc.save('financialStatement.pdf');
                
             });
         </script> 
