@@ -140,20 +140,20 @@ public class CustomerDAO {
 
     }
 
-    public void deleteCustomer(String phoneNumber) {
-
+    public int deleteCustomer(int id) {
+        int updateQuery = 0;
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("delete from customer where Phone_number = ?");
-            stmt.setString(1, phoneNumber);
-            stmt.executeUpdate();
+            PreparedStatement stmt = conn.prepareStatement("delete from customer where Cust_Id = ?");
+            stmt.setInt(1, id);
+            updateQuery = stmt.executeUpdate();
             db.closeConn();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return updateQuery;
     }
 
     public int addCustomer(Customer c) {
@@ -182,17 +182,18 @@ public class CustomerDAO {
 
     }
 
-    public int editCustomer(int id, String newPhone, String newAddress, String newPostal) {
+    public int editCustomer(int id, String name, String newPhone, String newAddress, String newPostal) {
         int updateQuery = 0;
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE customer SET Phone_number = ?, Address = ?, Postal_Code = ? where Cust_Id = ?");
-
-            stmt.setString(1, newPhone);
-            stmt.setString(2, newAddress);
-            stmt.setString(3, newPostal);
-            stmt.setInt(4, id);
+            PreparedStatement stmt = conn.prepareStatement("UPDATE customer SET Name = ?, Phone_number = ?, Address = ?, Postal_Code = ? where Cust_Id = ?");
+            
+            stmt.setString(1, name);
+            stmt.setString(2, newPhone);
+            stmt.setString(3, newAddress);
+            stmt.setString(4, newPostal);
+            stmt.setInt(5, id);
 
             updateQuery = stmt.executeUpdate();
 

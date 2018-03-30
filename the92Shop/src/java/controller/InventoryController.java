@@ -29,8 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 public class InventoryController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -51,7 +50,7 @@ public class InventoryController extends HttpServlet {
             String cameraResult = request.getParameter("cameraResult");
             String addInventorySearch = request.getParameter("addInventorySearch");
             String[] addQty = request.getParameterValues("addQuantity");
-            
+
             //for add new inventory
             //String addNewInvId = request.getParameter("newInvId");
             String addNewName = request.getParameter("newName");
@@ -65,15 +64,20 @@ public class InventoryController extends HttpServlet {
             ArrayList<Inventory> result = new ArrayList<>();
             //delete
             if (inventoryToDelete != null) {
-                inventoryDAO.deleteSpecifiedInventory(inventoryToDelete);
-
-                request.setAttribute("message", "Selected SKU is deleted successfully");
+                int success = inventoryDAO.deleteSpecifiedInventory(inventoryToDelete);
+                
+                if(success != 0){
+                    request.setAttribute("message", "Selected SKU is deleted successfully");
+                }
+                
 
                 //update
             } else if (UpdatedValues != null) {
-
+                System.out.println("in update");
                 int id = Integer.parseInt(UpdatedValues[0]);
+                System.out.println(id);
                 String name = UpdatedValues[1];
+                System.out.println(name);
                 int quantity = Integer.parseInt(UpdatedValues[2]);
                 Date today = new Date();
                 String dateString = df.format(today);
@@ -88,22 +92,29 @@ public class InventoryController extends HttpServlet {
                 //add
             } else if (addNewName != null) {
                 //int qty = Integer.parseInt(addNewQuantity);
+                System.out.println("in add inventory");
                 double cost = Double.parseDouble(addNewCost);
                 double price = Double.parseDouble(addNewPrice);
                 int qty = Integer.parseInt(addNewQuantity);
                 
-                Date today = new Date();
-                String updateDate = df.format(today);
+                if (inventoryDAO.retrieveInventoryByName(addNewName) != null) {
+                    request.setAttribute("message", "The inventory is already existed in the database!");
+                    
+                } else {
+                    Date today = new Date();
+                    String updateDate = df.format(today);
 
-                System.out.println("------------- today= " + updateDate + "----------------");
+                    System.out.println("------------- today= " + updateDate + "----------------");
 
-                Inventory i = new Inventory(addNewName, qty, updateDate, cost, price);
-                
-                int success = inventoryDAO.addInventory(i);
-                int success2 = inventoryPurchaseDAO.addRecord(i.getSKUID(), qty, updateDate);
-                
-                if (success != 0 && success2 != 0) {
-                    request.setAttribute("message", "Selected SKU is added successfully");
+                    Inventory i = new Inventory(addNewName, qty, updateDate, cost, price);
+
+                    int success = inventoryDAO.addInventory(i);
+
+                    if (success != 0) {
+                        
+                        inventoryPurchaseDAO.addRecord(inventoryDAO.retrieveInventoryByName(addNewName).getSKUID(), qty, updateDate);
+                        request.setAttribute("message", "Selected SKU is added successfully");
+                    }
                 }
 
                 RequestDispatcher view = request.getRequestDispatcher("addInventory.jsp");
@@ -124,7 +135,6 @@ public class InventoryController extends HttpServlet {
                     System.out.println("retrieve success");
                     result.add(inventory);
                 }
-            
 
             } else if (addInventorySearch != null && !addInventorySearch.isEmpty()) {
                 System.out.println("in add inventory search");
@@ -164,7 +174,7 @@ public class InventoryController extends HttpServlet {
 
                 int success = inventoryDAO.addInventoryQty(name, newQty, dateString);
                 int success2 = inventoryPurchaseDAO.addRecord(inventory.getSKUID(), addNumber, dateString);
-                
+
                 if (success != 0 && success2 != 0) {
                     request.setAttribute("message", "Selected SKU is updated successfully");
                 }
@@ -181,15 +191,15 @@ public class InventoryController extends HttpServlet {
                     }
 
                 }
-            }    //Normal search
-             else if (skuName != null) {
+            } //Normal search
+            else if (skuName != null) {
                 System.out.println("in normal search");
                 Inventory inventory = inventoryDAO.retrieveInventoryByName(skuName);
 
                 if (inventory != null) {
                     result.add(inventory);
                 }
-             }
+            }
             request.setAttribute("result", result);
             RequestDispatcher view = request.getRequestDispatcher("inventoryManagement.jsp");
             view.forward(request, response);

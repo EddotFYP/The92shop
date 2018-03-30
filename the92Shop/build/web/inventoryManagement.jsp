@@ -27,24 +27,7 @@
         <title>Inventory Management</title>
         <script type="text/javascript">
             $(document).ready(function () {
-                $('#edit').click(function () {
-                    $('#iName').attr('contenteditable', 'true');
-                    $('#quantity').attr('contenteditable', 'true');
-                    $('#date').attr('contenteditable', 'true');
-                    $('#iCost').attr('contenteditable', 'true');
-                    $('#iPrice').attr('contenteditable', 'true');
-                });
-                $('#save').click(function () {
 
-                    
-                    $('#newName').attr("value", $('#iName').html());
-                    $('#newQuantity').attr("value", $('#quantity').html());
-                    $('#newDate').attr("value", $('#date').html());
-                    $('#newCost').attr("value", $('#iCost').html());
-                    $('#newPrice').attr("value", $('#iPrice').html());
-
-                });
-                
                 $.ajax({
                     type: 'POST',
                     url: 'inventoryJson',
@@ -61,13 +44,12 @@
 
                         }
 
-                        document.getElementById("sku").innerHTML = str;
 
-                        
+
                     }
 
                 });
-                
+
                 $('#invTable').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
@@ -78,11 +60,50 @@
                     "order": [],
                     "ordering": true,
                     "pageLength": 5
-                    
-                    
+
+
                 });
 
             });
+            function editClick(clickedId) {
+                var row = clickedId.substr(clickedId.indexOf('?') + 1);
+                var name = "name?" + row;
+                var qty = "qty?" + row;
+                var date = "date?" + row;
+                var cost = "cost?" + row;
+                var price = "price?" + row;
+
+                document.getElementById(name).contentEditable = "true";
+                document.getElementById(qty).contentEditable = "true";
+                document.getElementById(date).contentEditable = "true";
+                document.getElementById(cost).contentEditable = "true";
+                document.getElementById(price).contentEditable = "true";
+
+            }
+            ;
+            function saveClick(clickedId) {
+                var row = clickedId.substr(clickedId.indexOf('?') + 1);
+                var name = "name?" + row;
+                var qty = "qty?" + row;
+                var date = "date?" + row;
+                var cost = "cost?" + row;
+                var price = "price?" + row;
+
+                var newName = "newName?" + row;
+                var newQuantity = "newQuantity?" + row;
+                var newDate = "newDate?" + row;
+                var newCost = "newCost?" + row;
+                var newPrice = "newPrice?" + row;
+
+                document.getElementById(newName).value = document.getElementById(name).innerHTML;
+                document.getElementById(newQuantity).value = document.getElementById(qty).innerHTML;
+                document.getElementById(newDate).value = document.getElementById(date).innerHTML;
+                document.getElementById(newCost).value = document.getElementById(cost).innerHTML;
+                document.getElementById(newPrice).value = document.getElementById(price).innerHTML;
+
+
+            }
+            ;
             function confirmation() {
 
                 var ans = confirm("Are you sure you want to delete this item?");
@@ -98,9 +119,9 @@
                 document.getElementById('camera').style.display = "block";
                 let scanner = new Instascan.Scanner({video: document.getElementById('camera')});
                 scanner.addListener('scan', function (content) {
-                    
-                    var name = content.substr(0,content.indexOf('?'));
-                    
+
+                    var name = content.substr(0, content.indexOf('?'));
+
                     $('input[type="search"]').val(name).keyup();
                     scanner.stop();
                     document.getElementById('camera').style.display = "none";
@@ -119,10 +140,14 @@
 
 
             }
+            ;
 
-            function showDiv() {
-                document.getElementById('editButtonDiv').style.display = "none";
-                document.getElementById('saveButtonDiv').style.display = "block";
+            function showDiv(clickedId) {
+                var row = clickedId.substr(clickedId.indexOf('?') + 1);
+                var edit = "editButtonDiv?" + row;
+                var save = "saveButtonDiv?" + row;
+                document.getElementById(edit).style.display = "none";
+                document.getElementById(save).style.display = "block";
             }
         </script>
     </head>
@@ -158,33 +183,32 @@
                     <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Scan <i class="fa fa-camera" style="font-size:18px;"></i></button>
                     <br/>
                     <div><video id="camera" width="420" style="display:none;"></video></div>
-                    <%
-                        /*ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
-                        String message = (String) request.getAttribute("message");
+                            <%
+                                //ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                                String message = (String) request.getAttribute("message");
 
-                        if (message != null) {
-                            out.println("<p style='color:red'>" + message + "</p>");
-                        }*/
-                        
-                        InventoryDAO dao = new InventoryDAO();
-                        ArrayList<Inventory> list = dao.retrieveInventoryList();
-                        
-                        int id = 0;
-                        String inventoryName = "";
-                        int qty = 0;
-                        String updatedDate = "";
-                        double cost = 0.0;
-                        double price = 0.0;
+                                if (message != null) {
+                                    out.println("<p style='color:red'>" + message + "</p>");
+                                }
+                                InventoryDAO dao = new InventoryDAO();
+                                ArrayList<Inventory> list = dao.retrieveInventoryList();
 
-                        if (list != null && !list.isEmpty()) {
+                                int id = 0;
+                                String inventoryName = "";
+                                int qty = 0;
+                                String updatedDate = "";
+                                double cost = 0.0;
+                                double price = 0.0;
 
-                    %>
+                                if (list != null && !list.isEmpty()) {
+
+                            %>
                     <br />
 
-                    <table id="invTable">
+                    <table id="invTable" >
                         <thead>
                             <tr align ="left">
-                                
+
                                 <th> Name </th>
                                 <th> Quantity </th>
                                 <th> Updated Date </th>
@@ -197,36 +221,53 @@
                         </thead>
                         <tbody>
                             <tr>
-                        <%for (Inventory i : list) {
-                                id = i.getSKUID();
-                                inventoryName = i.getName();
-                                qty = i.getQuantity();
-                                updatedDate = i.getPurchaseDate();
-                                cost = i.getCostPrice();
-                                price = i.getSellingPrice();
-                        %>
-                            
-                                <td id="iName"><%=inventoryName%></td>
-                                <td width="90px" id="quantity"><%=qty%></td>
-                                <td width="125px" id="date"><%=updatedDate%></td>
-                                <td width="60px" id="iCost"><%=cost%></td>
-                                <td width="120px" id="iPrice"><%=price%></td>
+                                <%for (Inventory i : list) {
+                                        id = i.getSKUID();
+                                        inventoryName = i.getName();
+                                        qty = i.getQuantity();
+                                        updatedDate = i.getPurchaseDate();
+                                        cost = i.getCostPrice();
+                                        price = i.getSellingPrice();
+
+                                        String nameId = "name?" + id;
+                                        String qtyId = "qty?" + id;
+                                        String dateId = "date?" + id;
+                                        String costId = "cost?" + id;
+                                        String priceId = "price?" + id;
+                                        String editId = "edit?" + id;
+                                        String saveId = "save?" + id;
+                                        String editButtonDiv = "editButtonDiv?" + id;
+                                        String saveButtonDiv = "saveButtonDiv?" + id;
+                                %>
+
+                                <td id="<%=nameId%>"><%=inventoryName%></td>
+                                <td width="90px" id="<%=qtyId%>"><%=qty%></td>
+                                <td width="125px" id="<%=dateId%>"><%=updatedDate%></td>
+                                <td width="60px" id="<%=costId%>"><%=cost%></td>
+                                <td width="120px" id="<%=priceId%>"><%=price%></td>
                                 <td width="100px">
-                                    <div id="editButtonDiv" class="answer_list" >
+                                    <div id="<%=editButtonDiv%>" class="answer_list" >
                                         <form action="InventoryController" method="post">
-                                            <button type="button" name="edit" class="btn" id="edit" onclick="showDiv()"><i class="fa fa-edit"></i></button>
+                                            <button type="button" name="edit" class="btn" id="<%=editId%>" onclick="showDiv(this.id);
+                                                    editClick(this.id);"><i class="fa fa-edit"></i></button>
                                         </form>
                                     </div>
-                                
-                                    <div id="saveButtonDiv"  style="display:none;" class="answer_list" >
+                                    <%
+                                        String newName = "newName?" + id;
+                                        String newQuantity = "newQuantity?" + id;
+                                        String newDate = "newDate?" + id;
+                                        String newCost = "newCost?" + id;
+                                        String newPrice = "newPrice?" + id;
+                                    %>
+                                    <div id="<%=saveButtonDiv%>"  style="display:none;" class="answer_list" >
                                         <form action="InventoryController" method="post">
-                                            <button type="submit" name="save" class="btn" id="save"><i class="fa fa-save"></i></button>
+                                            <button type="submit" name="save" class="btn" id="<%=saveId%>" onclick="saveClick(this.id)"><i class="fa fa-save"></i></button>
                                             <input type="hidden" id="iId" name="editAction" value="<%=id%>">
-                                            <input type="hidden" id="newName" name="editAction" value="">
-                                            <input type="hidden" id="newQuantity" name="editAction" value="">
-                                            <input type="hidden" id="newDate" name="editAction" value="">
-                                            <input type="hidden" id="newCost" name="editAction" value="">
-                                            <input type="hidden" id="newPrice" name="editAction" value="">
+                                            <input type="hidden" id="<%=newName%>" name="editAction" value="">
+                                            <input type="hidden" id="<%=newQuantity%>" name="editAction" value="">
+                                            <input type="hidden" id="<%=newDate%>" name="editAction" value="">
+                                            <input type="hidden" id="<%=newCost%>" name="editAction" value="">
+                                            <input type="hidden" id="<%=newPrice%>" name="editAction" value="">
                                         </form>
                                     </div>
                                 </td>
@@ -248,7 +289,7 @@
                         }
 
                     %>
-                    
+
                 </div>
             </div>
     </body>

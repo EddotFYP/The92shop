@@ -25,8 +25,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -44,20 +43,37 @@ public class LoginController extends HttpServlet {
         User user = userDAO.retrieve(username);
 
         if (username != null && password != null && !username.isEmpty()) {
-            if ((username.equals("qingyang") && password.equals("the92shop"))||(username.equals("cynthia") && password.equals("the92shop2"))) {
+            if ((username.equals("qingyang") && password.equals("the92shop")) || (username.equals("cynthia") && password.equals("the92shop2"))) {
+                if (userDAO.isOnline(username)) {
+                    request.setAttribute("error", "The user is already logged-in!");
+                    RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+                    view.forward(request, response);
+                    return;
+                }
                 session.setAttribute("user", username);
+                //1 is online, 0 is offline
+                userDAO.editUserLoginStatus(username, 1);
                 response.sendRedirect("priceBundling.jsp");
             } else {
                 if (user != null && user.authenticate(password)) {
+                    if (userDAO.isOnline(username)) {
+                        request.setAttribute("error", "The user is already logged-in!");
+                        RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+                        view.forward(request, response);
+                        return;
+                    }
                     session.setAttribute("user", username);
+                    //1 is online, 0 is offline
+                    userDAO.editUserLoginStatus(username, 1);
                     response.sendRedirect("priceBundling.jsp");
                 } else {
                     request.setAttribute("error", "Invalid username/password");
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                     view.forward(request, response);
+                    return;
                 }
 
-            }      
+            }
         } else {
             request.setAttribute("error", "Invalid username/password");
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");
@@ -65,7 +81,8 @@ public class LoginController extends HttpServlet {
         }
 
     }
-        /*else{
+
+    /*else{
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,39 +93,34 @@ public class LoginController extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-         */
-        @Override
-        protected void doGet
-        (HttpServletRequest request, HttpServletResponse response)
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
-        }
-
-        /**
-         * Handles the HTTP <code>POST</code> method.
-         *
-         * @param request servlet request
-         * @param response servlet response
-         * @throws ServletException if a servlet-specific error occurs
-         * @throws IOException if an I/O error occurs
-         */
-        @Override
-        protected void doPost
-        (HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-            processRequest(request, response);
-        }
-
-        /**
-         * Returns a short description of the servlet.
-         *
-         * @return a String containing servlet description
-         */
-        @Override
-        public String getServletInfo
-        
-        
-            () {
-        return "Short description";
-        }// </editor-fold>
+        processRequest(request, response);
     }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+}

@@ -48,7 +48,7 @@ public class CustomerController extends HttpServlet {
         String phoneNumberAndName = request.getParameter("phoneAndNameList");
         //String birthdayDate = request.getParameter("birthDate");
         
-        String PhoneNumberToDelete = request.getParameter("deleteAction");
+        String delete = request.getParameter("deleteAction");
         String[] UpdatedValues = request.getParameterValues("editAction");
         //System.out.println("birthdate :"+birthdayDate);
         //System.out.println("phone :"+phoneNumber);
@@ -65,21 +65,24 @@ public class CustomerController extends HttpServlet {
         ArrayList<Customer> result = new ArrayList<>();
         
         //delete customer
-        if (PhoneNumberToDelete != null && !PhoneNumberToDelete.isEmpty()) {
-            custDAO.deleteCustomer(PhoneNumberToDelete);
-            request.setAttribute("message", "Selected customer is deleted successfully");
+        if (delete != null && !delete.isEmpty()) {
+            int number = Integer.parseInt(delete);
+            int success = custDAO.deleteCustomer(number);
+            if(success != 0){
+                request.setAttribute("message", "Selected customer is deleted successfully");
+            }
 
         //edit customer    
         } else if(UpdatedValues != null && UpdatedValues.length != 0){
             System.out.println("UpdatedValues:  " + UpdatedValues[0]+" "+UpdatedValues[1]+" "+UpdatedValues[2]+" "+UpdatedValues[3]);
             String idStr = UpdatedValues[0];
             int id = Integer.parseInt(idStr);
+            String name = UpdatedValues[1];
+            String phone = UpdatedValues[2];
+            String address = UpdatedValues[3];
+            String postal = UpdatedValues[4];
             
-            String phone = UpdatedValues[1];
-            String address = UpdatedValues[2];
-            String postal = UpdatedValues[3];
-            
-            int success = custDAO.editCustomer(id, phone, address, postal);
+            int success = custDAO.editCustomer(id, name, phone, address, postal);
             
             if(success != 0){
                 request.setAttribute("message", "Selected customer is updated successfully");

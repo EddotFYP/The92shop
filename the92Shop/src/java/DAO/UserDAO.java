@@ -141,5 +141,56 @@ public class UserDAO {
         return updateQuery;
 
     }
+    
+    public boolean isOnline(String username) {
+        boolean isOnline = false;
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("select isOnline from `user` where Name = ?");
+
+            stmt.setString(1, username);
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int status = rs.getInt(1);
+                
+                if(status == 1){
+                    isOnline = true;
+                }
+                
+            }
+            
+            db.closeConn();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isOnline;
+
+    }
+    
+    public void editUserLoginStatus(String username, int status) {
+        
+        try {
+            DatabaseConnection db = new DatabaseConnection();
+            Connection conn = db.getConn();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE user SET isOnline = '" + status + "' where Name = ?");
+
+            stmt.setString(1, username);
+
+            stmt.executeUpdate();
+            
+            
+            db.closeConn();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+
+    }
       
 }

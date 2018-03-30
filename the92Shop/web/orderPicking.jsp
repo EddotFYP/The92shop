@@ -36,11 +36,8 @@
                 scanner.addListener('scan', function (content) {
 
                     $('#qrValue').attr("value", content);
+                    window.onbeforeunload = null;
                     document.getElementById('myForm').submit();
-                    //Actions after submitting the form
-                    //scanner.stop();
-
-
 
 
                 });
