@@ -591,7 +591,7 @@ public class InventoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select i.Name, count(i.SKU_ID) as totalQuantity from inventory i inner join customer_purchase cp where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by i.SKU_ID");                 
+            PreparedStatement stmt = conn.prepareStatement("select i.Name, i.quantity as totalQuantity from inventory i inner join customer_purchase cp where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by i.SKU_ID");                 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString(1);
