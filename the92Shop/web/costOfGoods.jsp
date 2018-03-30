@@ -58,7 +58,7 @@
                 
               <div class ="mui-panel subPageContent">  
                   
-                <table class="cogTable" id="myTable">
+                <table class="cogTable" id="myTable" align="center">
                     <thead>
                         <h1> Cost of Goods for <%=monthString%> <%=year%></h1>
                         <div class="mui-divider"></div>
@@ -84,7 +84,7 @@
                     <tr>
 
                         <td id="sku_id"><%=sku_id%></td>
-                        <td id="name"><%=name%></td>
+                        <td text-align="left !important;" id="name"><%=name%></td>
                         <td id="qty"><%=qty%></td>
                         <td id="date"><%=date%></td>
                     </tr>    

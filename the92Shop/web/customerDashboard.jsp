@@ -70,7 +70,7 @@
                         String text = (String) request.getAttribute("word");
                         if (text != null) {
 
-                            out.println("<br /><br />   " + "You have selected: " + text + "<br /><br />");
+                            out.println("<br /><br />   " + "You have selected: <b><u> " + text + "</b></u><br /><br />");
                         }
 
                         if (customerNameList != null && !customerNameList.isEmpty() && customerQtyList != null && !customerQtyList.isEmpty()) {

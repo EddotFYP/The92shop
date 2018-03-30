@@ -79,7 +79,7 @@
                     
                     ArrayList<String> profitInProfits = (ArrayList<String>) request.getAttribute("profitInProfits");
                     String jsonProfit = new Gson().toJson(profitInProfits);
-                    
+                    System.out.println(jsonProfit);
                     if (yearInProfits != null && profitInProfits != null) {
                 %>
                 
@@ -168,9 +168,8 @@
                     String jsonMonthlyProfits = new Gson().toJson(profitsResult);
                    
                     if (profitsResult != null) {
-                        out.println("<div class='mui-panel profitMonthlyResult' style='font-size: 20px;'>You have selected: " + text);
+                        out.println("<div class='mui-panel profitMonthlyResult' style='font-size: 18px;'>You have selected: <b><u> " + text + "</b></u><br /><br />");
                 %>
-                
                 <div id = "monthlyProfitsContainer" class="containerDB" >
                     <script>
                         var monthlyProfits = <%=jsonMonthlyProfits%>;

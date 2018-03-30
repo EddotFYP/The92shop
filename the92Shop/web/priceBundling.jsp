@@ -14,7 +14,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
 <%@include file="protect.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
         <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/dataTables.min.js"></script>
-        <script src = "js/highcharts.js"></script>
+        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
 
     </head>
     <body>
@@ -43,24 +43,24 @@
             $(document).ready(function () {
                 $('#myTable').dataTable({
                     "bPaginate": false,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": false,
                     "bInfo": false,
                     "bAutoWidth": false,
-                    "bSorted": true,
+                    "bSorted": false,
                     "order": [],
-                    "ordering": true
+                    "ordering": false
                 });
             });
 
             $(document).ready(function () {
                 $('#topTable').dataTable({
                     "bPaginate": false,
-                    "bLengthChange": false,
+                    "bLengthChange": true,
                     "bFilter": false,
                     "bInfo": false,
                     "bAutoWidth": false,
-                    "bSorted": true,
+                    "bSorted": false,
                     "order": [],
                     "ordering": true
                 });
@@ -145,10 +145,11 @@
                 <div class ="leastPriceBundle">
                     <div class ="mui-panel">
                         <h3> Least <u><b><%=numResult%></b></u> Selling Sock</h3>
+                        <br />
                         <table id="myTable">
                             <thead>
                                 <tr> 
-                                    <th> Product Name </th>
+                                    <th id="aquantity"> Product Name </th>
                                     <th> Quantity </th>
                                 </tr>
                             </thead>
@@ -163,7 +164,7 @@
                             <tbody>
                                 <tr>    
                                     <td id="iName"><%=inventoryName%></td>                  
-                                    <td id="quantity"><%=quantity%></td>
+                                    <td width="60px" id="quantity"><%=quantity%></td>
                                 </tr>
                                 <%
                                     }
@@ -177,12 +178,13 @@
 
                 <div class="topPriceBundle">
                     <div class ="mui-panel">
-                        <h3> Top <u><b><%=numResult%></b></u> Selling Sock</h3>    
+                        <h3> Top <u><b><%=numResult%></b></u> Selling Sock</h3>   
+                        <br />
                         <table id="topTable">
                             <thead>
 
                                 <tr>
-                                    <th> Product Name </th>
+                                    <th id="aquantity"> Product Name </th>
                                     <th> Quantity </th>
                                 </tr>
                             </thead>

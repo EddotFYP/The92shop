@@ -160,7 +160,7 @@
                 <%
                     }
                     if (salesResult != null) {
-                        out.println("<div class='mui-panel monthlysales'>You have selected: " + text);
+                        out.println("<div class='mui-panel monthlysales'>You have selected: <b><u> " + text + "</b></u><br /><br />");
                 %>
                 
                     <div id = "monthlySalesContainer" class="containerDB" >

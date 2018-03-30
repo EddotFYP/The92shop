@@ -40,7 +40,7 @@
                     $('#newPostal').attr("value", $('#postal').html());
                 });
 
-                $('#myTable').dataTable({
+                $('#custTable').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
                     "bFilter": false,
@@ -179,7 +179,7 @@
 
                        if (custList != null && !custList.isEmpty()) {%>
             <div class ="mui-panel customerTableResult">  
-                <table id="myTable" >
+                <table id="custTable" >
                     <thead>
                         <tr>
 
@@ -204,10 +204,10 @@
 
 
                             <td id="custName"><%=custName%></td>
-                            <td id="phone"><%=phoneNum%></td>
+                            <td width="150px" id="phone"><%=phoneNum%></td>
                             <td id="address"><%=address%></td>
-                            <td id="postal"><%=postalCode%></td>
-                            <td>
+                            <td width="120px" id="postal"><%=postalCode%></td>
+                            <td width="100px">
                                 <div id="editButtonDiv" class="answer_list" >
                                     <button type="submit" name="submit" class="btn" id="edit" onclick="showDiv()">  <i class="fa fa-edit"></i></button>
                                 </div>
@@ -222,7 +222,7 @@
                                     </form>
                                 </div>
                             </td>
-                            <td>
+                            <td width="100px">
                                 <form action="CustomerController" method="post" onclick="return confirmation()">
                                     <button type="submit" name="delete" class="btn" id="deleteButton"><i class="fa  fa-trash"></i></button>
                                     <input type="hidden" name="deleteAction" value="<%=phoneNum%>">

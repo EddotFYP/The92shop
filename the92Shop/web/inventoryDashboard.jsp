@@ -35,9 +35,9 @@
                     "bFilter": false,
                     "bInfo": false,
                     "bAutoWidth": false,
-                    "bSorted": false,
+                    "bSorted": true,
                     "order": [],
-                    "ordering": false
+                    "ordering": true
                 });
             });
 
@@ -74,7 +74,7 @@
                         <table  id="myTable" >
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th id="aquantity">Name</th>
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
@@ -85,8 +85,8 @@
                                             String productName = i.getName();
                                             int quantity = i.getQuantity();
                                     %>    
-                                    <td ><%=productName%></td>
-                                    <td ><%=quantity%></td>
+                                    <td id="iName"><%=productName%></td>
+                                    <td width="100px" id="quantity" align="center" ><%=quantity%></td>
                                 </tr>
                                 <%
                             } %>
@@ -147,13 +147,13 @@
 
                         if (text != null && !text.isEmpty()) {
                             if (!text.equals("none")) {
-                                out.println("<br /><p style='font-size:18px;'>" + "You have selected: " + text + "</p><br />");
+                                out.println("<br /><p style='font-size:18px;'>" + "You have selected: <b><u> " + text + "</b></u></p><br />");   
                             }
                         }
 
                         if (itemNameList != null && !itemNameList.isEmpty() && itemQtyList != null && !itemQtyList.isEmpty()) {
                     %>
-                    <br />
+                   
                     <div id = "inventoryContainer" >
                         <script>
                             var nameList = <%=jsonItemName%>;

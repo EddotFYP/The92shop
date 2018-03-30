@@ -162,7 +162,7 @@
                 <%
                     }
                     if (expenseResult != null) {
-                        out.println("<div class='mui-panel expenseYearlyResult'>You have selected: " + text);
+                        out.println("<div class='mui-panel expenseYearlyResult'>You have selected: <b><u> " + text + "</b></u><br /><br />");
                 %>
                     <div id = "monthlyExpensesContainer" class="containerDB" >
                         <script>

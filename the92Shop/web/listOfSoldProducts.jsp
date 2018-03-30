@@ -65,7 +65,7 @@
                         <br />
                         <tr>
                             <th> SKU_ID </th>
-                            <th> Product Name </th>
+                            <th > Product Name </th>
                             <th> Quantity </th>
                             <th> Sales </th>
                             <th> Date Of Purchase </th>
@@ -85,7 +85,7 @@
                     <tr>
 
                         <td id="sku_id"><%=sku_id%></td>
-                        <td id="name"><%=product_name%></td>
+                        <td width="350px" text-align="left !important;" id="name"><%=product_name%></td>
                         <td id="qty"><%=qty%></td>
                         <td id="sales"><%=sales%></td>
                         <td id="date"><%=date%></td>

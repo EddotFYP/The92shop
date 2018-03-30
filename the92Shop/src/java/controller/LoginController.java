@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
         User user = userDAO.retrieve(username);
 
         if (username != null && password != null && !username.isEmpty()) {
-            if (username.equals("qingyang") && password.equals("the92shop")) {
+            if ((username.equals("qingyang") && password.equals("the92shop"))||(username.equals("cynthia") && password.equals("the92shop2"))) {
                 session.setAttribute("user", username);
                 response.sendRedirect("priceBundling.jsp");
             } else {

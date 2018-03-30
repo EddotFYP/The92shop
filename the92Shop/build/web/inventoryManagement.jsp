@@ -68,7 +68,7 @@
 
                 });
                 
-                $('#myTable').dataTable({
+                $('#invTable').dataTable({
                     "bPaginate": true,
                     "bLengthChange": false,
                     "bFilter": true,
@@ -137,7 +137,7 @@
         %>
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
-                <div class ="mui-panel">
+                <div class ="mui-panel" width="650px">
                     <h1>Search Inventory</h1>
                     <div class="mui-divider"></div>
                     <br />
@@ -181,9 +181,9 @@
                     %>
                     <br />
 
-                    <table id="myTable">
+                    <table id="invTable">
                         <thead>
-                            <tr>
+                            <tr align ="left">
                                 
                                 <th> Name </th>
                                 <th> Quantity </th>
@@ -207,11 +207,11 @@
                         %>
                             
                                 <td id="iName"><%=inventoryName%></td>
-                                <td id="quantity"><%=qty%></td>
-                                <td id="date"><%=updatedDate%></td>
-                                <td id="iCost"><%=cost%></td>
-                                <td id="iPrice"><%=price%></td>
-                                <td>
+                                <td width="90px" id="quantity"><%=qty%></td>
+                                <td width="125px" id="date"><%=updatedDate%></td>
+                                <td width="60px" id="iCost"><%=cost%></td>
+                                <td width="120px" id="iPrice"><%=price%></td>
+                                <td width="100px">
                                     <div id="editButtonDiv" class="answer_list" >
                                         <form action="InventoryController" method="post">
                                             <button type="button" name="edit" class="btn" id="edit" onclick="showDiv()"><i class="fa fa-edit"></i></button>
@@ -230,7 +230,7 @@
                                         </form>
                                     </div>
                                 </td>
-                                <td>
+                                <td width="75px">
                                     <form action="InventoryController" method="post" onclick="return confirmation()">
                                         <button type="submit" name="delete" class="btn" id="deleteButton"><i class="fa  fa-trash"></i></button>
                                         <input type="hidden" name="deleteAction" value="<%=id%>">

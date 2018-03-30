@@ -84,7 +84,7 @@
                     <thead>
                         <tr>
                             <th> Phone </th>
-                            <th> Product Name </th>
+                            <th id="aquantity"> Product Name </th>
                             <th> Quantity </th>
                             <th> Purchase Date </th>
                             

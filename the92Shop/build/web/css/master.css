@@ -21,10 +21,11 @@ ul {
 }
 
 #currentUser{
-    position: absolute; 
-    left: 970px;
-    width:100%;
+    position: fixed; 
+    right: 150px;
+    top: 1px;
 }
+
 
 #header button {
     text-transform: capitalize;
@@ -307,7 +308,7 @@ img {
 
 .subPageContentInventory{
     margin-left:200px;
-    top:100px;
+    top:50px;
     position: relative; 
     font-size: 20px !important;
     width:610px;
@@ -315,7 +316,7 @@ img {
 
 .subPageTitleContentInventory{
     margin-left:200px;
-    top:100px;
+    top:70px;
     position: relative; 
     font-size: 20px !important;
     width:610px;
@@ -380,15 +381,46 @@ table#inventoryTable td{
 table#custTable th{
     border-collapse: collapse;
     padding: 8px;
-    background: #3F51B5;
-    color: #ffffff;
+
     text-align: center; 
 }
 
 table#custTable td{
     text-align: center;
     padding: 8px;
-    background: #ffffff;
+
+}
+
+table#invTable th{
+    border-collapse: collapse;
+    padding: 8px;
+
+    text-align: left; 
+}
+
+table#invTable td{
+    text-align: center;
+    padding: 8px;
+
+}
+
+th#aquantity{
+     text-align: left !important ; 
+}
+
+
+td#iName{
+     text-align: left !important; 
+}
+
+td#name{
+     text-align: left !important; 
+}
+
+
+
+td#quantity{
+     text-align: center; 
 }
 
 table#AdminTable td{
@@ -453,7 +485,7 @@ table#AdminTable td{
 
 .topProduct {
     left: 845px;
-    top: 100px !important;
+    top: 70px !important;
     float: right;
     position: absolute;
     width: 500px;
@@ -474,14 +506,21 @@ table#AdminTable td{
 
 table#myTable th{
     padding: 8px;
-    text-align: center; 
+
 }
 
 table#myTable td{
-    text-align: center;
-    padding: 8px;
-    width: 180px;
-    word-wrap: break-word; 
+   text-align: center;
+    padding: 20px;
+
+    
+}
+
+table#topTable td{
+  
+    padding: 20px;
+
+    
 }
 
 #invDbTitle{
@@ -632,7 +671,7 @@ table#myTable td{
     padding-bottom: 15px;
     padding-left: 15px;
     padding-right: 15px;
-    width: 1000px;
+    width: 1080px;
 
 }
 

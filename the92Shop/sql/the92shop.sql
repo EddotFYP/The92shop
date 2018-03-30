@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
+-- version 4.1.14
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2018 at 06:29 AM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Mar 30, 2018 at 11:40 AM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `the92shop`
@@ -26,13 +26,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
-CREATE TABLE `customer` (
-  `Cust_Id` int(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customer` (
+  `Cust_Id` int(30) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `Address` varchar(100) NOT NULL,
-  `Postal_Code` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Postal_Code` varchar(30) NOT NULL,
+  PRIMARY KEY (`Cust_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=490 ;
 
 --
 -- Dumping data for table `customer`
@@ -42,7 +43,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (1, 'Racheal Loy', '96245546', '410 Canberra Road #13-55', '750410'),
 (2, 'Jean Wong', '98685252', '30 Jalan Bahagia #12-33', '320030'),
 (3, 'Jiao Jun', '85467999', '155 Mei Ling Street #23-44', '140155'),
-(4, 'Joanna Thew', '85879988', '15 Queen\'s Close #17-66', '140015'),
+(4, 'Joanna Thew', '85879988', '15 Queen''s Close #17-66', '140015'),
 (5, 'Marge Fung', '95549989', '34 Eunos Crescent #15-90', '400034'),
 (6, 'Tang Ming Kit', '97552119', '17 Ghim Moh Road #02-45', '270017'),
 (7, 'Fan Ke Lin', '88228946', '89 Tanglin Halt Road #22-89', '142089'),
@@ -50,7 +51,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (9, 'Mavis Tan', '93378829', '518 Jelapang Road #11-38', '670518'),
 (10, 'Fiona Choy', '81045489', '55 Geylang Bahru #12-44', '330055'),
 (11, 'Clarice Tan', '99229885', '16 Telok Blangah Crescent #09-74', '90016'),
-(12, 'Wendy How', '94553321', '20 Queen\'s Close #12-37', '140020'),
+(12, 'Wendy How', '94553321', '20 Queen''s Close #12-37', '140020'),
 (13, 'Pierce Low', '86675522', '160 Mei Ling Street #09-89', '140160'),
 (14, 'Aeddon Tan', '84436578', '415 Canberra Road #10-99', '750415'),
 (15, 'Rena Chua', '94459072', '165 Stirling Road #16-67', '140165'),
@@ -325,7 +326,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (284, 'Lianne Ong', '90010082', 'Fulton Hill Fulton Road 7', '578891'),
 (285, 'Buan Pong Chua', '96190661', '20 Namly Drive', '267434'),
 (286, 'Noor Hafizah', '90617694', 'Yishun Street 22 #05-61', '760279'),
-(287, 'Jenny O\'Connor', '90013894', 'Trevose 12 19B Trevose Crescent', '298098'),
+(287, 'Jenny O''Connor', '90013894', 'Trevose 12 19B Trevose Crescent', '298098'),
 (288, 'Nabilah Khan Badin', '81852443', '182 Jelebu Road #24-54', '670182'),
 (289, 'Sherylyn Chong', '90071807', '296 Choa Chu Kang Avenue 2 #13-04', '680296'),
 (290, 'Wong Yet Hwa', '85519576', '171 Woodlands Street 11 #04-47', '730171'),
@@ -535,14 +536,17 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 -- Table structure for table `customer_purchase`
 --
 
-CREATE TABLE `customer_purchase` (
-  `Order_Id` int(30) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customer_purchase` (
+  `Order_Id` int(30) NOT NULL AUTO_INCREMENT,
   `Cust_Id` int(30) NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `SKU_Id` int(255) DEFAULT NULL,
   `Date_Of_Purchase` date NOT NULL,
-  `Quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Quantity` int(11) NOT NULL,
+  PRIMARY KEY (`Order_Id`),
+  KEY `Cust_Id` (`Cust_Id`),
+  KEY `customer_purchase_ibfk_2_idx` (`SKU_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=630 ;
 
 --
 -- Dumping data for table `customer_purchase`
@@ -1163,7 +1167,7 @@ INSERT INTO `customer_purchase` (`Order_Id`, `Cust_Id`, `Phone_number`, `SKU_Id`
 -- Table structure for table `expensetracker`
 --
 
-CREATE TABLE `expensetracker` (
+CREATE TABLE IF NOT EXISTS `expensetracker` (
   `date` varchar(45) NOT NULL,
   `expenseTypes` varchar(45) NOT NULL,
   `remark` varchar(100) NOT NULL,
@@ -1176,30 +1180,30 @@ CREATE TABLE `expensetracker` (
 
 INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 ('2017-01-18', 'Delivery', 'Cost of Transporting', 35),
-('2017-02-19', 'Postage', 'Buying of stamps', 70),
+('2017-02-19', 'Postage', 'Buying of stamps', 45),
 ('2017-03-21', 'Supplies', 'Office supplies - writing instruments and papers', 32),
-('2017-04-22', 'Taxes', 'Govt tax', 56),
+('2017-04-22', 'Taxes', 'Govt tax', 43),
 ('2017-05-23', 'Packaging Material', 'Plastic wrappers,scrotch tape, bubble wraps', 50),
-('2017-06-24', 'Insurance', 'Insurance for Jan', 150),
-('2017-07-26', 'Utilities', 'For office', 93),
-('2017-08-28', 'Marketing', 'For shopping plaforms x3', 67),
-('2018-01-18', 'Delivery', 'Cost of Transporting', 35),
-('2018-01-19', 'Postage', 'Buying of stamps', 40),
-('2018-01-20', 'Supplies', 'Office supplies - writing instruments and papers', 27),
-('2018-01-21', 'Taxes', 'Govt tax', 56),
-('2018-01-22', 'Packaging Material', 'Plastic wrappers,scrotch tape, bubble wraps', 35),
-('2018-01-23', 'Insurance', 'Insurance for Jan', 110),
-('2018-01-24', 'Utilities', 'For office', 93),
-('2018-01-25', 'Marketing', 'For shopping plaforms x3', 33),
-('2018-02-15', 'Bank Charges', 'Bank Payment made', 45),
-('2018-02-15', 'Packaging Materials', 'Packaging of plastic', 10),
-('2017-09-24', 'Utilities', 'Utility bill for Septempber 2017', 85),
-('2017-10-20', 'Delivery', 'Delivery to Ang Mo Kio Ave 4', 50),
-('2017-11-22', 'Taxes', 'Government Tax for November 2017', 52),
+('2017-06-24', 'Insurance', 'Insurance for Jan', 84),
+('2017-07-26', 'Utilities', 'For office', 46),
+('2017-08-28', 'Marketing', 'For shopping plaforms x3', 33),
+('2018-01-18', 'Delivery', 'Cost of Transporting', 25),
+('2018-01-19', 'Postage', 'Buying of stamps', 8),
+('2018-01-20', 'Supplies', 'Office supplies - writing instruments and papers ', 9),
+('2018-01-21', 'Taxes', 'Govt tax', 43),
+('2018-01-22', 'Packaging Material', 'Plastic wrappers,scrotch tape, bubble wraps', 23),
+('2018-01-23', 'Insurance', 'Insurance for Jan', 52),
+('2018-01-24', 'Utilities', 'For office', 46),
+('2018-01-25', 'Marketing', 'For shopping platforms x3', 19),
+('2018-02-15', 'Bank Charges', 'Bank Payment made', 26),
+('2018-02-15', 'Bank Charges', 'Bank Payment made', 26),
+('2017-09-24', 'Utilities', 'Utility bill for September 2017', 51),
+('2017-10-20', 'Delivery', 'Delivery to Ang Mo Kio Ave 4', 33),
+('2017-11-22', 'Taxes', 'Government Tax for November 2017', 44),
 ('2017-12-19', 'Utility', 'Utility Bill for December 2017', 46),
 ('2018-03-15', 'Stamp', 'Bought a batch of stamps for the upcoming orders.', 10),
 ('2018-03-02', 'Qoo10 Top Up', 'Settled Qoo10 Top Up', 20),
-('2018-03-30', 'Bank Charges', 'Payment to OCBC', 50);
+('2018-03-30', 'Bank Charges', 'Payment to OCBC', 42);
 
 -- --------------------------------------------------------
 
@@ -1207,8 +1211,9 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 -- Table structure for table `expensetypes`
 --
 
-CREATE TABLE `expensetypes` (
-  `ExpenseType` varchar(100) NOT NULL
+CREATE TABLE IF NOT EXISTS `expensetypes` (
+  `ExpenseType` varchar(100) NOT NULL,
+  PRIMARY KEY (`ExpenseType`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1249,14 +1254,15 @@ INSERT INTO `expensetypes` (`ExpenseType`) VALUES
 -- Table structure for table `inventory`
 --
 
-CREATE TABLE `inventory` (
-  `SKU_Id` int(255) NOT NULL,
+CREATE TABLE IF NOT EXISTS `inventory` (
+  `SKU_Id` int(255) NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) NOT NULL,
   `Quantity` int(11) NOT NULL,
   `Updated_Date` varchar(50) NOT NULL,
   `Cost_Price` decimal(12,2) NOT NULL,
-  `Selling_Price` decimal(12,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Selling_Price` decimal(12,2) NOT NULL,
+  PRIMARY KEY (`SKU_Id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=644 ;
 
 --
 -- Dumping data for table `inventory`
@@ -1649,17 +1655,17 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (384, 'Baby A Design 20 Baby Lines (White)', 32, '2/24/2018', '1.40', '1.68'),
 (385, 'Baby A Design 20 Baby Lines (Yellow)', 36, '2/24/2018', '1.40', '1.68'),
 (386, 'Baby A Design 20 Baby Lines (Blue)', 31, '2/24/2018', '1.40', '1.68'),
-(387, 'Baby B Design 1 Urban Baby (Yellow)', 39, '2/24/2018', '1.40', '0.00'),
-(388, 'Baby B Design 1 Urban Baby (Navy)', 39, '2/24/2018', '1.40', '0.00'),
-(389, 'Baby B Design 1 Urban Baby (Grey)', 39, '2/24/2018', '1.40', '0.00'),
-(390, 'Baby B Design 1 Urban Baby (White)', 38, '2/24/2018', '1.40', '0.00'),
-(391, 'Baby B Design 1 Urban Baby (Brown)', 39, '2/24/2018', '1.40', '0.00'),
-(392, 'Baby B Design 2 Happy 3 friends baby (Pink Bear)', 10, '2/24/2018', '1.40', '0.00'),
-(393, 'Baby B Design 2 Happy 3 friends baby (Yellow Chick)', 11, '2/24/2018', '1.40', '0.00'),
-(394, 'Baby B Design 2 Happy 3 friends baby (Sleeping bird)', 10, '2/24/2018', '1.40', '0.00'),
-(395, 'Baby B Design 3 Happy 3 friends baby II (White Cat)', 11, '2/24/2018', '1.40', '0.00'),
-(396, 'Baby B Design 3 Happy 3 friends baby II (Yellow Fox)', 8, '2/24/2018', '1.40', '0.00'),
-(397, 'Baby B Design 3 Happy 3 friends baby II (Penguine)', 6, '2/24/2018', '1.40', '0.00'),
+(387, 'Baby B Design 1 Urban Baby (Yellow)', 39, '2/24/2018', '1.40', '1.68'),
+(388, 'Baby B Design 1 Urban Baby (Navy)', 39, '2/24/2018', '1.40', '1.68'),
+(389, 'Baby B Design 1 Urban Baby (Grey)', 39, '2/24/2018', '1.40', '1.68'),
+(390, 'Baby B Design 1 Urban Baby (White)', 38, '2/24/2018', '1.40', '1.68'),
+(391, 'Baby B Design 1 Urban Baby (Brown)', 39, '2/24/2018', '1.40', '1.68'),
+(392, 'Baby B Design 2 Happy 3 friends baby (Pink Bear)', 10, '2/24/2018', '1.40', '1.68'),
+(393, 'Baby B Design 2 Happy 3 friends baby (Yellow Chick)', 11, '2/24/2018', '1.40', '1.68'),
+(394, 'Baby B Design 2 Happy 3 friends baby (Sleeping bird)', 10, '2/24/2018', '1.40', '1.68'),
+(395, 'Baby B Design 3 Happy 3 friends baby II (White Cat)', 11, '2/24/2018', '1.40', '1.68'),
+(396, 'Baby B Design 3 Happy 3 friends baby II (Yellow Fox)', 8, '2/24/2018', '1.40', '1.68'),
+(397, 'Baby B Design 3 Happy 3 friends baby II (Penguine)', 6, '2/24/2018', '1.40', '1.68'),
 (398, 'Design A Polka Candy (Pink)', 5, '2/24/2018', '1.40', '1.68'),
 (399, 'Design A Polka Candy (Blue)', 1, '2/24/2018', '1.40', '1.68'),
 (400, 'Design A Polka Candy (White)', 1, '2/24/2018', '1.40', '1.68'),
@@ -1677,14 +1683,14 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (412, 'Design D (2 stripes shopee) The Babies (Bear)', 0, '2/24/2018', '1.40', '1.68'),
 (413, 'Design D (2 stripes shopee) The Babies (Rabbit)', 1, '2/24/2018', '1.40', '1.68'),
 (414, 'Design D (2 stripes shopee) The Babies (Chick)', 2, '2/24/2018', '1.40', '1.68'),
-(415, 'Design E Pineapples Party (Pink)', 2, '2/24/2018', '1.40', '0.00'),
-(416, 'Design E Pineapples Party (Blue)', 1, '2/24/2018', '1.40', '0.00'),
-(417, 'Design E Pineapples Party (White)', 1, '2/24/2018', '1.40', '0.00'),
-(418, 'Design F Hearts Ankle (Grey)', 3, '2/24/2018', '1.40', '0.00'),
-(419, 'Design F Hearts Ankle (Pink)', 3, '2/24/2018', '1.40', '0.00'),
-(420, 'Design F Hearts Ankle (Black)', 2, '2/24/2018', '1.40', '0.00'),
-(421, 'Design F Hearts Ankle (White)', 1, '2/24/2018', '1.40', '0.00'),
-(422, 'Design F Hearts Ankle (Nude)', 2, '2/24/2018', '1.40', '0.00'),
+(415, 'Design E Pineapples Party (Pink)', 2, '2/24/2018', '1.40', '1.68'),
+(416, 'Design E Pineapples Party (Blue)', 1, '2/24/2018', '1.40', '1.68'),
+(417, 'Design E Pineapples Party (White)', 1, '2/24/2018', '1.40', '1.68'),
+(418, 'Design F Hearts Ankle (Grey)', 3, '2/24/2018', '1.40', '1.68'),
+(419, 'Design F Hearts Ankle (Pink)', 3, '2/24/2018', '1.40', '1.68'),
+(420, 'Design F Hearts Ankle (Black)', 2, '2/24/2018', '1.40', '1.68'),
+(421, 'Design F Hearts Ankle (White)', 1, '2/24/2018', '1.40', '1.68'),
+(422, 'Design F Hearts Ankle (Nude)', 2, '2/24/2018', '1.40', '1.68'),
 (423, 'Design G Hearts in the air (Polka Dot)', 33, '2/24/2018', '1.40', '1.68'),
 (424, 'Design G Hearts in the air (Grey white stripes)', 25, '2/24/2018', '1.40', '1.68'),
 (425, 'Design G Hearts in the air (2 stripes white base)', 31, '2/24/2018', '1.40', '1.68'),
@@ -1906,7 +1912,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (640, 'Gentlemen Ankle A Design 8 3 Bars (White)', 131, '2/24/2018', '1.40', '2.25'),
 (641, '001-Gentlemen A Design 8 Tartan (White) & Gentlemen A Design 14 Ribbed (Matrix Black)', 45, '3/19/2018', '6.00', '4.50'),
 (642, '002-Basic A Design 4 Bamboo Short(White) & Design J: Mini Zoo Emoji(Pony)', 30, '3/19/2018', '2.50', '3.00'),
-(643, '003-Collection A Design 9 Pastel Lines(Brown Bear&Baby A Design 19 Baby Kittens (Pink)', 50, '3/22/2018', '15.00', '12.00');
+(643, '003-Collection A Design 9 Pastel Lines(Brown Bear & Baby A Design 19 Baby Kittens (Pink)', 50, '3/22/2018', '15.00', '12.00');
 
 -- --------------------------------------------------------
 
@@ -1914,10 +1920,11 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 -- Table structure for table `inventory_purchase`
 --
 
-CREATE TABLE `inventory_purchase` (
+CREATE TABLE IF NOT EXISTS `inventory_purchase` (
   `SKU_Id` int(255) NOT NULL,
   `Quantity` int(11) NOT NULL,
-  `Date_Of_Purchase` date NOT NULL
+  `Date_Of_Purchase` date NOT NULL,
+  KEY `inventory_purchase_ibfk_1_idx` (`SKU_Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1938,9 +1945,10 @@ INSERT INTO `inventory_purchase` (`SKU_Id`, `Quantity`, `Date_Of_Purchase`) VALU
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(30) NOT NULL,
-  `Password` varchar(50) NOT NULL
+  `Password` varchar(50) NOT NULL,
+  PRIMARY KEY (`Name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1949,70 +1957,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`Name`, `Password`) VALUES
 ('qingyang', 'the92shop'),
-('cythnia', 'the92shop2'),
-('clarey', 'passClareyword');
+('cynthia', 'the92shop2'),
+('clarey', 'clarey123');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`Cust_Id`);
-
---
--- Indexes for table `customer_purchase`
---
-ALTER TABLE `customer_purchase`
-  ADD PRIMARY KEY (`Order_Id`),
-  ADD KEY `Cust_Id` (`Cust_Id`),
-  ADD KEY `customer_purchase_ibfk_2_idx` (`SKU_Id`);
-
---
--- Indexes for table `expensetypes`
---
-ALTER TABLE `expensetypes`
-  ADD PRIMARY KEY (`ExpenseType`);
-
---
--- Indexes for table `inventory`
---
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`SKU_Id`);
-
---
--- Indexes for table `inventory_purchase`
---
-ALTER TABLE `inventory_purchase`
-  ADD KEY `inventory_purchase_ibfk_1_idx` (`SKU_Id`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`Name`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `Cust_Id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=490;
---
--- AUTO_INCREMENT for table `customer_purchase`
---
-ALTER TABLE `customer_purchase`
-  MODIFY `Order_Id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=630;
---
--- AUTO_INCREMENT for table `inventory`
---
-ALTER TABLE `inventory`
-  MODIFY `SKU_Id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=644;
 --
 -- Constraints for dumped tables
 --
