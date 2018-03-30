@@ -97,7 +97,7 @@
                         String text = (String) request.getAttribute("word");
                             if (text != null) {
 
-                                out.println("You have selected: " + text + "<br /><br />");
+                                out.println("You have selected: <b><u>" + text + "</b></u><br /><br />");
                             }
                         if (promoNameList != null && !promoNameList.isEmpty() && promoQtyList != null && !promoQtyList.isEmpty()) {
                             

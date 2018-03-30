@@ -540,9 +540,9 @@ public class InventoryDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select i.SKU_ID, i.Name,  i.Quantity, count(i.SKU_ID) from inventory i inner join customer_purchase cp "
-                    + "where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by SKU_ID");
-
+     
+            PreparedStatement stmt = conn.prepareStatement("select i.SKU_ID, i.Name, sum(cp.Quantity) from inventory i inner join customer_purchase cp where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)= '"+ month +"'and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"'group by SKU_ID ASC ");
+                    
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -586,12 +586,12 @@ public class InventoryDAO {
         return promoNameList;
     }
      
-    public HashMap<String, String> retrievePromoInfo(int month, String year){
-        HashMap<String, String>resultList = new HashMap<>();
+    public LinkedHashMap<String, String> retrievePromoInfo(int month, String year){
+        LinkedHashMap<String, String>resultList = new LinkedHashMap<>();
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("select i.Name, i.quantity as totalQuantity from inventory i inner join customer_purchase cp where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by i.SKU_ID");                 
+            PreparedStatement stmt = conn.prepareStatement("select i.Name, sum(cp.quantity) as totalQuantity from inventory i inner join customer_purchase cp where i.SKU_ID = cp.SKU_ID and i.name LIKE '0%' and EXTRACT(MONTH from Date_Of_Purchase)='"+ month +"' and extract(YEAR FROM Date_Of_Purchase) = '"+ year +"' group by i.SKU_ID ASC");                 
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String name = rs.getString(1);

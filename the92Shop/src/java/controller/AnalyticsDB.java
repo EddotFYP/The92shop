@@ -11,6 +11,7 @@ import entity.Inventory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,7 +68,7 @@ public class AnalyticsDB extends HttpServlet {
         }
         
         InventoryDAO invDAO = new InventoryDAO();
-        HashMap<String, String> promoItemList = invDAO.retrievePromoInfo(month, year);
+        LinkedHashMap<String, String> promoItemList = invDAO.retrievePromoInfo(month, year);
 
         ArrayList<String> promoNameList = new ArrayList<String>();
         ArrayList<String> promoQtyList = new ArrayList<String>();
