@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2018 at 06:12 AM
+-- Generation Time: Mar 30, 2018 at 06:29 AM
 -- Server version: 5.7.11
 -- PHP Version: 5.6.19
 
@@ -1904,9 +1904,9 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (638, 'Gentlemen Ankle A Design 8 3 Bars (Black)', 108, '2/24/2018', '1.40', '2.25'),
 (639, 'Gentlemen Ankle A Design 8 3 Bars (Grey)', 134, '2/24/2018', '1.40', '2.25'),
 (640, 'Gentlemen Ankle A Design 8 3 Bars (White)', 131, '2/24/2018', '1.40', '2.25'),
-(641, '001-Gentlemen A Design 8 Tartan (White) & Gentlemen A Design 14 Ribbed (Matrix Black)', 50, '3/19/2018', '6.00', '4.50'),
-(642, '002-Basic A Design 4 Bamboo Short(White) & Design J: Mini Zoo Emoji(Pony)', 50, '3/19/2018', '2.50', '3.00'),
-(643, '003-Collection A Design 9 Pastel Lines(Brown Bear&Baby A Design 19 Baby Kittens (Pink)', 50, '2018-03-22', '15.00', '12.00');
+(641, '001-Gentlemen A Design 8 Tartan (White) & Gentlemen A Design 14 Ribbed (Matrix Black)', 45, '3/19/2018', '6.00', '4.50'),
+(642, '002-Basic A Design 4 Bamboo Short(White) & Design J: Mini Zoo Emoji(Pony)', 30, '3/19/2018', '2.50', '3.00'),
+(643, '003-Collection A Design 9 Pastel Lines(Brown Bear&Baby A Design 19 Baby Kittens (Pink)', 50, '3/22/2018', '15.00', '12.00');
 
 -- --------------------------------------------------------
 
@@ -1925,14 +1925,12 @@ CREATE TABLE `inventory_purchase` (
 --
 
 INSERT INTO `inventory_purchase` (`SKU_Id`, `Quantity`, `Date_Of_Purchase`) VALUES
-(609, 40, '0000-00-00'),
-(608, 20, '0000-00-00'),
 (5, 3, '2018-02-07'),
-(608, 20, '2018-02-28'),
-(609, 11, '2018-02-20'),
 (37, 4, '2018-03-19'),
 (30, 20, '2018-03-19'),
-(44, 13, '2018-02-15');
+(44, 13, '2018-02-15'),
+(609, 11, '2018-02-28'),
+(608, 20, '2018-03-20');
 
 -- --------------------------------------------------------
 
@@ -1950,7 +1948,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`Name`, `Password`) VALUES
-('qingyang', 'the92shop');
+('qingyang', 'the92shop'),
+('cythnia', 'the92shop2'),
+('clarey', 'passClareyword');
 
 --
 -- Indexes for dumped tables
