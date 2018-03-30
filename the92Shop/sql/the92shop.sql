@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.5.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2018 at 08:00 AM
--- Server version: 5.6.17
--- PHP Version: 5.5.12
+-- Generation Time: Mar 30, 2018 at 06:12 AM
+-- Server version: 5.7.11
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,7 +14,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `the92shop`
@@ -26,14 +26,13 @@ SET time_zone = "+00:00";
 -- Table structure for table `customer`
 --
 
-CREATE TABLE IF NOT EXISTS `customer` (
-  `Cust_Id` int(30) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `customer` (
+  `Cust_Id` int(30) NOT NULL,
   `Name` varchar(50) NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `Address` varchar(100) NOT NULL,
-  `Postal_Code` varchar(30) NOT NULL,
-  PRIMARY KEY (`Cust_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=490 ;
+  `Postal_Code` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer`
@@ -43,7 +42,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (1, 'Racheal Loy', '96245546', '410 Canberra Road #13-55', '750410'),
 (2, 'Jean Wong', '98685252', '30 Jalan Bahagia #12-33', '320030'),
 (3, 'Jiao Jun', '85467999', '155 Mei Ling Street #23-44', '140155'),
-(4, 'Joanna Thew', '85879988', '15 Queen''s Close #17-66', '140015'),
+(4, 'Joanna Thew', '85879988', '15 Queen\'s Close #17-66', '140015'),
 (5, 'Marge Fung', '95549989', '34 Eunos Crescent #15-90', '400034'),
 (6, 'Tang Ming Kit', '97552119', '17 Ghim Moh Road #02-45', '270017'),
 (7, 'Fan Ke Lin', '88228946', '89 Tanglin Halt Road #22-89', '142089'),
@@ -51,7 +50,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (9, 'Mavis Tan', '93378829', '518 Jelapang Road #11-38', '670518'),
 (10, 'Fiona Choy', '81045489', '55 Geylang Bahru #12-44', '330055'),
 (11, 'Clarice Tan', '99229885', '16 Telok Blangah Crescent #09-74', '90016'),
-(12, 'Wendy How', '94553321', '20 Queen''s Close #12-37', '140020'),
+(12, 'Wendy How', '94553321', '20 Queen\'s Close #12-37', '140020'),
 (13, 'Pierce Low', '86675522', '160 Mei Ling Street #09-89', '140160'),
 (14, 'Aeddon Tan', '84436578', '415 Canberra Road #10-99', '750415'),
 (15, 'Rena Chua', '94459072', '165 Stirling Road #16-67', '140165'),
@@ -326,7 +325,7 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 (284, 'Lianne Ong', '90010082', 'Fulton Hill Fulton Road 7', '578891'),
 (285, 'Buan Pong Chua', '96190661', '20 Namly Drive', '267434'),
 (286, 'Noor Hafizah', '90617694', 'Yishun Street 22 #05-61', '760279'),
-(287, 'Jenny O''Connor', '90013894', 'Trevose 12 19B Trevose Crescent', '298098'),
+(287, 'Jenny O\'Connor', '90013894', 'Trevose 12 19B Trevose Crescent', '298098'),
 (288, 'Nabilah Khan Badin', '81852443', '182 Jelebu Road #24-54', '670182'),
 (289, 'Sherylyn Chong', '90071807', '296 Choa Chu Kang Avenue 2 #13-04', '680296'),
 (290, 'Wong Yet Hwa', '85519576', '171 Woodlands Street 11 #04-47', '730171'),
@@ -536,17 +535,14 @@ INSERT INTO `customer` (`Cust_Id`, `Name`, `Phone_number`, `Address`, `Postal_Co
 -- Table structure for table `customer_purchase`
 --
 
-CREATE TABLE IF NOT EXISTS `customer_purchase` (
-  `Order_Id` int(30) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `customer_purchase` (
+  `Order_Id` int(30) NOT NULL,
   `Cust_Id` int(30) NOT NULL,
   `Phone_number` varchar(10) NOT NULL,
   `SKU_Id` int(255) DEFAULT NULL,
   `Date_Of_Purchase` date NOT NULL,
-  `Quantity` int(11) NOT NULL,
-  PRIMARY KEY (`Order_Id`),
-  KEY `Cust_Id` (`Cust_Id`),
-  KEY `customer_purchase_ibfk_2_idx` (`SKU_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=595 ;
+  `Quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customer_purchase`
@@ -1103,12 +1099,12 @@ INSERT INTO `customer_purchase` (`Order_Id`, `Cust_Id`, `Phone_number`, `SKU_Id`
 (548, 466, '90303987', 246, '2018-02-17', 4),
 (549, 467, '98251122', 122, '2018-02-19', 8),
 (550, 468, '82224064', 70, '2018-02-19', 10),
-(551, 469, '97316060', 75, '2018-02-19', 2),
+(551, 469, '97316060', 75, '2018-02-19', 8),
 (552, 470, '91637767', 544, '2018-02-19', 8),
-(553, 471, '91059136', 427, '2018-02-19', 9),
+(553, 471, '91059136', 427, '2018-02-19', 11),
 (554, 472, '96861382', 383, '2018-02-21', 6),
 (555, 473, '94388593', 461, '2018-02-21', 5),
-(556, 474, '98903346', 375, '2018-02-21', 2),
+(556, 474, '98903346', 375, '2018-02-21', 8),
 (557, 475, '97984551', 42, '2018-02-21', 2),
 (558, 27, '85876531', 440, '2018-02-21', 3),
 (559, 476, '98285661', 99, '2018-02-23', 5),
@@ -1116,35 +1112,50 @@ INSERT INTO `customer_purchase` (`Order_Id`, `Cust_Id`, `Phone_number`, `SKU_Id`
 (561, 478, '81895020', 168, '2018-02-23', 7),
 (562, 479, '93225531', 77, '2018-02-24', 6),
 (563, 480, '86661912', 276, '2018-02-24', 10),
-(564, 481, '97465616', 291, '2018-02-24', 6),
-(565, 482, '92245808', 301, '2018-02-24', 5),
-(566, 483, '82987747', 16, '2018-02-24', 3),
-(567, 44, '90069669', 146, '2018-02-25', 1),
-(568, 484, '84072618', 420, '2018-02-25', 4),
-(569, 485, '96176555', 23, '2018-02-27', 7),
-(570, 486, '98723321', 592, '2018-02-27', 7),
-(571, 487, '87554322', 500, '2018-02-28', 5),
-(572, 488, '90844571', 325, '2018-02-28', 8),
-(573, 489, '90233457', 635, '2018-02-28', 6),
-(574, 489, '90233457', 635, '2018-02-15', 3),
+(564, 481, '97465616', 291, '2018-02-25', 6),
+(565, 482, '92245808', 301, '2018-02-26', 5),
+(566, 483, '82987747', 16, '2018-02-27', 5),
+(567, 44, '90069669', 146, '2018-02-27', 15),
+(568, 484, '84072618', 420, '2018-02-28', 4),
+(569, 485, '96176555', 23, '2018-03-01', 7),
+(570, 486, '98723321', 592, '2018-03-01', 7),
+(571, 487, '87554322', 500, '2018-03-02', 5),
+(572, 488, '90844571', 325, '2018-03-02', 8),
+(573, 489, '90233457', 635, '2018-03-02', 6),
+(574, 489, '90233457', 635, '2018-03-02', 3),
 (577, 1, '96245546', 641, '2018-03-01', 2),
-(578, 1, '96245546', 641, '2018-03-01', 2),
-(579, 12, '99229885', 642, '2018-03-01', 3),
+(578, 1, '96245546', 641, '2018-03-01', 10),
+(579, 12, '99229885', 642, '2018-03-01', 4),
 (580, 12, '99229885', 642, '2018-03-01', 3),
 (581, 25, '92691486', 642, '2018-03-21', 4),
 (582, 25, '92691486', 642, '2018-03-21', 4),
-(583, 50, '97419315', 641, '2018-03-02', 4),
+(583, 50, '97419315', 641, '2018-03-02', 8),
 (584, 93, '87773858', 641, '2018-03-03', 2),
 (585, 50, '97419315', 641, '2018-03-02', 4),
 (586, 93, '87773858', 641, '2018-03-03', 2),
 (587, 93, '87773858', 642, '2018-03-03', 2),
-(588, 337, '97541761', 642, '2018-03-18', 2),
+(588, 337, '97541761', 642, '2018-03-18', 1),
 (589, 15, '94459072', 111, '2018-02-14', 3),
-(590, 208, '97770343', 465, '2018-02-11', 12),
-(591, 131, '96208565', 1, '2018-02-07', 1),
+(590, 208, '97770343', 465, '2018-03-20', 12),
+(591, 131, '96208565', 1, '2018-02-20', 1),
 (592, 386, '91265291', 643, '2018-03-26', 10),
-(593, 386, '91265291', 643, '2018-03-26', 10),
-(594, 474, '90996904', 642, '2018-03-19', 3);
+(593, 386, '91265291', 643, '2018-03-26', 6),
+(594, 474, '90996904', 642, '2018-03-19', 3),
+(595, 18, '93380556', 25, '2018-03-15', 2),
+(596, 12, '94553321', 50, '2018-03-09', 2),
+(597, 12, '94553321', 50, '2018-03-09', 2),
+(608, 50, '97419315', 624, '2018-03-11', 3),
+(619, 1, '96245546', 111, '2018-03-31', 20),
+(620, 22, '87790926', 117, '2018-03-31', 10),
+(621, 326, '81886025', 208, '2018-03-31', 4),
+(622, 343, '86994421', 45, '2018-03-31', 9),
+(623, 15, '94459072', 643, '2018-03-31', 6),
+(624, 436, '94459072', 643, '2018-03-31', 8),
+(625, 11, '99229885', 321, '2018-03-31', 4),
+(626, 58, '96230473', 4, '2018-03-31', 5),
+(627, 69, '90974103', 5, '2018-03-31', 5),
+(628, 58, '96230473', 4, '2018-03-31', 5),
+(629, 69, '90974103', 5, '2018-03-30', 8);
 
 -- --------------------------------------------------------
 
@@ -1152,7 +1163,7 @@ INSERT INTO `customer_purchase` (`Order_Id`, `Cust_Id`, `Phone_number`, `SKU_Id`
 -- Table structure for table `expensetracker`
 --
 
-CREATE TABLE IF NOT EXISTS `expensetracker` (
+CREATE TABLE `expensetracker` (
   `date` varchar(45) NOT NULL,
   `expenseTypes` varchar(45) NOT NULL,
   `remark` varchar(100) NOT NULL,
@@ -1185,7 +1196,10 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 ('2017-09-24', 'Utilities', 'Utility bill for Septempber 2017', 85),
 ('2017-10-20', 'Delivery', 'Delivery to Ang Mo Kio Ave 4', 50),
 ('2017-11-22', 'Taxes', 'Government Tax for November 2017', 52),
-('2017-12-19', 'Utility', 'Utility Bill for December 2017', 46);
+('2017-12-19', 'Utility', 'Utility Bill for December 2017', 46),
+('2018-03-15', 'Stamp', 'Bought a batch of stamps for the upcoming orders.', 10),
+('2018-03-02', 'Qoo10 Top Up', 'Settled Qoo10 Top Up', 20),
+('2018-03-30', 'Bank Charges', 'Payment to OCBC', 50);
 
 -- --------------------------------------------------------
 
@@ -1193,9 +1207,8 @@ INSERT INTO `expensetracker` (`date`, `expenseTypes`, `remark`, `cost`) VALUES
 -- Table structure for table `expensetypes`
 --
 
-CREATE TABLE IF NOT EXISTS `expensetypes` (
-  `ExpenseType` varchar(100) NOT NULL,
-  PRIMARY KEY (`ExpenseType`)
+CREATE TABLE `expensetypes` (
+  `ExpenseType` varchar(100) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1236,15 +1249,14 @@ INSERT INTO `expensetypes` (`ExpenseType`) VALUES
 -- Table structure for table `inventory`
 --
 
-CREATE TABLE IF NOT EXISTS `inventory` (
-  `SKU_Id` int(255) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `inventory` (
+  `SKU_Id` int(255) NOT NULL,
   `Name` varchar(100) NOT NULL,
   `Quantity` int(11) NOT NULL,
   `Updated_Date` varchar(50) NOT NULL,
   `Cost_Price` decimal(12,2) NOT NULL,
-  `Selling_Price` decimal(12,2) NOT NULL,
-  PRIMARY KEY (`SKU_Id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=644 ;
+  `Selling_Price` decimal(12,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `inventory`
@@ -1255,14 +1267,14 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (2, 'Collection A Design 1 - Animal (Panda)', 54, '2/24/2018', '1.40', '1.68'),
 (3, 'Collection A Design 1 - Animal (Giraffe)', 97, '2/24/2018', '1.40', '1.68'),
 (4, 'Collection A Design 1 - Animal (Bear)', 155, '2/24/2018', '1.40', '1.68'),
-(5, 'Collection A (Short) Design 2 & 3 Animal (Grey Bea', 16, '2/24/2018', '1.40', '1.68'),
-(6, 'Collection A (Short) Design 2 & 3 Animal (101 Dalm', 31, '2/24/2018', '1.40', '1.68'),
+(5, 'Collection A (Short) Design 2 & 3 Animal (Grey Bear)', 16, '2/24/2018', '1.40', '1.68'),
+(6, 'Collection A (Short) Design 2 & 3 Animal (101 Dalmation', 31, '2/24/2018', '1.40', '1.68'),
 (7, 'Collection A (Short) Design 2 & 3 Animal (Pig)', 8, '2/24/2018', '1.40', '1.68'),
-(8, 'Collection A (Short) Design 2 & 3 Animal (White/bl', 3, '2/24/2018', '1.40', '1.68'),
-(9, 'Collection A (Short) Design 2 & 3 Animal (Brown Be', 7, '2/24/2018', '1.40', '1.68'),
-(10, 'Collection A (Short) Design 2 & 3 Animal (Grey Mou', 14, '2/24/2018', '1.40', '1.68'),
-(11, 'Collection A (Short) Design 2 & 3 Animal (Pink Owl', 8, '2/24/2018', '1.40', '1.68'),
-(12, 'Collection A (Short) Design 2 & 3 Animal (Blue Fox', 36, '2/24/2018', '1.40', '1.68'),
+(8, 'Collection A (Short) Design 2 & 3 Animal (White/blue mouse)', 3, '2/24/2018', '1.40', '1.68'),
+(9, 'Collection A (Short) Design 2 & 3 Animal (Brown Bear)', 7, '2/24/2018', '1.40', '1.68'),
+(10, 'Collection A (Short) Design 2 & 3 Animal (Grey Mouse)', 14, '2/24/2018', '1.40', '1.68'),
+(11, 'Collection A (Short) Design 2 & 3 Animal (Pink Owl)', 8, '2/24/2018', '1.40', '1.68'),
+(12, 'Collection A (Short) Design 2 & 3 Animal (Blue Fox)', 36, '2/24/2018', '1.40', '1.68'),
 (13, 'Collection A Design 4 Hello Kitty(White Tip)', 2, '2/24/2018', '1.40', '1.68'),
 (14, 'Collection A Design 4 Hello Kitty(Blue Tip)', 6, '2/24/2018', '1.40', '1.68'),
 (15, 'Collection A Design 4 Hello Kitty(PinkTip)', 4, '2/24/2018', '1.40', '1.68'),
@@ -1332,7 +1344,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (79, 'Collection A Design 18 Lil Animals 2(Black Bird)', 34, '2/24/2018', '1.40', '1.68'),
 (80, 'Collection A Design 18 Lil Animals 2(Brown Bear)', 29, '2/24/2018', '1.40', '1.68'),
 (81, 'Collection A Design 18 Lil Animals 2(Blue Bird)', 1, '2/24/2018', '1.40', '1.68'),
-(82, 'Collection A Design 18 Lil Animals 2(Yellow Chick ', 78, '2/24/2018', '1.40', '1.68'),
+(82, 'Collection A Design 18 Lil Animals 2(Yellow Chick Ear)', 78, '2/24/2018', '1.40', '1.68'),
 (83, 'Collection A Design 19 Rabbit(Blue Stripes)', 16, '2/24/2018', '1.40', '1.68'),
 (84, 'Collection A Design 19 Rabbit(Pink White Stripes)', 13, '2/24/2018', '1.40', '1.68'),
 (85, 'Collection A Design 19 Rabbit(Pink Dots)', 28, '2/24/2018', '1.40', '1.68'),
@@ -1346,8 +1358,8 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (93, 'Collection B Design 1 Hungry Pets(Dog)', 9, '2/24/2018', '1.40', '1.68'),
 (94, 'Collection B Design 1 Hungry Pets(Rabbit)', 7, '2/24/2018', '1.40', '1.68'),
 (95, 'Collection B Design 1 Hungry Pets(Cat)', 3, '2/24/2018', '1.40', '1.68'),
-(96, 'Collection B Design 2 Sweet Things(Brown base Cact', 1, '2/24/2018', '1.40', '1.68'),
-(97, 'Collection B Design 2 Sweet Things(Watermelon Pink', 0, '2/24/2018', '1.40', '1.68'),
+(96, 'Collection B Design 2 Sweet Things(Brown base Cactus)', 1, '2/24/2018', '1.40', '1.68'),
+(97, 'Collection B Design 2 Sweet Things(Watermelon Pink)', 0, '2/24/2018', '1.40', '1.68'),
 (98, 'Collection B Design 2 Sweet Things(Chick White)', 16, '2/24/2018', '1.40', '1.68'),
 (99, 'Collection B Design 2 Sweet Things(Elephant White)', 9, '2/24/2018', '1.40', '1.68'),
 (100, 'Collection B Design 3 Grumpy Kittens(Blue)', 2, '2/24/2018', '1.40', '1.68'),
@@ -1375,7 +1387,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (122, 'Collection B Design 9 Animal Part II(Pink Fox)', 7, '2/24/2018', '1.40', '1.68'),
 (123, 'Collection B Design 9 Animal Part II(Brown Fox)', 9, '2/24/2018', '1.40', '1.68'),
 (124, 'Collection B Design 9 Animal Part II(Panda)', 10, '2/24/2018', '1.40', '1.68'),
-(125, 'Collection B Design 9 Animal Part II(Grey Dotted F', 7, '2/24/2018', '1.40', '1.68'),
+(125, 'Collection B Design 9 Animal Part II(Grey Dotted Fox)', 7, '2/24/2018', '1.40', '1.68'),
 (126, 'Collection B Design 10 Shocked(Brown Dog)', 22, '2/24/2018', '1.40', '1.68'),
 (127, 'Collection B Design 10 Shocked(Grey Cat)', 2, '2/24/2018', '1.40', '1.68'),
 (128, 'Collection B Design 10 Shocked(White Cat)', 7, '2/24/2018', '1.40', '1.68'),
@@ -1413,9 +1425,9 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (160, 'Collection B Design 18 Pastel Kittens (Pink)', 21, '2/24/2018', '1.40', '1.68'),
 (161, 'Collection B Design 18 Pastel Kittens (Blue)', 36, '2/24/2018', '1.40', '1.68'),
 (162, 'Collection B Design 19 Cupcakes (Blue Base)', 7, '2/24/2018', '1.40', '1.68'),
-(163, 'Collection B Design 19 Cupcakes (White Base Green ', 14, '2/24/2018', '1.40', '1.68'),
+(163, 'Collection B Design 19 Cupcakes (White Base Green Cake)', 14, '2/24/2018', '1.40', '1.68'),
 (164, 'Collection B Design 19 Cupcakes (Pink Base)', 8, '2/24/2018', '1.40', '1.68'),
-(165, 'Collection B Design 19 Cupcakes (White Base Pink C', 8, '2/24/2018', '1.40', '1.68'),
+(165, 'Collection B Design 19 Cupcakes (White Base Pink Cake', 8, '2/24/2018', '1.40', '1.68'),
 (166, 'Collection B Design 20 Owls (Orange Owl)', 11, '2/24/2018', '1.40', '1.68'),
 (167, 'Collection B Design 20 Owls (Blue Owl)', 14, '2/24/2018', '1.40', '1.68'),
 (168, 'Collection B Design 20 Owls (Brown Owl Pink Base)', 7, '2/24/2018', '1.40', '1.68'),
@@ -1426,8 +1438,8 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (173, 'Collection C Design 1 Plushie (Blue Face)', 6, '2/24/2018', '1.40', '1.68'),
 (174, 'Collection C Design 1 Plushie (Brown)', 0, '2/24/2018', '1.40', '1.68'),
 (175, 'Collection C Design 1 Plushie (Pink)', 10, '2/24/2018', '1.40', '1.68'),
-(176, 'Collection C Design 2 Melody x hello kitty (Melody', 4, '2/24/2018', '1.40', '1.68'),
-(177, 'Collection C Design 2 Melody x hello kitty (Hello ', 2, '2/24/2018', '1.40', '1.68'),
+(176, 'Collection C Design 2 Melody x hello kitty (Melody)', 4, '2/24/2018', '1.40', '1.68'),
+(177, 'Collection C Design 2 Melody x hello kitty (Hello Kitty)', 2, '2/24/2018', '1.40', '1.68'),
 (178, 'Basic A Design 1 & 2 Women Invisable (Black)', 77, '2/24/2018', '1.40', '1.19'),
 (179, 'Basic A Design 1 & 2 Women Invisable (Grey)', 155, '2/24/2018', '1.40', '1.19'),
 (180, 'Basic A Design 1 & 2 Women Invisable (Green)', 14, '2/24/2018', '1.40', '1.19'),
@@ -1532,9 +1544,9 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (279, 'Basic B Design 1 Thin Stripes (Green lines)', 10, '2/24/2018', '1.40', '1.68'),
 (280, 'Basic B Design 1 Thin Stripes (Black lines)', 10, '2/24/2018', '1.40', '1.68'),
 (281, 'Basic B Design 1 Thin Stripes (Brown lines)', 11, '2/24/2018', '1.40', '1.68'),
-(282, 'Basic B Design 2 Street Rainbows ()', 1, '2/24/2018', '1.40', '1.68'),
-(283, 'Basic B Design 2 Street Rainbows ()', 1, '2/24/2018', '1.40', '1.68'),
-(284, 'Basic B Design 2 Street Rainbows ()', 2, '2/24/2018', '1.40', '1.68'),
+(282, 'Basic B Design 2 Street Rainbows (Black)', 1, '2/24/2018', '1.40', '1.68'),
+(283, 'Basic B Design 2 Street Rainbows (White)', 1, '2/24/2018', '1.40', '1.68'),
+(284, 'Basic B Design 2 Street Rainbows (Grey)', 2, '2/24/2018', '1.40', '1.68'),
 (285, 'Basic B Design 3 Sleeping Socks 2 (Blue Base)', 7, '2/24/2018', '1.40', '1.68'),
 (286, 'Basic B Design 3 Sleeping Socks 2 (Yellow Base)', 7, '2/24/2018', '1.40', '1.68'),
 (287, 'Basic B Design 3 Sleeping Socks 2 (Red Base)', 8, '2/24/2018', '1.40', '1.68'),
@@ -1565,10 +1577,10 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (312, 'Baby A Design 4 Bear Socks (Grey Bear)', 3, '2/24/2018', '1.40', '1.68'),
 (313, 'Baby A Design 4 Bear Socks (White Bear)', 1, '2/24/2018', '1.40', '1.68'),
 (314, 'Baby A Design 4 Bear Socks (Pink Owl)', 16, '2/24/2018', '1.40', '1.68'),
-(315, 'Baby A Design 5 Baby Multi Hearts (Light grey pand', 15, '2/24/2018', '1.40', '1.68'),
+(315, 'Baby A Design 5 Baby Multi Hearts (Light grey panda)', 15, '2/24/2018', '1.40', '1.68'),
 (316, 'Baby A Design 5 Baby Multi Hearts (Dark Grey fox)', 13, '2/24/2018', '1.40', '1.68'),
 (317, 'Baby A Design 5 Baby Multi Hearts (White red ears)', 14, '2/24/2018', '1.40', '1.68'),
-(318, 'Baby A Design 5 Baby Multi Hearts (Light grey bear', 19, '2/24/2018', '1.40', '1.68'),
+(318, 'Baby A Design 5 Baby Multi Hearts (Light grey bear)', 19, '2/24/2018', '1.40', '1.68'),
 (319, 'Baby A Design 5 Baby Multi Hearts (Brown Dog)', 19, '2/24/2018', '1.40', '1.68'),
 (320, 'Baby A Design 6 Winter (Polar Bear)', 3, '2/24/2018', '1.40', '1.68'),
 (321, 'Baby A Design 6 Winter (Penguine)', 2, '2/24/2018', '1.40', '1.68'),
@@ -1584,7 +1596,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (331, 'Baby A Design 9 Baby Pandas (Dots)', 18, '2/24/2018', '1.40', '1.68'),
 (332, 'Baby A Design 9 Baby Pandas (Plain)', 19, '2/24/2018', '1.40', '1.68'),
 (333, 'Baby A Design 9 Baby Pandas (Red thin stripes)', 17, '2/24/2018', '1.40', '1.68'),
-(334, 'Baby A Design 9 Baby Pandas ()', 14, '2/24/2018', '1.40', '1.68'),
+(334, 'Baby A Design 9 Baby Pandas (Grey stripes)', 14, '2/24/2018', '1.40', '1.68'),
 (335, 'Baby A Design 10 Baby Line alike (Yellow)', 6, '2/24/2018', '1.40', '1.68'),
 (336, 'Baby A Design 10 Baby Line alike (Green)', 8, '2/24/2018', '1.40', '1.68'),
 (337, 'Baby A Design 10 Baby Line alike (Blue)', 11, '2/24/2018', '1.40', '1.68'),
@@ -1602,7 +1614,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (349, 'Baby A Design 13 Animal Head (Pink)', 3, '2/24/2018', '1.40', '1.68'),
 (350, 'Baby A Design 13 Animal Head (Brown)', 1, '2/24/2018', '1.40', '1.68'),
 (351, 'Baby A Design 13 Animal Head (Grey)', 4, '2/24/2018', '1.40', '1.68'),
-(352, 'Baby A Design 14 Plushie Line alike (Pink Heart sh', 16, '2/24/2018', '1.40', '1.68'),
+(352, 'Baby A Design 14 Plushie Line alike (Pink Heart shape face)', 16, '2/24/2018', '1.40', '1.68'),
 (353, 'Baby A Design 14 Plushie Line alike (Grey Mouse)', 20, '2/24/2018', '1.40', '1.68'),
 (354, 'Baby A Design 14 Plushie Line alike (Blue Mouse)', 13, '2/24/2018', '1.40', '1.68'),
 (355, 'Baby A Design 14 Plushie Line alike (White Rabbit)', 17, '2/24/2018', '1.40', '1.68'),
@@ -1611,9 +1623,9 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (358, 'Baby A Design 15 Baby Zoo (White cat)', 2, '2/24/2018', '1.40', '1.68'),
 (359, 'Baby A Design 15 Baby Zoo (Penguine)', 1, '2/24/2018', '1.40', '1.68'),
 (360, 'Baby A Design 15 Baby Zoo (Panda)', 2, '2/24/2018', '1.40', '1.68'),
-(361, 'Baby A Design 16 Character Invisible (Hello Kitty ', 3, '2/24/2018', '1.40', '1.68'),
-(362, 'Baby A Design 16 Character Invisible (Hello Kitty ', 2, '2/24/2018', '1.40', '1.68'),
-(363, 'Baby A Design 16 Character Invisible (Snoopy Yello', 7, '2/24/2018', '1.40', '1.68'),
+(361, 'Baby A Design 16 Character Invisible (Hello Kitty Pink) ', 3, '2/24/2018', '1.40', '1.68'),
+(362, 'Baby A Design 16 Character Invisible (Hello Kitty White)', 2, '2/24/2018', '1.40', '1.68'),
+(363, 'Baby A Design 16 Character Invisible (Snoopy Yellow)', 7, '2/24/2018', '1.40', '1.68'),
 (364, 'Baby A Design 16 Character Invisible (Winnie)', 3, '2/24/2018', '1.40', '1.68'),
 (365, 'Baby A Design 16 Character Invisible (Mickey)', 3, '2/24/2018', '1.40', '1.68'),
 (366, 'Baby A Design 16 Character Invisible (Snoopy Blue)', 3, '2/24/2018', '1.40', '1.68'),
@@ -1643,10 +1655,10 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (390, 'Baby B Design 1 Urban Baby (White)', 38, '2/24/2018', '1.40', '0.00'),
 (391, 'Baby B Design 1 Urban Baby (Brown)', 39, '2/24/2018', '1.40', '0.00'),
 (392, 'Baby B Design 2 Happy 3 friends baby (Pink Bear)', 10, '2/24/2018', '1.40', '0.00'),
-(393, 'Baby B Design 2 Happy 3 friends baby (Yellow Chick', 11, '2/24/2018', '1.40', '0.00'),
-(394, 'Baby B Design 2 Happy 3 friends baby (Sleeping bir', 10, '2/24/2018', '1.40', '0.00'),
-(395, 'Baby B Design 3 Happy 3 friends baby II (White Cat', 11, '2/24/2018', '1.40', '0.00'),
-(396, 'Baby B Design 3 Happy 3 friends baby II (Yellow Fo', 8, '2/24/2018', '1.40', '0.00'),
+(393, 'Baby B Design 2 Happy 3 friends baby (Yellow Chick)', 11, '2/24/2018', '1.40', '0.00'),
+(394, 'Baby B Design 2 Happy 3 friends baby (Sleeping bird)', 10, '2/24/2018', '1.40', '0.00'),
+(395, 'Baby B Design 3 Happy 3 friends baby II (White Cat)', 11, '2/24/2018', '1.40', '0.00'),
+(396, 'Baby B Design 3 Happy 3 friends baby II (Yellow Fox)', 8, '2/24/2018', '1.40', '0.00'),
 (397, 'Baby B Design 3 Happy 3 friends baby II (Penguine)', 6, '2/24/2018', '1.40', '0.00'),
 (398, 'Design A Polka Candy (Pink)', 5, '2/24/2018', '1.40', '1.68'),
 (399, 'Design A Polka Candy (Blue)', 1, '2/24/2018', '1.40', '1.68'),
@@ -1676,8 +1688,8 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (423, 'Design G Hearts in the air (Polka Dot)', 33, '2/24/2018', '1.40', '1.68'),
 (424, 'Design G Hearts in the air (Grey white stripes)', 25, '2/24/2018', '1.40', '1.68'),
 (425, 'Design G Hearts in the air (2 stripes white base)', 31, '2/24/2018', '1.40', '1.68'),
-(426, 'Design G Hearts in the air (2 stripes black base)', 5, '2/24/2018', '1.40', '1.68'),
-(427, 'Design G Hearts in the air ( Multi Stripes White b', 29, '2/24/2018', '1.40', '1.68'),
+(426, 'Design G Hearts in the air (2 stripes black back)', 5, '2/24/2018', '1.40', '1.68'),
+(427, 'Design G Hearts in the air ( Multi Stripes White base)', 29, '2/24/2018', '1.40', '1.68'),
 (428, 'Design H Flamingo & Friends (Blue)', 38, '2/24/2018', '1.40', '1.68'),
 (429, 'Design H Flamingo & Friends (Nude)', 2, '2/24/2018', '1.40', '1.68'),
 (430, 'Design H Flamingo & Friends (White)', 23, '2/24/2018', '1.40', '1.68'),
@@ -1765,9 +1777,9 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (512, 'Gentlemen A Design 6 Checkered (Blue Accent)', 13, '2/24/2018', '1.40', '3.25'),
 (513, 'Gentlemen A Design 6 Checkered (Green Accen)', 13, '2/24/2018', '1.40', '3.25'),
 (514, 'Gentlemen A Design 6 Checkered (Brown Accent)', 6, '2/24/2018', '1.40', '3.25'),
-(515, 'Gentlemen A Design 7 Gent Rainbow Stripes (Blue re', 5, '2/24/2018', '1.40', '3.25'),
-(516, 'Gentlemen A Design 7 Gent Rainbow Stripes (Dark Bl', 3, '2/24/2018', '1.40', '3.25'),
-(517, 'Gentlemen A Design 7 Gent Rainbow Stripes ( Black ', 2, '2/24/2018', '1.40', '3.25'),
+(515, 'Gentlemen A Design 7 Gent Rainbow Stripes (Blue red light blue)', 5, '2/24/2018', '1.40', '3.25'),
+(516, 'Gentlemen A Design 7 Gent Rainbow Stripes (Dark Blue Maroon Yellow)', 3, '2/24/2018', '1.40', '3.25'),
+(517, 'Gentlemen A Design 7 Gent Rainbow Stripes ( Black red maroon) ', 2, '2/24/2018', '1.40', '3.25'),
 (518, 'Gentlemen A Design 8 Tartan (Red)', 19, '2/24/2018', '1.40', '3.25'),
 (519, 'Gentlemen A Design 8 Tartan (Grey)', 15, '2/24/2018', '1.40', '3.25'),
 (520, 'Gentlemen A Design 8 Tartan (White)', 17, '2/24/2018', '1.40', '3.25'),
@@ -1780,15 +1792,15 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (527, 'Gentlemen A Design 9 Diamond (Blue Red Tip)', 30, '2/24/2018', '1.40', '3.25'),
 (528, 'Gentlemen A Design 9 Diamond (Purple Green tip)', 15, '2/24/2018', '1.40', '3.25'),
 (529, 'Gentlemen A Design 9 Diamond (White Tip Blue Base)', 21, '2/24/2018', '1.40', '3.25'),
-(530, 'Gentlemen A Design 9 Diamond (Yellow Tip Grey Base', 12, '2/24/2018', '1.40', '3.25'),
+(530, 'Gentlemen A Design 9 Diamond (Yellow Tip Grey Base)', 12, '2/24/2018', '1.40', '3.25'),
 (531, 'Gentlemen A Design 10 Funky (Waves)', 14, '2/24/2018', '1.40', '3.25'),
 (532, 'Gentlemen A Design 10 Funky (Trees)', 12, '2/24/2018', '1.40', '3.25'),
 (533, 'Gentlemen A Design 10 Funky (Polka Dots)', 0, '2/24/2018', '1.40', '3.25'),
-(534, 'Gentlemen A Design 11 Graphite 2 stripes (Blue Red', 15, '2/24/2018', '1.40', '3.25'),
-(535, 'Gentlemen A Design 11 Graphite 2 stripes (Red Blue', 19, '2/24/2018', '1.40', '3.25'),
-(536, 'Gentlemen A Design 11 Graphite 2 stripes (Red Blue', 20, '2/24/2018', '1.40', '3.25'),
-(537, 'Gentlemen A Design 11 Graphite 2 stripes (Black bl', 18, '2/24/2018', '1.40', '3.25'),
-(538, 'Gentlemen A Design 11 Graphite 2 stripes (Red Yell', 0, '2/24/2018', '1.40', '3.25'),
+(534, 'Gentlemen A Design 11 Graphite 2 stripes (Blue Red Stripes Charcoal Base)', 15, '2/24/2018', '1.40', '3.25'),
+(535, 'Gentlemen A Design 11 Graphite 2 stripes (Red Blue Stripes Nude Base)', 19, '2/24/2018', '1.40', '3.25'),
+(536, 'Gentlemen A Design 11 Graphite 2 stripes (Red Blue Stripes Brown Charcoal Base)', 20, '2/24/2018', '1.40', '3.25'),
+(537, 'Gentlemen A Design 11 Graphite 2 stripes (Black black stripes grey base) ', 18, '2/24/2018', '1.40', '3.25'),
+(538, 'Gentlemen A Design 11 Graphite 2 stripes (Red Yellow Stripes blue charcoal base)', 0, '2/24/2018', '1.40', '3.25'),
 (539, 'Gentlemen A Design 12 Squares (Grey)', 2, '2/24/2018', '1.40', '3.25'),
 (540, 'Gentlemen A Design 12 Squares (Black)', 1, '2/24/2018', '1.40', '3.25'),
 (541, 'Gentlemen A Design 12 Squares (Navy)', 4, '2/24/2018', '1.40', '3.25'),
@@ -1817,19 +1829,19 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (564, 'Gentlemen A Design 17 Navy Prints (Blue stripes)', 5, '2/24/2018', '1.40', '3.25'),
 (565, 'Gentlemen A Design 17 Navy Prints (Thin blue strip', 2, '2/24/2018', '1.40', '3.25'),
 (566, 'Gentlemen A Design 17 Navy Prints (Blue patterned)', 9, '2/24/2018', '1.40', '3.25'),
-(567, 'Gentlemen A Design 18 Multi Stripes (white blue bl', 0, '2/24/2018', '1.40', '3.25'),
-(568, 'Gentlemen A Design 18 Multi Stripes (Black red bla', 7, '2/24/2018', '1.40', '3.25'),
-(569, 'Gentlemen A Design 18 Multi Stripes (Grey blue ora', 1, '2/24/2018', '1.40', '3.25'),
-(570, 'Gentlemen A Design 18 Multi Stripes (Blue orange b', 7, '2/24/2018', '1.40', '3.25'),
-(571, 'Gentlemen A Design 18 Multi Stripes (Black blue re', 2, '2/24/2018', '1.40', '3.25'),
+(567, 'Gentlemen A Design 18 Multi Stripes (white blue black)', 0, '2/24/2018', '1.40', '3.25'),
+(568, 'Gentlemen A Design 18 Multi Stripes (Black red black)', 7, '2/24/2018', '1.40', '3.25'),
+(569, 'Gentlemen A Design 18 Multi Stripes (Grey blue orange)', 1, '2/24/2018', '1.40', '3.25'),
+(570, 'Gentlemen A Design 18 Multi Stripes (Blue orange brown)', 7, '2/24/2018', '1.40', '3.25'),
+(571, 'Gentlemen A Design 18 Multi Stripes (Black blue red)', 2, '2/24/2018', '1.40', '3.25'),
 (572, 'Gentlemen A Design 19 Mono Stripes (Beige Tip)', 1, '2/24/2018', '1.40', '3.25'),
 (573, 'Gentlemen A Design 19 Mono Stripes (Maroon Tip)', 1, '2/24/2018', '1.40', '3.25'),
 (574, 'Gentlemen A Design 19 Mono Stripes (White Tip)', 4, '2/24/2018', '1.40', '3.25'),
 (575, 'Gentlemen A Design 19 Mono Stripes (Black Tip)', 2, '2/24/2018', '1.40', '3.25'),
 (576, 'Gentlemen A Design 20 Triple Stripes (Beigh Blue)', 1, '2/24/2018', '1.40', '3.25'),
 (577, 'Gentlemen A Design 20 Triple Stripes (Brown Black)', 2, '2/24/2018', '1.40', '3.25'),
-(578, 'Gentlemen A Design 20 Triple Stripes (Orange brown', 0, '2/24/2018', '1.40', '3.25'),
-(579, 'Gentlemen A Design 20 Triple Stripes (Beigh Dark b', 1, '2/24/2018', '1.40', '3.25'),
+(578, 'Gentlemen A Design 20 Triple Stripes (Orange brown)', 0, '2/24/2018', '1.40', '3.25'),
+(579, 'Gentlemen A Design 20 Triple Stripes (Beigh Dark blue)', 1, '2/24/2018', '1.40', '3.25'),
 (580, 'Gentlemen A Design 21 Diamond Pins (Brown)', 0, '2/24/2018', '1.40', '3.25'),
 (581, 'Gentlemen A Design 21 Diamond Pins (Navy)', 0, '2/24/2018', '1.40', '3.25'),
 (582, 'Gentlemen A Design 21 Diamond Pins (White)', 3, '2/24/2018', '1.40', '3.25'),
@@ -1855,31 +1867,31 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (602, 'Gentlemen A Design 25 Gentlemen Strips (Black)', 9, '2/24/2018', '1.40', '3.25'),
 (603, 'Gentlemen A Design 25 Gentlemen Strips (Blue)', 7, '2/24/2018', '1.40', '3.25'),
 (604, 'Gentlemen A Design 25 Gentlemen Strips (Red)', 8, '2/24/2018', '1.40', '3.25'),
-(605, 'Gentlemen Ankle A Design 1 The Blues (Blue White L', 2, '2/24/2018', '1.40', '2.25'),
-(606, 'Gentlemen Ankle A Design 1 The Blues (2 Blue Lines', 2, '2/24/2018', '1.40', '2.25'),
-(607, 'Gentlemen Ankle A Design 1 The Blues (Gradient Blu', 2, '2/24/2018', '1.40', '2.25'),
+(605, 'Gentlemen Ankle A Design 1 The Blues (Blue White Lines)', 2, '2/24/2018', '1.40', '2.25'),
+(606, 'Gentlemen Ankle A Design 1 The Blues (2 Blue Lines)', 2, '2/24/2018', '1.40', '2.25'),
+(607, 'Gentlemen Ankle A Design 1 The Blues (Gradient Blue)', 2, '2/24/2018', '1.40', '2.25'),
 (608, 'Gentlemen Ankle A Design 1 The Blues (Dotted)', 1, '2/24/2018', '1.40', '2.25'),
 (609, 'Gentlemen Ankle A Design 1 The Blues (Argyle)', 1, '2/24/2018', '1.40', '2.25'),
-(610, 'Gentlemen Ankle A Design 2 The Maroons (2 Stripe T', 6, '2/24/2018', '1.40', '2.25'),
-(611, 'Gentlemen Ankle A Design 2 The Maroons (Thin Lines', 2, '2/24/2018', '1.40', '2.25'),
-(612, 'Gentlemen Ankle A Design 2 The Maroons (Red Toes)', 2, '2/24/2018', '1.40', '2.25'),
-(613, 'Gentlemen Ankle A Design 2 The Maroons (Red Charco', 8, '2/24/2018', '1.40', '2.25'),
-(614, 'Gentlemen Ankle A Design 2 The Maroons (Charcoal R', 8, '2/24/2018', '1.40', '2.25');
+(610, 'Gentlemen Ankle A Design 2 The Maroons (2 Stripe Tip)', 6, '2/24/2018', '1.40', '2.25');
 INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Price`, `Selling_Price`) VALUES
-(615, 'Gentlemen Ankle A Design 3 Kutsushita (White Red G', 3, '2/24/2018', '1.40', '2.25'),
-(616, 'Gentlemen Ankle A Design 3 Kutsushita (Jap Flower ', 4, '2/24/2018', '1.40', '2.25'),
+(611, 'Gentlemen Ankle A Design 2 The Maroons (Thin Lines)', 2, '2/24/2018', '1.40', '2.25'),
+(612, 'Gentlemen Ankle A Design 2 The Maroons (Red Toes)', 2, '2/24/2018', '1.40', '2.25'),
+(613, 'Gentlemen Ankle A Design 2 The Maroons (Red Charcoal Lines)', 8, '2/24/2018', '1.40', '2.25'),
+(614, 'Gentlemen Ankle A Design 2 The Maroons (Charcoal Red Tip)', 8, '2/24/2018', '1.40', '2.25'),
+(615, 'Gentlemen Ankle A Design 3 Kutsushita (White Red Grey)', 3, '2/24/2018', '1.40', '2.25'),
+(616, 'Gentlemen Ankle A Design 3 Kutsushita (Jap Flower Tip) ', 4, '2/24/2018', '1.40', '2.25'),
 (617, 'Gentlemen Ankle A Design 3 Kutsushita (Tribal)', 3, '2/24/2018', '1.40', '2.25'),
-(618, 'Gentlemen Ankle A Design 3 Kutsushita (Small flowe', 8, '2/24/2018', '1.40', '2.25'),
+(618, 'Gentlemen Ankle A Design 3 Kutsushita (Small floweer tip)', 8, '2/24/2018', '1.40', '2.25'),
 (619, 'Gentlemen Ankle A Design 3 Kutsushita (Diamond)', 5, '2/24/2018', '1.40', '2.25'),
 (620, 'Gentlemen Ankle A Design 4 The Circus (Zig Zag)', 3, '2/24/2018', '1.40', '2.25'),
-(621, 'Gentlemen Ankle A Design 4 The Circus (Dotted Line', 3, '2/24/2018', '1.40', '2.25'),
+(621, 'Gentlemen Ankle A Design 4 The Circus (Dotted Lines)', 3, '2/24/2018', '1.40', '2.25'),
 (622, 'Gentlemen Ankle A Design 4 The Circus (Tip Lines)', 7, '2/24/2018', '1.40', '2.25'),
-(623, 'Gentlemen Ankle A Design 4 The Circus (Tri Color L', 1, '2/24/2018', '1.40', '2.25'),
+(623, 'Gentlemen Ankle A Design 4 The Circus (Tri Color Lines)', 1, '2/24/2018', '1.40', '2.25'),
 (624, 'Gentlemen Ankle A Design 4 The Circus (Airplanes)', 2, '2/24/2018', '1.40', '2.25'),
 (625, 'Gentlemen Ankle A Design 5 Thin Stripes (Black)', 44, '2/24/2018', '1.40', '2.25'),
 (626, 'Gentlemen Ankle A Design 5 Thin Stripes (Maroon)', 48, '2/24/2018', '1.40', '2.25'),
 (627, 'Gentlemen Ankle A Design 5 Thin Stripes (Green)', 50, '2/24/2018', '1.40', '2.25'),
-(628, 'Gentlemen Ankle A Design 5 Thin Stripes (Light Bro', 48, '2/24/2018', '1.40', '2.25'),
+(628, 'Gentlemen Ankle A Design 5 Thin Stripes (Light Brown)', 48, '2/24/2018', '1.40', '2.25'),
 (629, 'Gentlemen Ankle A Design 6 The Flash (Light Brown)', 48, '2/24/2018', '1.40', '2.25'),
 (630, 'Gentlemen Ankle A Design 6 The Flash (Dark Brown)', 48, '2/24/2018', '1.40', '2.25'),
 (631, 'Gentlemen Ankle A Design 6 The Flash (Blue)', 50, '2/24/2018', '1.40', '2.25'),
@@ -1892,9 +1904,9 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (638, 'Gentlemen Ankle A Design 8 3 Bars (Black)', 108, '2/24/2018', '1.40', '2.25'),
 (639, 'Gentlemen Ankle A Design 8 3 Bars (Grey)', 134, '2/24/2018', '1.40', '2.25'),
 (640, 'Gentlemen Ankle A Design 8 3 Bars (White)', 131, '2/24/2018', '1.40', '2.25'),
-(641, '001-Gentlemen A Design 8 Tartan (White)&Gentlemen A Design 14 Ribbed (Matrix Black)', 0, '3/19/2018', '6.00', '4.50'),
-(642, '002-Basic A Design 4 Bamboo Short(White)& Design J: Mini Zoo Emoji(Pony)', 0, '3/19/2018', '2.50', '3.00'),
-(643, '003-Collection A Design 9 Pastel Lines(Brown Bear&Baby A Design 19 Baby Kittens (Pink)', 0, '2018-03-22', '15.00', '12.00');
+(641, '001-Gentlemen A Design 8 Tartan (White) & Gentlemen A Design 14 Ribbed (Matrix Black)', 50, '3/19/2018', '6.00', '4.50'),
+(642, '002-Basic A Design 4 Bamboo Short(White) & Design J: Mini Zoo Emoji(Pony)', 50, '3/19/2018', '2.50', '3.00'),
+(643, '003-Collection A Design 9 Pastel Lines(Brown Bear&Baby A Design 19 Baby Kittens (Pink)', 50, '2018-03-22', '15.00', '12.00');
 
 -- --------------------------------------------------------
 
@@ -1902,11 +1914,10 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 -- Table structure for table `inventory_purchase`
 --
 
-CREATE TABLE IF NOT EXISTS `inventory_purchase` (
+CREATE TABLE `inventory_purchase` (
   `SKU_Id` int(255) NOT NULL,
   `Quantity` int(11) NOT NULL,
-  `Date_Of_Purchase` date NOT NULL,
-  KEY `inventory_purchase_ibfk_1_idx` (`SKU_Id`)
+  `Date_Of_Purchase` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -1929,10 +1940,9 @@ INSERT INTO `inventory_purchase` (`SKU_Id`, `Quantity`, `Date_Of_Purchase`) VALU
 -- Table structure for table `user`
 --
 
-CREATE TABLE IF NOT EXISTS `user` (
+CREATE TABLE `user` (
   `Name` varchar(30) NOT NULL,
-  `Password` varchar(50) NOT NULL,
-  PRIMARY KEY (`Name`)
+  `Password` varchar(50) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
@@ -1942,6 +1952,67 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` (`Name`, `Password`) VALUES
 ('qingyang', 'the92shop');
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`Cust_Id`);
+
+--
+-- Indexes for table `customer_purchase`
+--
+ALTER TABLE `customer_purchase`
+  ADD PRIMARY KEY (`Order_Id`),
+  ADD KEY `Cust_Id` (`Cust_Id`),
+  ADD KEY `customer_purchase_ibfk_2_idx` (`SKU_Id`);
+
+--
+-- Indexes for table `expensetypes`
+--
+ALTER TABLE `expensetypes`
+  ADD PRIMARY KEY (`ExpenseType`);
+
+--
+-- Indexes for table `inventory`
+--
+ALTER TABLE `inventory`
+  ADD PRIMARY KEY (`SKU_Id`);
+
+--
+-- Indexes for table `inventory_purchase`
+--
+ALTER TABLE `inventory_purchase`
+  ADD KEY `inventory_purchase_ibfk_1_idx` (`SKU_Id`);
+
+--
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`Name`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `Cust_Id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=490;
+--
+-- AUTO_INCREMENT for table `customer_purchase`
+--
+ALTER TABLE `customer_purchase`
+  MODIFY `Order_Id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=630;
+--
+-- AUTO_INCREMENT for table `inventory`
+--
+ALTER TABLE `inventory`
+  MODIFY `SKU_Id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=644;
 --
 -- Constraints for dumped tables
 --
