@@ -1949,6 +1949,7 @@ INSERT INTO `inventory_purchase` (`SKU_Id`, `Quantity`, `Date_Of_Purchase`) VALU
 CREATE TABLE IF NOT EXISTS `user` (
   `Name` varchar(30) NOT NULL,
   `Password` varchar(50) NOT NULL,
+  `isOnline` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`Name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
@@ -1956,10 +1957,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`Name`, `Password`) VALUES
-('qingyang', 'the92shop'),
-('cynthia', 'the92shop2'),
-('clarey', 'clarey123');
+INSERT INTO `user` (`Name`, `Password`, `isOnline`) VALUES
+('qingyang', 'the92shop', 1),
+('cythnia', 'the92shop2', 0),
+('clarey', 'passClareyword', 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
