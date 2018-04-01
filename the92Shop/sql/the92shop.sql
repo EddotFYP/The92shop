@@ -1958,7 +1958,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`Name`, `Password`, `isOnline`) VALUES
-('qingyang', 'the92shop', 1),
+('qingyang', 'the92shop', 0),
 ('cythnia', 'the92shop2', 0),
 ('clarey', 'passClareyword', 0);
 
