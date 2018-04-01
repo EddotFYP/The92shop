@@ -33,13 +33,13 @@
     </head>
     <body>
         <form class="mui-form--inline" action="FinancialStatementController" method="post">
-            <div id = "financialStatement">
+            <div class = "subPageContent">
                 <div class ="mui-panel">
                     <h1>Financial Statement</h1>
                     <div class="mui-divider"></div>
                     Filter by (monthly/yearly):
                     <div class="mui-select">
-                        <select name="month" value ="${month}" required>
+                        <select name="month" required>
                             <option value=''>Please select</option>
                             <option value='1'>January</option>
                             <option value='2' >February</option>
@@ -59,18 +59,18 @@
                     
 
                     <div class="mui-select">
-                        <select name="year" class="required" required>
+                        <select name="year" required>
                             <option value="" >Please select</option>
                             <option value="2017" >2017</option>
                             <option value="2018" >2018</option>
                         </select>
                     </div>
-                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
+                    <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;" > Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
                     <button type="submit" id="button" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Download as PDF <i class="fa fa-download" style="font-size:18px;"></i></button>
          
             <br />
             <br />
-            <table id="basic-table" align="center" bgcolor="#F2F2FF" id="basic-table" border="0" cellpadding="2" cellspacing="5" >
+            <table id="basic-table" align="center" bgcolor="#F2F2FF" border="0" cellpadding="2" cellspacing="5" >
                
                 <thead>
                     <img src="image/Eddot_Logo.jpg"/>

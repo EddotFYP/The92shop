@@ -44,17 +44,16 @@
         </script>
     </head>
     <body> 
-        <%
-                    String usernameAcc = (String) session.getAttribute("user");
-                    
-                    if(!usernameAcc.equals("qingyang")){ %>
-                        <%@include file="nonAdminSideNavBar.jsp" %>
-                    <%}else{ %>
-                        <%@include file="sideNavBar.jsp" %>
-                   <% }
-                    
+       <%             String usernameAcc = (String) session.getAttribute("user");
 
-                %>
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
+        <%@include file="sideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <% }
+
+
+        %>
         <form id="myForm" action="OrderPickingController" method="post">
             <div class="subPageContent">
                 <div class ="mui-panel invMgt-table">    

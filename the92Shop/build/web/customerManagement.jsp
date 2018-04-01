@@ -89,18 +89,29 @@
             {
                 window.location.href = pageURL;
             }
-
+            
+            $(document).ready(function () {
+                $('#custTable').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": true,
+                    "order": [],
+                    "ordering": true
+                });
+            });
         </script>
         <title> Customer Search</title>            
     </head>
     <body>
-        <%            String usernameAcc = (String) session.getAttribute("user");
+         <%             String usernameAcc = (String) session.getAttribute("user");
 
-            if (!usernameAcc.equals("qingyang")) {%>
-        <%@include file="nonAdminSideNavBar.jsp" %>
-        <%} else {
-        %>
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
         <%@include file="sideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
         <% }
 
 

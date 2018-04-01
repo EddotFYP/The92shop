@@ -31,10 +31,10 @@
     <body>
         <%             String usernameAcc = (String) session.getAttribute("user");
 
-             if (!usernameAcc.equals("qingyang")) {%>
-        <%@include file="nonAdminSideNavBar.jsp" %>
-        <%} else {%>
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
         <%@include file="sideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
         <% }
 
 
@@ -62,7 +62,7 @@
                     "bAutoWidth": false,
                     "bSorted": false,
                     "order": [],
-                    "ordering": true
+                    "ordering": false
                 });
             });
         </script>

@@ -18,13 +18,15 @@
         <script type="text/javascript" src="js/addimage.js"></script>
     </head>
     <body>
-        <%            String usernameAcc = (String) session.getAttribute("user");
+        <%             String usernameAcc = (String) session.getAttribute("user");
 
-            if (!usernameAcc.equals("qingyang")) {%>
-        <%@include file="nonAdminSideNavBar.jsp" %>
-        <%} else {%>
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
         <%@include file="sideNavBar.jsp" %>
-        <%}
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <% }
+
+
         %>
         <div class="subPageContent">
             <form id="myForm" class="mui-form" action="InventoryController" method="post">

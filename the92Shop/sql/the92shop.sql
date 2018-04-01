@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 30, 2018 at 11:40 AM
+-- Generation Time: Apr 01, 2018 at 06:14 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -1399,7 +1399,7 @@ INSERT INTO `inventory` (`SKU_Id`, `Name`, `Quantity`, `Updated_Date`, `Cost_Pri
 (128, 'Collection B Design 10 Shocked(White Cat)', 7, '2/24/2018', '1.40', '1.68'),
 (129, 'Collection B Design 10 Shocked(Black Dog)', 12, '2/24/2018', '1.40', '1.68'),
 (130, 'Collection B Design 10 Shocked(Nude Dog)', 13, '2/24/2018', '1.40', '1.68'),
-(131, 'Collection B Design 11 Totoro(Brown)', 15, '2/24/2018', '1.40', '1.68'),
+(131, 'Collection B Design 11 Totoro(Brown)', 16, '2018-04-01', '1.40', '1.68'),
 (132, 'Collection B Design 11 Totoro(Grey)', 0, '2/24/2018', '1.40', '1.68'),
 (133, 'Collection B Design 11 Totoro(White)', 26, '2/24/2018', '1.40', '1.68'),
 (134, 'Collection B Design 12 Hello Panda(Blue)', 2, '2/24/2018', '1.40', '1.68'),
@@ -1937,7 +1937,8 @@ INSERT INTO `inventory_purchase` (`SKU_Id`, `Quantity`, `Date_Of_Purchase`) VALU
 (30, 20, '2018-03-19'),
 (44, 13, '2018-02-15'),
 (609, 11, '2018-02-28'),
-(608, 20, '2018-03-20');
+(608, 20, '2018-03-20'),
+(131, 1, '2018-04-01');
 
 -- --------------------------------------------------------
 
@@ -1959,23 +1960,6 @@ INSERT INTO `user` (`Name`, `Password`) VALUES
 ('qingyang', 'the92shop'),
 ('cynthia', 'the92shop2'),
 ('clarey', 'clarey123');
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `customer_purchase`
---
-ALTER TABLE `customer_purchase`
-  ADD CONSTRAINT `customer_purchase_ibfk_1` FOREIGN KEY (`Cust_Id`) REFERENCES `customer` (`Cust_Id`),
-  ADD CONSTRAINT `customer_purchase_ibfk_2` FOREIGN KEY (`SKU_Id`) REFERENCES `inventory` (`SKU_Id`);
-
---
--- Constraints for table `inventory_purchase`
---
-ALTER TABLE `inventory_purchase`
-  ADD CONSTRAINT `inventory_purchase_ibfk_1` FOREIGN KEY (`SKU_Id`) REFERENCES `inventory` (`SKU_Id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

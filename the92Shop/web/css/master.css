@@ -23,7 +23,8 @@ ul {
 #currentUser{
     position: fixed; 
     right: 150px;
-    top: 1px;
+    top: 0px;
+    bottom: 2px;
 }
 
 
@@ -37,7 +38,7 @@ ul {
     height:100%;
 }
 #sidebar {
-    padding-top: 20px;
+    padding-top: 10px;
     width:200px;
     height:100%;
     bottom:0;
@@ -65,7 +66,7 @@ ul {
     vertical-align: middle;
     list-style: none;
     transform: translateZ(0);
-    height: 75px;
+    height: 70px;
     background: #263238;
     
 }
@@ -90,7 +91,7 @@ ul {
 .admimdrawer i {
     display: block;
     margin-bottom: .2em;
-    font-size: 2em;
+    font-size: 1.75em;
     
 }
 
@@ -202,7 +203,7 @@ ul {
 
 .drawer > li:hover a { background: #263238!important; }
 
-.drawer > li a:hover { background: #263238!important; }
+.drawer > li a:hover { background: #37474F!important; }
 
 .drawer > li > a:after {
     content: "";
@@ -365,6 +366,7 @@ table#inventoryTable td{
     margin-top:70px;
     height: 100%;
     position: absolute;  
+    width: 700px;
 }
 
 #financialStatement button{
@@ -410,6 +412,10 @@ th#aquantity{
 
 
 td#iName{
+     text-align: left !important; 
+}
+
+td.invName{
      text-align: left !important; 
 }
 
@@ -797,6 +803,15 @@ h1{
     top: 12px;
 }
 
+.userSpan {
+    display:inline-block; 
+    position: relative;
+    top: 2px;
+    color: black !important;
+}
+
+
+
 span > i {
     color: white;
 }
@@ -805,4 +820,18 @@ span > input {
     color: white;
     padding: 0;
     border: 0;
+}
+
+.userIcon{
+    font-size: 16px;
+    margin-top: 0px !important;
+    line-height: 5px !important;
+    right: 10px;
+    top: 0px;
+    margin-bottom: 0px !important;
+    
+}
+
+#button{
+    visibility: visible !important;
 }

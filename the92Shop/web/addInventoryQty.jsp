@@ -16,6 +16,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/instascan.min.js"></script>
+                <script src="js/jquery-1.12.3.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/dataTables.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
         <title>Add SKU Quantity Page</title>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -51,17 +55,33 @@
 
 
             }
+             $(document).ready(function () {
+                $('#myTable').dataTable({
+                    "bPaginate": false,
+                    "bLengthChange": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    "bAutoWidth": false,
+                    "bSorted": false,
+                    "order": [],
+                    "ordering": false,
+                    "pageLength": 5
+                    
+                });
+
+            });
         </script>
     </head>
     <body>
-               <%
-            String usernameAcc = (String) session.getAttribute("user");
-                    
-            if(!usernameAcc.equals("qingyang")){ %>
-                <%@include file="nonAdminSideNavBar.jsp" %>
-         <%}else{ %>
-               <%@include file="sideNavBar.jsp" %>
-         <%}
+            <%             String usernameAcc = (String) session.getAttribute("user");
+
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
+        <%@include file="sideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <% }
+
+
         %>
          
         <form id="myForm" action="InventoryController" method="post">
@@ -95,10 +115,9 @@
         %>
         
         
-        <table class="invMgt-table">
+        <table id="myTable">
             <thead>
                 <tr>
-
                     <th> Name </th>
                     <th> Current Quantity </th>
                     <th> Updated Date </th>

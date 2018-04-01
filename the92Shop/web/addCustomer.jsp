@@ -15,14 +15,15 @@
         <title>Add Customer Page</title>
     </head>
     <body>
-        <%           
-            String usernameAcc = (String) session.getAttribute("user");
+        <%             String usernameAcc = (String) session.getAttribute("user");
 
-            if (!usernameAcc.equals("qingyang")) { %>
-                <%@include file="nonAdminSideNavBar.jsp" %>
-            <%} else { %>
-                <%@include file="sideNavBar.jsp" %>
-            <% }
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
+        <%@include file="sideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <% }
+
+
         %>
         <div class="subPageContent">
             <form class="mui-form" action="CustomerController" method="post">

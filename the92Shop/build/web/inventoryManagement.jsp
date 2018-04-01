@@ -152,13 +152,15 @@
         </script>
     </head>
     <body>
-        <%                    String usernameAcc = (String) session.getAttribute("user");
+        <%             String usernameAcc = (String) session.getAttribute("user");
 
-            if (!usernameAcc.equals("qingyang")) {%>
-        <%@include file="nonAdminSideNavBar.jsp" %>
-        <%} else {%>
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
         <%@include file="sideNavBar.jsp" %>
-        <%}
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <% }
+
+
         %>
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
@@ -240,7 +242,7 @@
                                         String saveButtonDiv = "saveButtonDiv?" + id;
                                 %>
 
-                                <td id="<%=nameId%>"><%=inventoryName%></td>
+                                <td class ="invName" id="<%=nameId%>"><%=inventoryName%></td>
                                 <td width="90px" id="<%=qtyId%>"><%=qty%></td>
                                 <td width="125px" id="<%=dateId%>"><%=updatedDate%></td>
                                 <td width="60px" id="<%=costId%>"><%=cost%></td>

@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link href="//cdn.muicss.com/mui-0.9.36/css/mui.min.css" rel="stylesheet" type="text/css" />
-<%@include file="nonAdminSideNavBar.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +15,16 @@
         <title>Change Password</title>
     </head>
     <body>
+        <%             String usernameAcc = (String) session.getAttribute("user");
+
+             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
+        <%@include file="sideNavBar.jsp" %>
+        <%} else {%>
+        <%@include file="nonAdminSideNavBar.jsp" %>
+        <% }
+
+
+        %>
         <div class="subPageContent">
             <form class="mui-form" action="UserController" method="post" >
                 <div class ="mui-panel "> 
