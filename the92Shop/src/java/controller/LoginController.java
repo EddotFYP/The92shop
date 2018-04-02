@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
                     userDAO.editUserLoginStatus(username, 1);
                     response.sendRedirect("priceBundling.jsp");
                 } else {
-                    request.setAttribute("error", "Invalid username/password");
+                    request.setAttribute("error", "Invalid username/password!");
                     RequestDispatcher view = request.getRequestDispatcher("login.jsp");
                     view.forward(request, response);
                     return;
@@ -75,7 +75,7 @@ public class LoginController extends HttpServlet {
 
             }
         } else {
-            request.setAttribute("error", "Invalid username/password");
+            request.setAttribute("error", "Invalid username/password!");
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);
         }

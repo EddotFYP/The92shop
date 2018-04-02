@@ -38,7 +38,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    Date:
+                                    <span>Date</span><span style="float:right">:</span>
                                 </td>
                                 <td>
                                     <input type="date" id="date" name="date" min="2017-01-01"  required/>
@@ -46,7 +46,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Expenses: &nbsp;
+                                    <span>Expenses</span><span style="float:right">: </span>
                                 </td>
                                 <td>
                                     <div class="mui-select">
@@ -75,7 +75,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Remark:
+                                    <span>Remark</span><span style="float:right">:</span>
                                 </td>
                                 <td>
                                     <div class="mui-textfield">
@@ -84,7 +84,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    Cost($):
+                                    <span>Cost($)</span><span style="float:right">:</span>
                                 </td>
                                 <td>
                                     <div class="mui-textfield">

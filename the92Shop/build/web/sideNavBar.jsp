@@ -19,7 +19,7 @@
              <div id="currentUser" style="display: inline"><h3 style="color: white">&nbsp; Current User: <%= choosenUserNameForAcc%></h3></div>
 
             <form action="logout.jsp">
-                <button type="submit" name="logout" id="logoutBtn" class="mui-btn mui-btn--raised mui-btn--danger "><i class="fa fa-sign-out" style="font-size:18px;"> Logout</i></button>
+                <button type="submit" name="logout" id="logoutBtn" class="mui-btn mui-btn--raised mui-btn--danger " style="font-size:18px"> Logout <i class="fa fa-sign-out" style="font-size:18px;"></i></button>
             </form>
         </div>
 

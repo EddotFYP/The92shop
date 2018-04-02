@@ -122,7 +122,7 @@
                                         }]
                                 };
                                 var tooltip = {
-                                    valueSuffix: ' items'
+                                    valueSuffix: ' products'
                                 }
 
                                 var series = [{

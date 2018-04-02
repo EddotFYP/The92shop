@@ -38,6 +38,7 @@
                     "bSorted": true,
                     "order": [],
                     "ordering": true
+                    
                 });
             });
 
@@ -57,8 +58,8 @@
                      
                     <%if (qty >= 0) {%>
                
-                    <h2>Low inventory alert </h2>
-                    <h2><strong style="color: red;"><%=qty%></strong> products</h2>
+                    <h2>Low inventory alert: </h2>
+                    <h2><u><strong style="color: red;"><%=qty%></strong></u> products</h2>
                     
                      </div>
                     <%}
@@ -74,7 +75,7 @@
                         <table  id="myTable" >
                             <thead>
                                 <tr>
-                                    <th id="aquantity">Name</th>
+                                    <th width="100px" id="aquantity">Name</th>
                                     <th>Quantity</th>
                                 </tr>
                             </thead>
@@ -85,8 +86,8 @@
                                             String productName = i.getName();
                                             int quantity = i.getQuantity();
                                     %>    
-                                    <td id="iName"><%=productName%></td>
-                                    <td width="100px" id="quantity" align="center" ><%=quantity%></td>
+                                    <td width="100px" id="iName"><%=productName%></td>
+                                    <td width="50px" id="quantity" align="center" ><%=quantity%></td>
                                 </tr>
                                 <%
                             } %>
@@ -127,15 +128,13 @@
                             <option value="2018" >2018</option>
                         </select>
                     </div></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td><br /><button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="text-transform: capitalize; border-radius:8px;  font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button></td>
-                            </tr>
+                    </tr>
+                   
+                            
+                        
                         </tbody>
                     </table>
-                    
+                     <button type="submit" name="submit" id="filterBtn" class="mui-btn mui-btn--raised mui-btn--primary" style="text-transform: capitalize; border-radius:8px;  font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
                     <%                ArrayList<String> itemNameList = (ArrayList<String>) request.getAttribute("itemNameResult");
                         String jsonItemName = new Gson().toJson(itemNameList);
 
@@ -235,7 +234,7 @@
                             if (error == null) {
                                 error = "";
                             } else {
-                                out.println("<p style='color:red; font-size:18px;'>" + error + "</p>");
+                                out.println("<br /><p style='color:red; font-size:18px;'>" + error + "</p>");
                             }
                         }
                     %>

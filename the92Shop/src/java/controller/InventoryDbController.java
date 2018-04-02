@@ -95,10 +95,10 @@ public class InventoryDbController extends HttpServlet {
         //never select month and year
         try {
             if (sortMonth.equals("none") && sortYear.equals("none")) {
-                error = "Please select month or/and year to see monthly/yearly results";
+                error = "Please select month or/and year to see monthly/yearly results!";
             }
         } catch (Exception e) {
-            error = "Please remember to select month or/and year";
+            error = "Please remember to select month or/and year!";
         }
 
         //limit only top 5 product
