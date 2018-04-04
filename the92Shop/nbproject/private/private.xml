@@ -3,7 +3,25 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Brendo%20Austin/Documents/GitHub/The92shop/the92Shop/web/inventoryManagement.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/orderPicking.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/DAO/PurchaseHistoryDAO.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/DAO/InventoryPurchaseDAO.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/controller/CustomerController.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/entity/User.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/DAO/InventoryDAO.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/DAO/UserDAO.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/addInventory.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/entity/Inventory.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/controller/OrderPickingController.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/controller/InventoryController.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/purchaseHistory.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/customerManagement.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/DAO/CustomerDAO.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/inventoryManagement.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/controller/LoginController.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/login.jsp</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/src/java/webservice/purchaseHistoryJson.java</file>
+            <file>file:/D:/FYP/The92shop/the92Shop/web/logout.jsp</file>
         </group>
     </open-files>
 </project-private>

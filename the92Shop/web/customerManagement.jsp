@@ -20,12 +20,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
         <script src="js/jquery-1.12.3.js"></script>
         <script src="js/jquery.min.js"></script>
         <script src="js/dataTables.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
         <style>
+            table {
+                max-width: 950px;
+                margin: auto;
+                
+            }
         </style>
         <script type="text/javascript">
             function editClick(clickedId) {

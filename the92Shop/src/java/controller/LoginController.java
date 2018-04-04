@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
                 }
                 session.setAttribute("user", username);
                 //1 is online, 0 is offline
-                userDAO.editUserLoginStatus(username, 1);
+                //userDAO.editUserLoginStatus(username, 1);
                 response.sendRedirect("priceBundling.jsp");
             } else {
                 if (user != null && user.authenticate(password)) {
@@ -64,7 +64,7 @@ public class LoginController extends HttpServlet {
                     }
                     session.setAttribute("user", username);
                     //1 is online, 0 is offline
-                    userDAO.editUserLoginStatus(username, 1);
+                    //userDAO.editUserLoginStatus(username, 1);
                     response.sendRedirect("priceBundling.jsp");
                 } else {
                     request.setAttribute("error", "Invalid username/password!");

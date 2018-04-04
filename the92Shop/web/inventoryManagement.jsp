@@ -23,6 +23,11 @@
         <script type="text/javascript" src="js/instascan.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
         <style>
+            table {
+                max-width: 950px;
+                margin: auto;
+                
+            }
         </style>
         <title>Inventory Management</title>
         <script type="text/javascript">
@@ -59,10 +64,11 @@
                     "bSorted": true,
                     "order": [],
                     "ordering": true,
-                    "pageLength": 5
-
+                    "pageLength": 5,
+                    
 
                 });
+
 
             });
             function editClick(clickedId) {
@@ -154,7 +160,7 @@
     <body>
         <%             String usernameAcc = (String) session.getAttribute("user");
 
-             if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
+            if (usernameAcc.equals("qingyang") || usernameAcc.equals("cynthia")) {%>
         <%@include file="sideNavBar.jsp" %>
         <%} else {%>
         <%@include file="nonAdminSideNavBar.jsp" %>
@@ -164,7 +170,7 @@
         %>
         <form id="myForm" action="InventoryController" method="post">
             <div class="subPageContent">
-                <div class ="mui-panel" width="650px">
+                <div class ="mui-panel" width="650px" >
                     <h1>Search Inventory</h1>
                     <div class="mui-divider"></div>
                     <br />
@@ -185,8 +191,7 @@
                     <button type="button" onclick="initiateCamera()" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;">Scan <i class="fa fa-camera" style="font-size:18px;"></i></button>
                     <br/>
                     <div><video id="camera" width="420" style="display:none;"></video></div>
-                            <%
-                                //ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
+                            <%                                //ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
                                 String message = (String) request.getAttribute("message");
 
                                 if (message != null) {
