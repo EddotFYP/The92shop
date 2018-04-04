@@ -15,11 +15,10 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+        <script src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/instascan.min.js"></script>
         <title>Order Picking Page</title>
         <script type="text/javascript">
-
 
             $(document).ready(function () {
 
@@ -92,16 +91,22 @@
                             }
                         
                         }*/
-                        String orderSuccessMsg = (String) request.getAttribute("orderSuccessMsg");
-                        String orderNoStockMsg = (String) request.getAttribute("orderNoStockMsg");
+                        ArrayList<String> orderSuccessMsg = (ArrayList<String>) request.getAttribute("orderSuccessMsg");
+                        ArrayList<String> orderNoStockMsg = (ArrayList<String>) request.getAttribute("orderNoStockMsg");
                         String hpErrorMsg = (String) request.getAttribute("hpErrorMsg");
                         if (orderSuccessMsg != null) {
-                            out.println("<p style='color:red'>" + orderSuccessMsg + "</p>");
+                            for(String a : orderSuccessMsg){
+                                out.println("<p style='color:red'>" + a + "</p>");
+                            }
+                            
 
                         }
 
                         if (orderNoStockMsg != null) {
-                            out.println("<p style='color:red'>" + orderNoStockMsg + "</p>");
+                            for(String b : orderNoStockMsg){
+                                out.println("<p style='color:red'>" + b + "</p>");
+                            }
+                            
 
                         }
 

@@ -53,8 +53,8 @@ public class OrderPickingController extends HttpServlet {
             String cameraResult = request.getParameter("cameraResult");
             String clearSession = request.getParameter("clearSession");
             ArrayList<Inventory> currentList = (ArrayList<Inventory>) request.getSession(false).getAttribute("currentList");
-            String orderSuccessMsg = "";
-            String orderNoStockMsg = "";
+            ArrayList<String> orderSuccessMsg = new ArrayList<>();
+            ArrayList<String> orderNoStockMsg = new ArrayList<>();
             String hpErrorMsg = "";
             PurchaseHistoryDAO purchaseHistoryDAO = new PurchaseHistoryDAO();
             String phone = request.getParameter("phone");
@@ -99,7 +99,7 @@ public class OrderPickingController extends HttpServlet {
                         }else{
                             inventoryDAO.addInventoryQty(name, diff, dateString);
                        
-                            orderSuccessMsg = "The order of " + name + " is recorded!";
+                            orderSuccessMsg.add("The order of " + name + " is recorded!");
                             System.out.print("customer not null");
                             
                             int custId = customer.getCustId();
@@ -114,7 +114,7 @@ public class OrderPickingController extends HttpServlet {
                             hpErrorMsg = "Invalid phone number!";
                         }else{
 
-                            orderNoStockMsg = "The order of " + name + " has exceeded its stock!";
+                            orderNoStockMsg.add("The order of " + name + " has exceeded its stock!");
                         }
                     }
 
