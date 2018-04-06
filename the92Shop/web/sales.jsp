@@ -80,7 +80,7 @@
 
                     ArrayList<String> salesResult = (ArrayList<String>) request.getAttribute("salesResult");
                     String jsonMonthlySales = new Gson().toJson(salesResult);
-
+                    
                     if (yearInSales != null && salesInSales != null) {
                 %>
                 <div class="mui-panel profitYearlyResult" >

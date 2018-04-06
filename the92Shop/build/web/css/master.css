@@ -619,8 +619,8 @@ table#topTable td{
 
 .profitMonthlyResult {
     position: absolute;
-    right: 620px;
-    top: 300px;
+    right: 170px;
+    top: 250px;
     width: 480px;
 }
 
@@ -654,16 +654,14 @@ table#topTable td{
 .searchCustomerPanel{
     display: inline-block;
     overflow: hidden;
-    width: 450px;
     bottom: 190px;
     position: relative;
 }
 
 .addCustomerPanel{
-    left: 350px;
+    left: 450px;
     top: 7px;
     width: 300px;
-    margin-left: 150px;
     position: relative;
 }
 
@@ -799,14 +797,14 @@ h1{
 .leastPriceBundle {
     position: absolute;
     left: 500px;
-    top: 320px;
+    top: 350px;
     width: 480px;
 }
 
 .topPriceBundle{
     position: absolute;
     right: 85px;
-    top: 320px;
+    top: 350px;
     width: 480px;
 }
 

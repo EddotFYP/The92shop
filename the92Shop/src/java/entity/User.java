@@ -12,6 +12,7 @@ package entity;
 public class User {
     private String username;
     private String password;
+    private int isOnline;
     
     public User(String username,String password) {
         this.username = username;
@@ -53,6 +54,16 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
+    }
+    
+    
     
     public boolean authenticate(String password){
         return password.equals(this.password);

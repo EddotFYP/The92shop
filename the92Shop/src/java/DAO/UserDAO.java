@@ -55,11 +55,11 @@ public class UserDAO {
         try {
             DatabaseConnection db = new DatabaseConnection();
             Connection conn = db.getConn();
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO user VALUES (?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO user VALUES (?,?,?)");
             
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
-
+            stmt.setInt(3, user.getIsOnline());
             updateQuery = stmt.executeUpdate();
 
             db.closeConn();
