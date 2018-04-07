@@ -19,7 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login Page</title>
     </head>
-    <body background="image/loginPic.jpg" style="background-repeat: no-repeat;">
+    <body background="image/loginPic.jpg" style="background-repeat: no-repeat; background-size: cover">
 
         <div class ="loginContainer">
 
