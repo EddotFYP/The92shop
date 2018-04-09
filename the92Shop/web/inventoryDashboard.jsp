@@ -146,7 +146,7 @@
 
                         if (text != null && !text.isEmpty()) {
                             if (!text.equals("none")) {
-                                out.println("<br /><p style='font-size:18px;'>" + "You have selected: <b><u> " + text + "</b></u></p><br />");   
+                                out.println("<br /><p style='font-size:18px;'>" + "You have selected: <b><u> " + text + "</b></u></p>");   
                             }
                         }
 
@@ -230,12 +230,14 @@
 
                     <%
                         } else {
-
+                            
                             if (error == null) {
                                 error = "";
-                            } else {
+                            }else {
                                 out.println("<br /><p style='color:red; font-size:18px;'>" + error + "</p>");
                             }
+
+                           
                         }
                     %>
                 </div>

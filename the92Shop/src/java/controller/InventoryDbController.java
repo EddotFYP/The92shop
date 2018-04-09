@@ -47,6 +47,7 @@ public class InventoryDbController extends HttpServlet {
         LinkedHashMap<Integer, String[]> result = new LinkedHashMap<>();
 
         String text = "";
+        String remindMsg = "";
 
         //hidden parameters from dashboard.jsp
         String invLevel = request.getParameter("invLevel");
@@ -98,7 +99,7 @@ public class InventoryDbController extends HttpServlet {
                 error = "Please select month or/and year to see monthly/yearly results!";
             }
         } catch (Exception e) {
-            error = "Please remember to select month or/and year!";
+            //remindMsg = "Please remember to select month or/and year!";
         }
 
         //limit only top 5 product

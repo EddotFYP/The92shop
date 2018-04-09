@@ -93,9 +93,13 @@
                     </table>
                     <%
                         String message = (String) request.getAttribute("message");
+                        String confirmMessage = (String) request.getAttribute("confirmMessage");
                         if (message != null) {
                             out.println("<p style='color:red'>" + message + "</p>");
                         }
+                        if (confirmMessage != null) {
+                            out.println("<p style='color:#00cc00'>" + confirmMessage + "</p>");
+                         }
                     %>
                     <div id="qrcode" style="width:180px; height:180px; margin-top:15px;"></div>
                     <script type="text/javascript">

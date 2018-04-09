@@ -50,11 +50,13 @@ public class UserController extends HttpServlet {
             if (success != 0) {
                 User user = new User(name, password);
                 success = userDAO.addUser(user);
-                request.setAttribute("message", "New user is added successfully!");
+                request.setAttribute("confirmMessage", "New user is added successfully!");
                 RequestDispatcher view = request.getRequestDispatcher("addAdmin.jsp");
                 view.forward(request, response);
             }else{
                 request.setAttribute("message", "Duplicate user!");
+                RequestDispatcher view = request.getRequestDispatcher("addAdmin.jsp");
+                view.forward(request, response);
             }
         }else if(passwordChange != null && currPassword != null){
             User user = userDAO.retrieveUserAcc(currPassword);
@@ -71,7 +73,7 @@ public class UserController extends HttpServlet {
                     int success = userDAO.editUser(user, passwordChange);
                     
                     if(success != 0){
-                        request.setAttribute("message", "Your password has been changed!");
+                        request.setAttribute("confirmMessage", "Your password has been changed!");
                         
                     }
                 }

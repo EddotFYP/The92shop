@@ -193,10 +193,15 @@
                     <div><video id="camera" width="420" style="display:none;"></video></div>
                             <%                                //ArrayList<Inventory> list = (ArrayList<Inventory>) request.getAttribute("result");
                                 String message = (String) request.getAttribute("message");
-
+                                String confirmMessage = (String) request.getAttribute("confirmMessage");
                                 if (message != null) {
                                     out.println("<p style='color:red'>" + message + "</p>");
                                 }
+                                
+                                if (confirmMessage != null) {
+                                    out.println("<p style='color:#00cc00'>" + confirmMessage + "</p>");
+                                }
+                                
                                 InventoryDAO dao = new InventoryDAO();
                                 ArrayList<Inventory> list = dao.retrieveInventoryList();
 

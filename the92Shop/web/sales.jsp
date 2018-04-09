@@ -113,7 +113,10 @@
                                     style: {
                                     color: 'black',
                                     fontSize: 13,
-                                    }
+                                    },
+                                    formatter: function () {
+                                        return '$' + this.axis.defaultLabelFormatter.call(this);
+                                    } 
                                 },
                                 title: {
                                     
@@ -127,6 +130,7 @@
                                     }]
                             };
                             var tooltip = {
+                                valuePrefix: '$',
                                 valueSuffix: ' SGD'
                             }
 
@@ -193,7 +197,10 @@
                                         style: {
                                             color: 'black',
                                             fontSize: 13
-                                        }
+                                        },
+                                        formatter: function () {
+                                            return '$' + this.axis.defaultLabelFormatter.call(this);
+                                        } 
                                     },
                                     title: {
                                         text: 'Sales'
@@ -205,6 +212,7 @@
                                         }]
                                 };
                                 var tooltip = {
+                                    valuePrefix: '$',
                                     valueSuffix: ' SGD'
                                 };
 

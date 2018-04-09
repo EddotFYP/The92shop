@@ -190,6 +190,7 @@
                     ArrayList<Customer> custList = (ArrayList<Customer>) request.getAttribute("custList");
                     String error = (String) request.getAttribute("error");
                     String message = (String) request.getAttribute("message");
+                    String confirmMessage = (String) request.getAttribute("confirmMessage");
 
                     if (error != null) {
                         out.println("<p style='color:red'>" + error + "</p>");
@@ -197,6 +198,10 @@
 
                     if (message != null) {
                         out.println("<p style='color:red'>" + message + "</p>");
+                    }
+                    
+                    if (confirmMessage != null) {
+                        out.println("<p style='color:#00cc00'>" + confirmMessage + "</p>");
                     }
                 %>
             </div>

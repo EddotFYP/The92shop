@@ -86,9 +86,12 @@
 
                 <%                        
                     String message = (String) request.getAttribute("messages");
+                    String confirmMessage = (String) request.getAttribute("confirmMessage");
                     if (message != null) {
                         out.println("<p style='color:red'>" + message + "</p>");
                     }
+                    
+                    
                 %>
                  </div>
         </div>

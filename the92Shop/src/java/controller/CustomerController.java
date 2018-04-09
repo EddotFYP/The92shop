@@ -69,7 +69,7 @@ public class CustomerController extends HttpServlet {
             int number = Integer.parseInt(delete);
             int success = custDAO.deleteCustomer(number);
             if(success != 0){
-                request.setAttribute("message", "Selected customer is deleted successfully");
+                request.setAttribute("confirmMessage", "Selected customer is deleted successfully!");
             }
 
         //edit customer    
@@ -85,7 +85,7 @@ public class CustomerController extends HttpServlet {
             int success = custDAO.editCustomer(id, name, phone, address, postal);
             
             if(success != 0){
-                request.setAttribute("message", "Selected customer is updated successfully");
+                request.setAttribute("confirmMessage", "Selected customer is updated successfully!");
             }
             
             
@@ -96,7 +96,9 @@ public class CustomerController extends HttpServlet {
             if(success != 0){
                 Customer c = new Customer(addNewName,addNewPhoneNumber,addNewAddress, addNewPostal);
                 success = custDAO.addCustomer(c);
-                request.setAttribute("message", "New customer is added successfully!");
+                request.setAttribute("confirmMessage", "New customer is added successfully!");
+                RequestDispatcher view = request.getRequestDispatcher("customerManagement.jsp");
+                view.forward(request, response);
             }else{
                 request.setAttribute("messages", "Duplicate customer!");
                 RequestDispatcher view = request.getRequestDispatcher("addCustomer.jsp");

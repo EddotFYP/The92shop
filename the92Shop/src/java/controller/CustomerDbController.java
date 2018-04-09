@@ -69,8 +69,12 @@ public class CustomerDbController extends HttpServlet {
             error = "Please select a year!";
         }
         
-        if(sortMonth.equals("none") && sortYear.equals("none")){
-            error = "Please select month and year!";
+        try {
+            if (sortMonth.equals("none") && sortYear.equals("none")) {
+                error = "Please select month or/and year to see monthly/yearly results!";
+            }
+        } catch (Exception e) {
+            //remindMsg = "Please remember to select month or/and year!";
         }
         
         LinkedHashMap<Integer, String[]> custHashmap = limitTop5(result);

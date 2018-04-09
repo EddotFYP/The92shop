@@ -59,7 +59,7 @@
                     </div>
 
                     <button type="submit" name="submit" class="mui-btn mui-btn--raised mui-btn--primary" style="font-size:18px;"> Filter <i class="fa fa-filter" style="font-size:18px;"></i></button>
-                
+                    
                     <%                        
                         ArrayList<String> customerNameList = (ArrayList<String>) request.getAttribute("custNameResult");
                         String jsonCustName = new Gson().toJson(customerNameList);
@@ -68,9 +68,12 @@
                         String jsonCustQty = new Gson().toJson(customerQtyList);
                         System.out.println(jsonCustQty);
                         String text = (String) request.getAttribute("word");
-                        if (text != null) {
-
-                            out.println("<br /><br />   " + "You have selected: <b><u> " + text + "</b></u><br /><br />");
+                        if (text != null && !text.isEmpty()) {
+                            if (!text.equals("none")) {
+                                out.println("<br /><br /><p style='font-size:18px;'>" + "You have selected: <b><u> " + text + "</b></u></p>");   
+                            }else{
+                                out.println("<br />");
+                            }
                         }
 
                         if (customerNameList != null && !customerNameList.isEmpty() && customerQtyList != null && !customerQtyList.isEmpty()) {
@@ -156,7 +159,7 @@
                                 if (error == null) {
                                     error = "";
                                 } else {
-                                    out.println("<p style='color:red'>" + error + "</p>");
+                                    out.println("<br /><p style='color:red'>" + error + "</p>");
                                 }
                         }
 

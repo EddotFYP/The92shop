@@ -96,7 +96,7 @@
                         String hpErrorMsg = (String) request.getAttribute("hpErrorMsg");
                         if (orderSuccessMsg != null) {
                             for(String a : orderSuccessMsg){
-                                out.println("<p style='color:red'>" + a + "</p>");
+                                out.println("<p style='color:#00cc00'>" + a + "</p>");
                             }
                             
 
